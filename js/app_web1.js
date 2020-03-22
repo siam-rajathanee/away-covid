@@ -1,5 +1,7 @@
 
-var mymap = L.map('map').setView([51.505, -0.09], 13);
+var map = L.map('map'
+    , { attributionControl: false }
+).setView([51.505, -0.09], 13);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: 18,
@@ -9,31 +11,31 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     id: 'mapbox/streets-v11',
     tileSize: 512,
     zoomOffset: -1
-}).addTo(mymap);
+})
 
-L.marker([51.5, -0.09]).addTo(mymap)
+var Stadia_AlidadeSmooth = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+L.marker([51.5, -0.09]).addTo(map)
     .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 
-L.circle([51.508, -0.11], 500, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(mymap).bindPopup("I am a circle.");
 
-L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(mymap).bindPopup("I am a polygon.");
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
 
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-var popup = L.popup();
-
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(mymap);
+    L.circle(e.latlng, radius).addTo(map);
 }
 
-mymap.on('click', onMapClick);
+function onLocationError(e) {
+    alert(e.message);
+}
+
+map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError);
+
+map.locate({ setView: true, maxZoom: 16 });
