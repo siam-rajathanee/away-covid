@@ -1,4 +1,6 @@
-
+body{
+    font-family: 'Prompt', sans-serif;
+}
 
 #map{
     width: 100%;
@@ -16,10 +18,17 @@
     margin-bottom: 0px;
 }
 
-.btn-group.special {
+.btn-group.special  {
     display: flex;
+    border: 0px;
+   
   }
   
   .special .btn {
     flex: 1
+  }
+
+  .btn {
+    border-width: 0px;
+    text-align: center;
   }

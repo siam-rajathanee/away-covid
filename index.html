@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style_web1.css">
 </head>
 
@@ -21,9 +22,38 @@
 
     <div id="map"></div>
     <div class="footer btn-group special" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">Left</button>
-        <button type="button" class="btn btn-default">Middle</button>
-        <button type="button" class="btn btn-default">Right</button>
+        <button type="button" class="btn btn-default">
+            <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
+        </button>
+        <button type="button" class="btn btn-default">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> รายชื่อสถานที่ใกล้เคียง
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#setting">
+            <i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่า
+        </button>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div id="setting" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ตั้งค่าแผนที่</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <script src="js/app_web1.js"></script>
