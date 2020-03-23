@@ -124,7 +124,7 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
 })
 
-points_case = L.layerGroup().addTo(map)
+points_case = L.markerClusterGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 
 
