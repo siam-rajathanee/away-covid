@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 
-$date = $_GET['date']
+$date = $_GET['date'];
 
 $hostname_db = "119.59.125.134";
 $database_db = "coviddb";
