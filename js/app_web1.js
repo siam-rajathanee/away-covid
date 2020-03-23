@@ -20,29 +20,48 @@ new Vue({
                 document.getElementById('select_place').innerHTML = option_dropdown
 
                 L.geoJson(case_point, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.marker(latlng, {
-                            icon: case_confirm,
-                        });
+                    pointToLayer: function (f, latlng) {
+                        console.log(f);
+
+                        if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                            return L.marker(latlng, {
+                                icon: case_success,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'กำลังรักษา') {
+                            return L.marker(latlng, {
+                                icon: case_confirm,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                            return L.marker(latlng, {
+                                icon: case_warning,
+                                highlight: "temporary"
+                            });
+                        }
+
                     }
                 }).addTo(map)
 
+                this.set_map = L.layerGroup().addTo(map)
+
                 function onLocationFound(e) {
+
                     ptop = []
                     var radius = 20;
                     var test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
+
                     L.geoJson(point, {
                         pointToLayer: function (feature, latlng) {
                             return L.marker(latlng, {
                                 icon: local_icon,
-                                highlight: "permanent"
                             });
                         }
                     })
                         .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-                        .addTo(map)
+                        .addTo(set_map)
 
                     var buffered = turf.buffer(point, radius, { units: 'kilometers' });
                     var buffereds = L.geoJson(buffered, {
@@ -50,7 +69,7 @@ new Vue({
                         color: 'red',
                         fillColor: '#f03',
                         fillOpacity: 0.1,
-                    }).addTo(map)
+                    }).addTo(set_map)
 
                     var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
                     map.fitBounds(buffereds.getBounds())
@@ -94,8 +113,16 @@ var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all
 
 
 var case_confirm = L.icon({
-    iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
-
+    iconUrl: 'img/confirm_case.png',
+    iconSize: [50, 50], // size of the icon
+});
+var case_success = L.icon({
+    iconUrl: 'img/success_case.png',
+    iconSize: [50, 50], // size of the icon
+});
+var case_warning = L.icon({
+    iconUrl: 'img/warning_case.png',
+    iconSize: [50, 50], // size of the icon
 });
 var local_icon = L.icon({
     iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
@@ -122,5 +149,6 @@ $("#form_query").submit(function (event) {
 
 
 function get_loca() {
+    this.set_map.clearLayers()
     map.locate();
 }
