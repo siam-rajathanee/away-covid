@@ -12,6 +12,8 @@ new Vue({
             .then(function (res) {
 
                 case_point = res.data
+                points_case = L.layerGroup().addTo(map)
+                set_map = L.layerGroup().addTo(map)
 
                 var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
                 for (var i = 0; i < case_point.features.length; i++) {
@@ -24,8 +26,6 @@ new Vue({
                     layer.bindPopup(popup)
                 }
 
-                points_case = L.layerGroup().addTo(map)
-                set_map = L.layerGroup().addTo(map)
 
                 L.geoJson(case_point, {
                     pointToLayer: function (f, latlng) {
@@ -56,7 +56,6 @@ new Vue({
 
                 function onLocationFound(e) {
 
-                    ptop = []
                     var radius = 20;
                     var test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
@@ -178,15 +177,15 @@ function get_loca() {
 
 $("#form_setting").submit(function (event) {
 
-    event.preventDefault();
-    var radius = event.target.radius.value
-    var date = event.target.date.value
-    var basemap = event.target.basemap.value
-
     points_case.clearLayers()
     set_map.clearLayers()
+    event.preventDefault();
+    this.radius = event.target.radius.value
+    date = event.target.date.value
+    basemap = event.target.basemap.value
 
-    console.log(radius);
+
+
     console.log(date);
     console.log(basemap);
 
@@ -216,12 +215,10 @@ $("#form_setting").submit(function (event) {
     set_map = L.layerGroup().addTo(map)
 
 
-
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/get_point.php?date=' + date,
         method: 'get',
         success: function (data) {
-
 
             case_point = JSON.parse(data)
 
@@ -235,7 +232,6 @@ $("#form_setting").submit(function (event) {
                 var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"> <p class="card-text">' + f.properties.descriptio + '</p> </div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
                 layer.bindPopup(popup)
             }
-
 
 
             L.geoJson(case_point, {
@@ -266,10 +262,8 @@ $("#form_setting").submit(function (event) {
             }).addTo(points_case)
 
 
-            function onLocationFound(e) {
-
-                ptop = []
-                var radius = 20;
+            function onLocationFound(e, radius) {
+                var radius = 3;
                 var test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                 var point = turf.point(test_latlng);
