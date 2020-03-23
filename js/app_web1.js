@@ -8,7 +8,7 @@ new Vue({
     },
     mounted() {
         axios
-            .get('https://rti2dss.com/mapedia.serv/get_point.php')
+            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=1')
             .then(function (res) {
 
                 case_point = res.data
