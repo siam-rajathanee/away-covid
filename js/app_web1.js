@@ -9,7 +9,7 @@ new Vue({
 
     mounted() {
         axios
-            .get('https://119.59.125.134/mapedia.serv/get_point.php')
+            .get('https://rti2dss.com/mapedia.serv/get_point.php')
             .then(function (res) {
                 console.log(res.data);
 

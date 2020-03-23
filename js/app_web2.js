@@ -9,7 +9,7 @@ new Vue({
 
     mounted() {
         axios
-            .get('https://119.59.125.134/mapedia.serv/get_map_dashboard.php?type=geojson_1')
+            .get('https://rti2dss.com/mapedia.serv/get_map_dashboard.php?type=geojson_1')
             .then(function (res) {
                 const case_geojson = res.data
                 var geojson = L.geoJson(case_geojson, {
@@ -32,7 +32,7 @@ new Vue({
 
     mounted() {
         axios
-            .get('https://119.59.125.134/mapedia.serv/get_map_dashboard.php?type=chart_1')
+            .get('https://rti2dss.com/mapedia.serv/get_map_dashboard.php?type=chart_1')
             .then(function (res) {
                 console.log(res.data);
                 var covid_dga = res.data
