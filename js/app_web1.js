@@ -24,6 +24,8 @@ new Vue({
                     layer.bindPopup(popup)
                 }
 
+                points_case = L.layerGroup().addTo(map)
+                set_map = L.layerGroup().addTo(map)
 
                 L.geoJson(case_point, {
                     pointToLayer: function (f, latlng) {
@@ -50,9 +52,7 @@ new Vue({
                         }
                     },
                     onEachFeature: onEachFeature
-                }).addTo(map)
-
-                this.set_map = L.layerGroup().addTo(map)
+                }).addTo(points_case)
 
                 function onLocationFound(e) {
 
@@ -91,7 +91,6 @@ new Vue({
                     document.getElementById('tabel_data').innerHTML = table
 
                 }
-
 
                 map.on('locationfound', onLocationFound);
                 map.locate();
@@ -170,7 +169,7 @@ $("#form_query").submit(function (event) {
 
 
 function get_loca() {
-    this.set_map.clearLayers()
+    set_map.clearLayers()
     map.locate();
 }
 
@@ -183,6 +182,9 @@ $("#form_setting").submit(function (event) {
     var radius = event.target.radius.value
     var date = event.target.date.value
     var basemap = event.target.basemap.value
+
+    points_case.clearLayers()
+    set_map.clearLayers()
 
     console.log(radius);
     console.log(date);
@@ -210,14 +212,100 @@ $("#form_setting").submit(function (event) {
         gter.addTo(map)
     }
 
-
+    points_case = L.layerGroup().addTo(map)
+    set_map = L.layerGroup().addTo(map)
 
 
 
     $.ajax({
-        url: ' ',
+        url: 'https://rti2dss.com/mapedia.serv/get_point.php?date=' + date,
         method: 'get',
         success: function (data) {
+
+
+            case_point = JSON.parse(data)
+
+            var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
+            for (var i = 0; i < case_point.features.length; i++) {
+                option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
+            }
+            document.getElementById('select_place').innerHTML = option_dropdown
+
+            function onEachFeature(f, layer) {
+                var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"> <p class="card-text">' + f.properties.descriptio + '</p> </div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+                layer.bindPopup(popup)
+            }
+
+
+
+            L.geoJson(case_point, {
+                pointToLayer: function (f, latlng) {
+                    if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                        return L.marker(latlng, {
+                            icon: case_success,
+                            highlight: "temporary"
+                        });
+                    } else if (f.properties.status_pat == 'กำลังรักษา') {
+                        return L.marker(latlng, {
+                            icon: case_confirm,
+                            highlight: "temporary"
+                        });
+                    } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                        return L.marker(latlng, {
+                            icon: case_warning,
+                            highlight: "temporary"
+                        });
+                    } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                        return L.marker(latlng, {
+                            icon: case_null,
+                            highlight: "temporary"
+                        });
+                    }
+                },
+                onEachFeature: onEachFeature
+            }).addTo(points_case)
+
+
+            function onLocationFound(e) {
+
+                ptop = []
+                var radius = 20;
+                var test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+
+                var point = turf.point(test_latlng);
+
+                L.geoJson(point, {
+                    pointToLayer: function (feature, latlng) {
+                        return L.marker(latlng, {
+                            icon: local_icon,
+                        });
+                    }
+                })
+                    .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+                    .addTo(set_map)
+
+                var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+                var buffereds = L.geoJson(buffered, {
+                    stroke: false,
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.1,
+                }).addTo(set_map)
+
+                var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+                map.fitBounds(buffereds.getBounds())
+                var data = ptsWithin.features
+
+                var table = ''
+                for (var i = 0; i < data.length; i++) {
+                    table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td> <td> <i class="fa fa-search"></i> </td> </tr> '
+                }
+                document.getElementById('tabel_data').innerHTML = table
+
+            }
+
+            map.on('locationfound', onLocationFound);
+            map.locate();
 
         }, error: function () {
             console.log('error  data!');
