@@ -31,11 +31,14 @@
     <div id="map"></div>
 
     <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
+        <button type="button" class="btn btn-default" onclick="get_loca()">
+            <i class="fa fa-compass" aria-hidden="true"></i> ตำแหน่ง
+        </button>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
             <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
         </button>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#list">
-            <i class="fa fa-list-alt" aria-hidden="true"></i> รายชื่อสถานที่ใกล้เคียง
+            <i class="fa fa-list-alt" aria-hidden="true"></i> ผู้ป่วยใกล้เคียง
         </button>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#setting">
             <i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่า
@@ -92,11 +95,7 @@
                             </tr>
                         </thead>
                         <tbody id="tabel_data">
-                            <tr>
-                                <td> </td>
-                                <td>Doe</td>
-                                <td>john@example.com</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>

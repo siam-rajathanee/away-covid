@@ -37,6 +37,7 @@ new Vue({
                     L.geoJson(point, {
                         pointToLayer: function (feature, latlng) {
                             return L.marker(latlng, {
+                                icon: local_icon,
                                 highlight: "permanent"
                             });
                         }
@@ -55,9 +56,6 @@ new Vue({
                     var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
                     map.fitBounds(buffereds.getBounds())
                     var data = ptsWithin.features
-                    console.log(data);
-
-
 
                     var table = ''
                     for (var i = 0; i < data.length; i++) {
@@ -66,6 +64,7 @@ new Vue({
                     document.getElementById('tabel_data').innerHTML = table
 
                 }
+
 
                 map.on('locationfound', onLocationFound);
                 map.locate();
@@ -99,6 +98,10 @@ var case_confirm = L.icon({
     iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
 
 });
+var local_icon = L.icon({
+    iconUrl: 'http://localhost:8888/away-covid/img/icon.png',
+    iconSize: [20, 20], // size of the icon
+});
 
 
 
@@ -117,3 +120,8 @@ $("#form_query").submit(function (event) {
     map.setView([lat, lon], 17);
 
 })
+
+
+function get_loca() {
+    map.locate();
+}
