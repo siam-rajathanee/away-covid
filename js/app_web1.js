@@ -22,7 +22,7 @@ new Vue({
                 }).addTo(map)
 
                 function onLocationFound(e) {
-                    var radius = 2000;
+                    var radius = 2;
                     var test_latlng = [100.198185, 16.771642] // e.latlng
 
                     var point = turf.point(test_latlng);
@@ -30,7 +30,7 @@ new Vue({
                         .bindPopup("ตำแหน่งปัจจุบันของท่าน")
                         .addTo(map)
 
-                    var buffered = turf.buffer(point, 2, { units: 'kilometers' });
+                    var buffered = turf.buffer(point, radius, { units: 'kilometers' });
                     var buffereds = L.geoJson(buffered, {
                         stroke: false,
                         color: 'red',
@@ -84,4 +84,5 @@ var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all
 
 var case_confirm = L.icon({
     iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
+
 });
