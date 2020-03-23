@@ -180,6 +180,7 @@ legend.addTo(map);
 
 
 $("#form_query").submit(function (event) {
+    $("#search").modal("hide");
     event.preventDefault();
     var place = event.target.place.value
     view_place = ''
@@ -203,6 +204,8 @@ function get_loca() {
 
 
 $("#form_setting").submit(function (event) {
+
+    $("#setting").modal("hide");
 
     points_case.clearLayers()
     set_map.clearLayers()
@@ -235,6 +238,7 @@ $("#form_setting").submit(function (event) {
         ghyb.remove()
         gter.addTo(map)
     }
+
 
 
     $.ajax({
