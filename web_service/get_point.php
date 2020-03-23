@@ -18,16 +18,16 @@ $sql;
 if($date  == 1){
    $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase; ";
 }elseif ($date  == 3) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
    WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '3 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');";
 }elseif ($date  == 7) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
    WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '7 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');";  
 }elseif ($date  == 14) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
    WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '14 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');";
 }elseif ($date  == 21) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
    WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '21 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');"; 
 }
 
