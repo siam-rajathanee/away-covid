@@ -1,4 +1,3 @@
-
 new Vue({
     el: '#app_vue',
     data() {
@@ -12,8 +11,7 @@ new Vue({
             .then(function (res) {
 
                 case_point = res.data
-                points_case = L.layerGroup().addTo(map)
-                set_map = L.layerGroup().addTo(map)
+
 
                 var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
                 for (var i = 0; i < case_point.features.length; i++) {
@@ -22,7 +20,7 @@ new Vue({
                 document.getElementById('select_place').innerHTML = option_dropdown
 
                 function onEachFeature(f, layer) {
-                    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"> <p class="card-text">' + f.properties.descriptio + '</p> </div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+                    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
                     layer.bindPopup(popup)
                 }
 
@@ -56,8 +54,8 @@ new Vue({
 
                 function onLocationFound(e) {
 
-                    var radius = 20;
-                    var test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+                    var radius = 5;
+                    test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
 
@@ -126,6 +124,9 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
 })
 
+points_case = L.layerGroup().addTo(map)
+set_map = L.layerGroup().addTo(map)
+
 
 
 var case_confirm = L.icon({
@@ -179,15 +180,13 @@ $("#form_setting").submit(function (event) {
 
     points_case.clearLayers()
     set_map.clearLayers()
+
     event.preventDefault();
-    this.radius = event.target.radius.value
+    radius = event.target.radius.value
     date = event.target.date.value
     basemap = event.target.basemap.value
 
-
-
-    console.log(date);
-    console.log(basemap);
+    console.log(test_latlng);
 
     if (basemap == 'base1') {
         CartoDB_Positron.addTo(map)
@@ -211,9 +210,6 @@ $("#form_setting").submit(function (event) {
         gter.addTo(map)
     }
 
-    points_case = L.layerGroup().addTo(map)
-    set_map = L.layerGroup().addTo(map)
-
 
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/get_point.php?date=' + date,
@@ -229,7 +225,7 @@ $("#form_setting").submit(function (event) {
             document.getElementById('select_place').innerHTML = option_dropdown
 
             function onEachFeature(f, layer) {
-                var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"> <p class="card-text">' + f.properties.descriptio + '</p> </div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+                var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
                 layer.bindPopup(popup)
             }
 
@@ -262,44 +258,41 @@ $("#form_setting").submit(function (event) {
             }).addTo(points_case)
 
 
-            function onLocationFound(e, radius) {
-                var radius = 3;
-                var test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+            //  function onLocationFound2(e) {
+            var point = turf.point(test_latlng);
 
-                var point = turf.point(test_latlng);
-
-                L.geoJson(point, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.marker(latlng, {
-                            icon: local_icon,
-                        });
-                    }
-                })
-                    .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-                    .addTo(set_map)
-
-                var buffered = turf.buffer(point, radius, { units: 'kilometers' });
-                var buffereds = L.geoJson(buffered, {
-                    stroke: false,
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.1,
-                }).addTo(set_map)
-
-                var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-                map.fitBounds(buffereds.getBounds())
-                var data = ptsWithin.features
-
-                var table = ''
-                for (var i = 0; i < data.length; i++) {
-                    table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td> <td> <i class="fa fa-search"></i> </td> </tr> '
+            L.geoJson(point, {
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, {
+                        icon: local_icon,
+                    });
                 }
-                document.getElementById('tabel_data').innerHTML = table
+            })
+                .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+                .addTo(set_map)
 
+            var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+
+            var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+            map.fitBounds(buffereds.getBounds())
+            var data = ptsWithin.features
+
+            var table = ''
+            for (var i = 0; i < data.length; i++) {
+                table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td> <td> <i class="fa fa-search"></i> </td> </tr> '
             }
+            document.getElementById('tabel_data').innerHTML = table
 
-            map.on('locationfound', onLocationFound);
-            map.locate();
+            // }
+
+            //  map.on('locationfound', onLocationFound2);
+            //map.locate();
 
         }, error: function () {
             console.log('error  data!');
