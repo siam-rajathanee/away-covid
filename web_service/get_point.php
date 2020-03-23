@@ -1,6 +1,8 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 
+$date = $_GET['date']
+
 $hostname_db = "119.59.125.134";
 $database_db = "coviddb";
 $username_db = "postgres";
@@ -11,12 +13,33 @@ $db = pg_connect("host=$hostname_db user=$username_db password=$password_db dbna
 pg_query("SET client_encoding = 'utf-8'");
 
 
+$sql;
+
+if($date  == 1){
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase; ";
+}elseif ($date  == 3) {
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '3 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');";
+}elseif ($date  == 7) {
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '7 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');";  
+}elseif ($date  == 14) {
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '14 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');";
+}elseif ($date  == 21) {
+   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase\
+   WHERE date_start BETWEEN TO_CHAR(NOW() - INTERVAL '21 day', 'yyyy-mm-dd') AND TO_CHAR(NOW(), 'yyyy-mm-dd');"; 
+}
+
+
+// $sql1d = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase; ";
 
 
 
+ 
 
-$sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase; ";
-   
+
+      
 
 
 $query = pg_query($db,$sql);   
@@ -53,8 +76,7 @@ while($edge=pg_fetch_assoc($query)) {
          'age' => $edge['age'],
          'gender' => $edge['gender']
       )
-   );
-   
+   );   
    array_push($geojson['features'], $feature);
 }
 echo json_encode($geojson);
