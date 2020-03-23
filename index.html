@@ -13,6 +13,12 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style_web1.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
+
+
 </head>
 
 <body>
@@ -21,6 +27,7 @@
 
 
     <div id="map"></div>
+
     <div class="footer btn-group special" role="group" aria-label="...">
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
             <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
@@ -44,7 +51,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานที่</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="app">
                     <form>
                         <fieldset>
                             <div class="form-group">
