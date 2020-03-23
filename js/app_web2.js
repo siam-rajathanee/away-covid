@@ -37,12 +37,14 @@ new Vue({
                 console.log(res.data);
                 var covid_dga = res.data
 
+                var sum = 0
                 var group_3 = covid_dga.reduce(function (r, row) {
                     r[row.date] = ++r[row.date] || 1;
                     return r;
                 }, {});
                 this.data_time = Object.keys(group_3).map(function (key) {
-                    return { time: key, value: group_3[key] };
+                    sum = group_3[key] + sum
+                    return { time: key, value: sum };
                 });
                 var categories_chart3 = []
                 var data_chart3 = []
@@ -51,11 +53,6 @@ new Vue({
                     categories_chart3.push(this.data_time[i].time)
                     data_chart3.push(this.data_time[i].value)
                 }
-
-
-
-
-
                 Highcharts.chart('container3', {
 
                     chart: {
@@ -120,6 +117,9 @@ new Vue({
                 var categories_chart1 = []
                 var data_chart1 = []
                 for (var i = 0; i < 10; i++) {
+                    if (this.data_pv_th[i].province == 'null') {
+                        this.data_pv_th[i].province = 'ไม่ระบุ'
+                    }
                     categories_chart1.push(this.data_pv_th[i].province)
                     data_chart1.push(this.data_pv_th[i].value)
                 }
@@ -154,6 +154,14 @@ new Vue({
                             fillOpacity: 0.5
                         }
                     },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
                     series: [{
                         name: 'จำนวนผู้ป่วย',
                         data: data_chart1,
@@ -178,6 +186,9 @@ new Vue({
                 var data_chart1 = []
                 var color_pie = ['#ffb3ff', '#00b8e6', '#808080']
                 for (var i = 0; i < this.data_sex.length; i++) {
+                    if (this.data_sex[i].sex == 'null') {
+                        this.data_sex[i].sex = 'ไม่ระบุ'
+                    }
                     data_chart1.push({
                         name: this.data_sex[i].sex,
                         y: this.data_sex[i].value,
@@ -331,7 +342,7 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4>' + (props ?
-        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_th + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.count + ' คน </p>  <small style="font-family: Prompt;"> *รายงานผู้ป่วยยืนยันประจำวัน จาก กรมควบคุมโรค </small>'
+        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_th + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.count + ' คน </p>'
         : '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p>');
 };
 
