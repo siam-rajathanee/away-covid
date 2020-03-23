@@ -8,7 +8,7 @@ new Vue({
     },
     mounted() {
         axios
-            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=1')
+            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
             .then(function (res) {
 
                 case_point = res.data
@@ -99,8 +99,8 @@ var case_confirm = L.icon({
 
 });
 var local_icon = L.icon({
-    iconUrl: 'http://localhost:8888/away-covid/img/icon.png',
-    iconSize: [20, 20], // size of the icon
+    iconUrl: 'img/icon.png',
+    iconSize: [20, 20]
 });
 
 
