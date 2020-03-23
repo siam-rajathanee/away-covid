@@ -8,11 +8,10 @@ new Vue({
     },
     mounted() {
         axios
-            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
+            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=1')
             .then(function (res) {
 
                 case_point = res.data
-
 
                 var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
                 for (var i = 0; i < case_point.features.length; i++) {
@@ -99,7 +98,7 @@ var case_confirm = L.icon({
 
 });
 var local_icon = L.icon({
-    iconUrl: 'img/icon.png',
+    iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
     iconSize: [20, 20]
 });
 
