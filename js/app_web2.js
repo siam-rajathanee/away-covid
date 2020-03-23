@@ -243,7 +243,7 @@ new Vue({
 
 var map = L.map('map'
     , { attributionControl: false }
-).setView([13.822496, 100.716057], 5);
+).setView([13.822496, 100.716057], 6);
 
 
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -283,8 +283,7 @@ function style(feature) {
         weight: 2,
         opacity: 1,
         color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.8
+        fillOpacity: 1
     };
 }
 
