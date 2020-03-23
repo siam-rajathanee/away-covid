@@ -53,7 +53,7 @@ if($_GET[type] == 'geojson_1'){
 
 if($_GET[type] == 'chart_1'){
 
-    $sql = "SELECT * FROM   covid_dga order by date asc;";
+    $sql = "SELECT * FROM   covid_dga order by Announce_date asc;";
     $result = pg_query( $sql);
     $coursesArray = array();
     

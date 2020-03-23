@@ -16,8 +16,7 @@ new Vue({
                     style: style,
                     onEachFeature: onEachFeature
                 }).addTo(map)
-            }
-            )
+            })
     }
 })
 
@@ -39,12 +38,15 @@ new Vue({
 
                 var sum = 0
                 var group_3 = covid_dga.reduce(function (r, row) {
-                    r[row.date] = ++r[row.date] || 1;
+                    r[row.announce_date] = ++r[row.announce_date] || 1;
                     return r;
                 }, {});
                 this.data_time = Object.keys(group_3).map(function (key) {
                     sum = group_3[key] + sum
-                    return { time: key, value: sum };
+                    return {
+                        time: key,
+                        value: sum
+                    };
                 });
                 var categories_chart3 = []
                 var data_chart3 = []
@@ -110,7 +112,10 @@ new Vue({
                     return r;
                 }, {});
                 this.data_pv_th = Object.keys(group_1).map(function (key) {
-                    return { province: key, value: group_1[key] };
+                    return {
+                        province: key,
+                        value: group_1[key]
+                    };
                 });
                 this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
 
@@ -176,7 +181,10 @@ new Vue({
                     return r;
                 }, {});
                 this.data_sex = Object.keys(group_2).map(function (key) {
-                    return { sex: key, value: group_2[key] };
+                    return {
+                        sex: key,
+                        value: group_2[key]
+                    };
                 });
                 console.log(this.data_sex);
                 // this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
@@ -243,8 +251,7 @@ new Vue({
 
 
 
-            }
-            )
+            })
     }
 })
 
@@ -252,9 +259,9 @@ new Vue({
 
 
 
-var map = L.map('map'
-    , { attributionControl: false }
-).setView([13.822496, 100.716057], 6);
+var map = L.map('map', {
+    attributionControl: false
+}).setView([13.822496, 100.716057], 6);
 
 
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -280,12 +287,12 @@ var case_confirm = L.icon({
 function getColor(d) {
     return d > 200 ? '#800026' :
         d > 100 ? '#BD0026' :
-            d > 50 ? '#E31A1C' :
-                d > 20 ? '#FC4E2A' :
-                    d > 10 ? '#FD8D3C' :
-                        d > 5 ? '#FEB24C' :
-                            d > 0 ? '#FED976' :
-                                '#f2f2f2';
+        d > 50 ? '#E31A1C' :
+        d > 20 ? '#FC4E2A' :
+        d > 10 ? '#FD8D3C' :
+        d > 5 ? '#FEB24C' :
+        d > 0 ? '#FED976' :
+        '#f2f2f2';
 }
 
 function style(feature) {
@@ -298,7 +305,9 @@ function style(feature) {
     };
 }
 
-var legend = L.control({ position: 'bottomright' });
+var legend = L.control({
+    position: 'bottomright'
+});
 
 legend.onAdd = function (map) {
 
@@ -342,9 +351,8 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4>' + (props ?
-        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_th + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.count + ' คน </p>'
-        : '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p>');
+        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_th + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.count + ' คน </p>' :
+        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p>');
 };
 
 info.addTo(map);
-
