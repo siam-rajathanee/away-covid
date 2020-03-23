@@ -145,11 +145,12 @@
                             <div class="form-group">
                                 <label for="exampleSelect1">กำหนดรัศมี (km)</label>
                                 <select class="form-control" id="exampleSelect1" name="radius">
-                                    <option>1 km</option>
-                                    <option>2 km</option>
-                                    <option>5 km</option>
-                                    <option>10 km</option>
-                                    <option>20 km</option>
+                                    <option value="1">1 km</option>
+                                    <option value="2">2 km</option>
+                                    <option value="5">5 km</option>
+                                    <option value="10">10 km</option>
+                                    <option value="20">20 km</option>
+                                    <option value="50">50 km</option>
                                 </select>
                             </div>
                         </fieldset>
@@ -179,24 +180,25 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <label>
-                                        <input type="radio" name="basemap" value="base2" checked>
+                                        <input type="radio" name="basemap" value="base2">
                                         <img src="img/base2.png" width="100%">
                                     </label>
                                 </div>
                                 <div class="col-xs-6">
                                     <label>
-                                        <input type="radio" name="basemap" value="base3" checked>
+                                        <input type="radio" name="basemap" value="base3">
                                         <img src="img/base3.png" width="100%">
                                     </label>
                                 </div>
                                 <div class="col-xs-6">
                                     <label>
-                                        <input type="radio" name="basemap" value="base4" checked>
+                                        <input type="radio" name="basemap" value="base4">
                                         <img src="img/base4.png" width="100%">
                                     </label>
                                 </div>
                             </div>
                         </fieldset>
+                        <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
                     </form>
                 </div>
                 <div class="modal-footer">

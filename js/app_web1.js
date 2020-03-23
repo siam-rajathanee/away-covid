@@ -108,23 +108,23 @@ var map = L.map('map'
 ).setView([13.822496, 100.716057], 5);
 
 
-var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
 }).addTo(map)
 
-var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
 })
 
-var ghyb = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+ghyb = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
 })
 
-var gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
 })
 
@@ -166,7 +166,6 @@ $("#form_query").submit(function (event) {
     var lat = view_place.properties.lat
     var lon = view_place.properties.lon
     map.setView([lat, lon], 17);
-
 })
 
 
@@ -174,3 +173,57 @@ function get_loca() {
     this.set_map.clearLayers()
     map.locate();
 }
+
+
+
+
+$("#form_setting").submit(function (event) {
+
+    event.preventDefault();
+    var radius = event.target.radius.value
+    var date = event.target.date.value
+    var basemap = event.target.basemap.value
+
+    console.log(radius);
+    console.log(date);
+    console.log(basemap);
+
+    if (basemap == 'base1') {
+        CartoDB_Positron.addTo(map)
+        CartoDB_DarkMatter.remove()
+        ghyb.remove()
+        gter.remove()
+    } else if (basemap == 'base2') {
+        CartoDB_Positron.remove(map)
+        CartoDB_DarkMatter.addTo(map)
+        ghyb.remove()
+        gter.remove()
+    } else if (basemap == 'base3') {
+        CartoDB_Positron.remove(map)
+        CartoDB_DarkMatter.remove()
+        ghyb.addTo(map)
+        gter.remove()
+    } else {
+        CartoDB_Positron.remove(map)
+        CartoDB_DarkMatter.remove()
+        ghyb.remove()
+        gter.addTo(map)
+    }
+
+
+
+
+
+    $.ajax({
+        url: ' ',
+        method: 'get',
+        success: function (data) {
+
+        }, error: function () {
+            console.log('error  data!');
+        }
+    })
+
+
+
+})
