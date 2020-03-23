@@ -150,7 +150,33 @@ var local_icon = L.icon({
     iconSize: [20, 20]
 });
 
+function getColor(d) {
+    return d > 1000 ? '#800026' :
+        d > 500 ? '#BD0026' :
+            d > 200 ? '#E31A1C' :
+                d > 100 ? '#FC4E2A' :
+                    d > 50 ? '#FD8D3C' :
+                        d > 20 ? '#FEB24C' :
+                            d > 10 ? '#FED976' :
+                                '#FFEDA0';
+}
 
+var legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 10, 20, 50, 100, 200, 500, 1000]
+
+    div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
+    div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
+    div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
+    div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
+
+    return div;
+};
+
+legend.addTo(map);
 
 
 $("#form_query").submit(function (event) {
@@ -185,8 +211,6 @@ $("#form_setting").submit(function (event) {
     radius = event.target.radius.value
     date = event.target.date.value
     basemap = event.target.basemap.value
-
-    console.log(test_latlng);
 
     if (basemap == 'base1') {
         CartoDB_Positron.addTo(map)
@@ -258,7 +282,6 @@ $("#form_setting").submit(function (event) {
             }).addTo(points_case)
 
 
-            //  function onLocationFound2(e) {
             var point = turf.point(test_latlng);
 
             L.geoJson(point, {
@@ -289,10 +312,6 @@ $("#form_setting").submit(function (event) {
             }
             document.getElementById('tabel_data').innerHTML = table
 
-            // }
-
-            //  map.on('locationfound', onLocationFound2);
-            //map.locate();
 
         }, error: function () {
             console.log('error  data!');
