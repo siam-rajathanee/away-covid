@@ -21,8 +21,6 @@ new Vue({
 
                 L.geoJson(case_point, {
                     pointToLayer: function (f, latlng) {
-                        console.log(f);
-
                         if (f.properties.status_pat == 'รักษาหายแล้ว') {
                             return L.marker(latlng, {
                                 icon: case_success,
@@ -38,8 +36,12 @@ new Vue({
                                 icon: case_warning,
                                 highlight: "temporary"
                             });
+                        } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                            return L.marker(latlng, {
+                                icon: case_null,
+                                highlight: "temporary"
+                            });
                         }
-
                     }
                 }).addTo(map)
 
@@ -122,6 +124,10 @@ var case_success = L.icon({
 });
 var case_warning = L.icon({
     iconUrl: 'img/warning_case.png',
+    iconSize: [50, 50], // size of the icon
+});
+var case_null = L.icon({
+    iconUrl: 'img/null_case.png',
     iconSize: [50, 50], // size of the icon
 });
 var local_icon = L.icon({
