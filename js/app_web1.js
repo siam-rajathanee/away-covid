@@ -1,10 +1,9 @@
-
-
 new Vue({
-    el: '#app',
+    el: '#app_vue',
     data() {
         return {
             info: '',
+            ptop: []
         }
     },
 
@@ -22,20 +21,14 @@ new Vue({
                     }
                 }).addTo(map)
 
-
-
-
                 function onLocationFound(e) {
                     var radius = 2000;
                     var test_latlng = [100.198185, 16.771642] // e.latlng
 
                     var point = turf.point(test_latlng);
-                    L.geoJson(point).addTo(map)
-
-                    // L.marker(test_latlng).addTo(map)
-                    //     .bindPopup("You are within " + radius + " meters from this point")
-
-
+                    L.geoJson(point)
+                        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+                        .addTo(map)
 
                     var buffered = turf.buffer(point, 2, { units: 'kilometers' });
                     var buffereds = L.geoJson(buffered, {
@@ -46,26 +39,11 @@ new Vue({
                     }).addTo(map)
 
                     console.log(buffered);
-                    // L.geoJson(buffered).addTo(map)
 
-                    // var test = L.circle(test_latlng, {
-                    //     stroke: false,
-                    //     color: 'red',
-                    //     fillColor: '#f03',
-                    //     fillOpacity: 0.1,
-                    //     radius: radius
-                    // }).addTo(map);
-                    // map.setView(test_latlng, 12);
+                    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
 
-                    // console.log(test);
-
-                    // var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-                    // console.log(ptsWithin);
-
-
-
-
-
+                    this.ptop = ptsWithin.features
+                    console.log(this.ptop);
                     map.fitBounds(buffereds.getBounds())
 
                 }
@@ -77,14 +55,7 @@ new Vue({
                 map.on('locationfound', onLocationFound);
                 map.on('locationerror', onLocationError);
 
-                map.locate({ setView: true, maxZoom: 16 });
-
-
-
-
-
-
-
+                map.locate();
             }
             )
     }
@@ -113,6 +84,4 @@ var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all
 
 var case_confirm = L.icon({
     iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
-    shadowSize: [50, 64], // size of the shadow
-    iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
 });
