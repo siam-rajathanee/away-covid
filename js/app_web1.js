@@ -7,7 +7,7 @@ new Vue({
     },
     mounted() {
         axios
-            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=1')
+            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
             .then(function (res) {
 
                 case_point = res.data
@@ -212,6 +212,8 @@ $("#form_setting").submit(function (event) {
     date = event.target.date.value
     basemap = event.target.basemap.value
 
+    console.log('date = ' + date);
+
     if (basemap == 'base1') {
         CartoDB_Positron.addTo(map)
         CartoDB_DarkMatter.remove()
@@ -241,6 +243,8 @@ $("#form_setting").submit(function (event) {
         success: function (data) {
 
             case_point = JSON.parse(data)
+            console.log(case_point);
+
 
             var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
             for (var i = 0; i < case_point.features.length; i++) {
