@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
 $hostname_db = "119.59.125.134";
 $database_db = "coviddb";
 $username_db = "postgres";
@@ -9,7 +11,6 @@ $db = pg_connect("host=$hostname_db user=$username_db password=$password_db dbna
 pg_query("SET client_encoding = 'utf-8'");
 
 
-header("Access-Control-Allow-Origin: *");
 
 
 
