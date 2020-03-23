@@ -32,3 +32,9 @@ body{
     border-width: 0px;
     text-align: center;
   }
+
+  .table_view{
+
+    overflow-y: scroll;
+    max-height: 50vh;
+  }

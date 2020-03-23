@@ -35,10 +35,23 @@ while($edge=pg_fetch_assoc($query)) {
       ),
          'properties' => array(
          'gid' => $edge['gid'],
-         'pv_code' => $edge['pv_code'],
-         'prov_nam_t' => $edge['pv_tn'],
-         'value_sum' => $edge['std_ped'],
-         'value' => number_format($edge['std_ped'])
+         'place_name' => $edge['place_name'],
+         'lat' => $edge['lat'],
+         'lon' => $edge['lon'],
+         'case_numbe' => $edge['case_numbe'],
+         'date_start' => $edge['date_start'],
+         'status_new' => $edge['status_new'],
+         'status_pat' => $edge['status_pat'],
+         'descriptio' => $edge['descriptio'],
+         'ref_source' => $edge['ref_source'],
+         'link_news' => $edge['link_news'],
+         'tb_code' => $edge['tb_code'],
+         'tb_th' => $edge['tb_th'],
+         'ap_th' => $edge['ap_th'],
+         'pro_th' => $edge['pro_th'],
+         'postcode' => $edge['postcode'],
+         'age' => $edge['age'],
+         'gender' => $edge['gender']
       )
    );
    

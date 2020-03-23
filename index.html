@@ -16,6 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <link rel="stylesheet" href="https://brandonxiang.github.io/leaflet.marker.highlight/index.css">
+
 
 
 
@@ -28,7 +30,7 @@
 
     <div id="map"></div>
 
-    <div class="footer btn-group special" role="group" aria-label="...">
+    <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
             <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
         </button>
@@ -51,14 +53,14 @@
                 <div class="modal-header">
                     <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานที่</h4>
                 </div>
-                <div class="modal-body" id="app">
-                    <form>
+                <div class="modal-body">
+                    <form id="form_query">
                         <fieldset>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="กรอกสถานที่ที่ต้องการค้นหา">
+                                <select name="place" class="form-control" id="select_place">
+                                </select>
                             </div>
-
+                            <button type="submit" class="btn btn-warning btn-block">ค้นหา</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -80,18 +82,18 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-striped" id="app_vue">
+                    <table class="table table-striped table_view">
                         <thead>
                             <tr>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Email</th>
+                                <th>ชื่อสถานที่</th>
+                                <th>จำนวนผู้ป่วย</th>
+                                <th>สถานะ</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                            <tr v-for="( p, index) in ptop" :value="p.place_name" :key="index">
-                                <td>{{p.properties.place_name}}</td>
+                        <tbody id="tabel_data">
+                            <tr>
+                                <td> </td>
                                 <td>Doe</td>
                                 <td>john@example.com</td>
                             </tr>
@@ -138,6 +140,8 @@
     </div>
 
     <script src="js/app_web1.js"></script>
+    <script src="https://brandonxiang.github.io/leaflet.marker.highlight/index.js#"></script>
+
 
 </body>
 
