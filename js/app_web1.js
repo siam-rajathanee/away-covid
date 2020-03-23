@@ -8,7 +8,7 @@ new Vue({
     mounted() {
         axios
             .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
-            .then(function (res) {
+            .then(async function (res) {
 
                 case_point = res.data
 
@@ -70,6 +70,11 @@ new Vue({
                         .addTo(set_map)
 
                     var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+
+
+                    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+
+
                     var buffereds = L.geoJson(buffered, {
                         stroke: false,
                         color: 'red',
@@ -77,7 +82,6 @@ new Vue({
                         fillOpacity: 0.1,
                     }).addTo(set_map)
 
-                    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
                     map.fitBounds(buffereds.getBounds())
                     var data = ptsWithin.features
 
@@ -86,6 +90,9 @@ new Vue({
                         table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td> <td> <i class="fa fa-search"></i> </td> </tr> '
                     }
                     document.getElementById('tabel_data').innerHTML = table
+                    if (data.length != 0) {
+                        document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในรัศมีในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือผู้ติดเชื้อโควิด-19 </div>'
+                    }
 
                 }
 
