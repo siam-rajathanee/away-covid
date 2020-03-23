@@ -120,6 +120,15 @@ var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all
     maxZoom: 19
 })
 
+var ghyb = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+    attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
+})
+
+var gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+    attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
+})
+
+
 
 var case_confirm = L.icon({
     iconUrl: 'img/confirm_case.png',
