@@ -1,7 +1,7 @@
 
 var map = L.map('map'
     , { attributionControl: false }
-).setView([51.505, -0.09], 13);
+).setView([13.822496, 100.716057], 8);
 
 
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
