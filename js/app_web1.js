@@ -215,7 +215,6 @@ $("#form_setting").submit(function (event) {
     date = event.target.date.value
     basemap = event.target.basemap.value
 
-    console.log('date = ' + date);
 
     if (basemap == 'base1') {
         CartoDB_Positron.addTo(map)
@@ -240,15 +239,12 @@ $("#form_setting").submit(function (event) {
     }
 
 
-
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/get_point.php?date=' + date,
         method: 'get',
         success: function (data) {
 
             case_point = JSON.parse(data)
-            console.log(case_point);
-
 
             var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
             for (var i = 0; i < case_point.features.length; i++) {
