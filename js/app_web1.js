@@ -19,6 +19,12 @@ new Vue({
                 }
                 document.getElementById('select_place').innerHTML = option_dropdown
 
+                function onEachFeature(f, layer) {
+                    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"> <p class="card-text">' + f.properties.descriptio + '</p> </div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+                    layer.bindPopup(popup)
+                }
+
+
                 L.geoJson(case_point, {
                     pointToLayer: function (f, latlng) {
                         if (f.properties.status_pat == 'รักษาหายแล้ว') {
@@ -42,7 +48,8 @@ new Vue({
                                 highlight: "temporary"
                             });
                         }
-                    }
+                    },
+                    onEachFeature: onEachFeature
                 }).addTo(map)
 
                 this.set_map = L.layerGroup().addTo(map)
