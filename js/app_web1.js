@@ -23,7 +23,7 @@ new Vue({
 
                 function onLocationFound(e) {
                     var radius = 2;
-                    var test_latlng = [100.198185, 16.771642] // e.latlng
+                    var test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
                     L.geoJson(point)
