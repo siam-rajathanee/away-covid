@@ -12,7 +12,7 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
 document.getElementById('check_lat').innerHTML = '<button type="submit" class="btn btn-danger btn-block" disabled>กรุณาเปิดรับตำแหน่งก่อนบันทึกข้อมูล</button>'
 
 
-$.getJSON("http://localhost:8888/away-covid/web_service/get_point_volunteer.php", function (data) {
+$.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (data) {
     console.log(data);
 })
 
