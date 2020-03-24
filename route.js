@@ -88,12 +88,12 @@ let covidlab = L.layerGroup().addTo(map);
 $.get(url + '/anticov-api/labcovid').done((res) => {
     const items = res.data;
 
-    const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png';
+    const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
     const iconMarker = L.icon({
         iconUrl: icon,
-        iconSize: [32, 35],
-        iconAnchor: [12, 37],
-        popupAnchor: [5, -36]
+        iconSize: [50, 50],
+        // iconAnchor: [12, 37],
+        // popupAnchor: [5, -36]
     });
 
 
