@@ -223,52 +223,46 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6 text-center">
-                                <label>
-                                    <input type="checkbox" name="mask" value="true">
-                                    <img src="img/mask.png" width="80%">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#mask">
+                                    <img src="img/mask.png" width="80%"> <br>
                                     หน้ากากอนามัย
-                                </label>
+                                </button>
                             </div>
                             <div class="col-xs-6 text-center">
-                                <label>
-                                    <input type="checkbox" name="gel" value="true">
-                                    <img src="img/gel.png" width="80%">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                    <img src="img/gel.png" width="80%"> <br>
                                     เจลล้างมือ
-                                </label>
+                                </button>
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="col-xs-6 text-center">
-                                <label>
-                                    <input type="checkbox" name="alcohol" value="true">
-                                    <img src="img/alcohol.png" width="80%">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                    <img src="img/alcohol.png" width="80%"> <br>
                                     แอลกอฮอล์
-                                </label>
+                                </button>
                             </div>
                             <div class="col-xs-6 text-center">
-                                <label>
-                                    <input type="checkbox" name="medical_tools" value="true">
-                                    <img src="img/medical_tools.png" width="80%">
-                                    เครื่องมือทางการแพทย์
-                                </label>
+                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                    <img src="img/medical_tools.png" width="80%"> <br>
+                                    เครื่องมือทาง <br> การแพทย์
+                                </button>
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="col-xs-6 text-center">
-                                <label>
-                                    <input type="checkbox" name="food" value="true">
-                                    <img src="img/food.png" width="80%">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                    <img src="img/food.png" width="80%"> <br>
                                     อาหารแห้ง/ของใช้
-                                </label>
+                                </button>
                             </div>
                             <div class="col-xs-6 text-center">
-                                <label>
-                                    <input type="checkbox" name="medicine" value="true">
-                                    <img src="img/medicine.png" width="80%">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                    <img src="img/medicine.png" width="80%"> <br>
                                     ยารักษาโรค
-                                </label>
+                                </button>
                             </div>
 
                         </div>
@@ -283,6 +277,42 @@
 
         </div>
     </div>
+
+
+
+
+    <div id="mask" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">รายชื่อผู้ขอรับหน้ากากอนามัย</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ประเภทผู้ขอรับบริจาค</th>
+                                <th>รายชื่อ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="mask_table">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
 
 
