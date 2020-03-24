@@ -13,8 +13,6 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
 
 function onLocationFound(e) {
 
-
-
     var radius = 150;
     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 

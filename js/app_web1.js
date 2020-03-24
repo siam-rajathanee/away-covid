@@ -69,11 +69,6 @@ new Vue({
                             });
                         }
 
-
-
-
-
-
                     },
                     onEachFeature: onEachFeature
                 }).addTo(points_case)

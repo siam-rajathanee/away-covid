@@ -36,16 +36,70 @@
 
         <div class="footer text-center">
             <div class="col-xs-6">
-                <img src="img/give.png" alt="" width="80%">
-                <h4>บริจาคสิ่งของ</h4>
-
+                <button>
+                    <img src="img/give.png" alt="" width="80%">
+                    <h4>บริจาคสิ่งของ</h4>
+                </button>
             </div>
             <div class="col-xs-6">
-                <img src="img/volunteer.png" alt="" width="80%">
-                <h4>ขอรับบริจาค</h4>
+                <button data-toggle="modal" data-target="#myModal">
+                    <img src="img/volunteer.png" alt="" width="80%">
+                    <h4>ขอรับบริจาค</h4>
+                </button>
             </div>
         </div>
     </div>
+
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ลงทะเบียนขอรับบริจาคสิ่งของ</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form>
+                        <fieldset>
+                            <p>**กรุณากรอกข้อมูลที่เป็นความจริงเท่านั้น</p>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">ชื่อ - นามสกุล</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleSelect1">Example select</label>
+                                <select class="form-control" id="exampleSelect1">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </fieldset>
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 
 
     <script src="js/app_volunteer.js"></script>
