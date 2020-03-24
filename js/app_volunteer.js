@@ -74,7 +74,7 @@ $("#form_query").submit(function (event) {
 
 
     $.ajax({
-        url: 'http://localhost:8888/away-covid/web_service/add_volunteer.php',
+        url: 'https://rti2dss.com/mapedia.serv/add_volunteer.php',
         method: 'post',
         data: ({
             name_request: name_request,
