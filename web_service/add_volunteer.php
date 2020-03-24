@@ -25,11 +25,12 @@ if($_POST[check_list] == 'true'){
     $medicine = $_POST[medicine];
     $lat = $_POST[lat];
     $lon = $_POST[lon];
+    $type_request = $_POST[type_request];
     
      $date_now = date("Y/m/d");
     
-    $sql = "INSERT INTO volunteer (name_request, address_request, details_request, mask, gel, alcohol, food, medical_tools, medicine, lat, lon, donate_date , status_request) 
-    VALUES ('$name_request','$address_request','$details_request ','$mask ','$gel','$alcohol','$food','$medical_tools','$medicine','$lat','$lon','$date_now' , 'ร้องขอ')" ;
+    $sql = "INSERT INTO volunteer (name_request, address_request, details_request, mask, gel, alcohol, food, medical_tools, medicine, lat, lon, donate_date , status_request , type_request) 
+    VALUES ('$name_request','$address_request','$details_request ','$mask ','$gel','$alcohol','$food','$medical_tools','$medicine','$lat','$lon','$date_now' , 'ร้องขอ' , '$type_request'  )" ;
     
     
     $insert = pg_query($sql) ; 

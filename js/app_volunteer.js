@@ -79,6 +79,7 @@ $("#form_query").submit(function (event) {
     var medical_tools = event.target.medical_tools.checked
     var medicine = event.target.medicine.checked
     var check_list = event.target.check_list.checked
+    var type_request = event.target.type_request.checked
 
 
     $.ajax({
@@ -96,7 +97,8 @@ $("#form_query").submit(function (event) {
             medicine: medicine,
             lat: latlng[1],
             lon: latlng[0],
-            check_list: check_list
+            check_list: check_list,
+            type_request: type_request
         }),
         success: function (data) {
             console.log(JSON.parse(data));

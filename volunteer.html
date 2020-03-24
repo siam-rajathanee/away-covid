@@ -68,6 +68,25 @@
                     <form id="form_query">
                         <fieldset>
                             <p>**กรุณากรอกข้อมูลที่เป็นความจริงเท่านั้น</p>
+                            <label for="exampleInputEmail1">*ประเภทผู้ขอรับบริจาค</label>
+                            <div class="row">
+
+                                <div class="col-xs-6 text-center">
+                                    <label>
+                                        <input type="radio" name="type_request" value="โรงพยาบาล">
+                                        <img src="img/hospital_1.png" width="80%">
+                                        โรงพยาบาล
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <label>
+                                        <input type="radio" name="type_request" value="บุคคลทั่วไป">
+                                        <img src="img/users.png" width="80%">
+                                        บุคคลทั่วไป
+                                    </label>
+                                </div>
+
+                            </div>
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">*ชื่อ - นามสกุล/หน่วยงาน</label>
@@ -77,8 +96,9 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">*ที่อยู่ (สำหรับรับสิ่งของ)</label>
                                 <textarea class="form-control" name="address_request" id="" rows="3" required>
-
                                 </textarea>
+                                <small>*กรุณากรอกรายละเอียดที่ชัดเจนเพื่อการจัดส่งที่ถูกต้อง เช่น บ้านเลขที่ หมู่ ตำบล
+                                    อำเภอ จังหวัด รหัสไปรษณีย์</small>
                             </div>
 
                             <div class="form-group">
