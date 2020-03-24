@@ -37,12 +37,12 @@
         <div class="footer text-center">
             <div class="col-xs-6">
                 <button class="btn btn-link">
-                    <img src="img/give.png" alt="" width="80%">
+                    <img src="img/give.png" alt="" width="80%" data-toggle="modal" data-target="#volunteer">
                     <h4> <b>บริจาคสิ่งของ</b> </h4>
                 </button>
             </div>
             <div class="col-xs-6">
-                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                <button class="btn btn-link" data-toggle="modal" data-target="#form_query">
                     <img src="img/volunteer.png" alt="" width="80%">
                     <h4><b>ขอรับบริจาค</b> </h4>
                 </button>
@@ -53,7 +53,7 @@
 
 
     <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="form_query" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -65,23 +65,26 @@
                 <div class="modal-body">
 
 
-                    <form>
+                    <form id="form_query">
                         <fieldset>
                             <p>**กรุณากรอกข้อมูลที่เป็นความจริงเท่านั้น</p>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">ชื่อ - นามสกุล</label>
-                                <input type="text" class="form-control">
+                                <label for="exampleInputEmail1">*ชื่อ - นามสกุล/หน่วยงาน</label>
+                                <input type="text" class="form-control" name="name_request" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">ที่อยู่ (สำหรับรับสิ่งของ)</label>
-                                <textarea class="form-control" name="" id="" cols="30" rows="3"></textarea>
+                                <label for="exampleInputEmail1">*ที่อยู่ (สำหรับรับสิ่งของ)</label>
+                                <textarea class="form-control" name="address_request" id="" rows="3" required>
+
+                                </textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">รายละเอียดเพิ่มเติม</label>
-                                <textarea class="form-control" name="" id="" cols="30" rows="2"></textarea>
+                                <textarea class="form-control" name="detail_request" id="" cols="30"
+                                    rows="2"></textarea>
                             </div>
 
                             <fieldset>
@@ -89,45 +92,70 @@
                                     <div class="col-xs-12">
                                         <label for="exampleSelect1">เลือกสิ่งของที่ขอรับบริจาค</label>
                                     </div>
-                                    <div class="col-xs-6 text-center">
-                                        <label>
-                                            <input type="checkbox" name="basemap" value="base1">
-                                            <img src="https://siamrath.co.th/files/styles/1140/public/img/20200207/32482ae77a2c9e8a37c0ca60d3d9e923518ca6484cb6c4cb5b4e40ff97077f55.jpg?itok=awyyova2"
-                                                width="80%">
-                                            หน้ากากอนามัย
-                                        </label>
+                                    <div class="row">
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="mask" value="true">
+                                                <img src="img/mask.png" width="80%">
+                                                หน้ากากอนามัย
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="gel" value="true">
+                                                <img src="https://www.prachachat.net/wp-content/uploads/2020/02/13-3p1-1.jpg"
+                                                    width="80%">
+                                                เจลล้างมือ
+                                            </label>
+                                        </div>
+
                                     </div>
-                                    <div class="col-xs-6 text-center">
-                                        <label>
-                                            <input type="checkbox" name="basemap" value="base2">
-                                            <img src="https://www.prachachat.net/wp-content/uploads/2020/02/13-3p1-1.jpg"
-                                                width="80%">
-                                            เจลล้างมือ
-                                        </label>
+                                    <div class="row">
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="alcohol" value="true">
+                                                <img src="https://static.wixstatic.com/media/13da55_ca038c6141cd45e1a82045b371b7cf70~mv2_d_4486_2991_s_4_2.jpg/v1/fill/w_4486,h_2991,al_c,q_85/13da55_ca038c6141cd45e1a82045b371b7cf70~mv2_d_4486_2991_s_4_2.jpg"
+                                                    width="80%">
+                                                แอลกอฮอล์
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="medical_tools" value="true">
+                                                <img src="img/medical_tools.jpeg" width="80%">
+                                                เครื่องมือทางการแพทย์
+                                            </label>
+                                        </div>
+
                                     </div>
-                                    <div class="col-xs-6 text-center">
-                                        <label>
-                                            <input type="checkbox" name="basemap" value="base3">
-                                            <img src="https://static.wixstatic.com/media/13da55_ca038c6141cd45e1a82045b371b7cf70~mv2_d_4486_2991_s_4_2.jpg/v1/fill/w_4486,h_2991,al_c,q_85/13da55_ca038c6141cd45e1a82045b371b7cf70~mv2_d_4486_2991_s_4_2.jpg"
-                                                width="80%">
-                                            แอลกอฮอล์
-                                        </label>
+                                    <div class="row">
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="food" value="true">
+                                                <img src="https://www.audit.go.th/sites/default/files/styles/large_event/public/images/events/IMG_8130.jpg?itok=jFKBpsHl"
+                                                    width="80%">
+                                                อาหารแห้ง/ของใช้
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="medicine" value="true">
+                                                <img src="https://auntieflo.in/wp-content/uploads/2018/12/%E0%B8%A2%E0%B8%B2%E0%B9%80%E0%B9%80%E0%B8%9C%E0%B8%99%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B8%E0%B8%9A%E0%B8%B1%E0%B8%99.jpg"
+                                                    width="80%">
+                                                ยารักษาโรค
+                                            </label>
+                                        </div>
+
                                     </div>
-                                    <div class="col-xs-6 text-center">
-                                        <label>
-                                            <input type="checkbox" name="basemap" value="base4">
-                                            <img src="https://www.audit.go.th/sites/default/files/styles/large_event/public/images/events/IMG_8130.jpg?itok=jFKBpsHl"
-                                                width="80%">
-                                            อาหารแห้ง/ของใช้
-                                        </label>
-                                    </div>
+
+
                                 </div>
                             </fieldset>
                             <hr>
                             <fieldset class="form-group">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" value="">
+                                        <input class="form-check-input" type="checkbox" name="check_list" value="true">
                                         ข้าพเจ้าขอยืนยันข้อมูลข้างต้นเป็นจริงทุกประการ
                                     </label>
                                 </div>
@@ -148,6 +176,31 @@
         </div>
     </div>
 
+
+
+
+
+
+    <!-- Modal -->
+    <div id="volunteer" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ค้นหาจุดรับบริจาค</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
 

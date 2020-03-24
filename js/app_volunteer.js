@@ -14,9 +14,9 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
 function onLocationFound(e) {
 
     var radius = 150;
-    test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+    latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
-    var point = turf.point(test_latlng);
+    var point = turf.point(latlng);
 
     L.geoJson(point, {
         pointToLayer: function (feature, latlng) {
@@ -56,3 +56,45 @@ var local_icon = L.icon({
 
 points_case = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
+
+
+$("#form_query").submit(function (event) {
+    $("#form_query").modal("hide");
+    event.preventDefault();
+    var name_request = event.target.name_request.value
+    var address_request = event.target.address_request.value
+    var detail_request = event.target.detail_request.value
+    var mask = event.target.mask.checked
+    var gel = event.target.gel.checked
+    var alcohol = event.target.alcohol.checked
+    var food = event.target.food.checked
+    var medical_tools = event.target.medical_tools.checked
+    var medicine = event.target.medicine.checked
+    var check_list = event.target.check_list.checked
+
+
+    $.ajax({
+        url: 'http://localhost:8888/away-covid/web_service/add_volunteer.php',
+        method: 'post',
+        data: ({
+            name_request: name_request,
+            address_request: address_request,
+            detail_request: detail_request,
+            mask: mask,
+            gel: gel,
+            alcohol: alcohol,
+            food: food,
+            medical_tools: medical_tools,
+            medicine: medicine,
+            lat: latlng[1],
+            lon: latlng[0],
+            check_list: check_list
+        }),
+        success: function (data) {
+
+        }, error: function () {
+            console.log('error  data!');
+        }
+    })
+
+})
