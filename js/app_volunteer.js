@@ -71,8 +71,8 @@ var local_icon = L.icon({
     iconSize: [20, 20]
 });
 var volunteer_icon = L.icon({
-    iconUrl: 'img/give.png',
-    iconSize: [40, 40]
+    iconUrl: 'img/volunteer.png',
+    iconSize: [45, 45]
 });
 
 
