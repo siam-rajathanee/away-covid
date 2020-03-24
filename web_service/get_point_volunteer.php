@@ -13,41 +13,10 @@ $db = pg_connect("host=$hostname_db user=$username_db password=$password_db dbna
 pg_query("SET client_encoding = 'utf-8'");
 
 
-$sql;
-
-if($date  == 1){
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
-   WHERE date_start 
-   BETWEEN NOW() - INTERVAL '1 day' AND NOW(); ";
-}elseif ($date  == 3) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
-   WHERE date_start 
-   BETWEEN NOW() - INTERVAL '3 day' AND NOW();";
-}elseif ($date  == 5) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
-   WHERE date_start 
-   BETWEEN NOW() - INTERVAL '5 day' AND NOW();";
-}elseif ($date  == 7) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
-   WHERE date_start 
-   BETWEEN NOW() - INTERVAL '7 day' AND NOW();";  
-}elseif ($date  == 14) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
-   WHERE date_start 
-   BETWEEN NOW() - INTERVAL '14 day' AND NOW();";
-}elseif ($date  == 21) {
-   $sql = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase
-   WHERE date_start 
-   BETWEEN NOW() - INTERVAL '21 day' AND NOW();"; 
-}
 
 
-// $sql1d = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase; ";
-
-
-
- 
-
+$sql = "select *,ST_AsGeoJSON(geom) AS geojson from volunteer
+WHERE status_request = 'ร้องขอ'  ; ";
 
       
 

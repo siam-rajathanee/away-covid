@@ -36,16 +36,168 @@
 
         <div class="footer text-center">
             <div class="col-xs-6">
-                <img src="img/give.png" alt="" width="80%">
-                <h4>บริจาคสิ่งของ</h4>
-
+                <button class="btn btn-link">
+                    <img src="img/give.png" alt="" width="80%" data-toggle="modal" data-target="#volunteer">
+                    <h4> <b>บริจาคสิ่งของ</b> </h4>
+                </button>
             </div>
             <div class="col-xs-6">
-                <img src="img/volunteer.png" alt="" width="80%">
-                <h4>ขอรับบริจาค</h4>
+                <button class="btn btn-link" data-toggle="modal" data-target="#form_query">
+                    <img src="img/volunteer.png" alt="" width="80%">
+                    <h4><b>ขอรับบริจาค</b> </h4>
+                </button>
             </div>
         </div>
     </div>
+
+
+
+    <!-- Modal -->
+    <div id="form_query" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ลงทะเบียนขอรับบริจาคสิ่งของ</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form id="form_query">
+                        <fieldset>
+                            <p>**กรุณากรอกข้อมูลที่เป็นความจริงเท่านั้น</p>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">*ชื่อ - นามสกุล/หน่วยงาน</label>
+                                <input type="text" class="form-control" name="name_request" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">*ที่อยู่ (สำหรับรับสิ่งของ)</label>
+                                <textarea class="form-control" name="address_request" id="" rows="3" required>
+
+                                </textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">รายละเอียดเพิ่มเติม</label>
+                                <textarea class="form-control" name="detail_request" id="" cols="30"
+                                    rows="2"></textarea>
+                            </div>
+
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label for="exampleSelect1">เลือกสิ่งของที่ขอรับบริจาค</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="mask" value="true">
+                                                <img src="img/mask.png" width="80%">
+                                                หน้ากากอนามัย
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="gel" value="true">
+                                                <img src="img/gel.png" width="80%">
+                                                เจลล้างมือ
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="alcohol" value="true">
+                                                <img src="img/alcohol.png" width="80%">
+                                                แอลกอฮอล์
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="medical_tools" value="true">
+                                                <img src="img/medical_tools.png" width="80%">
+                                                เครื่องมือทางการแพทย์
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="food" value="true">
+                                                <img src="img/food.png" width="80%">
+                                                อาหารแห้ง/ของใช้
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 text-center">
+                                            <label>
+                                                <input type="checkbox" name="medicine" value="true">
+                                                <img src="img/medicine.png" width="80%">
+                                                ยารักษาโรค
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </fieldset>
+                            <hr>
+                            <fieldset class="form-group">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" name="check_list" value="true"
+                                            required>
+                                        ข้าพเจ้าขอยืนยันข้อมูลข้างต้นเป็นจริงทุกประการ
+                                    </label>
+                                </div>
+                            </fieldset>
+                            <div id="check_lat"></div>
+                        </fieldset>
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Modal -->
+    <div id="volunteer" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ค้นหาจุดรับบริจาค</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 
     <script src="js/app_volunteer.js"></script>
