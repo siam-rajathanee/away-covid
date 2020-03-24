@@ -79,7 +79,7 @@ $("#form_query").submit(function (event) {
     var medical_tools = event.target.medical_tools.checked
     var medicine = event.target.medicine.checked
     var check_list = event.target.check_list.checked
-    var type_request = event.target.type_request.checked
+    var type_request = event.target.type_request.value
 
 
     $.ajax({
