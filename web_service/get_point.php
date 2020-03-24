@@ -43,13 +43,7 @@ if($date  == 1){
 
 
 // $sql1d = "select *,ST_AsGeoJSON(geom) AS geojson from covidcase; ";
-
-
-
- 
-
-
-      
+   
 
 
 $query = pg_query($db,$sql);   
