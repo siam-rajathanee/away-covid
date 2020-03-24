@@ -48,9 +48,6 @@ function onLocationFound(e) {
 
     var buffered = turf.buffer(point, radius, { units: 'kilometers' });
 
-
-
-
     var buffereds = L.geoJson(buffered, {
         stroke: false,
         color: 'green',
