@@ -1,4 +1,5 @@
-$(document).ready(function () {
+$(document).ready(async function () {
+    await liff.init({ liffId: "1653984157-0qam36em" })
     loadMap();
 });
 
@@ -84,10 +85,10 @@ lc.start();
 
 // copy from nui
 let covidlab = L.layerGroup().addTo(map);
-$.get('http://localhost:3200/anticov-api/labcovid').done((res) => {
+$.get(url + '/anticov-api/labcovid').done((res) => {
     const items = res.data;
 
-    const icon = './img/shield.png';
+    const icon = './img/hospital.png';
     const iconMarker = L.icon({
         iconUrl: icon,
         iconSize: [32, 35],
