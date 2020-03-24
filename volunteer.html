@@ -229,7 +229,7 @@
                                 </button>
                             </div>
                             <div class="col-xs-6 text-center">
-                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#gel">
                                     <img src="img/gel.png" width="80%"> <br>
                                     เจลล้างมือ
                                 </button>
@@ -238,13 +238,13 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6 text-center">
-                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#alcohol">
                                     <img src="img/alcohol.png" width="80%"> <br>
                                     แอลกอฮอล์
                                 </button>
                             </div>
                             <div class="col-xs-6 text-center">
-                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#food">
                                     <img src="img/medical_tools.png" width="80%"> <br>
                                     เครื่องมือทาง <br> การแพทย์
                                 </button>
@@ -253,13 +253,13 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6 text-center">
-                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#medical_tools">
                                     <img src="img/food.png" width="80%"> <br>
                                     อาหารแห้ง/ของใช้
                                 </button>
                             </div>
                             <div class="col-xs-6 text-center">
-                                <button class="btn btn-link" data-toggle="modal" data-target="#myModal">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#medicine">
                                     <img src="img/medicine.png" width="80%"> <br>
                                     ยารักษาโรค
                                 </button>
@@ -299,7 +299,158 @@
                             </tr>
                         </thead>
                         <tbody id="mask_table">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+
+
+    <div id="gel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">รายชื่อผู้ขอรับเจลล้างมือ</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ประเภทผู้ขอรับบริจาค</th>
+                                <th>รายชื่อ</th>
+                                <th>วันที่ขอ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="gel_table">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="alcohol" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">รายชื่อผู้ขอรับแอลกอฮอล์</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ประเภทผู้ขอรับบริจาค</th>
+                                <th>รายชื่อ</th>
+                                <th>วันที่ขอ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="alcohol_table">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="food" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">รายชื่อผู้ขอรับอาหารแห้ง/ของใช้</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ประเภทผู้ขอรับบริจาค</th>
+                                <th>รายชื่อ</th>
+                                <th>วันที่ขอ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="food_table">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="medical_tools" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">รายชื่อผู้ขอรับเครื่องมือทางการแพทย์</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ประเภทผู้ขอรับบริจาค</th>
+                                <th>รายชื่อ</th>
+                                <th>วันที่ขอ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="medical_tools_table">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="medicine" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">รายชื่อผู้ขอรับยารักษาโรค</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ประเภทผู้ขอรับบริจาค</th>
+                                <th>รายชื่อ</th>
+                                <th>วันที่ขอ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="medicine_table">
                         </tbody>
                     </table>
                 </div>

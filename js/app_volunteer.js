@@ -25,13 +25,36 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
     }).addTo(map)
 
     var M_t1 = ''
+    var M_t2 = ''
+    var M_t3 = ''
+    var M_t4 = ''
+    var M_t5 = ''
+    var M_t6 = ''
     for (var i = 0; i < data.features.length; i++) {
-        M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+        if (data.features[i].properties.mask = true) {
+            M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+        } else if (data.features[i].properties.gel = true) {
+            M_t2 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+        } else
+            if (data.features[i].properties.alcohol = true) {
+                M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+            } else
+                if (data.features[i].properties.food = true) {
+                    M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+                } else
+                    if (data.features[i].properties.medical_tools = true) {
+                        M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+                    } else
+                        if (data.features[i].properties.medicine = true) {
+                            M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+                        }
     }
     document.getElementById('mask_table').innerHTML = M_t1
-
-
-
+    document.getElementById('gel_table').innerHTML = M_t2
+    document.getElementById('alcohol_table').innerHTML = M_t3
+    document.getElementById('food_table').innerHTML = M_t4
+    document.getElementById('medical_tools_table').innerHTML = M_t5
+    document.getElementById('medicine_table').innerHTML = M_t6
 
 })
 
