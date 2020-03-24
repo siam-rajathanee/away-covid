@@ -43,7 +43,9 @@ body{
   overflow-y: scroll;
 }
 
-
+.text_show{
+  margin-top: -12px;
+}
 
 .leaflet-right .leaflet-control {
   border-radius: 10px;
