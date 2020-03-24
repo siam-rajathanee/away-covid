@@ -54,6 +54,9 @@ new Vue({
 
                 function onLocationFound(e) {
 
+
+                    document.getElementById('loading').innerHTML = ''
+
                     var radius = 5;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
@@ -134,7 +137,7 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
 points_case = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 
-
+document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 
 var case_confirm = L.icon({
     iconUrl: 'img/confirm_case.png',
@@ -203,6 +206,8 @@ $("#form_query").submit(function (event) {
 
 
 function get_loca() {
+    document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+
     set_map.clearLayers()
     map.locate();
 }
