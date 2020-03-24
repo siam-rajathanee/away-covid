@@ -116,7 +116,7 @@ let covidlab = L.layerGroup().addTo(map);
 $.ajax({
     url: url + '/anticov-api/labcovid',
     method: 'get',
-    success: function (data) {
+    success: function (res) {
         const items = res.data;
 
         const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
@@ -128,8 +128,7 @@ $.ajax({
         });
 
 
-        $.each(items, async function (i, item) {
-            // console.log(gps._latlng)
+        items.forEach(item => {
             let mk = L.marker([Number(item.lat), Number(item.long)], {
                 icon: iconMarker
             }).bindPopup(
@@ -139,11 +138,28 @@ $.ajax({
 
             mk.addTo(covidlab);
 
-            await $('#select_place').append($('<option>', {
+            $('#select_place').append($('<option>', {
                 value: item.lat + ',' + item.long,
                 text: item.name
             }));
         });
+
+        // $.each(items, async function (i, item) {
+        //     // console.log(gps._latlng)
+        //     let mk = L.marker([Number(item.lat), Number(item.long)], {
+        //         icon: iconMarker
+        //     }).bindPopup(
+        //         '<br/><span >สถานที่: </span>' + item.name +
+        //         '<br/><span >ลิ้งค์: </span><a href="https://www.google.com/maps/dir/' + gps._latlng.lat + ',' + gps._latlng.lng + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>'
+        //     );
+
+        //     mk.addTo(covidlab);
+
+        //     await $('#select_place').append($('<option>', {
+        //         value: item.lat + ',' + item.long,
+        //         text: item.name
+        //     }));
+        // });
     }
 })
 
