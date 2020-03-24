@@ -42,9 +42,9 @@ function loadMap() {
         "แผนที่ภาพถ่าย": ghyb
     }
     var overlayMap = {
-        "ขอบจังหวัด": pro.addTo(map)
+        // "ขอบจังหวัด": pro.addTo(map)
     }
-    L.control.layers(baseMap, overlayMap).addTo(map);
+    // L.control.layers(baseMap, overlayMap).addTo(map);
 }
 
 var place;
@@ -88,7 +88,7 @@ let covidlab = L.layerGroup().addTo(map);
 $.get(url + '/anticov-api/labcovid').done((res) => {
     const items = res.data;
 
-    const icon = './img/hospital.png';
+    const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png';
     const iconMarker = L.icon({
         iconUrl: icon,
         iconSize: [32, 35],
