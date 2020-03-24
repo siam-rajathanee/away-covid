@@ -1,6 +1,7 @@
 $(document).ready(async function () {
     await liff.init({ liffId: "1653984157-0qam36em" })
-    loadMap();
+    await loadMap();
+    // await loadData();
 });
 
 var map = L.map('map', {
@@ -52,8 +53,9 @@ async function onLocationFound(e) {
     // console.log(e)
     x = e.latlng.lat;
     y = e.latlng.lng;
+
     gps = await L.marker(e.latlng, { draggable: true });
-    await loadData();
+
 }
 
 function onLocationError(e) {
@@ -84,8 +86,17 @@ lc.start();
 let covidlab = L.layerGroup().addTo(map);
 
 function loadData() {
+    if (!gps._latlng) {
+        alert('กรุณารอข้อมูล gps')
+    } else {
+        loadData();
+    }
+}
+
+
+function loadData() {
     $.ajax({
-        url: url + '/anticov-api/labcovid',
+        url: 'https://rti2dss.com:3200/anticov-api/labcovid',
         method: 'get',
         success: function (res) {
             const items = res.data;
@@ -98,8 +109,9 @@ function loadData() {
                 // popupAnchor: [5, -36]
             });
 
-
+            var a = 0;
             items.forEach(item => {
+                a += 1
                 let mk = L.marker([Number(item.lat), Number(item.long)], {
                     icon: iconMarker
                 }).bindPopup(
@@ -113,10 +125,13 @@ function loadData() {
                     value: item.lat + ',' + item.long,
                     text: item.name
                 }));
+
+                console.log(a)
             });
         }
     })
 }
+
 
 
 

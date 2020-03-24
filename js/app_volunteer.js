@@ -31,23 +31,26 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
     var M_t5 = ''
     var M_t6 = ''
     for (var i = 0; i < data.features.length; i++) {
-        if (data.features[i].properties.mask = true) {
+
+
+        if (data.features[i].properties.mask == 'true') {
             M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
-        } else if (data.features[i].properties.gel = true) {
+        }
+        if (data.features[i].properties.gel == 'true') {
             M_t2 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
-        } else
-            if (data.features[i].properties.alcohol = true) {
-                M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
-            } else
-                if (data.features[i].properties.food = true) {
-                    M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
-                } else
-                    if (data.features[i].properties.medical_tools = true) {
-                        M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
-                    } else
-                        if (data.features[i].properties.medicine = true) {
-                            M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
-                        }
+        }
+        if (data.features[i].properties.alcohol == 'true') {
+            M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+        }
+        if (data.features[i].properties.food == 'true') {
+            M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+        }
+        if (data.features[i].properties.medical_tools == 'true') {
+            M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+        }
+        if (data.features[i].properties.medicine == 'true') {
+            M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+        }
     }
     document.getElementById('mask_table').innerHTML = M_t1
     document.getElementById('gel_table').innerHTML = M_t2
