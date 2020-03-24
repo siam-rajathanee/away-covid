@@ -1,0 +1,142 @@
+body{
+    font-family: 'Prompt', sans-serif;
+    background-color: #ffffff;
+   
+}
+
+.prompt{
+  font-family: Prompt;
+}
+.card{
+  padding: 10px;
+}
+
+#map{
+    border-radius: 10px;
+    width: 100%;
+    height: 70vh;
+    z-index: 0;
+    
+}
+
+#container , #container2, #container3 {
+  height: 35vh; 
+  width: 100%;
+}
+
+.footer {
+    position: fixed;
+    height: 27vh;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: white;
+    overflow-y: scroll;
+}
+.attribute{
+
+  height: 5vh;
+}
+
+.table_data{
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.text_show{
+  margin-top: -12px;
+}
+
+.leaflet-right .leaflet-control {
+  border-radius: 10px;
+
+}
+
+.legend i {
+  width: 18px;
+  height: 22px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+
+
+.legend {
+  text-align: left;
+  line-height: 20px;
+  }
+  
+  .legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.9;
+  }
+  
+  .legend .colorcircle {
+  border-radius: 50px;
+  width: 15px;
+  height: 15px;
+  margin-top: 0px;
+  }
+  
+
+
+.btn-group.special  {
+  display: flex;
+  border: 0px;
+ 
+}
+
+.special .btn {
+  flex: 1
+}
+
+.btn {
+  border-width: 0px;
+  text-align: center;
+}
+.card_sum{
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.rating-num2 {
+  margin-top: 3px;
+  font-size: 30px;
+}
+
+.blog1{
+  color: #ffffff;
+  background-color: #FEB24C;
+  border-radius: 10px;
+  height: 13vh;
+}
+
+
+.blog2{
+  color: #181818;
+  background-color: rgb(255, 245, 232);
+  border-radius: 10px;
+  height: 13vh;
+ 
+}
+
+.glyphicon { margin-right:5px;}
+.rating .glyphicon {font-size: 22px;}
+.rating-num { margin-top:0px;font-size: 54px; }
+.progress { margin-bottom: 5px;}
+.progress-bar { text-align: left; }
+.rating-desc .col-md-3 {padding-right: 0px;}
+.sr-only { margin-left: 5px;overflow: visible;clip: auto; }
