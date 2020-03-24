@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ลงทะเบียน</title>
+
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mitr&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+  <link rel="stylesheet" href="route.css">
+</head>
+
+<body>
+
+  <div class="p-0">
+    <div id="map"></div>
+  </div>
+  <div class="container-fluid">
+    <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
+      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
+        <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
+      </button>
+    </div>
+
+  </div>
+  <p></p>
+  <!-- search -->
+  <div id="search" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานที่</h4>
+        </div>
+        <div class="modal-body">
+          <form id="form_query">
+            <fieldset>
+              <div class="form-group">
+                <select name="place" class="form-control" id="select_place">
+                </select>
+              </div>
+              <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">ดูตำแหน่ง</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</body>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+<script src="route.js"></script>
+
+</html>
