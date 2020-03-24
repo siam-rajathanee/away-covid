@@ -1,6 +1,6 @@
-$(document).ready(async function () {
-    await liff.init({ liffId: "1653984157-0qam36em" })
+$(document).ready(function () {
     loadMap();
+    getAccount();
 });
 
 var map = L.map('map', {
@@ -30,7 +30,7 @@ function loadMap() {
         maxZoom: 20,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
     });
-    var pro = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/th/wms?", {
+    var pro = L.tileLayer.wms("https://cors-anywhere.herokuapp.com/http://rti2dss.com:8080/geoserver/th/wms?", {
         layers: 'th:province_4326',
         format: 'image/png',
         transparent: true
@@ -42,9 +42,9 @@ function loadMap() {
         "แผนที่ภาพถ่าย": ghyb
     }
     var overlayMap = {
-        // "ขอบจังหวัด": pro.addTo(map)
+        "ขอบจังหวัด": pro.addTo(map)
     }
-    // L.control.layers(baseMap, overlayMap).addTo(map);
+    L.control.layers(baseMap, overlayMap).addTo(map);
 }
 
 var place;
@@ -57,6 +57,13 @@ function onLocationFound(e) {
     // gps.on('dragend', (e) => {
     //     console.log(e)
     // })
+    $.get(url + `/acc-api/getaddress/${x}/${y}`).done((res) => {
+        tam = res.data[0].tam_name;
+        amp = res.data[0].amp_name;
+        pro = res.data[0].pro_name;
+        place = `ต.${tam} อ.${amp} จ.${pro}`;
+        $('#address').val(place)
+    })
 }
 
 function onLocationError(e) {
@@ -83,46 +90,54 @@ var lc = L.control.locate({
 
 lc.start();
 
-// copy from nui
-let covidlab = L.layerGroup().addTo(map);
-$.get(url + '/anticov-api/labcovid').done((res) => {
-    const items = res.data;
+var isNew = true;
+function getAccount() {
+    const obj = {
+        userid: urlParams.get('userid')
+    }
+    $.post(url + '/anticov-api/getaccount', obj).done((res) => {
+        console.log(res.data)
+        $("#n").text('Save');
+        if (res.data.length > 0) {
+            isNew = false;
+            $('#ocupation').val(res.data[0].ocupation);
+            $('#birthdate').val(res.data[0].birthdate);
+            $('#sex').val(res.data[0].sex);
+            $('#healthy').val(res.data[0].healthy);
 
-    const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
-    const iconMarker = L.icon({
-        iconUrl: icon,
-        iconSize: [50, 50],
-        // iconAnchor: [12, 37],
-        // popupAnchor: [5, -36]
-    });
+            $("#n").text('Update');
+        }
+    })
+}
 
+$('#fieldForm').submit(function (e) {
+    e.preventDefault();
+    const obj = {
+        userid: urlParams.get('userid'),
+        ocupation: $('#ocupation').val(),
+        birthdate: $('#birthdate').val(),
+        sex: $('#sex').val(),
+        healthy: $('#healthy').val(),
+        place: place,
+        geom: JSON.stringify(gps.toGeoJSON().geometry)
+    }
 
-    $.each(items, function (i, item) {
-        // console.log(gps._latlng)
-        let mk = L.marker([Number(item.lat), Number(item.long)], {
-            icon: iconMarker
-        }).bindPopup(
-            '<br/><span >สถานที่: </span>' + item.name +
-            '<br/><span >ลิ้งค์: </span><a href="https://www.google.com/maps/dir/' + gps._latlng.lat + ',' + gps._latlng.lng + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>'
-        );
+    if (isNew) {
+        console.log('insert', obj)
+        $.post(url + '/anticov-api/insert', obj).done((res) => {
+            // console.log(res)
+            $('#modal').modal('show');
+            getAccount()
+        })
+    } else {
+        console.log('update', obj)
+        $.post(url + '/anticov-api/update', obj).done((res) => {
+            // console.log(res)
+            $('#modal').modal('show');
+            getAccount();
+        })
+    }
+    // console.log(obj)
+    return false;
+});
 
-        mk.addTo(covidlab);
-
-        $('#select_place').append($('<option>', {
-            value: item.lat + ',' + item.long,
-            text: item.name
-        }));
-    });
-
-})
-
-// $('#getroute').click(e => {
-//     console.log(e)
-// })
-
-$('#select_place').change(e => {
-    let latlng = e.target.value.split(",");
-    // $("#getroute").attr("href", 'https://www.google.com/maps/dir/' + gps._latlng.lat + ',' + gps._latlng.lng + '/' + Number(latlng[0]) + ',' + Number(latlng[1]) + '/data=!3m1!4b1!4m2!4m1!3e0')
-    map.setView([Number(latlng[0]), Number(latlng[1])], 19);
-    // console.log(latlng)
-})
