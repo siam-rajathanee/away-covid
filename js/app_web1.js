@@ -108,7 +108,7 @@ new Vue({
 
 var map = L.map('map'
     , { attributionControl: false }
-).setView([13.822496, 100.716057], 5);
+).setView([13.751569, 100.501634], 12);
 
 
 CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -131,7 +131,7 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
 })
 
-points_case = L.markerClusterGroup().addTo(map)
+points_case = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 
 
