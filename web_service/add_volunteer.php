@@ -12,6 +12,8 @@ $db = pg_connect("host=$hostname_db user=$username_db password=$password_db dbna
 pg_query("SET client_encoding = 'utf-8'");
 
 
+
+if($_POST[check_list] == 'true'){
     $name_request = $_POST[name_request];
     $address_request = $_POST[address_request];
     $details_request = $_POST[details_request];
@@ -31,10 +33,14 @@ pg_query("SET client_encoding = 'utf-8'");
     
     $insert = pg_query($sql) ; 
         if($insert){
-            echo $sql;
+            echo '{ "insert":"true"}';
         }else{
-            echo $sql;
+            echo  '{ "insert":"false"}';
         }
+}else{
+    echo  '{ "insert":"false"}';
+}
+  
 
 
 

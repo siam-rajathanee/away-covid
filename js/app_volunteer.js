@@ -91,6 +91,7 @@ $("#form_query").submit(function (event) {
             check_list: check_list
         }),
         success: function (data) {
+            console.log(JSON.parse(data));
 
         }, error: function () {
             console.log('error  data!');
