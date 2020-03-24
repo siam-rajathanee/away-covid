@@ -9,6 +9,14 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
     subdomains: 'abcd',
     maxZoom: 19
 }).addTo(map)
+document.getElementById('check_lat').innerHTML = '<button type="submit" class="btn btn-danger btn-block" disabled>กรุณาเปิดรับตำแหน่งก่อนบันทึกข้อมูล</button>'
+
+
+$.getJSON("http://localhost:8888/away-covid/web_service/get_point_volunteer.php", function (data) {
+    console.log(data);
+})
+
+
 
 
 function onLocationFound(e) {
@@ -42,7 +50,7 @@ function onLocationFound(e) {
 
     map.fitBounds(buffereds.getBounds())
 
-
+    document.getElementById('check_lat').innerHTML = '<button type="submit" class="btn btn-warning btn-block">ลงทะเบียนขอรับบริจาค</button>'
 }
 
 map.on('locationfound', onLocationFound);
@@ -59,7 +67,7 @@ set_map = L.layerGroup().addTo(map)
 
 
 $("#form_query").submit(function (event) {
-    $("#form_query").modal("hide");
+
     event.preventDefault();
     var name_request = event.target.name_request.value
     var address_request = event.target.address_request.value
