@@ -118,6 +118,16 @@ new Vue({
                     };
                 });
                 this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
+                console.log(this.data_pv_th);
+
+                var table = ''
+                for (var i = 0; i < this.data_pv_th.length; i++) {
+                    if (this.data_pv_th[i].province == 'null') {
+                        this.data_pv_th[i].province = 'ไม่ระบุ'
+                    }
+                    table += '  <tr> <td>   ' + this.data_pv_th[i].province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
+                }
+                document.getElementById('all_sum_table').innerHTML = table
 
                 var categories_chart1 = []
                 var data_chart1 = []
@@ -187,9 +197,6 @@ new Vue({
                     };
                 });
                 console.log(this.data_sex);
-                // this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
-
-
 
                 var data_chart1 = []
                 var color_pie = ['#ffb3ff', '#00b8e6', '#808080']
@@ -287,12 +294,12 @@ var case_confirm = L.icon({
 function getColor(d) {
     return d > 200 ? '#800026' :
         d > 100 ? '#BD0026' :
-        d > 50 ? '#E31A1C' :
-        d > 20 ? '#FC4E2A' :
-        d > 10 ? '#FD8D3C' :
-        d > 5 ? '#FEB24C' :
-        d > 0 ? '#FED976' :
-        '#f2f2f2';
+            d > 50 ? '#E31A1C' :
+                d > 20 ? '#FC4E2A' :
+                    d > 10 ? '#FD8D3C' :
+                        d > 5 ? '#FEB24C' :
+                            d > 0 ? '#FED976' :
+                                '#f2f2f2';
 }
 
 function style(feature) {

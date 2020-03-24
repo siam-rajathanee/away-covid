@@ -8,33 +8,39 @@ body{
 }
 .card{
   padding: 10px;
+  padding-top: 0px;
 }
 
 #map{
     border-radius: 10px;
     width: 100%;
-    height: 55vh;
+    height: 73vh;
     z-index: 0;
 }
 
 #container , #container2, #container3 {
-  height: 30vh; 
+  height: 35vh; 
   width: 100%;
 }
 
 .footer {
     position: fixed;
-    height: 44vh;
+    height: 12vh;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     background-color: white;
     overflow-y: scroll;
 }
 .attribute{
 
   height: 5vh;
+}
+
+.table_data{
+  height: 70vh;
+  overflow-y: scroll;
 }
 
 
@@ -83,3 +89,52 @@ body{
   margin-top: 0px;
   }
   
+
+
+.btn-group.special  {
+  display: flex;
+  border: 0px;
+ 
+}
+
+.special .btn {
+  flex: 1
+}
+
+.btn {
+  border-width: 0px;
+  text-align: center;
+}
+.card_sum{
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.rating-num2 {
+  margin-top: 3px;
+  font-size: 30px;
+}
+
+.blog1{
+  color: #ffffff;
+  background-color: #FEB24C;
+  border-radius: 10px;
+  height: 13vh;
+}
+
+
+.blog2{
+  color: #181818;
+  background-color: rgb(255, 245, 232);
+  border-radius: 10px;
+  height: 13vh;
+ 
+}
+
+.glyphicon { margin-right:5px;}
+.rating .glyphicon {font-size: 22px;}
+.rating-num { margin-top:0px;font-size: 54px; }
+.progress { margin-bottom: 5px;}
+.progress-bar { text-align: left; }
+.rating-desc .col-md-3 {padding-right: 0px;}
+.sr-only { margin-left: 5px;overflow: visible;clip: auto; }
