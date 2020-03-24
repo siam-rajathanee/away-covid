@@ -97,7 +97,7 @@ $.get(url + '/anticov-api/labcovid').done((res) => {
     });
 
 
-    $.each(items, function (i, item) {
+    $.each(items, async function (i, item) {
         // console.log(gps._latlng)
         let mk = L.marker([Number(item.lat), Number(item.long)], {
             icon: iconMarker
@@ -108,7 +108,7 @@ $.get(url + '/anticov-api/labcovid').done((res) => {
 
         mk.addTo(covidlab);
 
-        $('#select_place').append($('<option>', {
+        await $('#select_place').append($('<option>', {
             value: item.lat + ',' + item.long,
             text: item.name
         }));
