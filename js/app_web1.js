@@ -47,7 +47,33 @@ new Vue({
                                 icon: case_null,
                                 highlight: "temporary"
                             });
+                        } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
+                            return L.marker(latlng, {
+                                icon: case_clean,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'เสียชีวิต') {
+                            return L.marker(latlng, {
+                                icon: case_death,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
+                            return L.marker(latlng, {
+                                icon: case_send,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
+                            return L.marker(latlng, {
+                                icon: case_hospital,
+                                highlight: "temporary"
+                            });
                         }
+
+
+
+
+
+
                     },
                     onEachFeature: onEachFeature
                 }).addTo(points_case)
@@ -155,6 +181,28 @@ var case_null = L.icon({
     iconUrl: 'img/null_case.png',
     iconSize: [50, 50], // size of the icon
 });
+var case_clean = L.icon({
+    iconUrl: 'img/clean.png',
+    iconSize: [50, 50], // size of the icon
+});
+
+var case_death = L.icon({
+    iconUrl: 'img/death.png',
+    iconSize: [50, 50], // size of the icon
+});
+var case_send = L.icon({
+    iconUrl: 'img/send.png',
+    iconSize: [50, 50], // size of the icon
+});
+var case_hospital = L.icon({
+    iconUrl: 'img/hospital.png',
+    iconSize: [50, 50], // size of the icon
+});
+
+
+
+
+
 var local_icon = L.icon({
     iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
     iconSize: [20, 20]
@@ -182,6 +230,10 @@ legend.onAdd = function (map) {
     div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
     div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
     div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
+    div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
+    div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <br> ';
+    div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
+    div.innerHTML += '<img src="img/hospital.png" width="30px"> <small class="prompt"> บริการตรวจ COVID </small> <br> ';
 
     return div;
 };
