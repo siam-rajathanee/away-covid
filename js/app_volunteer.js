@@ -23,6 +23,16 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
             });
         }
     }).addTo(map)
+
+    var M_t1 = ''
+    for (var i = 0; i < data.features.length; i++) {
+        M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+    }
+    document.getElementById('mask_table').innerHTML = M_t1
+
+
+
+
 })
 
 
@@ -31,7 +41,7 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
 function onLocationFound(e) {
 
     var radius = 150;
-    latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+    latlng = [e.latlng.lng, e.latlng.lat]
 
     var point = turf.point(latlng);
 
@@ -126,13 +136,7 @@ $("#form_query").submit(function (event) {
                     title: 'ลงทะเบียนสำเร็จ',
                     text: '#เราคนไทยร่วมใจสู้ภัยโควิด ',
                 })
-
-
             }
-
-
-
-
         }, error: function () {
             console.log('error  data!');
         }
