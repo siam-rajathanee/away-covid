@@ -14,6 +14,15 @@ document.getElementById('check_lat').innerHTML = '<button type="submit" class="b
 
 $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (data) {
     console.log(data);
+
+
+    L.geoJson(data, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: volunteer_icon,
+            });
+        }
+    }).addTo(map)
 })
 
 
@@ -30,6 +39,7 @@ function onLocationFound(e) {
         pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {
                 icon: local_icon,
+                highlight: 'permanent'
             });
         }
     })
@@ -59,6 +69,10 @@ map.locate();
 var local_icon = L.icon({
     iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
     iconSize: [20, 20]
+});
+var volunteer_icon = L.icon({
+    iconUrl: 'img/give.png',
+    iconSize: [40, 40]
 });
 
 
@@ -102,6 +116,25 @@ $("#form_query").submit(function (event) {
         }),
         success: function (data) {
             console.log(JSON.parse(data));
+            var data = JSON.parse(data)
+            if (data.insert == false) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'ท่านไม่สามารถลงทะเบียนขอรับบริจาคได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง ',
+                })
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'ลงทะเบียนสำเร็จ',
+                    text: '#เราคนไทยร่วมใจสู้ภัยโควิด ',
+                })
+
+
+            }
+
+
+
 
         }, error: function () {
             console.log('error  data!');

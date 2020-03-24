@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 
 
@@ -95,7 +96,8 @@
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">*ที่อยู่ (สำหรับรับสิ่งของ)</label>
-                                <input type="text" class="form-control" name="address_request" required>
+                                <textarea class="form-control" name="address_request" id="" cols="30"
+                                    rows="2"></textarea>
                                 <small>*กรุณากรอกรายละเอียดที่ชัดเจนเพื่อการจัดส่งที่ถูกต้อง เช่น บ้านเลขที่ หมู่ ตำบล
                                     อำเภอ จังหวัด รหัสไปรษณีย์</small>
                             </div>
@@ -176,6 +178,14 @@
                                     </label>
                                 </div>
                             </fieldset>
+                            <blockquote class="blockquote">
+                                <p class="mb-0">หมายเหตุ :
+                                    <small>เพื่อกระจายสิ่งของให้ได้มากที่สุด
+                                        เราขอกำหนดดังนี้</small></p>
+
+                                <small>1 ที่อยู่ขอรับบริจาคได้ 1 ครั้งเท่านั้น</small>
+                                <small>จำนวนที่จะได้ขึ้นอยู่กับผู้บริจาคจะพิจารณาตามความเหมาะสมของปริมาณเวชภัณฑ์ที่มีกับผู้ติดต่อขอบริจาค</small>
+                            </blockquote>
                             <div id="check_lat"></div>
                         </fieldset>
                     </form>
