@@ -15,6 +15,7 @@ document.getElementById('check_lat').innerHTML = '<button type="submit" class="b
 
 $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (data) {
 
+    geojson = data
     L.geoJson(data, {
 
         pointToLayer: function (feature, latlng) {
@@ -42,7 +43,7 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
 
             return L.marker(latlng, {
                 icon: volunteer_icon,
-            }).bindPopup('<div class="card mb-3"> <h4 class="card-header">ประเภท : ' + feature.properties.type_request + ' </h4> <div class="card-body"> <h5 class="card-title">ผู้ขอรับบริจาค : ' + feature.properties.name_request + ' </h5> <h6 class="card-subtitle text-muted">ที่อยู่สำหรับจัดส่ง : ' + feature.properties.address_request + ' </h6> </div> <div class="card-body"> <p class="card-text">รายละเอียด : ' + feature.properties.details_request + ' </p> </div> สิ่งที่ขอ : <ul class="list-group list-group-flush">  ' + mask + gel + alcohol + food + medical_tools + medicine + ' </ul > <div class="card-footer text-muted">วันที่ขอ : ' + feature.properties.donate_date + ' </div> </div > ')
+            }).bindPopup('<div class="card mb-3"> <h4 class="card-header">ประเภท : ' + feature.properties.type_request + ' </h4> <div class="card-body"> <h5 class="card-title">ผู้ขอรับบริจาค : ' + feature.properties.name_request + ' </h5> <h6 class="card-subtitle text-muted">ที่อยู่สำหรับจัดส่ง : ' + feature.properties.address_request + ' </h6> </div> <div class="card-body"> <p class="card-text">รายละเอียด/เหตุผลที่ขอรับ : ' + feature.properties.details_request + ' </p> </div> สิ่งที่ขอ : <ul class="list-group list-group-flush">  ' + mask + gel + alcohol + food + medical_tools + medicine + ' </ul > <div class="card-footer text-muted">วันที่ขอ : ' + feature.properties.donate_date + ' </div> </div > ')
         }
 
     }
@@ -57,26 +58,34 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
     var M_t4 = ''
     var M_t5 = ''
     var M_t6 = ''
-    for (var i = 0; i < data.features.length; i++) {
 
+
+    for (var i = 0; i < data.features.length; i++) {
+        var value = data.features[i].properties.gid;
 
         if (data.features[i].properties.mask == 'true') {
-            M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+            M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
         }
         if (data.features[i].properties.gel == 'true') {
-            M_t2 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+            M_t2 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
         }
         if (data.features[i].properties.alcohol == 'true') {
-            M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+            M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
         }
         if (data.features[i].properties.food == 'true') {
-            M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+            M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
         }
         if (data.features[i].properties.medical_tools == 'true') {
-            M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+            M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
         }
         if (data.features[i].properties.medicine == 'true') {
-            M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date + '</td> <td><i class="fa fa-search"></i> </td> </tr>'
+            M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
         }
     }
     document.getElementById('mask_table').innerHTML = M_t1
@@ -89,6 +98,25 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
 })
 
 
+function gotopoint(id) {
+    console.log(geojson);
+    $("#volunteer").modal("hide");
+    $("#mask").modal("hide");
+    $("#gel").modal("hide");
+    $("#alcohol").modal("hide");
+    $("#food").modal("hide");
+    $("#medical_tools").modal("hide");
+    $("#medicine").modal("hide");
+
+    for (var i = 0; i < geojson.features.length; i++) {
+        if (geojson.features[i].properties.gid == id) {
+            view_place = geojson.features[i]
+        }
+    }
+    var lat = view_place.properties.lat
+    var lon = view_place.properties.lon
+    map.setView([lat, lon], 13)
+}
 
 
 function onLocationFound(e) {
@@ -196,3 +224,5 @@ $("#form_query").submit(function (event) {
     })
 
 })
+
+
