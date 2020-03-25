@@ -10,11 +10,8 @@ async function getUserProfile() {
 async function main() {
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
-            getEnvironment()
             getUserProfile()
-            getContext()
-            getFriendship()
-            createUniversalLink()
+
         } else {
             liff.login()
         }
