@@ -1,3 +1,31 @@
+
+async function getUserProfile() {
+    const profile = await liff.getProfile()
+    document.getElementById("pictureUrl").src = profile.pictureUrl
+    document.getElementById("userId").append(profile.userId)
+    document.getElementById("statusMessage").append(profile.statusMessage)
+    document.getElementById("displayName").append(profile.displayName)
+    document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
+}
+
+
+async function main() {
+    liff.ready.then(() => {
+        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-q0jEx1on" })
+}
+main()
+
+
+
+
+
 new Vue({
     el: '#app_vue',
     data() {
@@ -384,26 +412,3 @@ $("#form_setting").submit(function (event) {
 
 
 })
-
-async function getUserProfile() {
-    const profile = await liff.getProfile()
-    document.getElementById("pictureUrl").src = profile.pictureUrl
-    document.getElementById("userId").append(profile.userId)
-    document.getElementById("statusMessage").append(profile.statusMessage)
-    document.getElementById("displayName").append(profile.displayName)
-    document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
-}
-
-
-async function main() {
-    liff.ready.then(() => {
-        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({ liffId: "1653981898-q0jEx1on" })
-}
-main()
