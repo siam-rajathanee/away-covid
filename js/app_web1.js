@@ -121,7 +121,7 @@ new Vue({
 
 
                     document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" data-toggle="modal" data-target="#tracking_view" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก <br> ตำแหน่งปัจจุบัน <br> </button>'
+                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
                     var radius = 5;
@@ -316,12 +316,16 @@ $("#form_query").submit(function (event) {
 function get_loca() {
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
     set_map.clearLayers()
+    line_track.clearLayers()
     map.locate();
 }
 
 function get_tracking() {
+    set_map.clearLayers()
+    console.log(test_latlng);
     var lat = test_latlng[1]
     var lng = test_latlng[0]
+
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=tracking',
         method: 'post',
@@ -334,28 +338,27 @@ function get_tracking() {
             lng: lng
         }),
         success: function (res) {
-            // var json_track = JSON.parse(res)
-            // console.log(json_track);
+            var json_track = JSON.parse(res)
 
-            // var trac_table = ''
-            // var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
-            // for (var i = 0; i < json_track.features.length; i++) {
-            //     p_t_l.push([parseInt(json_track.features[i].properties.lng), parseInt(json_track.features[i].properties.lat)])
+            var trac_table = ''
+            var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
+            for (var i = 0; i < json_track.features.length; i++) {
+                p_t_l.push(
+                    [
+                        Number(json_track.features[i].properties.lng),
+                        Number(json_track.features[i].properties.lat)
+                    ]
+                )
 
-            //     trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
-            //         + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
-            //         + json_track.features[i].properties.date_view + ' </td></tr > '
-            // }
-            // var line = turf.lineString(p_t_l);
-            // var line_track = L.geoJson(line).addTo(map2)
-            // document.getElementById('tracking_table').innerHTML = trac_table
+                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
+                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
+                    + json_track.features[i].properties.date_view + ' </td></tr > '
+            }
+            var line = turf.lineString(p_t_l);
+            line_track = L.geoJson(line).addTo(map)
 
-            // console.log(p_t_l);
-            // console.log(line);
-            // map2.fitBounds(line_track.getBounds())
-
-
-
+            map.fitBounds(line_track.getBounds())
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }
     })
 

@@ -34,7 +34,7 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653981898-ZNBANLd7" })
+    await liff.init({ liffId: "1653981898-q0jEx1on" })
 }
 main()
 
@@ -121,7 +121,7 @@ new Vue({
 
 
                     document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก <br> ตำแหน่งปัจจุบัน <br> </button>'
+                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
                     var radius = 5;
@@ -339,7 +339,6 @@ function get_tracking() {
         }),
         success: function (res) {
             var json_track = JSON.parse(res)
-            console.log(json_track);
 
             var trac_table = ''
             var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
@@ -358,10 +357,8 @@ function get_tracking() {
             var line = turf.lineString(p_t_l);
             line_track = L.geoJson(line).addTo(map)
 
-            console.log(p_t_l);
-            console.log(line);
             map.fitBounds(line_track.getBounds())
-            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i> กลับหน้าแผนที่ </button>'
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }
     })
 
