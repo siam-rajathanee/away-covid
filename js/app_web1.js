@@ -322,7 +322,6 @@ function get_loca() {
 
 function get_tracking() {
     set_map.clearLayers()
-    console.log(test_latlng);
     var lat = test_latlng[1]
     var lng = test_latlng[0]
 
@@ -361,16 +360,13 @@ function get_tracking() {
                     + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
                     + json_track.features[i].properties.date_view + ' </td></tr > '
             }
-            console.log(p_t_l);
 
             var line = turf.lineString(p_t_l);
-            console.log(p_t_l);
             line_track = L.geoJson(line).addTo(map)
 
             map.fitBounds(line_track.getBounds())
             document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }, error: function (e) {
-            console.log(e);
         }
     })
 
