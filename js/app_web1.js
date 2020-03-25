@@ -1,11 +1,25 @@
 
 async function getUserProfile() {
     profile = await liff.getProfile()
-
     pictureUrl = profile.pictureUrl
     userId = profile.userId
     displayName = profile.displayName
     decodedIDToken = liff.getDecodedIDToken().email
+
+
+    $.ajax({
+        url: 'https://rti2dss.com/mapedia.serv/login_user.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            decodedIDToken: decodedIDToken
+        }),
+        success: function (data) {
+        }
+    })
+
 }
 async function main() {
     liff.ready.then(() => {
@@ -102,6 +116,8 @@ new Vue({
 
 
                     document.getElementById('loading').innerHTML = ''
+                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" data-toggle="modal" data-target="#tracking_view" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก <br> ตำแหน่งปัจจุบัน <br> </button>'
+
 
                     var radius = 5;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
@@ -143,25 +159,8 @@ new Vue({
                         document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในรัศมีในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือผู้ติดเชื้อโควิด-19 </div>'
                     }
 
-                    console.log(pictureUrl);
 
 
-                    $.ajax({
-                        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php',
-                        method: 'post',
-                        data: ({
-                            pictureUrl: pictureUrl,
-                            userId: userId,
-                            displayName: displayName,
-                            decodedIDToken: decodedIDToken,
-                            lat: e.latlng.lat,
-                            lng: e.latlng.lng
-                        }),
-                        success: function (data) {
-                            console.log(data);
-
-                        }
-                    })
 
                 }
 
@@ -178,6 +177,19 @@ new Vue({
 var map = L.map('map'
     , { attributionControl: false }
 ).setView([13.751569, 100.501634], 12);
+
+var map2 = L.map('map2'
+    , { attributionControl: false }
+).setView([13.751569, 100.501634], 12);
+
+document.getElementById('tracking').innerHTML = ''
+
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+}).addTo(map2)
 
 
 CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -273,7 +285,6 @@ legend.onAdd = function (map) {
     div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
     div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <br> ';
     div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
-    // div.innerHTML += '<img src="img/hospital.png" width="30px"> <small class="prompt"> บริการตรวจ COVID </small> <br> ';
 
     return div;
 };
@@ -302,6 +313,30 @@ function get_loca() {
 
     set_map.clearLayers()
     map.locate();
+}
+
+function get_tracking() {
+
+    console.log(test_latlng);
+    var lat = test_latlng[1]
+    var lng = test_latlng[0]
+
+    $.ajax({
+        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=tracking',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            decodedIDToken: decodedIDToken,
+            lat: lat,
+            lng: lng
+        }),
+        success: function (data) {
+            console.log(data);
+        }
+    })
+
 }
 
 
