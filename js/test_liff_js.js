@@ -320,7 +320,7 @@ function get_loca() {
 }
 
 function get_tracking() {
-
+    set_map.clearLayers()
     console.log(test_latlng);
     var lat = test_latlng[1]
     var lng = test_latlng[0]
@@ -356,7 +356,6 @@ function get_tracking() {
             }
             var line = turf.lineString(p_t_l);
             var line_track = L.geoJson(line).addTo(map)
-            document.getElementById('tracking_table').innerHTML = trac_table
 
             console.log(p_t_l);
             console.log(line);
