@@ -5,7 +5,6 @@ async function getUserProfile() {
     userId = profile.userId
     displayName = profile.displayName
     decodedIDToken = liff.getDecodedIDToken().email
-    console.log(pictureUrl);
     if (pictureUrl == undefined) {
         pictureUrl = ''
     }
@@ -21,7 +20,6 @@ async function getUserProfile() {
             page_view: 'index.html'
         }),
         success: function (data) {
-            console.log(data);
 
         }
     })
