@@ -43,6 +43,7 @@ main()
 
 
 
+
 new Vue({
     el: '#app_vue',
     data() {
@@ -338,7 +339,12 @@ function get_tracking() {
             lng: lng
         }),
         success: function (res) {
-            console.log(res);
+            var json_track = JSON.parse(res)
+            console.log(json_track);
+
+
+
+
         }
     })
 
