@@ -1,6 +1,6 @@
 let userId;
 $(document).ready(async function () {
-    await liff.init({ liffId: "1653987548-xZ43K5vd" })
+    await liff.init({ liffId: "1653984157-Yn4O7eAO" })
     // const profile = await liff.getProfile();
     // userid = profile.userId;
     await loadMap();
