@@ -1,23 +1,3 @@
-async function main() {
-    liff.ready.then(() => {
-        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({ liffId: "1653981898-q0jEx1on" })
-}
-main()
-
-async function getUserProfile() {
-    const profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    decodedIDToken = liff.getDecodedIDToken().email
-}
 
 
 
