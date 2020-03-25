@@ -1,3 +1,29 @@
+async function main() {
+    liff.ready.then(() => {
+        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-q0jEx1on" })
+}
+main()
+
+async function getUserProfile() {
+    const profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+}
+
+
+
+
+
+
 new Vue({
     el: '#app_vue',
     data() {
@@ -117,6 +143,35 @@ new Vue({
                     if (data.length != 0) {
                         document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในรัศมีในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือผู้ติดเชื้อโควิด-19 </div>'
                     }
+
+
+
+
+
+
+
+                    // $.ajax({
+                    //     url: ' ',
+                    //     method: 'post',
+                    //     data: ({
+                    //         province: province,
+                    //         start_date: start_date,
+                    //         end_date: end_date
+                    //     }),
+                    //     success: function (data) {
+
+                    //     }, error: function () {
+                    //         console.log('error  data!');
+                    //     }
+                    // })
+
+
+
+
+
+
+
+
 
                 }
 
