@@ -34,7 +34,7 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653981898-q0jEx1on" })
+    await liff.init({ liffId: "1653981898-ZNBANLd7" })
 }
 main()
 
@@ -326,6 +326,9 @@ function get_tracking() {
     var lat = test_latlng[1]
     var lng = test_latlng[0]
 
+
+
+
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=tracking',
         method: 'post',
@@ -341,7 +344,7 @@ function get_tracking() {
             var json_track = JSON.parse(res)
 
             var trac_table = ''
-            var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
+            var p_t_l = []
             for (var i = 0; i < json_track.features.length; i++) {
                 p_t_l.push(
                     [
@@ -361,6 +364,10 @@ function get_tracking() {
             document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }
     })
+
+
+
+
 
 }
 

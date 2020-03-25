@@ -359,6 +359,11 @@ function get_tracking() {
 
             map.fitBounds(line_track.getBounds())
             document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
+        }, error: function () {
+            document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+            set_map.clearLayers()
+            line_track.clearLayers()
+            map.locate();
         }
     })
 
