@@ -19,7 +19,11 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
     L.geoJson(data, {
 
         pointToLayer: function (feature, latlng) {
-
+            if (feature.properties.type_request == 'โรงพยาบาล') {
+                var icon = hospital_icon
+            } else {
+                var icon = volunteer_icon
+            }
             var mask, gel, alcohol, food, medical_tools, medicine = ''
             if (feature.properties.mask == 'true') {
                 mask = '<li class="list-group-item">หน้ากากอนามัย</li> '
@@ -42,7 +46,7 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
 
 
             return L.marker(latlng, {
-                icon: volunteer_icon,
+                icon: icon,
             }).bindPopup('<div class="card mb-3"> <h4 class="card-header">ประเภท : ' + feature.properties.type_request + ' </h4> <div class="card-body"> <h5 class="card-title">ผู้ขอรับบริจาค : ' + feature.properties.name_request + ' </h5> <h6 class="card-subtitle text-muted">ที่อยู่สำหรับจัดส่ง : ' + feature.properties.address_request + ' </h6> </div> <div class="card-body"> <p class="card-text">รายละเอียด/เหตุผลที่ขอรับ : ' + feature.properties.details_request + ' </p> </div> สิ่งที่ขอ : <ul class="list-group list-group-flush">  ' + mask + gel + alcohol + food + medical_tools + medicine + ' </ul > <div class="card-footer text-muted">วันที่ขอ : ' + feature.properties.donate_date + ' </div> </div > ')
         }
 
@@ -126,6 +130,8 @@ function onLocationFound(e) {
 
     var point = turf.point(latlng);
 
+
+
     L.geoJson(point, {
         pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {
@@ -160,6 +166,10 @@ var local_icon = L.icon({
 });
 var volunteer_icon = L.icon({
     iconUrl: 'img/volunteer.png',
+    iconSize: [45, 45]
+});
+var hospital_icon = L.icon({
+    iconUrl: 'img/hospital_2.png',
     iconSize: [45, 45]
 });
 
