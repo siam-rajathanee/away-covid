@@ -12,17 +12,44 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
 document.getElementById('check_lat').innerHTML = '<button type="submit" class="btn btn-danger btn-block" disabled>กรุณาเปิดรับตำแหน่งก่อนบันทึกข้อมูล</button>'
 
 
-$.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (data) {
-    console.log(data);
 
+$.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (data) {
 
     L.geoJson(data, {
+
         pointToLayer: function (feature, latlng) {
+
+            var mask, gel, alcohol, food, medical_tools, medicine = ''
+            if (feature.properties.mask == 'true') {
+                mask = '<li class="list-group-item">หน้ากากอนามัย</li> '
+            } else { mask = '' }
+            if (feature.properties.gel == 'true') {
+                gel = '<li class="list-group-item">เจลล้างมือ</li> '
+            } else { gel = '' }
+            if (feature.properties.alcohol == 'true') {
+                alcohol = '<li class="list-group-item">แอลกอฮอล์</li> '
+            } else { alcohol = '' }
+            if (feature.properties.food == 'true') {
+                food = '<li class="list-group-item">อาหารแห้ง / ของใช้</li> '
+            } else { food = '' }
+            if (feature.properties.medical_tools == 'true') {
+                medical_tools = '<li class="list-group-item">เครื่องมือทางการแพทย์</li> '
+            } else { medical_tools = '' }
+            if (feature.properties.medicine == 'true') {
+                medicine = '<li class="list-group-item">ยารักษาโรค</li> '
+            } else { medicine = '' }
+
+
             return L.marker(latlng, {
                 icon: volunteer_icon,
-            });
+            }).bindPopup('<div class="card mb-3"> <h4 class="card-header">ประเภท : ' + feature.properties.type_request + ' </h4> <div class="card-body"> <h5 class="card-title">ผู้ขอรับบริจาค : ' + feature.properties.name_request + ' </h5> <h6 class="card-subtitle text-muted">ที่อยู่สำหรับจัดส่ง : ' + feature.properties.address_request + ' </h6> </div> <div class="card-body"> <p class="card-text">รายละเอียด : ' + feature.properties.details_request + ' </p> </div> สิ่งที่ขอ : <ul class="list-group list-group-flush">  ' + mask + gel + alcohol + food + medical_tools + medicine + ' </ul > <div class="card-footer text-muted">วันที่ขอ : ' + feature.properties.donate_date + ' </div> </div > ')
         }
-    }).addTo(map)
+
+    }
+    ).addTo(map)
+
+
+
 
     var M_t1 = ''
     var M_t2 = ''

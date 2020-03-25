@@ -105,8 +105,6 @@ function loadData() {
             const iconMarker = L.icon({
                 iconUrl: icon,
                 iconSize: [50, 50],
-                // iconAnchor: [12, 37],
-                // popupAnchor: [5, -36]
             });
 
             var a = 0;
