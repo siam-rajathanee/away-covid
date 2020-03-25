@@ -1,7 +1,6 @@
 $(document).ready(async function () {
     await liff.init({ liffId: "1653984157-0qam36em" })
-    await loadMap();
-    // await loadData();
+    loadMap();
 });
 
 var map = L.map('map', {
@@ -42,20 +41,13 @@ function loadMap() {
         "แผนที่ถนน": grod,
         "แผนที่ภาพถ่าย": ghyb
     }
-    var overlayMap = {
-        // "ขอบจังหวัด": pro.addTo(map)
-    }
-    // L.control.layers(baseMap, overlayMap).addTo(map);
 }
 
 var place;
 async function onLocationFound(e) {
-    // console.log(e)
     x = e.latlng.lat;
     y = e.latlng.lng;
-
     gps = await L.marker(e.latlng, { draggable: true });
-
 }
 
 function onLocationError(e) {
@@ -82,21 +74,21 @@ var lc = L.control.locate({
 
 lc.start();
 
-// copy from nui
-let covidlab = L.layerGroup().addTo(map);
 
-function loadData() {
+function checkStatus() {
+    console.log(gps._latlng)
     if (!gps._latlng) {
-        alert('กรุณารอข้อมูล gps')
+        alert('ไม่พบพิกัดของท่าน กรุณาเปิด gps แล้วลองใหม่อีกครั้ง')
     } else {
         loadData();
     }
 }
 
-
+// copy from nui
+let covidlab = L.layerGroup().addTo(map);
 function loadData() {
     $.ajax({
-        url: 'https://rti2dss.com:3200/anticov-api/labcovid',
+        url: url + '/anticov-api/labcovid',
         method: 'get',
         success: function (res) {
             const items = res.data;
@@ -107,9 +99,8 @@ function loadData() {
                 iconSize: [50, 50],
             });
 
-            var a = 0;
+
             items.forEach(item => {
-                a += 1
                 let mk = L.marker([Number(item.lat), Number(item.long)], {
                     icon: iconMarker
                 }).bindPopup(
@@ -123,13 +114,10 @@ function loadData() {
                     value: item.lat + ',' + item.long,
                     text: item.name
                 }));
-
-                console.log(a)
             });
         }
     })
 }
-
 
 
 
