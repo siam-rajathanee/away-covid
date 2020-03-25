@@ -19,7 +19,7 @@ var url = 'https://rti2dss.com:3200';
 
 function onLocationFound(e) {
 
-    var radius = 150;
+    var radius = 50;
     latlng = [e.latlng.lng, e.latlng.lat]
 
     var point = turf.point(latlng);
@@ -46,6 +46,38 @@ function onLocationFound(e) {
 
     map.fitBounds(buffereds.getBounds())
 
+
+    let covidlab = L.layerGroup().addTo(map);
+    $.getJSON("https://rti2dss.com:3200/anticov-api/labcovid", function (res) {
+        const items = res.data;
+
+        const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
+        const iconMarker = L.icon({
+            iconUrl: icon,
+            iconSize: [50, 50],
+        });
+
+        items.forEach(item => {
+            let mk = L.marker([Number(item.lat), Number(item.long)], {
+                icon: iconMarker
+            }).bindPopup(
+                '<br/><span >สถานที่: </span>' + item.name +
+                '<br/><span >ลิ้งค์: </span><a href="https://www.google.com/maps/dir/' + latlng[1] + ',' + latlng[0] + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>'
+            );
+
+            mk.addTo(covidlab);
+
+            $('#select_place').append($('<option>', {
+                value: item.lat + ',' + item.long,
+                text: item.name
+            }));
+        });
+
+    })
+
+
+
+
 }
 
 map.on('locationfound', onLocationFound);
@@ -58,33 +90,6 @@ var local_icon = L.icon({
 });
 
 
-let covidlab = L.layerGroup().addTo(map);
-$.getJSON("https://rti2dss.com:3200/anticov-api/labcovid", function (res) {
-    const items = res.data;
-
-    const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
-    const iconMarker = L.icon({
-        iconUrl: icon,
-        iconSize: [50, 50],
-    });
-
-    items.forEach(item => {
-        let mk = L.marker([Number(item.lat), Number(item.long)], {
-            icon: iconMarker
-        }).bindPopup(
-            '<br/><span >สถานที่: </span>' + item.name +
-            '<br/><span >ลิ้งค์: </span><a href="https://www.google.com/maps/dir/' + latlng[1] + ',' + latlng[0] + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>'
-        );
-
-        mk.addTo(covidlab);
-
-        $('#select_place').append($('<option>', {
-            value: item.lat + ',' + item.long,
-            text: item.name
-        }));
-    });
-
-})
 
 
 
