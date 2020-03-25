@@ -207,7 +207,11 @@
                                 </div>
                             </div>
                         </fieldset>
-
+                        <img id="pictureUrl">
+                        <p id="userId"><b>userId:</b> </p>
+                        <p id="displayName"><b>displayName:</b> </p>
+                        <p id="statusMessage"><b>statusMessage:</b> </p>
+                        <p id="decodedIDToken"><b>email:</b> </p>
                         <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
                     </form>
                 </div>
@@ -237,12 +241,20 @@
         }
         main()
 
+        // async function getUserProfile() {
+        //     const profile = await liff.getProfile()
+        //     pictureUrl = profile.pictureUrl
+        //     userId = profile.userId
+        //     displayName = profile.displayName
+        //     decodedIDToken = liff.getDecodedIDToken().email
+        // }
         async function getUserProfile() {
             const profile = await liff.getProfile()
-            pictureUrl = profile.pictureUrl
-            userId = profile.userId
-            displayName = profile.displayName
-            decodedIDToken = liff.getDecodedIDToken().email
+            document.getElementById("pictureUrl").src = profile.pictureUrl
+            document.getElementById("userId").append(profile.userId)
+            document.getElementById("statusMessage").append(profile.statusMessage)
+            document.getElementById("displayName").append(profile.displayName)
+            document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
         }
 
     </script>
