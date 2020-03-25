@@ -5,7 +5,7 @@ async function getUserProfile() {
     userId = profile.userId
     displayName = profile.displayName
     decodedIDToken = liff.getDecodedIDToken().email
-
+    console.log(pictureUrl);
 
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
@@ -17,6 +17,8 @@ async function getUserProfile() {
             decodedIDToken: decodedIDToken
         }),
         success: function (data) {
+            console.log(data);
+
         }
     })
 
