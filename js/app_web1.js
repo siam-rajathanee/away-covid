@@ -143,6 +143,7 @@ new Vue({
                         document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในรัศมีในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือผู้ติดเชื้อโควิด-19 </div>'
                     }
 
+                    console.log(pictureUrl);
 
 
                     $.ajax({
