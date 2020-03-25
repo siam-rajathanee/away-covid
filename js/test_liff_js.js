@@ -121,7 +121,7 @@ new Vue({
 
 
                     document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" data-toggle="modal" data-target="#tracking_view" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก <br> ตำแหน่งปัจจุบัน <br> </button>'
+                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก <br> ตำแหน่งปัจจุบัน <br> </button>'
 
 
                     var radius = 5;
@@ -316,6 +316,7 @@ $("#form_query").submit(function (event) {
 function get_loca() {
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
     set_map.clearLayers()
+    line_track.clearLayers()
     map.locate();
 }
 
@@ -355,14 +356,12 @@ function get_tracking() {
                     + json_track.features[i].properties.date_view + ' </td></tr > '
             }
             var line = turf.lineString(p_t_l);
-            var line_track = L.geoJson(line).addTo(map)
+            line_track = L.geoJson(line).addTo(map)
 
             console.log(p_t_l);
             console.log(line);
             map.fitBounds(line_track.getBounds())
-
-
-
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i> กลับหน้าแผนที่ </button>'
         }
     })
 
