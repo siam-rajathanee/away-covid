@@ -8,7 +8,7 @@ async function getUserProfile() {
 
 
     $.ajax({
-        url: 'https://rti2dss.com/mapedia.serv/login_user.php?type=login',
+        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
