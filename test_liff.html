@@ -1,42 +1,192 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
-    <title>My LIFF App</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>AWAY COVID 19 </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style_web1.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <link rel="stylesheet" href="https://brandonxiang.github.io/leaflet.marker.highlight/index.css">
+
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+
+
+
 </head>
 
 <body>
-    <p id="os"><b>OS:</b> </p>
-    <p id="language"><b>Language:</b> </p>
-    <p id="version"><b>Version:</b> </p>
-    <p id="isInClient"><b>isInClient:</b> </p>
-    <p id="accessToken"><b>AccessToken:</b> </p>
-    <img id="pictureUrl">
-    <p id="userId"><b>userId:</b> </p>
-    <p id="displayName"><b>displayName:</b> </p>
-    <p id="statusMessage"><b>statusMessage:</b> </p>
-    <p id="decodedIDToken"><b>email:</b> </p>
-    <p id="type"><b>type:</b> </p>
-    <p id="viewType"><b>viewType:</b> </p>
-    <p id="utouId"><b>utouId:</b> </p>
-    <p id="roomId"><b>roomId:</b> </p>
-    <p id="groupId"><b>groupId:</b> </p>
-    <p id="friendship"><b>isFriendship:</b> </p>
-    <p id="scanCode"><b>Code:</b> </p>
-    <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
-    <p id="universalLink1"><b>Universal Link:</b> </p>
-    <p id="universalLink2"><b>Universal Link with Query params:</b> </p>
-    <p><a href="liff/path/?param=9">Link to Path</a></p>
 
-    <button id="btnMsg" onclick="sendMsg()">Send Message</button>
-    <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
-    <button onclick="openWindow()">Open Window</button>
-    <button id="btnScanCode" onclick="scanCode()">Scan Code</button>
-    <button id="btnLogOut" onclick="logOut()">Log Out</button>
-    <button id="btnClose" onclick="closed()">Close</button>
+
+    <!-- 
+    <div class="card mb-3">
+        <h3 class="card-header">'+f.properties.place_name+'</h3>
+        <div class="card-body">
+            <h6 class="card-subtitle text-muted">พื้นที่ ต.'+f.properties.tb_th+' อ.'+f.properties.ap_th+'
+                จ.'+f.properties.pro_th+'</h6>
+            <h5 class="card-title">จำนวนผู้ป่วย : '+f.properties.case_numbe+' ราย</h5>
+            <p class="card-title">สถานะ : '+f.properties.status_pat+' </p>
+            <p class="card-title">แหล่งข่าว : '+f.properties.ref_source+' </p>
+        </div>
+
+        <div class="card-body">
+            <p class="card-text">'+f.properties.descriptio+'</p>
+        </div>
+        <div class="card-body">
+            <a href="'+f.properties.link_news+'" class="card-link" targer="_blank">
+                Link ข่าวอ้างอิง
+            </a>
+        </div>
+        <div class="card-footer text-muted">วันที่ลงข่าว : '+f.properties.date_start+'</div>
+    </div>
+ -->
+
+
+
+
+    <div id="alert_warning"></div>
+    <div id="loading"></div>
+
+    <div id="map"></div>
+
+
+    <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
+        <button type="button" class="btn btn-default" onclick="get_loca()">
+            <i class="fa fa-compass" aria-hidden="true"></i> ตำแหน่ง
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
+            <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#list">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> ผู้ป่วยใกล้เคียง
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#setting">
+            <i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่า
+        </button>
+    </div>
+
+
+
+
+    <!-- search -->
+    <div id="search" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานที่</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form_query">
+                        <fieldset>
+                            <div class="form-group">
+                                <select name="place" class="form-control" id="select_place">
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-warning btn-block">ค้นหา</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- list -->
+    <div id="list" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> <i class="fa fa-list-alt" aria-hidden="true"></i> รายชื่อสถานที่ใกล้เคียง
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table_view">
+                        <thead>
+                            <tr>
+                                <th>ชื่อสถานที่</th>
+                                <th>จำนวนผู้ป่วย</th>
+                                <th>สถานะ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel_data">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- setting -->
+    <div id="setting" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่าแผนที่</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="os"><b>OS:</b> </p>
+                    <p id="language"><b>Language:</b> </p>
+                    <p id="version"><b>Version:</b> </p>
+                    <p id="isInClient"><b>isInClient:</b> </p>
+                    <p id="accessToken"><b>AccessToken:</b> </p>
+                    <img id="pictureUrl">
+                    <p id="userId"><b>userId:</b> </p>
+                    <p id="displayName"><b>displayName:</b> </p>
+                    <p id="statusMessage"><b>statusMessage:</b> </p>
+                    <p id="decodedIDToken"><b>email:</b> </p>
+                    <p id="type"><b>type:</b> </p>
+                    <p id="viewType"><b>viewType:</b> </p>
+                    <p id="utouId"><b>utouId:</b> </p>
+                    <p id="roomId"><b>roomId:</b> </p>
+                    <p id="groupId"><b>groupId:</b> </p>
+                    <p id="friendship"><b>isFriendship:</b> </p>
+                    <p id="scanCode"><b>Code:</b> </p>
+                    <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
+                    <p id="universalLink1"><b>Universal Link:</b> </p>
+                    <p id="universalLink2"><b>Universal Link with Query params:</b> </p>
+                    <p><a href="liff/path/?param=9">Link to Path</a></p>
+
+                    <button id="btnMsg" onclick="sendMsg()">Send Message</button>
+                    <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
+                    <button onclick="openWindow()">Open Window</button>
+                    <button id="btnScanCode" onclick="scanCode()">Scan Code</button>
+                    <button id="btnLogOut" onclick="logOut()">Log Out</button>
+                    <button id="btnClose" onclick="closed()">Close</button>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/app_web1.js"></script>
+    <script src="https://brandonxiang.github.io/leaflet.marker.highlight/index.js#"></script>
 
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script>
