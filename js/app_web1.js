@@ -187,7 +187,6 @@ var map2 = L.map('map2'
     , { attributionControl: false }
 ).setView([13.751569, 100.501634], 12);
 
-document.getElementById('tracking').innerHTML = ''
 
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -221,6 +220,7 @@ points_case = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+document.getElementById('tracking').innerHTML = ''
 
 var case_confirm = L.icon({
     iconUrl: 'img/confirm_case.png',
@@ -315,6 +315,7 @@ $("#form_query").submit(function (event) {
 
 function get_loca() {
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+    document.getElementById('tracking').innerHTML = ''
     set_map.clearLayers()
     line_track.clearLayers()
     map.locate();

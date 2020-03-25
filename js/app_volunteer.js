@@ -193,14 +193,13 @@ $("#form_query").submit(function (event) {
     var check_list = event.target.check_list.checked
     var type_request = event.target.type_request.value
 
-
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/add_volunteer.php',
         method: 'post',
         data: ({
             name_request: name_request,
             address_request: address_request,
-            detail_request: detail_request,
+            details_request: detail_request,
             mask: mask,
             gel: gel,
             alcohol: alcohol,
