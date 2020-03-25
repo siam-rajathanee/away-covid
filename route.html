@@ -16,22 +16,32 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
   <link rel="stylesheet" href="route.css">
+  <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+  <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <div class="p-0">
+
+  <div class="card">
     <div id="map"></div>
-  </div>
-  <div class="container-fluid">
-    <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
-      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search" onclick="checkStatus()">
-        <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
-      </button>
+    <div class="container-fluid">
+      <div class="footer " role="group" aria-label="...">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
+          <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
+          <i class="fa fa-search" aria-hidden="true"></i> สถานพยาบาลใกล้ที่สุด
+        </button>
+      </div>
+
     </div>
 
   </div>
-  <p></p>
+
+
+
+
   <!-- search -->
   <div id="search" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -55,7 +65,9 @@
 
     </div>
   </div>
-  </div>
+
+
+
 </body>
 <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 <!-- jQuery library -->
