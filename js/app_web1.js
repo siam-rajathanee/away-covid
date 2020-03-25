@@ -343,9 +343,11 @@ function get_tracking() {
             var trac_table = ''
             var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
             for (var i = 0; i < json_track.features.length; i++) {
-                p_t_l.push([json_track.features[i].properties.lng, json_track.features[i].properties.lat])
+                p_t_l.push([parseInt(json_track.features[i].properties.lng), parseInt(json_track.features[i].properties.lat)])
 
-                trac_table += ' <tr> <td>  ' + json_track.features[i].properties.lat + ' , ' + json_track.features[i].properties.lng + '  </td>  < td > ' + json_track.features[i].properties.date_view + ' </td ></tr > '
+                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
+                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
+                    + json_track.features[i].properties.date_view + ' </td></tr > '
             }
             var line = turf.lineString(p_t_l);
             var line_track = L.geoJson(line).addTo(map2)
