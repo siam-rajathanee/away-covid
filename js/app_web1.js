@@ -387,8 +387,11 @@ $("#form_setting").submit(function (event) {
 
 async function getUserProfile() {
     const profile = await liff.getProfile()
-    console.log(profile);
-
+    document.getElementById("pictureUrl").src = profile.pictureUrl
+    document.getElementById("userId").append(profile.userId)
+    document.getElementById("statusMessage").append(profile.statusMessage)
+    document.getElementById("displayName").append(profile.displayName)
+    document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
 }
 
 
