@@ -1,5 +1,27 @@
 
+async function getUserProfile() {
+    profile = await liff.getProfile()
 
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+}
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getEnvironment()
+            getUserProfile()
+            getContext()
+            getFriendship()
+            createUniversalLink()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-q0jEx1on" })
+}
+main()
 
 
 
@@ -126,32 +148,21 @@ new Vue({
 
 
 
+                    $.ajax({
+                        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php',
+                        method: 'post',
+                        data: ({
+                            pictureUrl: pictureUrl,
+                            userId: userId,
+                            displayName: displayName,
+                            decodedIDToken: decodedIDToken,
+                            lat: e.latlng.lat,
+                            lng: e.latlng.lng
+                        }),
+                        success: function (data) {
 
-
-
-
-                    // $.ajax({
-                    //     url: ' ',
-                    //     method: 'post',
-                    //     data: ({
-                    //         province: province,
-                    //         start_date: start_date,
-                    //         end_date: end_date
-                    //     }),
-                    //     success: function (data) {
-
-                    //     }, error: function () {
-                    //         console.log('error  data!');
-                    //     }
-                    // })
-
-
-
-
-
-
-
-
+                        }
+                    })
 
                 }
 
