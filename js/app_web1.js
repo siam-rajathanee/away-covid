@@ -10,11 +10,8 @@ async function getUserProfile() {
 async function main() {
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
-            getEnvironment()
             getUserProfile()
-            getContext()
-            getFriendship()
-            createUniversalLink()
+
         } else {
             liff.login()
         }
@@ -160,6 +157,7 @@ new Vue({
                             lng: e.latlng.lng
                         }),
                         success: function (data) {
+                            console.log(data);
 
                         }
                     })
