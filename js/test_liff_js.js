@@ -34,7 +34,7 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653981898-q0jEx1on" })
+    await liff.init({ liffId: "1653981898-ZNBANLd7" })
 }
 main()
 
@@ -320,8 +320,11 @@ function get_loca() {
 }
 
 function get_tracking() {
+
+    console.log(test_latlng);
     var lat = test_latlng[1]
     var lng = test_latlng[0]
+
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=tracking',
         method: 'post',
@@ -334,25 +337,27 @@ function get_tracking() {
             lng: lng
         }),
         success: function (res) {
-            // var json_track = JSON.parse(res)
-            // console.log(json_track);
+            var json_track = JSON.parse(res)
+            console.log(json_track);
 
-            // var trac_table = ''
-            // var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
-            // for (var i = 0; i < json_track.features.length; i++) {
-            //     p_t_l.push([parseInt(json_track.features[i].properties.lng), parseInt(json_track.features[i].properties.lat)])
+            var trac_table = ''
+            var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
+            for (var i = 0; i < json_track.features.length; i++) {
+                p_t_l.push(
+                    [json_track.features[i].properties.lng.toFixed(6), json_track.features[i].properties.lat.toFixed(6)]
+                )
 
-            //     trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
-            //         + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
-            //         + json_track.features[i].properties.date_view + ' </td></tr > '
-            // }
-            // var line = turf.lineString(p_t_l);
-            // var line_track = L.geoJson(line).addTo(map2)
-            // document.getElementById('tracking_table').innerHTML = trac_table
+                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
+                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
+                    + json_track.features[i].properties.date_view + ' </td></tr > '
+            }
+            var line = turf.lineString(p_t_l);
+            var line_track = L.geoJson(line).addTo(map)
+            document.getElementById('tracking_table').innerHTML = trac_table
 
-            // console.log(p_t_l);
-            // console.log(line);
-            // map2.fitBounds(line_track.getBounds())
+            console.log(p_t_l);
+            console.log(line);
+            map.fitBounds(line_track.getBounds())
 
 
 
