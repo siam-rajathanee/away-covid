@@ -342,8 +342,13 @@ function get_tracking() {
             var json_track = JSON.parse(res)
             console.log(json_track);
 
-
-
+            var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
+            for (var i = 0; i < json_track.features.length; i++) {
+                p_t_l.push([json_track.features[i].properties.lng, json_track.features[i].properties.lat])
+            }
+            var line = turf.lineString(p_t_l);
+            var line_track = L.geoJson(line).addTo(map2)
+            map2.fitBounds(line_track.getBounds())
 
         }
     })
