@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ลงทะเบียนร้านค้า</title>
+
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mitr&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&display=swap">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+  <link rel="stylesheet" href="store.css">
+</head>
+
+<body>
+
+  <div class="p-0">
+    <div class="map" id="map"></div>
+  </div>
+  <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
+    <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#register">
+      <i class="fa fa-address-card" aria-hidden="true"></i> ลงทะเบียนร้านค้า
+    </button>
+    <!-- <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#search">
+      <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
+    </button> -->
+  </div>
+
+  <div class="modal fade" id="register">]
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">ลงทะเบียนร้านที่มีเวชภัณฑ์</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          ข้อมูลร้านค้า
+          <input class="form-control form-control" id="storeName" type="text" placeholder="ชื่อร้าน" required><br>
+          <input class="form-control form-control" id="storeId" type="text" placeholder="เลขทะเบียนการค้า" required><br>
+          <input class="form-control form-control" id="facebook" type="text" placeholder="facebook" required><br>
+          <input class="form-control form-control" id="lineid" type="text" placeholder="Line" required><br>
+          <input class="form-control form-control" id="tel" type="text" placeholder="โทรศัพท์" required><br>
+          <hr>
+          หน้ากากที่พร้อมขาย
+          <select class="form-control form-control" id="maskVol" required>
+            <option>จำนวนหน้ากาก (ชิ้น)</option>
+            <option value="ของหมด">ของหมด</option>
+            <option value="0-50 ชิ้น">1-50 ชิ้น</option>
+            <option value="50-100 ชิ้น">50-100 ชิ้น</option>
+            <option value="100-500 ชิ้น">100-500 ชิ้น</option>
+            <option value="มากกว่า 500 ชิ้น">มากกว่า 500 ชิ้น</option>
+          </select><br>
+          <input class="form-control form-control" id="maskLowprice" type="number" placeholder="ราคาต่ำสุด"
+            required><br>
+          <input class="form-control form-control" id="maskHighprice" type="number" placeholder="ราคสูงสุด"
+            required><br>
+          <hr>
+          เจลล้างมือที่พร้อมขาย
+          <select class="form-control form-control" id="gelVol" required>
+            <option>จำนวนเจลล้างมือ (ขวด)</option>
+            <option value="ของหมด">ของหมด</option>
+            <option value="0-50 ขวด">0-50 ขวด</option>
+            <option value="50-100 ขวด">50-100 ขวด</option>
+            <option value="100-500 ขวด">100-500 ขวด</option>
+            <option value="มากกว่า 500 ขวด">มากกว่า 500 ขวด</option>
+          </select><br>
+          <input class="form-control form-control" id="gelLowprice" type="number" placeholder="ราคาต่ำสุด" required><br>
+          <input class="form-control form-control" id="gelHighprice" type="number" placeholder="ราคสูงสุด" required><br>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="saveStore()">บันทึก</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="search">]
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          Modal body..
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+<script src="../upload/infected_prov.js"></script>
+<script src="store.js"></script>
+
+</html>
