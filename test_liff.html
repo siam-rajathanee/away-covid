@@ -28,30 +28,43 @@
 
 <body>
 
+    <div class="text-right" id="tracking">
 
-    <!-- 
-    <div class="card mb-3">
-        <h3 class="card-header">'+f.properties.place_name+'</h3>
-        <div class="card-body">
-            <h6 class="card-subtitle text-muted">พื้นที่ ต.'+f.properties.tb_th+' อ.'+f.properties.ap_th+'
-                จ.'+f.properties.pro_th+'</h6>
-            <h5 class="card-title">จำนวนผู้ป่วย : '+f.properties.case_numbe+' ราย</h5>
-            <p class="card-title">สถานะ : '+f.properties.status_pat+' </p>
-            <p class="card-title">แหล่งข่าว : '+f.properties.ref_source+' </p>
-        </div>
-
-        <div class="card-body">
-            <p class="card-text">'+f.properties.descriptio+'</p>
-        </div>
-        <div class="card-body">
-            <a href="'+f.properties.link_news+'" class="card-link" targer="_blank">
-                Link ข่าวอ้างอิง
-            </a>
-        </div>
-        <div class="card-footer text-muted">วันที่ลงข่าว : '+f.properties.date_start+'</div>
     </div>
- -->
 
+
+    <div id="tracking_view" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ประวัติการบันทึกตำแหน่ง</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="map2"></div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ตำแหน่ง</th>
+                                <th>วันที่</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>00,00</td>
+                                <td>00.00.00</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -75,7 +88,6 @@
             <i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่า
         </button>
     </div>
-
 
 
 
@@ -147,10 +159,68 @@
                     <h4 class="modal-title"><i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่าแผนที่</h4>
                 </div>
                 <div class="modal-body">
-
-
-
-
+                    <form id="form_setting">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="exampleSelect1">กำหนดรัศมี (km)</label>
+                                <select class="form-control" id="exampleSelect1" name="radius">
+                                    <option value="1">1 km</option>
+                                    <option value="5" selected>5 km</option>
+                                    <option value="10">10 km</option>
+                                    <option value="30">30 km</option>
+                                    <option value="60">60 km</option>
+                                    <option value="90">90 km</option>
+                                    <option value="120">120 km</option>
+                                    <option value="150">150 km</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="exampleSelect1">ช่วงเวลาแสดงข้อมูล</label>
+                                <select class="form-control" id="exampleSelect1" name="date">
+                                    <option value="1">วันนี้</option>
+                                    <option value="3">ย้อนหลัง 3 วัน</option>
+                                    <option value="5">ย้อนหลัง 5 วัน</option>
+                                    <option value="7" selected>ย้อนหลัง 7 วัน</option>
+                                    <option value="14">ย้อนหลัง 14 วัน</option>
+                                    <option value="21">ย้อนหลัง 21 วัน</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <label for="exampleSelect1">เลือก Basemap</label>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <label>
+                                        <input type="radio" name="basemap" value="base1" checked>
+                                        <img src="img/base1.png" width="80%">
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <label>
+                                        <input type="radio" name="basemap" value="base2">
+                                        <img src="img/base2.png" width="80%">
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <label>
+                                        <input type="radio" name="basemap" value="base3">
+                                        <img src="img/base3.png" width="80%">
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <label>
+                                        <input type="radio" name="basemap" value="base4">
+                                        <img src="img/base4.png" width="80%">
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
@@ -160,10 +230,10 @@
         </div>
     </div>
 
+
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script src="js/app_web1.js"></script>
     <script src="https://brandonxiang.github.io/leaflet.marker.highlight/index.js#"></script>
-
 
 </body>
 

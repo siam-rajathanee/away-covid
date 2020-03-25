@@ -316,7 +316,6 @@ $("#form_query").submit(function (event) {
 
 function get_loca() {
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-
     set_map.clearLayers()
     map.locate();
 }
@@ -338,8 +337,8 @@ function get_tracking() {
             lat: lat,
             lng: lng
         }),
-        success: function (data) {
-            console.log(data);
+        success: function (res) {
+            console.log(res);
         }
     })
 
