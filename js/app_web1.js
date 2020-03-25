@@ -341,7 +341,14 @@ function get_tracking() {
             var json_track = JSON.parse(res)
 
             var trac_table = ''
-            var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
+            var p_t_l = [[
+                Number(json_track.features[0].properties.lng),
+                Number(json_track.features[0].properties.lat)
+            ], [
+                Number(json_track.features[0].properties.lng),
+                Number(json_track.features[0].properties.lat)
+            ]]
+
             for (var i = 0; i < json_track.features.length; i++) {
                 p_t_l.push(
                     [
@@ -354,16 +361,16 @@ function get_tracking() {
                     + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
                     + json_track.features[i].properties.date_view + ' </td></tr > '
             }
+            console.log(p_t_l);
+
             var line = turf.lineString(p_t_l);
+            console.log(p_t_l);
             line_track = L.geoJson(line).addTo(map)
 
             map.fitBounds(line_track.getBounds())
             document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
-        }, error: function () {
-            document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-            set_map.clearLayers()
-            line_track.clearLayers()
-            map.locate();
+        }, error: function (e) {
+            console.log(e);
         }
     })
 
