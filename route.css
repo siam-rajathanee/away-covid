@@ -139,3 +139,31 @@ body{
 .progress-bar { text-align: left; }
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
+
+
+
+
+.loader {
+  position: fixed;
+  margin-top: 43vh;
+  margin-left: 46%;
+  z-index: 5;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #084268;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

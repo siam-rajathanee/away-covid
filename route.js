@@ -15,6 +15,9 @@ var urlParams = new URLSearchParams(window.location.search);
 var marker, gps, dataurl, tam, amp, pro, x, y;
 var url = 'https://rti2dss.com:3200';
 
+document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-warning " data-toggle="modal" data-target="#search" disabled> <i class="fa fa-map-marker" aria-hidden="true"></i> กรุณาเปิด GPS ก่อนใช้งานเส้นทาง </button>'
+
+
 
 
 function onLocationFound(e) {
@@ -75,7 +78,7 @@ function onLocationFound(e) {
 
     })
 
-
+    document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
 
 
 }
