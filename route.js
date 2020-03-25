@@ -18,8 +18,6 @@ var url = 'https://rti2dss.com:3200';
 document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-warning " data-toggle="modal" data-target="#search" disabled> <i class="fa fa-map-marker" aria-hidden="true"></i> กรุณาเปิด GPS ก่อนใช้งานเส้นทาง </button>'
 
 
-
-
 function onLocationFound(e) {
 
     var radius = 50;
