@@ -344,7 +344,10 @@ function get_tracking() {
             var p_t_l = [] // [[-83, 30], [-84, 36], [-78, 41]]
             for (var i = 0; i < json_track.features.length; i++) {
                 p_t_l.push(
-                    [json_track.features[i].properties.lng.toFixed(6), json_track.features[i].properties.lat.toFixed(6)]
+                    [
+                        Number(json_track.features[i].properties.lng),
+                        Number(json_track.features[i].properties.lat)
+                    ]
                 )
 
                 trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
