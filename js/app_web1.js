@@ -160,6 +160,7 @@ new Vue({
                             lng: e.latlng.lng
                         }),
                         success: function (data) {
+                            console.log(data);
 
                         }
                     })
