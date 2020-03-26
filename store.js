@@ -18,8 +18,8 @@ let map = L.map('map', {
 
 var gps;
 var isNew = true;
-// var url = 'https://rti2dss.com:3200';
-var url = 'http://localhost:3200';
+var url = 'https://rti2dss.com:3200';
+// var url = 'http://localhost:3200';
 
 function loadMap() {
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -162,7 +162,7 @@ function selectStore(km) {
         data.forEach(i => {
             console.log(i)
             const $newStore = $('<div class="card"><div class="card-body">ร้าน: ' + i.storename + ' มีหน้ากาก:' + i.maskvol + ' มีเจลล้างมือ:' + i.gelvol + '&nbsp;&nbsp;' +
-                '&nbsp;<a class="btn btn-outline-info" onclick="zoomStore(\'' + i.lat + ',' + i.lng + '\')" >ตำแหน่งร้าน</a>' +
+                '<br><a class="btn btn-outline-info" onclick="zoomStore(\'' + i.lat + ',' + i.lng + '\')" >ตำแหน่งร้าน</a>' +
                 '&nbsp;<a class="btn btn-outline-info" href="https://www.google.com/maps/dir/' + gps._latlng.lat + ',' + gps._latlng.lng + '/' + Number(i.lat) + ',' + Number(i.lng) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>' +
                 '</div></div>');
             $(".store-list").append($newStore);
