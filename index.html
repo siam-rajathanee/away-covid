@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
 </head>
@@ -129,7 +130,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title"><i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่าแผนที่</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body table_view">
                     <form id="form_setting">
                         <fieldset>
                             <div class="form-group">
@@ -157,6 +158,21 @@
                                     <option value="14">ย้อนหลัง 14 วัน</option>
                                     <option value="21">ย้อนหลัง 21 วัน</option>
                                 </select>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <label for="exampleSelect1">การแสดงชั้นข้อมูล</label>
+                            <div class="form-group">
+                                <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_1" checked
+                                    data-toggle="toggle" id="toggle-1">
+                                <img src="img/confirm_case.png" width="30px"> <small class="prompt">
+                                    จุดพื้นที่/ตำแหน่งระบาด </small>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_2" checked
+                                    data-toggle="toggle" id="toggle-2">
+                                <img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง
+                                </small>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -190,6 +206,9 @@
                                 </div>
                             </div>
                         </fieldset>
+
+
+
                         <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
                     </form>
                 </div>

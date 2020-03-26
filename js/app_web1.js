@@ -142,7 +142,6 @@ new Vue({
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
-
                     L.geoJson(point, {
                         pointToLayer: function (feature, latlng) {
                             return L.marker(latlng, {
@@ -175,7 +174,8 @@ new Vue({
                     var data = ptsWithin.features
                     var table = ''
                     for (var i = 0; i < data.length; i++) {
-                        table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+                        var distance = turf.distance(point, data[i], { units: 'kilometers' });
+                        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
                     }
                     document.getElementById('tabel_data').innerHTML = table
 
@@ -285,7 +285,6 @@ function get_track() {
 map.on('click', function () {
     document.getElementById('tracking').innerHTML = '<button class="btn btn-info" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
 })
-
 
 
 var local_icon = L.icon({
@@ -425,6 +424,8 @@ $("#form_setting").submit(function (event) {
     radius = event.target.radius.value
     date = event.target.date.value
     basemap = event.target.basemap.value
+    toggle_1 = event.target.toggle_1.checked
+    toggle_2 = event.target.toggle_2.checked
 
 
     if (basemap == 'base1') {
@@ -472,20 +473,18 @@ $("#form_setting").submit(function (event) {
                 layer.bindPopup(popup)
             }
 
-            L.geoJson(place_announce,
-                {
-                    pointToLayer: function (f, latlng) {
-                        return L.marker(latlng, {
-                            icon: case_place_announce,
-                            highlight: "temporary"
-                        });
-                    },
-                    onEachFeature: onEachFeature_place_announce
-                }).addTo(points_case)
 
+            var geojson_announce = L.geoJson(place_announce, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        highlight: "temporary"
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            })
 
-
-            L.geoJson(case_point, {
+            var geojson_case = L.geoJson(case_point, {
                 pointToLayer: function (f, latlng) {
                     if (f.properties.status_pat == 'รักษาหายแล้ว') {
                         return L.marker(latlng, {
@@ -510,12 +509,15 @@ $("#form_setting").submit(function (event) {
                     }
                 },
                 onEachFeature: onEachFeature
-            }).addTo(points_case)
+            })
 
-
-
+            if (toggle_1 == true) {
+                geojson_case.addTo(points_case)
+            }
+            if (toggle_2 == true) {
+                geojson_announce.addTo(points_case)
+            }
             var point = turf.point(test_latlng);
-
             L.geoJson(point, {
                 pointToLayer: function (feature, latlng) {
                     return L.marker(latlng, {
@@ -545,7 +547,8 @@ $("#form_setting").submit(function (event) {
 
             var table = ''
             for (var i = 0; i < data.length; i++) {
-                table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td> <td> <i class="fa fa-search"></i> </td> </tr> '
+                var distance = turf.distance(point, data[i], { units: 'kilometers' });
+                table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
             }
             document.getElementById('tabel_data').innerHTML = table
 
