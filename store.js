@@ -48,7 +48,7 @@ $(document).ready(async function () {
 
     const profile = await liff.getProfile();
     userid = await profile.userId;
-    alert('2: ' + userid)
+    // alert('2: ' + userid)
     await loadMap();
     await getStore();
 });
