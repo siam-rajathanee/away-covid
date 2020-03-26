@@ -23,64 +23,102 @@
   <div class="p-0">
     <div class="map" id="map"></div>
   </div>
-  <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
-    <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#register">
-      <i class="fa fa-address-card" aria-hidden="true"></i> ลงทะเบียนร้านค้า
-    </button>
-    <!-- <button type="button" class="btn  btn-lg" data-toggle="modal" data-target="#search">
-      <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
-    </button> -->
+
+  <div class="container-fluid">
+    <div class="footer btn-group special mt-1" role="group" aria-label="..." id="app_vue">
+      <button type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#register">
+        <i class="fa fa-address-card" aria-hidden="true"></i> ลงทะเบียนร้านค้า
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#search">
+        <i class="fa fa-search" aria-hidden="true"></i> ค้นหา
+      </button>
+    </div>
   </div>
 
-  <div class="modal fade" id="register">]
+  <div class="modal fade" style="font-size: ;" id="register">]
     <div class="modal-dialog">
       <div class="modal-content">
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">ลงทะเบียนร้านที่มีเวชภัณฑ์</h4>
+          <h4>ลงทะเบียนข้อมูลร้านค้า</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
-          ข้อมูลร้านค้า
-          <input class="form-control form-control" id="storeName" type="text" placeholder="ชื่อร้าน" required><br>
-          <input class="form-control form-control" id="storeId" type="text" placeholder="เลขทะเบียนการค้า" required><br>
-          <input class="form-control form-control" id="facebook" type="text" placeholder="facebook" required><br>
-          <input class="form-control form-control" id="lineid" type="text" placeholder="Line" required><br>
-          <input class="form-control form-control" id="tel" type="text" placeholder="โทรศัพท์" required><br>
-          <hr>
-          หน้ากากที่พร้อมขาย
-          <select class="form-control form-control" id="maskVol" required>
-            <option>จำนวนหน้ากาก (ชิ้น)</option>
-            <option value="ของหมด">ของหมด</option>
-            <option value="0-50 ชิ้น">1-50 ชิ้น</option>
-            <option value="50-100 ชิ้น">50-100 ชิ้น</option>
-            <option value="100-500 ชิ้น">100-500 ชิ้น</option>
-            <option value="มากกว่า 500 ชิ้น">มากกว่า 500 ชิ้น</option>
-          </select><br>
-          <input class="form-control form-control" id="maskLowprice" type="number" placeholder="ราคาต่ำสุด"
-            required><br>
-          <input class="form-control form-control" id="maskHighprice" type="number" placeholder="ราคสูงสุด"
-            required><br>
-          <hr>
-          เจลล้างมือที่พร้อมขาย
-          <select class="form-control form-control" id="gelVol" required>
-            <option>จำนวนเจลล้างมือ (ขวด)</option>
-            <option value="ของหมด">ของหมด</option>
-            <option value="0-50 ขวด">0-50 ขวด</option>
-            <option value="50-100 ขวด">50-100 ขวด</option>
-            <option value="100-500 ขวด">100-500 ขวด</option>
-            <option value="มากกว่า 500 ขวด">มากกว่า 500 ขวด</option>
-          </select><br>
-          <input class="form-control form-control" id="gelLowprice" type="number" placeholder="ราคาต่ำสุด" required><br>
-          <input class="form-control form-control" id="gelHighprice" type="number" placeholder="ราคสูงสุด" required><br>
+          <div class="form-group">
+            <label for="storeName">ชื่อร้าน</label>
+            <input class="form-control" id="storeName" type="text" placeholder="ชื่อร้าน" value="-" required>
+          </div>
+          <div class="form-group">
+            <label for="storeId">เลขทะเบียนการค้า</label>
+            <input class="form-control" id="storeId" type="text" placeholder="เลขทะเบียนการค้า" value="-" required>
+          </div>
+          <div class="form-group">
+            <label for="facebook">facebook</label>
+            <input class="form-control" id="facebook" type="text" placeholder="facebook" value="-" required>
+          </div>
+          <div class="form-group">
+            <label for="lineid">Line</label>
+            <input class="form-control" id="lineid" type="text" placeholder="Line" value="-" required>
+          </div>
+          <div class="form-group">
+            <label for="tel">โทรศัพท์</label>
+            <input class="form-control" id="tel" type="text" placeholder="โทรศัพท์" value="-" required>
+          </div>
+
+          <div class="form-group">
+            <label for="maskVol">หน้ากากที่พร้อมขาย</label>
+            <select class="form-control" id="maskVol" required>
+              <option value="-">จำนวนหน้ากาก (ชิ้น)</option>
+              <option value="0-50 ชิ้น">1-50 ชิ้น</option>
+              <option value="50-100 ชิ้น">50-100 ชิ้น</option>
+              <option value="100-500 ชิ้น">100-500 ชิ้น</option>
+              <option value="มากกว่า 500 ชิ้น">มากกว่า 500 ชิ้น</option>
+              <option value="ของหมด/ไม่มีสินค้า">ของหมด/ไม่มีสินค้า</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="maskLowprice">ราคาต่ำสุด</label>
+            <input class="form-control" id="maskLowprice" type="number" placeholder="ราคาต่ำสุด" value="0" required>
+          </div>
+
+          <div class="form-group">
+            <label for="maskHighprice">ราคาสูงสุด</label>
+            <input class="form-control" id="maskHighprice" type="number" placeholder="ราคาสูงสุด" value="0" required>
+          </div>
+
+          <div class="form-group">
+            <label for="gelVol">เจลล้างมือที่พร้อมขาย</label>
+            <select class="form-control" id="gelVol" required>
+              <option value="-">จำนวนเจลล้างมือ (ขวด)</option>
+              <option value="0-50 ขวด">0-50 ขวด</option>
+              <option value="50-100 ขวด">50-100 ขวด</option>
+              <option value="100-500 ขวด">100-500 ขวด</option>
+              <option value="มากกว่า 500 ขวด">มากกว่า 500 ขวด</option>
+              <option value="ของหมด/ไม่มีสินค้า">ของหมด/ไม่มีสินค้า</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="gelLowprice">ราคาต่ำสุด</label>
+            <input class="form-control" id="gelLowprice" type="number" placeholder="ราคาต่ำสุด" value="0">
+          </div>
+
+          <div class="form-group">
+            <label for="gelHighprice">ราคาสูงสุด</label>
+            <input class="form-control" id="gelHighprice" type="number" placeholder="ราคาสูงสุด" value="0">
+          </div>
+
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="saveStore()">บันทึก</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="saveStore()">บันทึก</button>&nbsp;
+          <button type="button" class="btn btn-info" data-dismiss="modal">ยกเลิก</button>
         </div>
 
       </div>
@@ -99,7 +137,23 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          Modal body..
+          <div class="form-group">
+            <label for="gelVol">ค้นหาร้านเวชภัณฑ์</label>
+            <select class="form-control" id="getBuffer" required>
+              <option value="0">เลือกรัศมี</option>
+              <option value="500">500 เมตร</option>
+              <option value="1000">1 km</option>
+              <option value="3000">2 km</option>
+              <option value="5000">3 km</option>
+              <option value="10000">10 km</option>
+            </select>
+          </div>
+
+
+          <div class="store-list">
+          </div>
+
+
         </div>
 
         <!-- Modal footer -->
@@ -122,7 +176,6 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
-<script src="../upload/infected_prov.js"></script>
 <script src="store.js"></script>
 
 </html>

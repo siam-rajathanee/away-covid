@@ -1,10 +1,14 @@
-let userId;
+let userid;
 $(document).ready(async function () {
-    await liff.init({ liffId: "1653984157-Yn4O7eAO" })
-    // const profile = await liff.getProfile();
-    // userid = profile.userId;
+    await liff.init({ liffId: "1653984157-Yn4O7eAO" }, (e) => {
+        // alert('1: ' + e)
+    }, err => console.error(err.code, error.message));
+
+    const profile = await liff.getProfile();
+    userid = await profile.userId;
+    // alert('2: ' + userid)
     await loadMap();
-    getStore();
+    await getStore();
 });
 
 let map = L.map('map', {
@@ -14,8 +18,8 @@ let map = L.map('map', {
 
 var gps;
 var isNew = true;
-var url = 'https://rti2dss.com:3200';
-// var url = 'http://localhost:3200';
+// var url = 'https://rti2dss.com:3200';
+var url = 'http://localhost:3200';
 
 function loadMap() {
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -56,7 +60,7 @@ var lc = L.control.locate({
 lc.start();
 
 function saveStore() {
-    // alert(userId)
+    // alert('3: ' + userid)
     let obj = {
         userid: userid,
         storeName: $('#storeName').val(),
@@ -104,7 +108,6 @@ async function getStore() {
             $('#gelLowprice').val(res.data[0].gellowprice);
             $('#gelHighprice').val(res.data[0].gelhighprice);
         }
-
     })
 
     await $.get(url + '/anticov-api/getallstore').done((res) => {
@@ -116,8 +119,6 @@ async function getStore() {
         const iconMarker = L.icon({
             iconUrl: icon,
             iconSize: [30, 30],
-            // iconAnchor: [12, 37],
-            // popupAnchor: [5, -36]
         });
 
         items.forEach(item => {
@@ -125,16 +126,16 @@ async function getStore() {
             let mk = L.marker([Number(item.lat), Number(item.lng)], {
                 icon: iconMarker
             }).bindPopup(
-                '<h5>ข้อมูลร้านค้า</h5> <br>' +
-                '<b>ชื่อร้าน:</b>' + item.storename + '<br>' +
-                '<b>เลขทะเบียนการค้า:</b>' + item.storename + '<br>' +
-                '<b>facebook:</b>' + item.facebook + '<br>' +
-                '<b>Line:</b>' + item.lineid + '<br>' +
-                '<b>โทรศัพท์:</b>' + item.tel + '<br>' +
-                '<b>จำนวนหน้ากาก:</b>' + item.maskvol + ' <br>' +
-                '<b>ราคาต่ำสุด:</b>' + item.masklowprice + ' ' + ' บาท <b>ราคาสูงสุด:</b>' + item.maskhighprice + ' บาท<br>' +
-                '<b>จำนวนเจลล้างมือ:</b>' + item.gelvol + ' <br>' +
-                '<b>ราคาต่ำสุด:</b>' + item.gellowprice + ' ' + ' บาท <b>ราคาสูงสุด:</b>' + item.gelhighprice + ' บาท<br>'
+                '<p><span style="font-size: 24px;">ข้อมูลร้านค้า</span></p>' +
+                '<span style="font-size: 16px;"><b>ชื่อร้าน:</b>' + item.storename + '</span><br>' +
+                '<span style="font-size: 16px;"><b>เลขทะเบียนการค้า:</b>' + item.storeid + '</span><br>' +
+                '<span style="font-size: 16px;"><b>facebook:</b>' + item.facebook + '</span><br>' +
+                '<span style="font-size: 16px;"><b>Line:</b>' + item.lineid + '</span><br>' +
+                '<span style="font-size: 16px;"><b>โทรศัพท์:</b>' + item.tel + '</span><br>' +
+                '<span style="font-size: 16px;"><b>จำนวนหน้ากาก:</b>' + item.maskvol + ' </span><br>' +
+                '<span style="font-size: 16px;"><b>ราคาต่ำสุด:</b>' + item.masklowprice + ' ' + ' บาท <b>ราคาสูงสุด:</b>' + item.maskhighprice + ' บาท</span><br>' +
+                '<span style="font-size: 16px;"><b>จำนวนเจลล้างมือ:</b>' + item.gelvol + ' </span><br>' +
+                '<span style="font-size: 16px;"><b>ราคาต่ำสุด:</b>' + item.gellowprice + ' ' + ' บาท <b>ราคาสูงสุด:</b>' + item.gelhighprice + ' บาท</span><br>'
                 // '<br/><span >สถานที่: </span>' + item.name +
                 // '<br/><span >ลิ้งค์: </span><a href="https://www.google.com/maps/dir/' + gps._latlng.lat + ',' + gps._latlng.lng + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>'
             );
@@ -144,8 +145,37 @@ async function getStore() {
     })
 }
 
+$('#getBuffer').change(e => {
+    selectStore(e.target.value)
+})
 
+function selectStore(km) {
 
+    if (!gps._latlng) {
+        alert('กรุณาเปิดข้อมูลตำแหน่ง')
+    } else {
+
+    }
+    $(".store-list").empty();
+    $.get(url + '/anticov-api/getallstore/' + gps._latlng.lat + '/' + gps._latlng.lng + '/' + km).done((res) => {
+        let data = res.data;
+        data.forEach(i => {
+            console.log(i)
+            const $newStore = $('<div class="card"><div class="card-body">ร้าน: ' + i.storename + ' มีหน้ากาก:' + i.maskvol + ' มีเจลล้างมือ:' + i.gelvol + '&nbsp;&nbsp;' +
+                '&nbsp;<a class="btn btn-outline-info" onclick="zoomStore(\'' + i.lat + ',' + i.lng + '\')" >ตำแหน่งร้าน</a>' +
+                '&nbsp;<a class="btn btn-outline-info" href="https://www.google.com/maps/dir/' + gps._latlng.lat + ',' + gps._latlng.lng + '/' + Number(i.lat) + ',' + Number(i.lng) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>' +
+                '</div></div>');
+            $(".store-list").append($newStore);
+        });
+
+    })
+}
+
+function zoomStore(e) {
+    console.log(e)
+    let latlng = e.split(",");
+    map.setView([Number(latlng[0]), Number(latlng[1])], 19);
+}
 
 
 
