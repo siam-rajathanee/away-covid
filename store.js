@@ -39,8 +39,6 @@ async function main() {
 
     const profile = await liff.getProfile();
     userid = await profile.userId;
-    // await liff.init({ liffId: "1653981898-NPG2rwM9" })
-     alert('2: ' + userid)
 }
 main()
 
