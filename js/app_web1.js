@@ -135,7 +135,7 @@ new Vue({
 
 
                     document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
 
 
                     var radius = 5;
@@ -284,7 +284,13 @@ var case_place_announce = L.icon({
     iconSize: [50, 50], // size of the icon
 });
 
+function get_track() {
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+}
 
+map.on('click', function () {
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
+})
 
 
 
