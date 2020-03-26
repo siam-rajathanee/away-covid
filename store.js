@@ -1,56 +1,63 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     decodedIDToken = liff.getDecodedIDToken().email
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
 
-//     $.ajax({
-//         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
-//         method: 'post',
-//         data: ({
-//             pictureUrl: pictureUrl,
-//             userId: userId,
-//             displayName: displayName,
-//             decodedIDToken: decodedIDToken,
-//             page_view: 'store.html'
-//         }),
-//         success: function (data) {
-//         }
-//     })
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
 
-// }
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     // await liff.init({ liffId: "1653981898-NPG2rwM9" })
-//     await liff.init({ liffId: "1653981898-NPG2rwM9" })
-// }
-// main()
+    $.ajax({
+        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            decodedIDToken: decodedIDToken,
+            page_view: 'store.html'
+        }),
+        success: function (data) {
+        }
+    })
 
-
-
+}
 
 let userid;
-$(document).ready(async function () {
-    // 1653984157-Yn4O7eAO //ของ rti2dss 1653981898-NPG2rwM9
-    await liff.init({ liffId: "1653981898-NPG2rwM9" }, (e) => {
-        // alert('1: ' + e)
-    }, err => console.error(err.code, error.message));
+async function main() {
+
+    await liff.init({ liffId: "1653981898-NPG2rwM9" })
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
 
     const profile = await liff.getProfile();
     userid = await profile.userId;
-    alert('2: ' + userid)
-    await loadMap();
-    await getStore();
+    // await liff.init({ liffId: "1653981898-NPG2rwM9" })
+     alert('2: ' + userid)
+}
+main()
+
+
+
+
+
+$(document).ready(async function () {
+    // 1653984157-Yn4O7eAO //ของ rti2dss 1653981898-NPG2rwM9
+    // await liff.init({ liffId: "1653981898-NPG2rwM9" }, (e) => {
+    // }, err => console.error(err.code, error.message));
+
+    // const profile = await liff.getProfile();
+    // userid = await profile.userId;
+    // alert('2: ' + userid)
+    loadMap();
+    getStore();
 });
 
 let map = L.map('map', {
