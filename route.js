@@ -1,3 +1,42 @@
+
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
+
+    $.ajax({
+        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            decodedIDToken: decodedIDToken,
+            page_view: 'route.html'
+        }),
+        success: function (data) {
+        }
+    })
+
+}
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-QwWOp3PN" })
+}
+main()
+
+
 $(document).ready(async function () {
     await liff.init({ liffId: "1653984157-0qam36em" })
 });
@@ -19,6 +58,7 @@ document.getElementById('btn_search').innerHTML = '<button type="button" class="
 
 
 function onLocationFound(e) {
+
 
     var radius = 50;
     latlng = [e.latlng.lng, e.latlng.lat]
