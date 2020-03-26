@@ -31,7 +31,8 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653984157-0qam36em" })
+    // await liff.init({ liffId: "1653984157-0qam36em" })
+    await liff.init({ liffId: "1653981898-NPG2rwM9" })
 }
 main()
 
@@ -39,7 +40,8 @@ main()
 
 
 $(document).ready(async function () {
-    await liff.init({ liffId: "1653984157-0qam36em" })
+    // await liff.init({ liffId: "1653984157-0qam36em" })
+    await liff.init({ liffId: "1653981898-NPG2rwM9" })
 });
 
 var map = L.map('map', {
