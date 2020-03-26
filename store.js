@@ -31,7 +31,8 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653981898-NPG2rwM9" })
+    // await liff.init({ liffId: "1653981898-NPG2rwM9" })
+    await liff.init({ liffId: "1653984157-Yn4O7eAO" })
 }
 main()
 
@@ -41,13 +42,13 @@ main()
 let userid;
 $(document).ready(async function () {
     // 1653984157-Yn4O7eAO //ของ rti2dss 1653981898-NPG2rwM9
-    await liff.init({ liffId: "1653981898-NPG2rwM9" }, (e) => {
+    await liff.init({ liffId: "1653984157-Yn4O7eAO" }, (e) => {
         // alert('1: ' + e)
     }, err => console.error(err.code, error.message));
 
     const profile = await liff.getProfile();
     userid = await profile.userId;
-    // alert('2: ' + userid)
+    alert('2: ' + userid)
     await loadMap();
     await getStore();
 });
