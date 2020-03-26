@@ -225,6 +225,7 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
 
 points_case = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
+line_track = L.layerGroup().addTo(map)
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 document.getElementById('tracking').innerHTML = ''
@@ -375,9 +376,10 @@ function get_tracking() {
             }
 
             var line = turf.lineString(p_t_l);
-            line_track = L.geoJson(line).addTo(map)
 
-            map.fitBounds(line_track.getBounds())
+            view_line = L.geoJson(line).addTo(line_track)
+
+            map.fitBounds(view_line.getBounds())
             document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }, error: function (e) {
         }
