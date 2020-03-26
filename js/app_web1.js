@@ -1,39 +1,39 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     decodedIDToken = liff.getDecodedIDToken().email
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
 
-//     $.ajax({
-//         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
-//         method: 'post',
-//         data: ({
-//             pictureUrl: pictureUrl,
-//             userId: userId,
-//             displayName: displayName,
-//             decodedIDToken: decodedIDToken,
-//             page_view: 'index.html'
-//         }),
-//         success: function (data) {
-//         }
-//     })
+    $.ajax({
+        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            decodedIDToken: decodedIDToken,
+            page_view: 'index.html'
+        }),
+        success: function (data) {
+        }
+    })
 
-// }
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653981898-q0jEx1on" })
-// }
-// main()
+}
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-q0jEx1on" })
+}
+main()
 
 
 new Vue({
@@ -48,7 +48,7 @@ new Vue({
             .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
             .then(async function (res) {
 
-                case_point = res.data
+                case_point = res.data.covidcase
 
 
                 var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
