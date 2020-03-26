@@ -138,7 +138,7 @@ new Vue({
                     document.getElementById('tracking').innerHTML = '<button class="btn btn-info" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
 
 
-                    var radius = 350;
+                    var radius = 5;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
