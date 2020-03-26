@@ -188,7 +188,7 @@ new Vue({
 
 var map = L.map('map'
     , { attributionControl: false }
-).setView([13.751569, 100.501634], 7);
+).setView([13.751569, 100.501634], 6);
 
 var map2 = L.map('map2'
     , { attributionControl: false }
@@ -266,7 +266,7 @@ var case_hospital = L.icon({
 
 var case_place_announce = L.icon({
     iconUrl: 'img/place.svg',
-    iconSize: [60, 60], // size of the icon
+    iconSize: [50, 50], // size of the icon
 });
 
 
@@ -430,8 +430,7 @@ $("#form_setting").submit(function (event) {
         url: 'https://rti2dss.com/mapedia.serv/get_point.php?date=' + date,
         method: 'get',
         success: function (data) {
-
-            case_point = JSON.parse(data)
+            case_point = JSON.parse(data).covidcase
 
             var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
             for (var i = 0; i < case_point.features.length; i++) {
@@ -443,6 +442,17 @@ $("#form_setting").submit(function (event) {
                 var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
                 layer.bindPopup(popup)
             }
+
+            L.geoJson(place_announce,
+                {
+                    pointToLayer: function (f, latlng) {
+                        return L.marker(latlng, {
+                            icon: case_place_announce,
+                            highlight: "temporary"
+                        });
+                    }
+                }).addTo(points_case)
+
 
 
             L.geoJson(case_point, {
