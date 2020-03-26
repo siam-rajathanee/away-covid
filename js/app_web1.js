@@ -131,7 +131,7 @@ new Vue({
                     document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
-                    var radius = 5;
+                    var radius = 150;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
@@ -150,6 +150,7 @@ new Vue({
 
 
                     var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+                    var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
 
 
                     var buffereds = L.geoJson(buffered, {
@@ -160,16 +161,23 @@ new Vue({
                     }).addTo(set_map)
 
                     map.fitBounds(buffereds.getBounds())
-                    var data = ptsWithin.features
 
+
+
+
+                    var data = ptsWithin.features
                     var table = ''
                     for (var i = 0; i < data.length; i++) {
-                        table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td> <td> <i class="fa fa-search"></i> </td> </tr> '
+                        table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
                     }
                     document.getElementById('tabel_data').innerHTML = table
+
                     if (data.length != 0) {
-                        document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในรัศมีในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือผู้ติดเชื้อโควิด-19 </div>'
+                        document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
                     }
+
+                    var data_place_announce = ptsWithin.features
+                    console.log(data_place_announce);
 
 
 
@@ -291,23 +299,36 @@ function getColor(d) {
 
 var legend = L.control({ position: 'bottomright' });
 
-legend.onAdd = function (map) {
+function showDisclaimer() {
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend')
+        div.innerHTML += '<button  class="btn btn-default"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
+        div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
+        div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
+        div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
+        div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
+        div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
+        div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <br> ';
+        div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
+        return div;
+    };
+    legend.addTo(map);
+}
 
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000]
+function hideDisclaimer() {
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend')
+        div.innerHTML += '<button class="btn btn-default" onClick="showDisclaimer()"><small class="prompt">Show legend</small> <i class="fa fa-angle-double-up" aria-hidden="true"></i>   </button><br> ';
+        return div;
+    };
+    legend.addTo(map);
+}
 
-    div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
-    div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
-    div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
-    div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
-    div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
-    div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <br> ';
-    div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
+hideDisclaimer()
 
-    return div;
-};
 
-legend.addTo(map);
+
+
 
 
 $("#form_query").submit(function (event) {
