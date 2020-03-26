@@ -41,7 +41,7 @@ main()
 let userid;
 $(document).ready(async function () {
     // 1653984157-Yn4O7eAO //ของ rti2dss 1653981898-NPG2rwM9
-    await liff.init({ liffId: "1653984157-Yn4O7eAO" }, (e) => {
+    await liff.init({ liffId: "1653981898-NPG2rwM9" }, (e) => {
         // alert('1: ' + e)
     }, err => console.error(err.code, error.message));
 
