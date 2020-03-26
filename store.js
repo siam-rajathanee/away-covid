@@ -12,6 +12,7 @@ $(document).ready(async function () {
 });
 
 let map = L.map('map', {
+    attributionControl: false,
     center: [13.802664, 99.950034],
     zoom: 6
 });
