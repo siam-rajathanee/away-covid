@@ -135,7 +135,7 @@ new Vue({
 
 
                     document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
+                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
 
 
                     var radius = 5;
@@ -289,7 +289,7 @@ function get_track() {
 }
 
 map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-info" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
 })
 
 
@@ -339,9 +339,6 @@ function hideDisclaimer() {
 }
 
 hideDisclaimer()
-
-
-
 
 
 
@@ -421,8 +418,6 @@ function get_tracking() {
     })
 
 }
-
-
 
 
 $("#form_setting").submit(function (event) {
