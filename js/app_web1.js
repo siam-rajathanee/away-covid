@@ -183,9 +183,9 @@ new Vue({
                     if (data.length != 0) {
                         document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
                     }
+
+
                     var data_place_announce = ptsWithplace_announce.features
-
-
                     var tb_announce = ''
                     data_place_announce.forEach(function (f) {
                         tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
@@ -209,7 +209,7 @@ new Vue({
 
 var map = L.map('map'
     , { attributionControl: false }
-).setView([13.751569, 100.501634], 6);
+).setView([13.751569, 100.501634], 12);
 
 
 CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -462,8 +462,13 @@ $("#form_setting").submit(function (event) {
             }
             document.getElementById('select_place').innerHTML = option_dropdown
 
+
             function onEachFeature(f, layer) {
                 var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+                layer.bindPopup(popup)
+            }
+            function onEachFeature_place_announce(f, layer) {
+                var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
                 layer.bindPopup(popup)
             }
 
@@ -474,7 +479,8 @@ $("#form_setting").submit(function (event) {
                             icon: case_place_announce,
                             highlight: "temporary"
                         });
-                    }
+                    },
+                    onEachFeature: onEachFeature_place_announce
                 }).addTo(points_case)
 
 
@@ -507,6 +513,7 @@ $("#form_setting").submit(function (event) {
             }).addTo(points_case)
 
 
+
             var point = turf.point(test_latlng);
 
             L.geoJson(point, {
@@ -528,14 +535,25 @@ $("#form_setting").submit(function (event) {
             }).addTo(set_map)
 
             var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+            var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
+
             map.fitBounds(buffereds.getBounds())
+
             var data = ptsWithin.features
+            var data_place_announce = ptsWithplace_announce.features
+
 
             var table = ''
             for (var i = 0; i < data.length; i++) {
                 table += '  <tr> <td>   ' + data[i].properties.place_name + '  </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td> <td> <i class="fa fa-search"></i> </td> </tr> '
             }
             document.getElementById('tabel_data').innerHTML = table
+
+            var tb_announce = ''
+            data_place_announce.forEach(function (f) {
+                tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+            });
+            document.getElementById('tabel_announce').innerHTML = tb_announce
 
 
         }, error: function () {
