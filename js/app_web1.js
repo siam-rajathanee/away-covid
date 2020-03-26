@@ -131,7 +131,7 @@ new Vue({
                     document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
-                    var radius = 150;
+                    var radius = 5;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
