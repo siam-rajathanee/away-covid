@@ -138,7 +138,7 @@ new Vue({
                     document.getElementById('tracking').innerHTML = '<button class="btn btn-info" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
 
 
-                    var radius = 5;
+                    var radius = 350;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
 
                     var point = turf.point(test_latlng);
@@ -179,12 +179,18 @@ new Vue({
                     }
                     document.getElementById('tabel_data').innerHTML = table
 
+
                     if (data.length != 0) {
                         document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
                     }
-
                     var data_place_announce = ptsWithplace_announce.features
-                    console.log(data_place_announce);
+
+
+                    var tb_announce = ''
+                    data_place_announce.forEach(function (f) {
+                        tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+                    });
+                    document.getElementById('tabel_announce').innerHTML = tb_announce
 
 
 
@@ -204,18 +210,6 @@ new Vue({
 var map = L.map('map'
     , { attributionControl: false }
 ).setView([13.751569, 100.501634], 6);
-
-var map2 = L.map('map2'
-    , { attributionControl: false }
-).setView([13.751569, 100.501634], 12);
-
-
-
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-}).addTo(map2)
 
 
 CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
