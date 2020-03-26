@@ -188,7 +188,7 @@ new Vue({
 
 var map = L.map('map'
     , { attributionControl: false }
-).setView([13.751569, 100.501634], 16);
+).setView([13.751569, 100.501634], 7);
 
 var map2 = L.map('map2'
     , { attributionControl: false }
