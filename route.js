@@ -23,25 +23,8 @@ async function getUserProfile() {
     })
 
 }
-// async function main() {
-// 	await liff.init({ liffId: "1653984157-0qam36em" })
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-    
-// }
-// main()
-
-
-
-
-$(document).ready(async function () {
-    // await liff.init({ liffId: "1653984157-0qam36em" })
-    await liff.init({ liffId: "1653984157-0qam36em" })
+async function main() {
+	await liff.init({ liffId: "1653984157-0qam36em" })
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
             getUserProfile()
@@ -49,6 +32,20 @@ $(document).ready(async function () {
             liff.login()
         }
     })
+
+    const profile = await liff.getProfile();
+    userid = await profile.userId;
+
+    alert(userid)
+    
+}
+main()
+
+
+
+
+$(document).ready(async function () {
+    await liff.init({ liffId: "1653984157-0qam36em" })
 });
 
 var map = L.map('map', {
