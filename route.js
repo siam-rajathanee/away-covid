@@ -24,6 +24,7 @@ async function getUserProfile() {
 
 }
 async function main() {
+	await liff.init({ liffId: "1653984157-0qam36em" })
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
             getUserProfile()
@@ -31,7 +32,7 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653984157-0qam36em" })
+
 }
 main()
 
