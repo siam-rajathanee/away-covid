@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
   <link rel="stylesheet" href="route.css">
-  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+  <script src='https://unpkg.com/@turf/turf/dist/turf.min.js'></script>
   <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://brandonxiang.github.io/leaflet.marker.highlight/index.css">
 
@@ -28,7 +28,7 @@
   <div class="card">
     <div id="map"></div>
 
-    <div class="footer  btn-group special" role="group" aria-label="...">
+    <div class="footer" role="group" aria-label="...">
 
 
 
@@ -36,7 +36,7 @@
       <!-- <button type="button" class="btn btn-warning " data-toggle="modal" data-target="#search" >
         <i class="fa fa-map-marker" aria-hidden="true"></i> กรุณาเปิด GPS ก่อนใช้งานเส้นทาง </button> -->
 
-      <button class="btn btn-warning" type="button" id="btn_search">
+      <button class="btn btn-warning btn-block" type="button" id="btn_search">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         กำลังรอรับค่าตำแหน่ง Location . . . .
       </button>
@@ -56,10 +56,27 @@
 
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานที่</h4>
+            <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาโรงพยาบาล</h4>
           </div>
-          <div class="modal-body">
-            <form id="form_query">
+          <div class="modal-body table_data">
+            <div id="show_hos"></div>
+
+            <!-- <div class="card mb-3">
+              <h5 class="card-header">' + item.name + '</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-4">
+                    <img src="' + item.webimage + '" alt="" width="100%">
+                  </div>
+                  <div class="col-8">
+                    <h6 class="card-subtitle text-muted">ที่อยู่ : ' + item.add + '</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-muted text-right"> <a href="  ' + item.route + '  "> ตำแหน่ง </a> </div>
+            </div> -->
+
+            <!-- <form id="form_query">
               <fieldset>
                 <div class="form-group">
                   <select name="place" class="form-control" id="select_place">
@@ -67,7 +84,10 @@
                   </select>
                 </div>
                 <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">ดูตำแหน่ง</button>
-            </form>
+            </form> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
 
