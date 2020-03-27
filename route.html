@@ -24,40 +24,55 @@
 </head>
 
 <body>
-
+  <div id="loading"></div>
   <div class="card">
     <div id="map"></div>
+
     <div class="footer  btn-group special" role="group" aria-label="...">
-      <button type="button" id="btn_search" class="btn btn-warning"></button>
+
+
+
+
+      <!-- <button type="button" class="btn btn-warning " data-toggle="modal" data-target="#search" >
+        <i class="fa fa-map-marker" aria-hidden="true"></i> กรุณาเปิด GPS ก่อนใช้งานเส้นทาง </button> -->
+
+      <button class="btn btn-warning" type="button" id="btn_search">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        กำลังรอรับค่าตำแหน่ง Location . . . .
+      </button>
+      <button class="btn btn-warning" type="button" id="btn_search2">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        กำลังรอรับค่าตำแหน่ง Location . . . .
+      </button>
+
     </div>
-  </div>
 
 
 
 
-  <!-- search -->
-  <div id="search" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <!-- search -->
+    <div id="search" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานที่</h4>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานที่</h4>
+          </div>
+          <div class="modal-body">
+            <form id="form_query">
+              <fieldset>
+                <div class="form-group">
+                  <select name="place" class="form-control" id="select_place">
+                    <option>เลือกสถานที่</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">ดูตำแหน่ง</button>
+            </form>
+          </div>
         </div>
-        <div class="modal-body">
-          <form id="form_query">
-            <fieldset>
-              <div class="form-group">
-                <select name="place" class="form-control" id="select_place">
-                  <option>เลือกสถานที่</option>
-                </select>
-              </div>
-              <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">ดูตำแหน่ง</button>
-          </form>
-        </div>
+
       </div>
-
     </div>
-  </div>
 
 
 

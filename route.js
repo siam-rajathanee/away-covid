@@ -1,50 +1,44 @@
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    decodedIDToken = liff.getDecodedIDToken().email
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
+// async function getUserProfile() {
+//     profile = await liff.getProfile()
+//     pictureUrl = profile.pictureUrl
+//     userId = profile.userId
+//     displayName = profile.displayName
+//     decodedIDToken = liff.getDecodedIDToken().email
+//     if (pictureUrl == undefined) {
+//         pictureUrl = ''
+//     }
 
-    $.ajax({
-        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            decodedIDToken: decodedIDToken,
-            page_view: 'route.html'
-        }),
-        success: function (data) {
-        }
-    })
+//     $.ajax({
+//         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
+//         method: 'post',
+//         data: ({
+//             pictureUrl: pictureUrl,
+//             userId: userId,
+//             displayName: displayName,
+//             decodedIDToken: decodedIDToken,
+//             page_view: 'route.html'
+//         }),
+//         success: function (data) {
+//         }
+//     })
 
-}
-async function main() {
-	await liff.init({ liffId: "1653984157-0qam36em" })
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
+// }
+// async function main() {
+// 	await liff.init({ liffId: "1653984157-0qam36em" })
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
 
-}
-main()
+// }
+// main()
 
-
-
-
-$(document).ready(async function () {
-    await liff.init({ liffId: "1653984157-0qam36em" })
-});
 
 var map = L.map('map', {
-    center: [16.820378, 100.265787],
+    center: [13.742701, 100.673909],
     zoom: 13
 });
 var Stamen = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -56,11 +50,12 @@ var urlParams = new URLSearchParams(window.location.search);
 var marker, gps, dataurl, tam, amp, pro, x, y;
 var url = 'https://rti2dss.com:3200';
 
-document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-warning " data-toggle="modal" data-target="#search" disabled> <i class="fa fa-map-marker" aria-hidden="true"></i> กรุณาเปิด GPS ก่อนใช้งานเส้นทาง </button>'
+document.getElementById('loading').innerHTML = '  <div class="spinner-grow text-danger loading" role="status"><span class="sr-only"></span></div>'
+document.getElementById('btn_search').innerHTML = '<button class="btn btn-warning" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> กำลังรอรับค่าตำแหน่ง Location . . . . </button>'
 
 
 function onLocationFound(e) {
-
+    document.getElementById('loading').innerHTML = ''
 
     var radius = 50;
     latlng = [e.latlng.lng, e.latlng.lat]
@@ -118,7 +113,7 @@ function onLocationFound(e) {
 
     })
 
-    document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
+    document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาลใกล้ตัว </button>'
 
 
 }
