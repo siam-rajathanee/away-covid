@@ -567,3 +567,20 @@ $("#form_setting").submit(function (event) {
 
 
 })
+
+
+
+
+L.Control.watermark = L.Control.extend({
+    onAdd: function (map) {
+        var img = L.DomUtil.create('img');
+        img.src = 'http://mapedia.co.th/assets/images/logo_1_1024.png';
+        img.style.width = '30px';
+        img.style.opacity = '0.5';
+        return img;
+    }
+});
+L.control.watermark = function (opts) {
+    return new L.Control.watermark(opts);
+}
+L.control.watermark({ position: 'bottomleft' }).addTo(map);
