@@ -84,15 +84,23 @@ new Vue({
                     sum = group_3[key] + sum
                     return {
                         time: key,
-                        value: sum
+                        value: sum,
+                        vl: group_3[key]
                     };
+
                 });
+                console.log(this.data_time);
+
+
+
                 var categories_chart3 = []
                 var data_chart3 = []
+                var data_chart3_2 = []
 
                 for (var i = 0; i < this.data_time.length; i++) {
                     categories_chart3.push(this.data_time[i].time)
                     data_chart3.push(this.data_time[i].value)
+                    data_chart3_2.push(this.data_time[i].vl)
                 }
                 Highcharts.chart('container3', {
 
@@ -105,7 +113,8 @@ new Vue({
                     },
                     xAxis: {
                         categories: categories_chart3,
-                        crosshair: true
+                        crosshair: true,
+
                     },
                     legend: {
                         enabled: false,
@@ -137,9 +146,14 @@ new Vue({
                         useHTML: true
                     },
                     series: [{
-                        name: 'จำนวนผู้ป่วย',
+                        name: 'จำนวนผู้ป่วยสะสม',
                         data: data_chart3,
                         color: '#FD8D3C'
+
+                    }, {
+                        name: 'จำนวนผู้ป่วยรายวัน',
+                        data: data_chart3_2,
+                        color: '#FC4E2A'
 
                     }]
                 });
