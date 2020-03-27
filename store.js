@@ -1,3 +1,4 @@
+
 async function getUserProfile() {
     profile = await liff.getProfile()
     pictureUrl = profile.pictureUrl
@@ -23,7 +24,11 @@ async function getUserProfile() {
     })
 
 }
+
+let userid;
 async function main() {
+
+    await liff.init({ liffId: "1653981898-NPG2rwM9" })
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
             getUserProfile()
@@ -31,25 +36,26 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653981898-NPG2rwM9" })
+
+    const profile = await liff.getProfile();
+    userid = await profile.userId;
 }
 main()
 
 
 
 
-let userid;
+
 $(document).ready(async function () {
     // 1653984157-Yn4O7eAO //ของ rti2dss 1653981898-NPG2rwM9
-    await liff.init({ liffId: "1653981898-NPG2rwM9" }, (e) => {
-        // alert('1: ' + e)
-    }, err => console.error(err.code, error.message));
+    // await liff.init({ liffId: "1653981898-NPG2rwM9" }, (e) => {
+    // }, err => console.error(err.code, error.message));
 
-    const profile = await liff.getProfile();
-    userid = await profile.userId;
+    // const profile = await liff.getProfile();
+    // userid = await profile.userId;
     // alert('2: ' + userid)
-    await loadMap();
-    await getStore();
+    loadMap();
+    getStore();
 });
 
 let map = L.map('map', {
