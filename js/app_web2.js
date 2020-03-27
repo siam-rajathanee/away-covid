@@ -72,7 +72,6 @@ new Vue({
         axios
             .get('https://rti2dss.com/mapedia.serv/get_map_dashboard.php?type=chart_1')
             .then(function (res) {
-                console.log(res.data);
                 var covid_dga = res.data
 
                 var sum = 0
@@ -89,7 +88,6 @@ new Vue({
                     };
 
                 });
-                console.log(this.data_time);
 
 
 
@@ -171,7 +169,6 @@ new Vue({
                     };
                 });
                 this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
-                console.log(this.data_pv_th);
 
                 var table = ''
                 for (var i = 0; i < this.data_pv_th.length; i++) {
@@ -249,7 +246,6 @@ new Vue({
                         value: group_2[key]
                     };
                 });
-                console.log(this.data_sex);
 
                 var data_chart1 = []
                 var color_pie = ['#ffb3ff', '#00b8e6', '#808080']
