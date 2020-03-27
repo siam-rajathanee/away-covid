@@ -33,11 +33,6 @@ async function main() {
         }
     })
 
-    const profile = await liff.getProfile();
-    userid = await profile.userId;
-
-    alert(userid)
-    
 }
 main()
 
