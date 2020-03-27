@@ -308,7 +308,7 @@ var legend = L.control({ position: 'bottomright' });
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
-        div.innerHTML += '<button  class="btn btn-default"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
+        div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
         div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
@@ -325,7 +325,7 @@ function showDisclaimer() {
 function hideDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
-        div.innerHTML += '<button class="btn btn-default" onClick="showDisclaimer()"><small class="prompt">Show legend</small> <i class="fa fa-angle-double-up" aria-hidden="true"></i>   </button><br> ';
+        div.innerHTML += '<button class="btn btn-default " onClick="showDisclaimer()"><small class="prompt">Show legend</small> <i class="fa fa-angle-double-up" aria-hidden="true"></i>   </button><br> ';
         return div;
     };
     legend.addTo(map);
