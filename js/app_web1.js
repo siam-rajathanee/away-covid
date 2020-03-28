@@ -7,7 +7,11 @@ async function getUserProfile() {
     if (pictureUrl == undefined) {
         pictureUrl = ''
     }
+    console.log(pictureUrl);
+    console.log('<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">');
 
+    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
         method: 'post',
@@ -21,11 +25,7 @@ async function getUserProfile() {
         success: function (data) {
         }
     })
-    console.log(pictureUrl);
-    console.log('<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">');
 
-    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
-    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 }
 async function main() {
     liff.ready.then(() => {
