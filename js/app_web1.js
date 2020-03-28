@@ -21,7 +21,8 @@ async function getUserProfile() {
         success: function (data) {
         }
     })
-
+    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 }
 async function main() {
     liff.ready.then(() => {
@@ -115,9 +116,6 @@ new Vue({
                     onEachFeature: onEachFeature
                 }).addTo(points_case)
 
-
-                // console.log(place_announce);
-
                 L.geoJson(place_announce,
                     {
                         pointToLayer: function (f, latlng) {
@@ -135,7 +133,7 @@ new Vue({
 
 
                     document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-info" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
+                    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
                     var radius = 5;
@@ -180,10 +178,6 @@ new Vue({
                     document.getElementById('tabel_data').innerHTML = table
 
 
-                    if (data.length != 0) {
-                        document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-                    }
-
 
                     var data_place_announce = ptsWithplace_announce.features
                     var tb_announce = ''
@@ -192,6 +186,13 @@ new Vue({
                     });
                     document.getElementById('tabel_announce').innerHTML = tb_announce
 
+
+                    if (data.length != 0 || data_place_announce.length != 0) {
+                        // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
+                        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text">ใกล้พื้นที่เสี่ยง</p>'
+                    } else {
+                        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
+                    }
 
 
 
@@ -279,11 +280,11 @@ var case_place_announce = L.icon({
 });
 
 function get_track() {
-    document.getElementById('tracking').innerHTML = '<button class="btn btn-info btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 }
 
 map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button class="btn btn-info" onclick="get_track()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> </button>'
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 })
 
 
