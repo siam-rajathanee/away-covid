@@ -66,8 +66,6 @@ new Vue({
                     layer.bindPopup(popup)
                 }
 
-                console.log(pictureUrl);
-                console.log('<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">');
                 document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
                 document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 
