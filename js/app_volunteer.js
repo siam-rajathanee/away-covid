@@ -93,16 +93,12 @@ $.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (
     ).addTo(map)
 
 
-
-
     var M_t1 = ''
     var M_t2 = ''
     var M_t3 = ''
     var M_t4 = ''
     var M_t5 = ''
     var M_t6 = ''
-
-
     for (var i = 0; i < data.features.length; i++) {
         var value = data.features[i].properties.gid;
 
