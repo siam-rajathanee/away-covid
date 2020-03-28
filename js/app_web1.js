@@ -139,6 +139,7 @@ new Vue({
 
                     var radius = 5;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+                    // test_latlng = [100.323, 14.45] // e.latlng
 
                     var point = turf.point(test_latlng);
                     L.geoJson(point, {
@@ -158,14 +159,6 @@ new Vue({
                     var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
 
 
-                    var buffereds = L.geoJson(buffered, {
-                        stroke: false,
-                        color: 'red',
-                        fillColor: '#f03',
-                        fillOpacity: 0.1,
-                    }).addTo(set_map)
-
-                    map.fitBounds(buffereds.getBounds())
 
 
 
@@ -191,8 +184,23 @@ new Vue({
                     if (data.length != 0 || data_place_announce.length != 0) {
                         // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
                         document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text">ใกล้พื้นที่เสี่ยง</p>'
+
+                        var buffereds = L.geoJson(buffered, {
+                            stroke: false,
+                            color: 'red',
+                            fillColor: '#f03',
+                            fillOpacity: 0.1,
+                        }).addTo(set_map)
+                        map.fitBounds(buffereds.getBounds())
                     } else {
                         document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
+                        var buffereds = L.geoJson(buffered, {
+                            stroke: false,
+                            color: 'green',
+                            fillColor: 'green',
+                            fillOpacity: 0.1,
+                        }).addTo(set_map)
+                        map.fitBounds(buffereds.getBounds())
                     }
 
 
