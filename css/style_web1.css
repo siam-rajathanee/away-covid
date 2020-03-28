@@ -12,13 +12,13 @@ body{
 #map{
   border-radius: 20px;
   width: 100%;
-  height: 70vh;
+  height: 74vh;
   z-index: 0;
 }
 
 .footer {
     position: fixed;
-    height: 10vh;
+    height: 8vh;
     bottom: 0px;
     left: 0px;
     right: 0px;
