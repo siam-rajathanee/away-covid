@@ -125,7 +125,7 @@ new Vue({
                                 highlight: "temporary"
                             });
                         },
-                        onEachFeature: onEachFeature_place_announce
+                        //  onEachFeature: onEachFeature_place_announce
                     }).addTo(points_case)
 
 
@@ -491,7 +491,7 @@ $("#form_setting").submit(function (event) {
                         highlight: "temporary"
                     });
                 },
-                onEachFeature: onEachFeature_place_announce
+                //onEachFeature: onEachFeature_place_announce
             })
 
             var geojson_case = L.geoJson(case_point, {
