@@ -7,6 +7,12 @@ async function getUserProfile() {
     if (pictureUrl == undefined) {
         pictureUrl = ''
     }
+    console.log(pictureUrl);
+    console.log('<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">');
+    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+
+
 
     $.ajax({
         url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
@@ -65,10 +71,6 @@ new Vue({
                     var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
                     layer.bindPopup(popup)
                 }
-
-                document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
-                document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-
 
 
                 L.geoJson(case_point, {
