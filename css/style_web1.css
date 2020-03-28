@@ -173,7 +173,7 @@ body{
   background-color: rgb(180, 20, 3);
 }
 
-.alert_danger_text{
+.alert_success_text{
   color: white;
   border-radius: 10px;
   text-align: center;
