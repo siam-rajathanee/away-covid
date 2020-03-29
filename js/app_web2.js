@@ -55,6 +55,14 @@ new Vue({
                     style: style,
                     onEachFeature: onEachFeature
                 }).addTo(map)
+            }).catch(async function () {
+                const case_geojson = dashboard
+                var geojson = L.geoJson(case_geojson, {
+                    style: style,
+                    onEachFeature: onEachFeature
+                }).addTo(map)
+
+
             })
     }
 })
@@ -73,6 +81,244 @@ new Vue({
             .get('https://mapedia.co.th/demo/get_map_dashboard.php?type=chart_1')
             .then(function (res) {
                 var covid_dga = res.data
+                console.log(covid_dga);
+
+
+                var sum = 0
+                var group_3 = covid_dga.reduce(function (r, row) {
+                    r[row.announce_date] = ++r[row.announce_date] || 1;
+                    return r;
+                }, {});
+                this.data_time = Object.keys(group_3).map(function (key) {
+                    sum = group_3[key] + sum
+                    return {
+                        time: key,
+                        value: sum,
+                        vl: group_3[key]
+                    };
+
+                });
+
+
+
+                var categories_chart3 = []
+                var data_chart3 = []
+                var data_chart3_2 = []
+
+                for (var i = 0; i < this.data_time.length; i++) {
+                    categories_chart3.push(this.data_time[i].time)
+                    data_chart3.push(this.data_time[i].value)
+                    data_chart3_2.push(this.data_time[i].vl)
+                }
+                Highcharts.chart('container3', {
+
+                    chart: {
+
+                        type: 'areaspline'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: categories_chart3,
+                        crosshair: true,
+
+                    },
+                    legend: {
+                        enabled: false,
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    yAxis: {
+                        title: {
+                            enabled: false,
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    series: [{
+                        name: 'จำนวนผู้ป่วยสะสม',
+                        data: data_chart3,
+                        color: '#FD8D3C'
+
+                    }, {
+                        name: 'จำนวนผู้ป่วยรายวัน',
+                        data: data_chart3_2,
+                        color: '#FC4E2A'
+
+                    }]
+                });
+
+
+
+                var group_1 = covid_dga.reduce(function (r, row) {
+                    r[row.province] = ++r[row.province] || 1;
+                    return r;
+                }, {});
+                this.data_pv_th = Object.keys(group_1).map(function (key) {
+                    return {
+                        province: key,
+                        value: group_1[key]
+                    };
+                });
+                this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
+
+                var table = ''
+                for (var i = 0; i < this.data_pv_th.length; i++) {
+                    if (this.data_pv_th[i].province == 'null') {
+                        this.data_pv_th[i].province = 'ไม่ระบุ'
+                    }
+                    table += '  <tr> <td>   ' + this.data_pv_th[i].province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
+                }
+                document.getElementById('all_sum_table').innerHTML = table
+
+                var categories_chart1 = []
+                var data_chart1 = []
+                for (var i = 0; i < 10; i++) {
+                    if (this.data_pv_th[i].province == 'null') {
+                        this.data_pv_th[i].province = 'ไม่ระบุ'
+                    }
+                    categories_chart1.push(this.data_pv_th[i].province)
+                    data_chart1.push(this.data_pv_th[i].value)
+                }
+
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    legend: {
+                        enabled: false,
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    xAxis: {
+
+                        categories: categories_chart1
+                    },
+                    yAxis: {
+                        title: {
+                            enabled: false,
+                        }
+                    },
+                    plotOptions: {
+                        area: {
+                            fillOpacity: 0.5
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    series: [{
+                        name: 'จำนวนผู้ป่วย',
+                        data: data_chart1,
+                        color: '#FED976'
+                    }]
+                });
+
+
+
+                var group_2 = covid_dga.reduce(function (r, row) {
+                    r[row.sex] = ++r[row.sex] || 1;
+                    return r;
+                }, {});
+                this.data_sex = Object.keys(group_2).map(function (key) {
+                    return {
+                        sex: key,
+                        value: group_2[key]
+                    };
+                });
+
+                var data_chart1 = []
+                var color_pie = ['#ffb3ff', '#00b8e6', '#808080']
+                for (var i = 0; i < this.data_sex.length; i++) {
+                    if (this.data_sex[i].sex == 'null') {
+                        this.data_sex[i].sex = 'ไม่ระบุ'
+                    }
+                    data_chart1.push({
+                        name: this.data_sex[i].sex,
+                        y: this.data_sex[i].value,
+                        color: color_pie[i]
+                    })
+                }
+
+
+
+                Highcharts.chart('container2', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    legend: {
+                        enabled: false,
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'จำนวนผู้ป่วย',
+                        colorByPoint: true,
+                        data: data_chart1
+                    }]
+
+                });
+
+
+
+
+            }).catch(async function () {
+                var covid_dga = chart
 
                 var sum = 0
                 var group_3 = covid_dga.reduce(function (r, row) {
