@@ -51,8 +51,11 @@ new Vue({
         axios
             .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
             .then(async function (res) {
+
                 case_point = res.data.covidcase
                 place_announce = res.data.place_announce
+
+
                 var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
                 for (var i = 0; i < case_point.features.length; i++) {
                     option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
@@ -344,6 +347,8 @@ function hideDisclaimer() {
 }
 
 hideDisclaimer()
+
+
 
 
 
