@@ -23,6 +23,7 @@ async function getUserProfile() {
     // })
 
 }
+
 async function main() {
     await liff.init({ liffId: "1653984157-0qam36em" })
     liff.ready.then(() => {
@@ -86,8 +87,9 @@ function onLocationFound(e) {
 
 
     let covidlab = L.layerGroup().addTo(map);
-    $.getJSON("https://rti2dss.com:3200/anticov-api/labcovid", function (res) {
-        const items = res.data;
+    $.getJSON("https://mapedia.co.th/mapedia.serv/_labcovid.php", function (res) {
+        // console.log(res)
+        // const items = res.data;
 
 
         const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
@@ -98,7 +100,7 @@ function onLocationFound(e) {
 
 
         var show_data = ''
-        items.forEach(item => {
+        res.forEach(item => {
             let mk = L.marker([Number(item.lat), Number(item.long)], {
                 icon: iconMarker
             }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + item.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-12"> <img src="' + item.webimage + '" alt="" width="100%"><hr> </div>   <div class="col-12"> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + item.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"><a href="https://www.google.com/maps/dir/' + latlng[1] + ',' + latlng[0] + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>   </div> </div>'
