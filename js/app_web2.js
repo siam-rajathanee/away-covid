@@ -117,7 +117,7 @@ new Vue({
                         type: 'areaspline'
                     },
                     title: {
-                        text: ''
+                        text: 'จำแนกตามเวลา'
                     },
                     xAxis: {
                         categories: categories_chart3,
@@ -204,7 +204,7 @@ new Vue({
                         type: 'column'
                     },
                     title: {
-                        text: ''
+                        text: 'จำแนกตามจังหวัด'
                     },
                     legend: {
                         enabled: false,
@@ -280,7 +280,7 @@ new Vue({
                         type: 'pie'
                     },
                     title: {
-                        text: ''
+                        text: 'จำแนกตามเพศ'
                     },
                     accessibility: {
                         point: {
@@ -353,7 +353,7 @@ new Vue({
                         type: 'areaspline'
                     },
                     title: {
-                        text: ''
+                        text: 'จำแนกตามเวลา'
                     },
                     xAxis: {
                         categories: categories_chart3,
@@ -440,7 +440,7 @@ new Vue({
                         type: 'column'
                     },
                     title: {
-                        text: ''
+                        text: 'จำแนกตามจังหวัด'
                     },
                     legend: {
                         enabled: false,
@@ -516,7 +516,7 @@ new Vue({
                         type: 'pie'
                     },
                     title: {
-                        text: ''
+                        text: 'จำแนกตามเพศ'
                     },
                     accessibility: {
                         point: {
