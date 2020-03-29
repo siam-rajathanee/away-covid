@@ -49,9 +49,8 @@ new Vue({
     },
     mounted() {
         axios
-            .get('js/geojson_getpoint.geojson')
+            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
             .then(async function (res) {
-
                 case_point = res.data.covidcase
                 place_announce = res.data.place_announce
                 var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
@@ -220,10 +219,6 @@ new Vue({
 
 
 
-
-
-
-
 var map = L.map('map'
     , { attributionControl: false }
 ).setView([13.751569, 100.501634], 12);
@@ -255,7 +250,6 @@ line_track = L.layerGroup().addTo(map)
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 document.getElementById('tracking').innerHTML = ''
-
 
 var case_confirm = L.icon({
     iconUrl: 'img/confirm_case.png',
@@ -309,9 +303,6 @@ var local_icon = L.icon({
     iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
     iconSize: [20, 20]
 });
-
-
-
 
 function getColor(d) {
     return d > 1000 ? '#800026' :
