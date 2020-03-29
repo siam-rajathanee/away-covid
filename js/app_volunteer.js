@@ -52,89 +52,182 @@ document.getElementById('check_lat').innerHTML = '<button type="submit" class="b
 
 
 var markers = L.markerClusterGroup().addTo(map)
-$.getJSON("https://mapedia.co.th/demo/get_point_volunteer.php", function (data) {
+$.ajax({
+    url: 'https://mapedia.co.th/demo/get_point_volunteer.php',
+    dataType: 'json',
+    success: function (data) {
 
-    geojson = data
-    L.geoJson(data, {
+        geojson = data
+        L.geoJson(data, {
 
-        pointToLayer: function (feature, latlng) {
-            if (feature.properties.type_request == 'โรงพยาบาล') {
-                var icon = hospital_icon
-            } else {
-                var icon = volunteer_icon
+            pointToLayer: function (feature, latlng) {
+                if (feature.properties.type_request == 'โรงพยาบาล') {
+                    var icon = hospital_icon
+                } else {
+                    var icon = volunteer_icon
+                }
+                var mask, gel, alcohol, food, medical_tools, medicine = ''
+                if (feature.properties.mask == 'true') {
+                    mask = '<li class="list-group-item">หน้ากากอนามัย</li> '
+                } else { mask = '' }
+                if (feature.properties.gel == 'true') {
+                    gel = '<li class="list-group-item">เจลล้างมือ</li> '
+                } else { gel = '' }
+                if (feature.properties.alcohol == 'true') {
+                    alcohol = '<li class="list-group-item">แอลกอฮอล์</li> '
+                } else { alcohol = '' }
+                if (feature.properties.food == 'true') {
+                    food = '<li class="list-group-item">อาหารแห้ง / ของใช้</li> '
+                } else { food = '' }
+                if (feature.properties.medical_tools == 'true') {
+                    medical_tools = '<li class="list-group-item">เครื่องมือทางการแพทย์</li> '
+                } else { medical_tools = '' }
+                if (feature.properties.medicine == 'true') {
+                    medicine = '<li class="list-group-item">ยารักษาโรค</li> '
+                } else { medicine = '' }
+
+
+                return L.marker(latlng, {
+                    icon: icon,
+                }).bindPopup('<div class="card mb-3"> <h4 class="card-header">ประเภท : ' + feature.properties.type_request + ' </h4> <div class="card-body"> <h5 class="card-title">ผู้ขอรับบริจาค : ' + feature.properties.name_request + ' </h5> <h6 class="card-subtitle text-muted">ที่อยู่สำหรับจัดส่ง : ' + feature.properties.address_request + ' </h6> </div> <div class="card-body"> <p class="card-text">รายละเอียด/เหตุผลที่ขอรับ : ' + feature.properties.details_request + ' </p> </div> สิ่งที่ขอ : <ul class="list-group list-group-flush">  ' + mask + gel + alcohol + food + medical_tools + medicine + ' </ul > <div class="card-footer text-muted">วันที่ขอ : ' + feature.properties.donate_date + ' </div> </div > ')
             }
-            var mask, gel, alcohol, food, medical_tools, medicine = ''
-            if (feature.properties.mask == 'true') {
-                mask = '<li class="list-group-item">หน้ากากอนามัย</li> '
-            } else { mask = '' }
-            if (feature.properties.gel == 'true') {
-                gel = '<li class="list-group-item">เจลล้างมือ</li> '
-            } else { gel = '' }
-            if (feature.properties.alcohol == 'true') {
-                alcohol = '<li class="list-group-item">แอลกอฮอล์</li> '
-            } else { alcohol = '' }
-            if (feature.properties.food == 'true') {
-                food = '<li class="list-group-item">อาหารแห้ง / ของใช้</li> '
-            } else { food = '' }
-            if (feature.properties.medical_tools == 'true') {
-                medical_tools = '<li class="list-group-item">เครื่องมือทางการแพทย์</li> '
-            } else { medical_tools = '' }
-            if (feature.properties.medicine == 'true') {
-                medicine = '<li class="list-group-item">ยารักษาโรค</li> '
-            } else { medicine = '' }
 
-
-            return L.marker(latlng, {
-                icon: icon,
-            }).bindPopup('<div class="card mb-3"> <h4 class="card-header">ประเภท : ' + feature.properties.type_request + ' </h4> <div class="card-body"> <h5 class="card-title">ผู้ขอรับบริจาค : ' + feature.properties.name_request + ' </h5> <h6 class="card-subtitle text-muted">ที่อยู่สำหรับจัดส่ง : ' + feature.properties.address_request + ' </h6> </div> <div class="card-body"> <p class="card-text">รายละเอียด/เหตุผลที่ขอรับ : ' + feature.properties.details_request + ' </p> </div> สิ่งที่ขอ : <ul class="list-group list-group-flush">  ' + mask + gel + alcohol + food + medical_tools + medicine + ' </ul > <div class="card-footer text-muted">วันที่ขอ : ' + feature.properties.donate_date + ' </div> </div > ')
         }
+        ).addTo(markers)
+
+
+        var M_t1 = ''
+        var M_t2 = ''
+        var M_t3 = ''
+        var M_t4 = ''
+        var M_t5 = ''
+        var M_t6 = ''
+        for (var i = 0; i < data.features.length; i++) {
+            var value = data.features[i].properties.gid;
+
+            if (data.features[i].properties.mask == 'true') {
+                M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.gel == 'true') {
+                M_t2 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.alcohol == 'true') {
+                M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.food == 'true') {
+                M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.medical_tools == 'true') {
+                M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.medicine == 'true') {
+                M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+        }
+        document.getElementById('mask_table').innerHTML = M_t1
+        document.getElementById('gel_table').innerHTML = M_t2
+        document.getElementById('alcohol_table').innerHTML = M_t3
+        document.getElementById('food_table').innerHTML = M_t4
+        document.getElementById('medical_tools_table').innerHTML = M_t5
+        document.getElementById('medicine_table').innerHTML = M_t6
+
+    },
+    error: function (data) {
+        console.log('err');
+
+        data = volunteer_json
+        geojson = data
+        L.geoJson(data, {
+
+            pointToLayer: function (feature, latlng) {
+                if (feature.properties.type_request == 'โรงพยาบาล') {
+                    var icon = hospital_icon
+                } else {
+                    var icon = volunteer_icon
+                }
+                var mask, gel, alcohol, food, medical_tools, medicine = ''
+                if (feature.properties.mask == 'true') {
+                    mask = '<li class="list-group-item">หน้ากากอนามัย</li> '
+                } else { mask = '' }
+                if (feature.properties.gel == 'true') {
+                    gel = '<li class="list-group-item">เจลล้างมือ</li> '
+                } else { gel = '' }
+                if (feature.properties.alcohol == 'true') {
+                    alcohol = '<li class="list-group-item">แอลกอฮอล์</li> '
+                } else { alcohol = '' }
+                if (feature.properties.food == 'true') {
+                    food = '<li class="list-group-item">อาหารแห้ง / ของใช้</li> '
+                } else { food = '' }
+                if (feature.properties.medical_tools == 'true') {
+                    medical_tools = '<li class="list-group-item">เครื่องมือทางการแพทย์</li> '
+                } else { medical_tools = '' }
+                if (feature.properties.medicine == 'true') {
+                    medicine = '<li class="list-group-item">ยารักษาโรค</li> '
+                } else { medicine = '' }
+
+
+                return L.marker(latlng, {
+                    icon: icon,
+                }).bindPopup('<div class="card mb-3"> <h4 class="card-header">ประเภท : ' + feature.properties.type_request + ' </h4> <div class="card-body"> <h5 class="card-title">ผู้ขอรับบริจาค : ' + feature.properties.name_request + ' </h5> <h6 class="card-subtitle text-muted">ที่อยู่สำหรับจัดส่ง : ' + feature.properties.address_request + ' </h6> </div> <div class="card-body"> <p class="card-text">รายละเอียด/เหตุผลที่ขอรับ : ' + feature.properties.details_request + ' </p> </div> สิ่งที่ขอ : <ul class="list-group list-group-flush">  ' + mask + gel + alcohol + food + medical_tools + medicine + ' </ul > <div class="card-footer text-muted">วันที่ขอ : ' + feature.properties.donate_date + ' </div> </div > ')
+            }
+
+        }
+        ).addTo(markers)
+
+
+        var M_t1 = ''
+        var M_t2 = ''
+        var M_t3 = ''
+        var M_t4 = ''
+        var M_t5 = ''
+        var M_t6 = ''
+        for (var i = 0; i < data.features.length; i++) {
+            var value = data.features[i].properties.gid;
+
+            if (data.features[i].properties.mask == 'true') {
+                M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.gel == 'true') {
+                M_t2 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.alcohol == 'true') {
+                M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.food == 'true') {
+                M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.medical_tools == 'true') {
+                M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+            if (data.features[i].properties.medicine == 'true') {
+                M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
+                    + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
+            }
+        }
+        document.getElementById('mask_table').innerHTML = M_t1
+        document.getElementById('gel_table').innerHTML = M_t2
+        document.getElementById('alcohol_table').innerHTML = M_t3
+        document.getElementById('food_table').innerHTML = M_t4
+        document.getElementById('medical_tools_table').innerHTML = M_t5
+        document.getElementById('medicine_table').innerHTML = M_t6
 
     }
-    ).addTo(markers)
+});
 
 
-    var M_t1 = ''
-    var M_t2 = ''
-    var M_t3 = ''
-    var M_t4 = ''
-    var M_t5 = ''
-    var M_t6 = ''
-    for (var i = 0; i < data.features.length; i++) {
-        var value = data.features[i].properties.gid;
 
-        if (data.features[i].properties.mask == 'true') {
-            M_t1 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
-                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
-        }
-        if (data.features[i].properties.gel == 'true') {
-            M_t2 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
-                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
-        }
-        if (data.features[i].properties.alcohol == 'true') {
-            M_t3 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
-                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
-        }
-        if (data.features[i].properties.food == 'true') {
-            M_t4 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
-                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
-        }
-        if (data.features[i].properties.medical_tools == 'true') {
-            M_t5 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
-                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
-        }
-        if (data.features[i].properties.medicine == 'true') {
-            M_t6 += '<tr> <td>' + data.features[i].properties.type_request + '</td> <td>' + data.features[i].properties.name_request + '</td> <td>' + data.features[i].properties.donate_date
-                + '</td> <td><i class="fa fa-search" onClick="gotopoint(' + value + ')"></i> </td> </tr>'
-        }
-    }
-    document.getElementById('mask_table').innerHTML = M_t1
-    document.getElementById('gel_table').innerHTML = M_t2
-    document.getElementById('alcohol_table').innerHTML = M_t3
-    document.getElementById('food_table').innerHTML = M_t4
-    document.getElementById('medical_tools_table').innerHTML = M_t5
-    document.getElementById('medicine_table').innerHTML = M_t6
 
-})
 
 
 
