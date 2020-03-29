@@ -49,7 +49,7 @@ new Vue({
     },
     mounted() {
         axios
-            .get('https://mapedia.co.th/demo/get_point.php?date=7')
+            .get('https://cors-anywhere.herokuapp.com/https://mapedia.co.th/demo/get_point.php?date=7')
             .then(async function (res) {
 
                 case_point = res.data.covidcase
