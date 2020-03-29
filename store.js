@@ -10,7 +10,7 @@ async function getUserProfile() {
     }
 
     $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+        url: 'https://covid.mapedia.co.th/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
