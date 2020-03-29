@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>WAY COVID 19</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+
+    <link rel="stylesheet" href="https://brandonxiang.github.io/leaflet.marker.highlight/index.css">
+
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #ffffff;
+        }
+
+        #map {
+            border-radius: 10px;
+            width: 100%;
+            height: 50vh;
+            z-index: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>add news covid19</h2>
+        <form method="post" action="https://rti2dss.com/mapedia.serv/add_news.php">
+
+            <div class="form-group">
+                <label for="pwd">ชื่อสถานที่ : </label>
+                <input type="text" class="form-control" name="place_name">
+            </div>
+            <div class="form-group">
+                <label for="pwd">จำนวนเคส : </label>
+                <input type="text" class="form-control" name="case_numbe">
+            </div>
+
+
+            <div class="form-group">
+                <label for="pwd">สถานะแหล่งข่าว : </label>
+                <select name="" id="" class="form-control" name="status_news">
+                    <option>เลือก</option>
+                    <option value="ปิดเพื่อฆ่าเชื้อทำความสะอาด">ปิดเพื่อฆ่าเชื้อทำความสะอาด</option>
+                    <option value="ฆ่าเชื้อทำความสะอาดแล้ว">ฆ่าเชื้อทำความสะอาดแล้ว</option>
+                    <option value="ได้รับการยืนยัน">ได้รับการยืนยัน</option>
+                    <option value="กำลังตรวจสอบ">กำลังตรวจสอบ</option>
+                    <option value="ไม่ระบุพิกัด">ไม่ระบุพิกัด</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">สถานะเคส : </label>
+                <select name="" id="" class="form-control" name="status_pat">
+                    <option>เลือก</option>
+                    <option value="ฆ่าเชื้อทำความสะอาดแล้ว">ฆ่าเชื้อทำความสะอาดแล้ว</option>
+                    <option value="กักตัว 14 วัน">กักตัว 14 วัน</option>
+                    <option value="เสียชีวิต">เสียชีวิต</option>
+                    <option value="ส่งตัวต่อเพื่อทำการรักษา">ส่งตัวต่อเพื่อทำการรักษา</option>
+                    <option value="ไม่ทราบสถานะ">ไม่ทราบสถานะ</option>
+                    <option value="กำลังรักษา">กำลังรักษา</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">รายละเอียดเพิ่มเติม : </label>
+                <input type="text" class="form-control" name="description">
+            </div>
+            <div class="form-group">
+                <label for="pwd">ที่มาข่าว : </label>
+                <input type="text" class="form-control" name="ref_source">
+            </div>
+            <div class="form-group">
+                <label for="pwd">URL ข่าว : </label>
+                <input type="text" class="form-control" name="link_news">
+            </div>
+            <div class="form-group">
+                <label for="pwd">ตำบล : </label>
+                <input type="text" class="form-control" name="tb_th">
+            </div>
+            <div class="form-group">
+                <label for="pwd">อำเภอ : </label>
+                <input type="text" class="form-control" name="ap_th">
+            </div>
+            <div class="form-group">
+                <label for="pwd">จังหวัด : </label>
+                <input type="text" class="form-control" name="pro_th">
+            </div>
+            <div class="form-group">
+                <label for="pwd">รหัสไปรษณีย์ : </label>
+                <input type="text" class="form-control" name="postcode">
+            </div>
+            <div class="form-group">
+                <label for="pwd">อายุ : </label>
+                <input type="text" class="form-control" name="age">
+            </div>
+            <div class="form-group">
+                <label for="pwd">เพศ : </label>
+                <input type="text" class="form-control" name="gender">
+            </div>
+            <div class="form-group">
+                <label for="pwd">วันที่ลงข่าว : </label>
+                <input type="date" class="form-control" name="date_start">
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="pwd">Lat : </label>
+                    <div id="lat_input">กดที่แผนที่</div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="pwd">Lon : </label>
+                    <div id="lon_input">กดที่แผนที่</div>
+                </div>
+            </div>
+            <div id="map"></div>
+
+
+            <div id="userid"></div>
+            <button type="submit" class="btn btn-warning btn-block">ลงข่าว</button>
+            <hr>
+        </form>
+    </div>
+
+
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script src="https://brandonxiang.github.io/leaflet.marker.highlight/index.js#"></script>
+    <script>
+        async function getUserProfile() {
+            profile = await liff.getProfile()
+            pictureUrl = profile.pictureUrl
+            userId = profile.userId
+            displayName = profile.displayName
+            decodedIDToken = liff.getDecodedIDToken().email
+
+            document.getElementById('userid').innerHTML = ' <input type="hidden" class="form-control" name="userid" value="' + userId + '">'
+
+        }
+        async function main() {
+            liff.ready.then(() => {
+                if (liff.isLoggedIn()) {
+                    getUserProfile()
+                } else {
+                    liff.login()
+                }
+            })
+            await liff.init({ liffId: "1653981898-q0jEx1on" })
+        }
+        main()
+
+
+
+
+
+
+        var map = L.map('map'
+            , { attributionControl: false }
+        ).setView([13.751569, 100.501634], 12);
+
+
+        CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map)
+
+        var point_show = L.layerGroup().addTo(map)
+        function onMapClick(e) {
+            point_show.clearLayers()
+
+
+
+            var point = turf.point([e.latlng.lng, e.latlng.lat]);
+            L.geoJson(point).addTo(point_show)
+
+
+            document.getElementById('lat_input').innerHTML = '<input type="text" class="form-control" name="lat" id="lat_input" value="' + e.latlng.lat + '">'
+            document.getElementById('lon_input').innerHTML = '<input type="text" class="form-control" name="lon" id="lon_input" value="' + e.latlng.lng + '">'
+
+        }
+
+        map.on('click', onMapClick);
+
+
+
+    </script>
+
+</body>
+
+</html>
