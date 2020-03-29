@@ -41,7 +41,7 @@ main()
 var map = L.map('map'
     , { attributionControl: false }
 ).setView([14.431583, 100.694065], 6);
-
+var markers = L.markerClusterGroup().addTo(map)
 
 CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -90,7 +90,7 @@ $.getJSON("https://mapedia.co.th/demo/get_point_volunteer.php", function (data) 
         }
 
     }
-    ).addTo(map)
+    ).addTo(markers)
 
 
     var M_t1 = ''
@@ -135,6 +135,7 @@ $.getJSON("https://mapedia.co.th/demo/get_point_volunteer.php", function (data) 
     document.getElementById('medicine_table').innerHTML = M_t6
 
 })
+
 
 
 function gotopoint(id) {
