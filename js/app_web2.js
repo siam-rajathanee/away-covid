@@ -9,7 +9,7 @@ async function getUserProfile() {
     }
 
     $.ajax({
-        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
+        url: 'http://mapedia.co.th/demo/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
@@ -48,7 +48,7 @@ new Vue({
 
     mounted() {
         axios
-            .get('https://rti2dss.com/mapedia.serv/get_map_dashboard.php?type=geojson_1')
+            .get('http://mapedia.co.th/demo/get_map_dashboard.php?type=geojson_1')
             .then(function (res) {
                 const case_geojson = res.data
                 var geojson = L.geoJson(case_geojson, {
@@ -70,7 +70,7 @@ new Vue({
 
     mounted() {
         axios
-            .get('https://rti2dss.com/mapedia.serv/get_map_dashboard.php?type=chart_1')
+            .get('http://mapedia.co.th/demo/get_map_dashboard.php?type=chart_1')
             .then(function (res) {
                 var covid_dga = res.data
 
