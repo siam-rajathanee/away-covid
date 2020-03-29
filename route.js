@@ -87,7 +87,7 @@ function onLocationFound(e) {
 
 
     let covidlab = L.layerGroup().addTo(map);
-    $.getJSON("https://mapedia.co.th/mapedia.serv/_labcovid.php", function (res) {
+    $.getJSON("https://mapedia.co.th/demo/_labcovid.php", function (res) {
         // console.log(res)
         // const items = res.data;
 
