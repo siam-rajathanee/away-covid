@@ -9,7 +9,7 @@ async function getUserProfile() {
     }
 
     $.ajax({
-        url: 'https://covid.mapedia.co.th/add_tracking.php?type=login',
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
@@ -52,7 +52,7 @@ document.getElementById('check_lat').innerHTML = '<button type="submit" class="b
 
 
 var markers = L.markerClusterGroup().addTo(map)
-$.getJSON("https://covid.mapedia.co.th/get_point_volunteer.php", function (data) {
+$.getJSON("https://mapedia.co.th/demo/get_point_volunteer.php", function (data) {
 
     geojson = data
     L.geoJson(data, {
@@ -230,7 +230,7 @@ $("#form_query").submit(function (event) {
     var type_request = event.target.type_request.value
 
     $.ajax({
-        url: 'https://covid.mapedia.co.th/add_volunteer.php',
+        url: 'https://mapedia.co.th/demo/add_volunteer.php',
         method: 'post',
         data: ({
             name_request: name_request,
