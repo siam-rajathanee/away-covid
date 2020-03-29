@@ -9,7 +9,7 @@ async function getUserProfile() {
     }
 
     $.ajax({
-        url: 'http://mapedia.co.th/demo/add_tracking.php?type=login',
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
