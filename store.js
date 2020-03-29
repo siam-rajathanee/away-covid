@@ -10,7 +10,7 @@ async function getUserProfile() {
     }
 
     $.ajax({
-        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
+        url: 'http://mapedia.co.th/demo/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,

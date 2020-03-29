@@ -9,7 +9,7 @@ async function getUserProfile() {
     }
 
     $.ajax({
-        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
+        url: 'http://mapedia.co.th/demo/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
@@ -52,7 +52,7 @@ document.getElementById('check_lat').innerHTML = '<button type="submit" class="b
 
 
 var markers = L.markerClusterGroup().addTo(map)
-$.getJSON("https://rti2dss.com/mapedia.serv/get_point_volunteer.php", function (data) {
+$.getJSON("http://mapedia.co.th/demo/get_point_volunteer.php", function (data) {
 
     geojson = data
     L.geoJson(data, {
@@ -230,7 +230,7 @@ $("#form_query").submit(function (event) {
     var type_request = event.target.type_request.value
 
     $.ajax({
-        url: 'https://rti2dss.com/mapedia.serv/add_volunteer.php',
+        url: 'http://mapedia.co.th/demo/add_volunteer.php',
         method: 'post',
         data: ({
             name_request: name_request,
