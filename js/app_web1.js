@@ -11,7 +11,7 @@ async function getUserProfile() {
     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 
     $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=login',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
@@ -49,7 +49,7 @@ new Vue({
     },
     mounted() {
         axios
-            .get('https://mapedia.co.th/demo/get_point.php?date=7')
+            .get('https://rti2dss.com/mapedia.serv/get_point.php?date=7')
             .then(async function (res) {
 
                 case_point = res.data.covidcase
@@ -382,7 +382,7 @@ function get_tracking() {
     var lng = test_latlng[0]
 
     $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=tracking',
+        url: 'https://rti2dss.com/mapedia.serv/add_tracking.php?type=tracking',
         method: 'post',
         data: ({
             pictureUrl: pictureUrl,
@@ -469,7 +469,7 @@ $("#form_setting").submit(function (event) {
 
 
     $.ajax({
-        url: 'https://mapedia.co.th/demo/get_point.php?date=' + date,
+        url: 'https://rti2dss.com/mapedia.serv/get_point.php?date=' + date,
         method: 'get',
         success: function (data) {
             case_point = JSON.parse(data).covidcase
