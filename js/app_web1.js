@@ -9,19 +9,19 @@ async function getUserProfile() {
     }
     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            decodedIDToken: decodedIDToken,
-            page_view: 'index.html'
-        }),
-        success: function (data) {
-        }
-    })
+    // $.ajax({
+    //     url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+    //     method: 'post',
+    //     data: ({
+    //         pictureUrl: pictureUrl,
+    //         userId: userId,
+    //         displayName: displayName,
+    //         decodedIDToken: decodedIDToken,
+    //         page_view: 'index.html'
+    //     }),
+    //     success: function (data) {
+    //     }
+    // })
 
 }
 async function main() {
@@ -141,6 +141,9 @@ new Vue({
                     var radius = 5;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
                     // test_latlng = [100.323, 14.45] // e.latlng
+                    // document.cookie = "[" + e.latlng.lng + ", " + e.latlng.lat + "]"
+                    // console.log(JSON.parse(document.cookie));
+
 
                     var point = turf.point(test_latlng);
                     L.geoJson(point, {

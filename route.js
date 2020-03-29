@@ -8,19 +8,19 @@ async function getUserProfile() {
         pictureUrl = ''
     }
 
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            decodedIDToken: decodedIDToken,
-            page_view: 'route.html'
-        }),
-        success: function (data) {
-        }
-    })
+    // $.ajax({
+    //     url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+    //     method: 'post',
+    //     data: ({
+    //         pictureUrl: pictureUrl,
+    //         userId: userId,
+    //         displayName: displayName,
+    //         decodedIDToken: decodedIDToken,
+    //         page_view: 'route.html'
+    //     }),
+    //     success: function (data) {
+    //     }
+    // })
 
 }
 async function main() {

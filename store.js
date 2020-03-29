@@ -9,19 +9,19 @@ async function getUserProfile() {
         pictureUrl = ''
     }
 
-    $.ajax({
-        url: 'https://covid.mapedia.co.th/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            decodedIDToken: decodedIDToken,
-            page_view: 'store.html'
-        }),
-        success: function (data) {
-        }
-    })
+    // $.ajax({
+    //     url: 'https://covid.mapedia.co.th/add_tracking.php?type=login',
+    //     method: 'post',
+    //     data: ({
+    //         pictureUrl: pictureUrl,
+    //         userId: userId,
+    //         displayName: displayName,
+    //         decodedIDToken: decodedIDToken,
+    //         page_view: 'store.html'
+    //     }),
+    //     success: function (data) {
+    //     }
+    // })
 
 }
 
