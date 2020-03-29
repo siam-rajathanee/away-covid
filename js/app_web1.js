@@ -37,6 +37,10 @@ async function main() {
 main()
 
 
+
+
+
+
 new Vue({
     el: '#app_vue',
     data() {
@@ -131,6 +135,11 @@ new Vue({
 
 
 
+
+
+
+
+
                 function onLocationFound(e) {
 
 
@@ -141,9 +150,6 @@ new Vue({
                     var radius = 5;
                     test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
                     // test_latlng = [100.323, 14.45] // e.latlng
-                    // document.cookie = "[" + e.latlng.lng + ", " + e.latlng.lat + "]"
-                    // console.log(JSON.parse(document.cookie));
-
 
                     var point = turf.point(test_latlng);
                     L.geoJson(point, {
