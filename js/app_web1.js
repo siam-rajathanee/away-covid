@@ -37,362 +37,6 @@ async function main() {
 main()
 
 
-
-
-
-
-new Vue({
-    el: '#app_vue',
-    data() {
-        return {
-            info: null,
-        }
-    },
-    mounted() {
-        axios
-            .get('https://mapedia.co.th/demo/get_point.php?date=7')
-            .then(async function (res) {
-
-                case_point = res.data.covidcase
-                place_announce = res.data.place_announce
-
-
-                var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
-                for (var i = 0; i < case_point.features.length; i++) {
-                    option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
-                }
-                document.getElementById('select_place').innerHTML = option_dropdown
-
-                function onEachFeature(f, layer) {
-                    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
-                    layer.bindPopup(popup)
-                }
-                function onEachFeature_place_announce(f, layer) {
-                    // var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-                    var popup = '<div class="card mb-3"><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-                    layer.bindPopup(popup)
-                }
-
-
-                L.geoJson(case_point, {
-                    pointToLayer: function (f, latlng) {
-                        if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                            return L.marker(latlng, {
-                                icon: case_success,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'กำลังรักษา') {
-                            return L.marker(latlng, {
-                                icon: case_confirm,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                            return L.marker(latlng, {
-                                icon: case_warning,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                            return L.marker(latlng, {
-                                icon: case_null,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                            return L.marker(latlng, {
-                                icon: case_clean,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'เสียชีวิต') {
-                            return L.marker(latlng, {
-                                icon: case_death,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                            return L.marker(latlng, {
-                                icon: case_send,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                            return L.marker(latlng, {
-                                icon: case_hospital,
-                                highlight: "temporary"
-                            });
-                        }
-
-                    },
-                    onEachFeature: onEachFeature
-                }).addTo(points_case)
-
-                L.geoJson(place_announce,
-                    {
-                        pointToLayer: function (f, latlng) {
-                            return L.marker(latlng, {
-                                icon: case_place_announce,
-                                highlight: "temporary"
-                            });
-                        },
-                        onEachFeature: onEachFeature_place_announce
-                    }).addTo(points_case)
-
-
-
-
-
-
-
-
-                function onLocationFound(e) {
-
-
-                    document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
-
-
-                    var radius = 5;
-                    test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
-                    // test_latlng = [100.323, 14.45] // e.latlng
-
-                    var point = turf.point(test_latlng);
-                    L.geoJson(point, {
-                        pointToLayer: function (feature, latlng) {
-                            return L.marker(latlng, {
-                                icon: local_icon,
-                            });
-                        }
-                    })
-                        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-                        .addTo(set_map)
-
-                    var buffered = turf.buffer(point, radius, { units: 'kilometers' });
-
-
-                    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-                    var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
-
-
-
-
-
-
-                    var data = ptsWithin.features
-                    var table = ''
-                    for (var i = 0; i < data.length; i++) {
-                        var distance = turf.distance(point, data[i], { units: 'kilometers' });
-                        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
-                    }
-                    document.getElementById('tabel_data').innerHTML = table
-
-
-
-                    var data_place_announce = ptsWithplace_announce.features
-                    var tb_announce = ''
-                    data_place_announce.forEach(function (f) {
-                        // tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-                        tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-                    });
-                    document.getElementById('tabel_announce').innerHTML = tb_announce
-
-
-                    if (data.length != 0 || data_place_announce.length != 0) {
-                        // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-                        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text">ใกล้พื้นที่เสี่ยง</p>'
-
-                        var buffereds = L.geoJson(buffered, {
-                            stroke: false,
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.1,
-                        }).addTo(set_map)
-                        map.fitBounds(buffereds.getBounds())
-                    } else {
-                        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
-                        var buffereds = L.geoJson(buffered, {
-                            stroke: false,
-                            color: 'green',
-                            fillColor: 'green',
-                            fillOpacity: 0.1,
-                        }).addTo(set_map)
-                        map.fitBounds(buffereds.getBounds())
-                    }
-
-
-
-                }
-
-                map.on('locationfound', onLocationFound);
-                map.locate();
-
-            })
-            .catch(async function (res) {
-
-                case_point = geojson_covidcase
-                place_announce = geojson_ann
-
-
-                var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
-                for (var i = 0; i < case_point.features.length; i++) {
-                    option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
-                }
-                document.getElementById('select_place').innerHTML = option_dropdown
-
-                function onEachFeature(f, layer) {
-                    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
-                    layer.bindPopup(popup)
-                }
-                function onEachFeature_place_announce(f, layer) {
-                    // var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-                    var popup = '<div class="card mb-3"><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-                    layer.bindPopup(popup)
-                }
-
-
-                L.geoJson(case_point, {
-                    pointToLayer: function (f, latlng) {
-                        if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                            return L.marker(latlng, {
-                                icon: case_success,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'กำลังรักษา') {
-                            return L.marker(latlng, {
-                                icon: case_confirm,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                            return L.marker(latlng, {
-                                icon: case_warning,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                            return L.marker(latlng, {
-                                icon: case_null,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                            return L.marker(latlng, {
-                                icon: case_clean,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'เสียชีวิต') {
-                            return L.marker(latlng, {
-                                icon: case_death,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                            return L.marker(latlng, {
-                                icon: case_send,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                            return L.marker(latlng, {
-                                icon: case_hospital,
-                                highlight: "temporary"
-                            });
-                        }
-
-                    },
-                    onEachFeature: onEachFeature
-                }).addTo(points_case)
-
-                L.geoJson(place_announce,
-                    {
-                        pointToLayer: function (f, latlng) {
-                            return L.marker(latlng, {
-                                icon: case_place_announce,
-                                highlight: "temporary"
-                            });
-                        },
-                        onEachFeature: onEachFeature_place_announce
-                    }).addTo(points_case)
-
-
-
-                function onLocationFound(e) {
-
-
-                    document.getElementById('loading').innerHTML = ''
-                    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
-
-
-                    var radius = 5;
-                    test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
-                    // test_latlng = [100.323, 14.45] // e.latlng
-
-                    var point = turf.point(test_latlng);
-                    L.geoJson(point, {
-                        pointToLayer: function (feature, latlng) {
-                            return L.marker(latlng, {
-                                icon: local_icon,
-                            });
-                        }
-                    })
-                        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-                        .addTo(set_map)
-
-                    var buffered = turf.buffer(point, radius, { units: 'kilometers' });
-
-
-                    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-                    var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
-
-
-
-
-
-
-                    var data = ptsWithin.features
-                    var table = ''
-                    for (var i = 0; i < data.length; i++) {
-                        var distance = turf.distance(point, data[i], { units: 'kilometers' });
-                        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
-                    }
-                    document.getElementById('tabel_data').innerHTML = table
-
-
-
-                    var data_place_announce = ptsWithplace_announce.features
-                    var tb_announce = ''
-                    data_place_announce.forEach(function (f) {
-                        // tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-                        tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-                    });
-                    document.getElementById('tabel_announce').innerHTML = tb_announce
-
-
-                    if (data.length != 0 || data_place_announce.length != 0) {
-                        // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-                        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text">ใกล้พื้นที่เสี่ยง</p>'
-
-                        var buffereds = L.geoJson(buffered, {
-                            stroke: false,
-                            color: 'red',
-                            fillColor: '#f03',
-                            fillOpacity: 0.1,
-                        }).addTo(set_map)
-                        map.fitBounds(buffereds.getBounds())
-                    } else {
-                        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
-                        var buffereds = L.geoJson(buffered, {
-                            stroke: false,
-                            color: 'green',
-                            fillColor: 'green',
-                            fillOpacity: 0.1,
-                        }).addTo(set_map)
-                        map.fitBounds(buffereds.getBounds())
-                    }
-
-
-
-                }
-
-                map.on('locationfound', onLocationFound);
-                map.locate();
-
-            })
-    }
-})
-
-
-
 var map = L.map('map'
     , { attributionControl: false }
 ).setView([13.751569, 100.501634], 10);
@@ -445,7 +89,6 @@ var case_clean = L.icon({
     iconUrl: 'img/clean.png',
     iconSize: [50, 50], // size of the icon
 });
-
 var case_death = L.icon({
     iconUrl: 'img/death.png',
     iconSize: [50, 50], // size of the icon
@@ -458,11 +101,15 @@ var case_hospital = L.icon({
     iconUrl: 'img/hospital.png',
     iconSize: [50, 50], // size of the icon
 });
-
 var case_place_announce = L.icon({
     iconUrl: 'img/place.svg',
     iconSize: [50, 50], // size of the icon
 });
+var local_icon = L.icon({
+    iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
+    iconSize: [20, 20]
+});
+
 
 function get_track() {
     document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
@@ -471,23 +118,6 @@ function get_track() {
 map.on('click', function () {
     document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 })
-
-
-var local_icon = L.icon({
-    iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
-    iconSize: [20, 20]
-});
-
-function getColor(d) {
-    return d > 1000 ? '#800026' :
-        d > 500 ? '#BD0026' :
-            d > 200 ? '#E31A1C' :
-                d > 100 ? '#FC4E2A' :
-                    d > 50 ? '#FD8D3C' :
-                        d > 20 ? '#FEB24C' :
-                            d > 10 ? '#FED976' :
-                                '#FFEDA0';
-}
 
 var legend = L.control({ position: 'bottomright' });
 
@@ -518,7 +148,187 @@ function hideDisclaimer() {
 }
 
 hideDisclaimer()
+get_point()
 
+
+
+var date = new Date();
+date.setDate(date.getDate() - 7);
+finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+
+var date = new Date();
+date.setDate(date.getDate());
+nowdate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+
+function get_point() {
+    var date = new Date();
+    date.setDate(date.getDate() - 7);
+    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+    var json_query = []
+    for (let i = 0; i < geojson_covidcase.features.length; i++) {
+        if (Date.parse(geojson_covidcase.features[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(geojson_covidcase.features[i])
+        }
+    }
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
+
+    case_point = nietos[0]
+    place_announce = geojson_ann
+
+
+    var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
+    for (var i = 0; i < case_point.features.length; i++) {
+        option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
+    }
+    document.getElementById('select_place').innerHTML = option_dropdown
+
+    function onEachFeature(f, layer) {
+        var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+        layer.bindPopup(popup)
+    }
+    function onEachFeature_place_announce(f, layer) {
+        // var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
+        var popup = '<div class="card mb-3"><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
+        layer.bindPopup(popup)
+    }
+
+
+    L.geoJson(case_point, {
+        pointToLayer: function (f, latlng) {
+            if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_success,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กำลังรักษา') {
+                return L.marker(latlng, {
+                    icon: case_confirm,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                return L.marker(latlng, {
+                    icon: case_warning,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                return L.marker(latlng, {
+                    icon: case_null,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_clean,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'เสียชีวิต') {
+                return L.marker(latlng, {
+                    icon: case_death,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
+                return L.marker(latlng, {
+                    icon: case_send,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
+                return L.marker(latlng, {
+                    icon: case_hospital,
+                    highlight: "temporary"
+                });
+            }
+
+        },
+        onEachFeature: onEachFeature
+    }).addTo(points_case)
+
+    L.geoJson(place_announce, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: case_place_announce,
+                highlight: "temporary"
+            });
+        },
+        onEachFeature: onEachFeature_place_announce
+    }).addTo(points_case)
+
+
+    function onLocationFound(e) {
+
+
+        document.getElementById('loading').innerHTML = ''
+        document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+
+
+        var radius = 5;
+        test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+
+        var point = turf.point(test_latlng);
+        L.geoJson(point, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                });
+            }
+        })
+            .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+            .addTo(set_map)
+
+        var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+
+
+        var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+        var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
+
+        var data = ptsWithin.features
+        var table = ''
+        for (var i = 0; i < data.length; i++) {
+            var distance = turf.distance(point, data[i], { units: 'kilometers' });
+            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+        }
+        document.getElementById('tabel_data').innerHTML = table
+
+        var data_place_announce = ptsWithplace_announce.features
+        var tb_announce = ''
+        data_place_announce.forEach(function (f) {
+            // tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+            tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+        });
+        document.getElementById('tabel_announce').innerHTML = tb_announce
+
+
+        if (data.length != 0 || data_place_announce.length != 0) {
+            // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text">ใกล้พื้นที่เสี่ยง</p>'
+
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        } else {
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'green',
+                fillColor: 'green',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        }
+    }
+
+    map.on('locationfound', onLocationFound);
+    map.locate();
+}
 
 
 
@@ -638,121 +448,129 @@ $("#form_setting").submit(function (event) {
         gter.addTo(map)
     }
 
+    var date = new Date();
+    date.setDate(date.getDate() - event.target.date.value);
+    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/get_point.php?date=' + date,
-        method: 'get',
-        success: function (data) {
-            case_point = JSON.parse(data).covidcase
+    var json_query = []
+    for (let i = 0; i < geojson_covidcase.features.length; i++) {
+        if (Date.parse(geojson_covidcase.features[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(geojson_covidcase.features[i])
+        }
+    }
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
 
-            var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
-            for (var i = 0; i < case_point.features.length; i++) {
-                option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
-            }
-            document.getElementById('select_place').innerHTML = option_dropdown
-
-
-            function onEachFeature(f, layer) {
-                var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
-                layer.bindPopup(popup)
-            }
-            function onEachFeature_place_announce(f, layer) {
-                // var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-                var popup = '<div class="card mb-3">  <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-                layer.bindPopup(popup)
-            }
+    case_point = nietos[0]
+    place_announce = geojson_ann
 
 
-            var geojson_announce = L.geoJson(place_announce, {
-                pointToLayer: function (f, latlng) {
-                    return L.marker(latlng, {
-                        icon: case_place_announce,
-                        highlight: "temporary"
-                    });
-                },
-                onEachFeature: onEachFeature_place_announce
-            })
-
-            var geojson_case = L.geoJson(case_point, {
-                pointToLayer: function (f, latlng) {
-                    if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                        return L.marker(latlng, {
-                            icon: case_success,
-                            highlight: "temporary"
-                        });
-                    } else if (f.properties.status_pat == 'กำลังรักษา') {
-                        return L.marker(latlng, {
-                            icon: case_confirm,
-                            highlight: "temporary"
-                        });
-                    } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                        return L.marker(latlng, {
-                            icon: case_warning,
-                            highlight: "temporary"
-                        });
-                    } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                        return L.marker(latlng, {
-                            icon: case_null,
-                            highlight: "temporary"
-                        });
-                    }
-                },
-                onEachFeature: onEachFeature
-            })
-
-            if (toggle_1 == true) {
-                geojson_case.addTo(points_case)
-            }
-            if (toggle_2 == true) {
-                geojson_announce.addTo(points_case)
-            }
-            var point = turf.point(test_latlng);
-            L.geoJson(point, {
-                pointToLayer: function (feature, latlng) {
-                    return L.marker(latlng, {
-                        icon: local_icon,
-                    });
-                }
-            })
-                .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-                .addTo(set_map)
-
-            var buffered = turf.buffer(point, radius, { units: 'kilometers' });
-            var buffereds = L.geoJson(buffered, {
-                stroke: false,
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.1,
-            }).addTo(set_map)
-
-            var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-            var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
-
-            map.fitBounds(buffereds.getBounds())
-
-            var data = ptsWithin.features
-            var data_place_announce = ptsWithplace_announce.features
+    var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
+    for (var i = 0; i < case_point.features.length; i++) {
+        option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
+    }
+    document.getElementById('select_place').innerHTML = option_dropdown
 
 
-            var table = ''
-            for (var i = 0; i < data.length; i++) {
-                var distance = turf.distance(point, data[i], { units: 'kilometers' });
-                table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
-            }
-            document.getElementById('tabel_data').innerHTML = table
+    function onEachFeature(f, layer) {
+        var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+        layer.bindPopup(popup)
+    }
+    function onEachFeature_place_announce(f, layer) {
+        // var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
+        var popup = '<div class="card mb-3">  <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
+        layer.bindPopup(popup)
+    }
 
-            var tb_announce = ''
-            data_place_announce.forEach(function (f) {
-                //  tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-                tb_announce += '<div class="card mb-3 "><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+
+    var geojson_announce = L.geoJson(place_announce, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: case_place_announce,
+                highlight: "temporary"
             });
-            document.getElementById('tabel_announce').innerHTML = tb_announce
+        },
+        onEachFeature: onEachFeature_place_announce
+    })
 
+    var geojson_case = L.geoJson(case_point, {
+        pointToLayer: function (f, latlng) {
+            if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_success,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กำลังรักษา') {
+                return L.marker(latlng, {
+                    icon: case_confirm,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                return L.marker(latlng, {
+                    icon: case_warning,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                return L.marker(latlng, {
+                    icon: case_null,
+                    highlight: "temporary"
+                });
+            }
+        },
+        onEachFeature: onEachFeature
+    })
 
-        }, error: function () {
-            console.log('error  data!');
+    if (toggle_1 == true) {
+        geojson_case.addTo(points_case)
+    }
+    if (toggle_2 == true) {
+        geojson_announce.addTo(points_case)
+    }
+    var point = turf.point(test_latlng);
+    L.geoJson(point, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: local_icon,
+            });
         }
     })
+        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+        .addTo(set_map)
+
+    var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+    var buffereds = L.geoJson(buffered, {
+        stroke: false,
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.1,
+    }).addTo(set_map)
+
+    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+    var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
+
+    map.fitBounds(buffereds.getBounds())
+
+    var data = ptsWithin.features
+    var data_place_announce = ptsWithplace_announce.features
+
+
+    var table = ''
+    for (var i = 0; i < data.length; i++) {
+        var distance = turf.distance(point, data[i], { units: 'kilometers' });
+        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+    }
+    document.getElementById('tabel_data').innerHTML = table
+
+    var tb_announce = ''
+    data_place_announce.forEach(function (f) {
+        //  tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+        tb_announce += '<div class="card mb-3 "><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+    });
+    document.getElementById('tabel_announce').innerHTML = tb_announce
+
 
 
 
