@@ -102,15 +102,11 @@ var local_icon = L.icon({
 
 
 function get_track() {
-    document.getElementById('tracking').innerHTML = ''
-
-    // document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 }
 
 map.on('click', function () {
-    document.getElementById('tracking').innerHTML = ''
-
-    // document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 })
 
 var legend = L.control({ position: 'bottomright' });
@@ -257,9 +253,7 @@ function get_point() {
 
 
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = ''
-
-        // document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+        document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
         var radius = 5;
@@ -399,9 +393,7 @@ function get_tracking() {
             view_line = L.geoJson(line).addTo(line_track)
 
             map.fitBounds(view_line.getBounds())
-            document.getElementById('tracking').innerHTML = ''
-
-            //document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }, error: function (e) {
         }
     })
