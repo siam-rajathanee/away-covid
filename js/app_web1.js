@@ -63,6 +63,7 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
 })
 
 points_case = L.layerGroup().addTo(map)
+markerClusterGroup = L.markerClusterGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
 
@@ -256,7 +257,7 @@ function get_point() {
             });
         },
         onEachFeature: onEachFeature_place_announce
-    }).addTo(points_case)
+    }).addTo(markerClusterGroup)
 
 
     function onLocationFound(e) {
@@ -415,6 +416,7 @@ $("#form_setting").submit(function (event) {
 
     $("#setting").modal("hide");
 
+    markerClusterGroup.clearLayers()
     points_case.clearLayers()
     set_map.clearLayers()
 
@@ -527,7 +529,7 @@ $("#form_setting").submit(function (event) {
         geojson_case.addTo(points_case)
     }
     if (toggle_2 == true) {
-        geojson_announce.addTo(points_case)
+        geojson_announce.addTo(markerClusterGroup)
     }
     var point = turf.point(test_latlng);
     L.geoJson(point, {
