@@ -1587,37 +1587,6 @@ var geojson_ann = {
             geometry: {
                 type: "Point",
                 coordinates: [
-                    100.58267,
-                    13.734205,
-                ],
-            },
-            crs: {
-                type: "EPSG",
-                properties: {
-                    code: "4326"
-                },
-            },
-            properties: {
-                gid: "14",
-                place: "สถานบันเทิง ร้านอาหารยามค่ำคืน",
-                lat: "13.734205",
-                lon: "100.58267",
-                date_risk: "2020-03-09",
-                time_risk: "",
-                todo: "สังเกตอาการตนเอง 14 วัน หากมีอาการให้ไปรับการตรวจรักษาที่สถานบริการสาธารณสุขใกล้บ้าน",
-                announce: "สำนักสารนิเทศ กระทรวงสาธารสุข",
-                annou_date: "2020-03-18",
-                tb_th: "แขวงคลองตันเหนือ",
-                ap_th: "เขตวัฒนา",
-                pro_th: "กรุงเทพมหานคร",
-                postcode: "10110",
-            },
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
                     100.400961,
                     6.939869,
                 ],
@@ -3416,37 +3385,6 @@ var geojson_ann = {
             geometry: {
                 type: "Point",
                 coordinates: [
-                    100.257124,
-                    16.810242,
-                ],
-            },
-            crs: {
-                type: "EPSG",
-                properties: {
-                    code: "4326"
-                },
-            },
-            properties: {
-                gid: "78",
-                place: "ร้านอาหาร ตามสั่งนั่งชิว",
-                lat: "16.810242",
-                lon: "100.257124",
-                date_risk: "2020-03-15",
-                time_risk: "19.20 -20.00 น.",
-                todo: "สำนักงานสาธารณสุขจังหวัดพิษณุโลก 088-2752240",
-                announce: "สำนักงานสาธารณสุขจังหวัดพิษณุโลก",
-                annou_date: "2020-03-26",
-                tb_th: "ในเมือง",
-                ap_th: "เมืองพิษณุโลก",
-                pro_th: "พิษณุโลก",
-                postcode: "65000",
-            },
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
                     100.198299,
                     16.751385,
                 ],
@@ -3564,6 +3502,37 @@ var geojson_ann = {
                 ap_th: "เมืองเชียงใหม่",
                 pro_th: "เชียงใหม่",
                 postcode: "50200",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.257124,
+                    16.810242,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "78",
+                place: "ร้านอาหารตามสั่งนั่งชิว",
+                lat: "16.810242",
+                lon: "100.257124",
+                date_risk: "2020-03-15",
+                time_risk: "19.20 -20.00 น.",
+                todo: "สำนักงานสาธารณสุขจังหวัดพิษณุโลก 088-2752240",
+                announce: "สำนักงานสาธารณสุขจังหวัดพิษณุโลก",
+                annou_date: "2020-03-26",
+                tb_th: "ในเมือง",
+                ap_th: "เมืองพิษณุโลก",
+                pro_th: "พิษณุโลก",
+                postcode: "65000",
             },
         },
         {
