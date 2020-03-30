@@ -8785,5 +8785,293 @@ var geojson_covidcase = {
                 gender: "ไม่ระบุข้อมูล",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.893758,
+                    14.376016,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "829",
+                place_name: "ศูนย์ปฏิบัติการฯ โควิด-19 จ.สุพรรณบุรี",
+                lat: "14.376016",
+                lon: "99.893758",
+                case_numbe: "1",
+                date_start: "2020-03-27",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "ศูนย์ปฏิบัติการฯ โควิด-19 จ.สุพรรณบุรี พบผู้ติดเชื้อรายที่ 2 ในจังหวัด เป็นหญิงที่ อ.อู่ทอง เดินทางมาจากภูเก็ต แจงพบไทม์ไลน์ไปสถานที่ต่างๆ พบผู้สัมผัสมีความเสี่ยงหลายสิบราย",
+                ref_source: "ไทยรัฐออนไลน์",
+                link_news: "https://www.thairath.co.th/news/local/central/1808068",
+                tb_code: "",
+                tb_th: "อู่ทอง",
+                ap_th: "อู่ทอง",
+                pro_th: "สุพรรณบุรี",
+                postcode: "72160",
+                age: null,
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.607744,
+                    13.595662,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "830",
+                place_name: "อ.เมือง จ.สมุทรปราการ",
+                lat: "13.595662",
+                lon: "100.607744",
+                case_numbe: "15",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.เมืองจำนวน 15 รายจากทั้งหมด 16 ราย รักษาหาย 1 ราย",
+                ref_source: "สมุทรปราการ",
+                link_news: "https://www.facebook.com/welovespk/photos/pcb.572897360250282/572897100250308/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "เมืองสมุทรปราการ",
+                pro_th: "สมุทรปราการ",
+                postcode: "10270",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.835957,
+                    13.573846,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "831",
+                place_name: "อ.บางบ่อ จ.สมุทรปราการ",
+                lat: "13.573846",
+                lon: "100.835957",
+                case_numbe: "3",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.บางบ่อจำนวน 3 รายจากทั้งหมด 4 ราย รักษาหาย 1 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางบ่อ",
+                pro_th: "สมุทรปราการ",
+                postcode: "10560",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.706332,
+                    13.605633,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "832",
+                place_name: "อ.บางพลี จ.สมุทรปราการ",
+                lat: "13.605633",
+                lon: "100.706332",
+                case_numbe: "7",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.บางพลีจำนวน 7 รายจากทั้งหมด 12 ราย รักษาหาย 5 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางพลี",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.533957,
+                    13.65821,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "833",
+                place_name: "อ.พระประแดง จ.สมุทรปราการ",
+                lat: "13.65821",
+                lon: "100.533957",
+                case_numbe: "2",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.พระประแดง จำนวน 2 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "พระประแดง",
+                pro_th: "สมุทรปราการ",
+                postcode: "10130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.561643,
+                    13.568491,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "834",
+                place_name: "อ.พระสมุทรเจดีย์ จ.สมุทรปราการ",
+                lat: "13.568491",
+                lon: "100.561643",
+                case_numbe: "6",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.พระสมุทรเจดีย์ จำนวน 6 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "พระสมุทรเจดีย์",
+                pro_th: "สมุทรปราการ",
+                postcode: "10290",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.830174,
+                    13.5945,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "835",
+                place_name: "อ.บางเสาธง จ.สมุทรปราการ",
+                lat: "13.5945",
+                lon: "100.830174",
+                case_numbe: "3",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.บางพลีจำนวน 7 รายจากทั้งหมด 12 ราย รักษาหาย 5 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางเสาธง",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.751396,
+                    13.692448,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "836",
+                place_name: "รับส่งต่อจากสนามบิน",
+                lat: "13.692448",
+                lon: "100.751396",
+                case_numbe: "5",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ ซึ่งรับส่งมาจากสนามบิน จำนวน 5 รายจากทั้งหมด 9 ราย รักษาหาย 4 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางพลี",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
     ],
 }
