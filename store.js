@@ -8,21 +8,6 @@ async function getUserProfile() {
     if (pictureUrl == undefined) {
         pictureUrl = ''
     }
-
-    // $.ajax({
-    //     url: 'https://covid.mapedia.co.th/add_tracking.php?type=login',
-    //     method: 'post',
-    //     data: ({
-    //         pictureUrl: pictureUrl,
-    //         userId: userId,
-    //         displayName: displayName,
-    //         decodedIDToken: decodedIDToken,
-    //         page_view: 'store.html'
-    //     }),
-    //     success: function (data) {
-    //     }
-    // })
-
 }
 
 let userid;
