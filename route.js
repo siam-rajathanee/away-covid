@@ -1,19 +1,9 @@
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    decodedIDToken = liff.getDecodedIDToken().email
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
-}
+
 
 async function main() {
     await liff.init({ liffId: "1653984157-0qam36em" })
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
-            getUserProfile()
         } else {
             liff.login()
         }
