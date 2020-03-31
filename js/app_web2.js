@@ -21,6 +21,13 @@ async function main() {
 main()
 
 
+$.getJSON("https://cors-anywhere.herokuapp.com/https://covid19.th-stat.com/api/open/today", function (data) {
+    document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.Confirmed + '</b> </h2>'
+    document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.Recovered + '</span>'
+    document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.Hospitalized + '</span>'
+    document.getElementById('Deaths').innerHTML = '<span class="sr-only" id="Deaths">' + data.Deaths + '</span>'
+})
+
 
 new Vue({
     el: '#app_vue',
@@ -29,9 +36,7 @@ new Vue({
             info: '',
             ptop: []
         }
-    },
-
-    mounted() {
+    }, mounted() {
         axios
             .get('https://mapedia.co.th/demo/get_map_dashboard.php?type=geojson_1')
             .then(function (res) {
@@ -59,9 +64,7 @@ new Vue({
             info: '',
             ptop: []
         }
-    },
-
-    mounted() {
+    }, mounted() {
         axios
             .get('https://mapedia.co.th/demo/get_map_dashboard.php?type=chart_1')
             .then(function (res) {
@@ -549,25 +552,21 @@ new Vue({
 var map = L.map('map', {
     attributionControl: false
 }).setView([13.822496, 100.716057], 6);
-
-
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
 }).addTo(map)
-
 var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
 })
-
-
 var case_confirm = L.icon({
     iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
 
 });
+
 
 
 
