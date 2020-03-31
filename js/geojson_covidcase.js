@@ -594,7 +594,7 @@ var geojson_covidcase = {
             },
             properties: {
                 gid: "765",
-                place_name: "แอททรีคอนโด",
+                place_name: "คอนโดแห่งหนึ่งในจังหวัดพิษณุโลก",
                 lat: "16.795895",
                 lon: "100.255108",
                 case_numbe: "1",
@@ -666,7 +666,7 @@ var geojson_covidcase = {
             },
             properties: {
                 gid: "761",
-                place_name: "แอททรีคอนโด",
+                place_name: "คอนโดแห่งหนึ่งในจังหวัดพิษณุโลก",
                 lat: "16.795779",
                 lon: "100.255154",
                 case_numbe: "1",
