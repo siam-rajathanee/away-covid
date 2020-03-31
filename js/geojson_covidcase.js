@@ -9145,5 +9145,41 @@ var geojson_covidcase = {
                 gender: "หญิง",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.173439,
+                    14.80009,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "839",
+                place_name: "โคราช",
+                lat: "14.80009",
+                lon: "102.173439",
+                case_numbe: "1",
+                date_start: "2020-03-29",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "โคราช หญิงสูงวัย 66 ปี ติดเชื้อโควิด-19 เพิ่ม 1 ราย​ ใช้ไม้เด็ดสั่งปิดหมู่บ้าน 14 วัน",
+                ref_source: "สยามรัฐ",
+                link_news: "https://siamrath.co.th/n/142817",
+                tb_code: "",
+                tb_th: "ท่าอ่าง",
+                ap_th: "โชคชัย",
+                pro_th: "นครราชสีมา",
+                postcode: "30190",
+                age: "66",
+                gender: "หญิง",
+            },
+        },
     ],
 }
