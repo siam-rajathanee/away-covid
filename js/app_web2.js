@@ -21,7 +21,7 @@ async function main() {
 main()
 
 
-$.getJSON("https://rti2dss.com:3300/api", function (data) {
+$.getJSON("https://rti2dss.com:3300/api/today", function (data) {
     console.log(data.data);
 
     document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.data.Confirmed + '</b> </h2>'
