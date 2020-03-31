@@ -21,7 +21,7 @@ async function main() {
 main()
 
 
-$.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
+$.getJSON("https://cors.io/?https://covid19.th-stat.com/api/open/today", function (data) {
     document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.Confirmed + '</b> </h2>'
     document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.Recovered + '</span>'
     document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.Hospitalized + '</span>'
