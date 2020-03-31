@@ -171,6 +171,7 @@ body{
   border-radius: 10px;
   text-align: center;
   background-color: rgb(180, 20, 3);
+  min-width: 100px;
 }
 
 .alert_success_text{
@@ -178,4 +179,9 @@ body{
   border-radius: 10px;
   text-align: center;
   background-color: rgb(34, 155, 4);
+}
+
+
+.text-left{
+  text-align: left;
 }

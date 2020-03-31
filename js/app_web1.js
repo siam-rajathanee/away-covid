@@ -432,11 +432,17 @@ function view_case() {
 
 
 function get_loca() {
+
+    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
+    </button>'
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+
     set_map.clearLayers()
     markerClusterGroup.clearLayers()
     points_case.clearLayers()
     get_point()
+
 }
 
 
