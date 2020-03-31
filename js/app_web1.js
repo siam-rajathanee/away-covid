@@ -342,7 +342,7 @@ function get_point() {
 
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text">ใกล้พื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
 
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
