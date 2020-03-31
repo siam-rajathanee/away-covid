@@ -366,42 +366,6 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
-                    100.085167,
-                    20.274092,
-                ],
-            },
-            crs: {
-                type: "EPSG",
-                properties: {
-                    code: "4326"
-                },
-            },
-            properties: {
-                gid: "757",
-                place_name: "จังหวัดเชียงราย",
-                lat: "20.274092",
-                lon: "100.085167",
-                case_numbe: "3",
-                date_start: "2020-03-24",
-                status_new: null,
-                status_pat: "กำลังรักษา",
-                description: "เชียงราย พบผู้ป่วยยืนยันติดเชื้อ COVID-19 จำนวน 3 คนเป็นผู้โดยสารครอบครัวเดียวกันที่เดินทางโดยรถสมบัติทัวร์ กรุงเทพ- เชียงแสน ปรับอากาศ VIP ทำให้ต้องประกาศให้ผู้ที่นั่งรถทะเบียน 16-3473 กทม. วันที่ 21 มี.ค.ที่ผ่านมา เวลา 19.15 น.รายงานตัวและเฝ้าระวัง",
-                ref_source: "สาธารณสุขจังหวัดเชียงราย",
-                link_news: "https://news.thaipbs.or.th/content/290183?fbclid=IwAR2_lsGMfCSZ0HSPVGi5ZCutgzVlbHnVkgyM3yNuUfkGQIaCfuZXSEL6C3g",
-                tb_code: "",
-                tb_th: "เวียง",
-                ap_th: "เชียงแสน",
-                pro_th: "เชียงราย",
-                postcode: "57150",
-                age: null,
-                gender: "ไม่ระบุข้อมูล",
-            },
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
                     98.398405,
                     7.888826,
                 ],
@@ -2634,42 +2598,6 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
-                    102.57525,
-                    17.381324,
-                ],
-            },
-            crs: {
-                type: "EPSG",
-                properties: {
-                    code: "4326"
-                },
-            },
-            properties: {
-                gid: "589",
-                place_name: "สนามซ้อมไก่บริเวณหมู่ 5 บ้านโสกแก ต.เชียงเพ็ง อ.กุดจับ อุดรธานี",
-                lat: "17.381324",
-                lon: "102.57525",
-                case_numbe: "1",
-                date_start: "2020-03-20",
-                status_new: null,
-                status_pat: "กำลังรักษา",
-                description: "พบ ส.ต.อ.สายตรวจ191 อยู่ใน กลุ่มเสี่ยงติดเชื้อโควิด-19 ขึ้นรถทัวร์เดินทางกลับบ้านที่อุดรฯ โดยไม่ได้กักตัว กลับมายังไปสนามชนไก่ ร่วมงานแต่ง ไข้ขึ้นจึงไปตรวจที่รพ.อำเภอ ล่าสุดผลออกมาชัดเจน ติดเชื้อโควิด-19 จริ",
-                ref_source: "ไทยรัฐ",
-                link_news: "https://www.thairath.co.th/news/local/northeast/1800986",
-                tb_code: "",
-                tb_th: "เชียงเพ็ง",
-                ap_th: "กุดจับ",
-                pro_th: "อุดรธานี",
-                postcode: "41250",
-                age: "33",
-                gender: "ชาย",
-            },
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
                     100.5216771,
                     13.8618463,
                 ],
@@ -2698,42 +2626,6 @@ var geojson_covidcase = {
                 pro_th: "นนทบุรี",
                 postcode: "11003",
                 age: "43",
-                gender: "ชาย",
-            },
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
-                    102.780288,
-                    17.415019,
-                ],
-            },
-            crs: {
-                type: "EPSG",
-                properties: {
-                    code: "4326"
-                },
-            },
-            properties: {
-                gid: "590",
-                place_name: "ศูนย์ควบคุมโรคโรงพยาบาลศูนย์อุดรธานี",
-                lat: "17.415019",
-                lon: "102.780288",
-                case_numbe: "1",
-                date_start: "2020-03-20",
-                status_new: null,
-                status_pat: "กำลังรักษา",
-                description: "พบ ส.ต.อ.สายตรวจ191 อยู่ใน กลุ่มเสี่ยงติดเชื้อโควิด-19 ขึ้นรถทัวร์เดินทางกลับบ้านที่อุดรฯ โดยไม่ได้กักตัว กลับมายังไปสนามชนไก่ ร่วมงานแต่ง ไข้ขึ้นจึงไปตรวจที่รพ.อำเภอ ล่าสุดผลออกมาชัดเจน ติดเชื้อโควิด-19 จริ",
-                ref_source: "ไทยรัฐ",
-                link_news: "https://www.thairath.co.th/news/local/northeast/1800986",
-                tb_code: "",
-                tb_th: "บ้านเลื่อม",
-                ap_th: "เมือง",
-                pro_th: "อุดรธานี",
-                postcode: "41000",
-                age: "33",
                 gender: "ชาย",
             },
         },
@@ -8142,42 +8034,6 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
-                    104.770088195801,
-                    17.3922516450525,
-                ],
-            },
-            crs: {
-                type: "EPSG",
-                properties: {
-                    code: "4326"
-                },
-            },
-            properties: {
-                gid: "810",
-                place_name: "นครพนม",
-                lat: "17.392251645052525",
-                lon: "104.7700881958008",
-                case_numbe: "1",
-                date_start: "2020-03-27",
-                status_new: null,
-                status_pat: "กำลังรักษา",
-                description: "ผู้ว่าฯนครพนม เผยจังหวัดพบผู้ป่วยติดเชื้อ โควิด-19 รายแรกแล้ว เป็นหญิงอายุ 63 เพิ่งเดินทางกลับจาก กทม. สั่งเจ้าหน้าที่ไล่เช็กไทม์ไลน์ ติดตามบุคคลใกล้ชิด-สัมผัส เข้าสู่กระบวนการคัดกรองทั้งหมด",
-                ref_source: "ไทยรัฐ",
-                link_news: "https://www.thairath.co.th/news/local/northeast/1806101",
-                tb_code: "",
-                tb_th: "",
-                ap_th: "",
-                pro_th: "นครพนม",
-                postcode: "",
-                age: "63",
-                gender: "หญิง",
-            },
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
                     98.97159,
                     18.789636,
                 ],
@@ -8783,6 +8639,510 @@ var geojson_covidcase = {
                 postcode: "34000",
                 age: null,
                 gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.893758,
+                    14.376016,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "829",
+                place_name: "ศูนย์ปฏิบัติการฯ โควิด-19 จ.สุพรรณบุรี",
+                lat: "14.376016",
+                lon: "99.893758",
+                case_numbe: "1",
+                date_start: "2020-03-27",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "ศูนย์ปฏิบัติการฯ โควิด-19 จ.สุพรรณบุรี พบผู้ติดเชื้อรายที่ 2 ในจังหวัด เป็นหญิงที่ อ.อู่ทอง เดินทางมาจากภูเก็ต แจงพบไทม์ไลน์ไปสถานที่ต่างๆ พบผู้สัมผัสมีความเสี่ยงหลายสิบราย",
+                ref_source: "ไทยรัฐออนไลน์",
+                link_news: "https://www.thairath.co.th/news/local/central/1808068",
+                tb_code: "",
+                tb_th: "อู่ทอง",
+                ap_th: "อู่ทอง",
+                pro_th: "สุพรรณบุรี",
+                postcode: "72160",
+                age: null,
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.607744,
+                    13.595662,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "830",
+                place_name: "อ.เมือง จ.สมุทรปราการ",
+                lat: "13.595662",
+                lon: "100.607744",
+                case_numbe: "15",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.เมืองจำนวน 15 รายจากทั้งหมด 16 ราย รักษาหาย 1 ราย",
+                ref_source: "สมุทรปราการ",
+                link_news: "https://www.facebook.com/welovespk/photos/pcb.572897360250282/572897100250308/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "เมืองสมุทรปราการ",
+                pro_th: "สมุทรปราการ",
+                postcode: "10270",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.835957,
+                    13.573846,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "831",
+                place_name: "อ.บางบ่อ จ.สมุทรปราการ",
+                lat: "13.573846",
+                lon: "100.835957",
+                case_numbe: "3",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.บางบ่อจำนวน 3 รายจากทั้งหมด 4 ราย รักษาหาย 1 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางบ่อ",
+                pro_th: "สมุทรปราการ",
+                postcode: "10560",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.706332,
+                    13.605633,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "832",
+                place_name: "อ.บางพลี จ.สมุทรปราการ",
+                lat: "13.605633",
+                lon: "100.706332",
+                case_numbe: "7",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.บางพลีจำนวน 7 รายจากทั้งหมด 12 ราย รักษาหาย 5 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางพลี",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.533957,
+                    13.65821,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "833",
+                place_name: "อ.พระประแดง จ.สมุทรปราการ",
+                lat: "13.65821",
+                lon: "100.533957",
+                case_numbe: "2",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.พระประแดง จำนวน 2 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "พระประแดง",
+                pro_th: "สมุทรปราการ",
+                postcode: "10130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.561643,
+                    13.568491,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "834",
+                place_name: "อ.พระสมุทรเจดีย์ จ.สมุทรปราการ",
+                lat: "13.568491",
+                lon: "100.561643",
+                case_numbe: "6",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.พระสมุทรเจดีย์ จำนวน 6 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "พระสมุทรเจดีย์",
+                pro_th: "สมุทรปราการ",
+                postcode: "10290",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.830174,
+                    13.5945,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "835",
+                place_name: "อ.บางเสาธง จ.สมุทรปราการ",
+                lat: "13.5945",
+                lon: "100.830174",
+                case_numbe: "3",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ อ.บางพลีจำนวน 7 รายจากทั้งหมด 12 ราย รักษาหาย 5 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางเสาธง",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.751396,
+                    13.692448,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "836",
+                place_name: "รับส่งต่อจากสนามบิน",
+                lat: "13.692448",
+                lon: "100.751396",
+                case_numbe: "5",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายงานสถานการณ์โรค COVID-19 จังหวัดสมุปราการ วันที่ 30 มีนาคม 2563 ปัจจุบันมีป่วยกำลังรักษาอยู่ ซึ่งรับส่งมาจากสนามบิน จำนวน 5 รายจากทั้งหมด 9 ราย รักษาหาย 4 ราย",
+                ref_source: "",
+                link_news: "",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางพลี",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.963791,
+                    18.76679,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "837",
+                place_name: "จังหวัดเชียงใหม่ (30 มี.ค.63) พบผู้ป่วยยืนยันเพิ่มขึ้น 2 ราย(รายที่ 1)",
+                lat: "18.76679",
+                lon: "98.963791",
+                case_numbe: "1",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "รายแรกเป็นผู้ป่วยเพศหญิง อายุ 23 ปี มีประวัติทำงานในบาร์ที่หาดป่าตอง จังหวัดภูเก็ต และได้บินกลับมาภูมิลำเนาที่จังหวัดเชียงใหม่ เมื่อวันที่ 19 มีนาคม 2563 จากท่าอากาศยานภูเก็ต-ท่าอากาศยานเชียงใหม่ ด้วยเที่ยวบิน FD3161 ภูเก็ต – เชียงใหม่ และเริ่มมีอาการเมื่อวันที่ 21 มีนาคม",
+                ref_source: "ประชาสัมพันธ์ สำนักงานสาธารณสุขจังหวัดเชียงใหม่",
+                link_news: "https://www.facebook.com/chiangmaihealth/photos/a.108292647194644/224498412240733/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "เมืองเชียงใหม่",
+                pro_th: "เชียงใหม่",
+                postcode: "50200",
+                age: "23",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.973762,
+                    18.789193,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "838",
+                place_name: "จังหวัดเชียงใหม่ (30 มี.ค.63) พบผู้ป่วยยืนยันเพิ่มขึ้น 2 ราย(รายที่ 2)",
+                lat: "18.789193",
+                lon: "98.973762",
+                case_numbe: "1",
+                date_start: "2020-03-30",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "ป็นผู้ป่วยเพศหญิง อายุ 30 ปี เป็นแฟนของผู้ป่วยยืนยัน ขณะนี้ทางเจ้าหน้าที่กำลังประสานผู้สัมผัสกับผู้ป่วยทั้ง 2 ราย เพื่อติดตามอาการและให้กักตัว 14 วัน ป้องกันการแพร่ระบาดในวงกว้าง",
+                ref_source: "ประชาสัมพันธ์ สำนักงานสาธารณสุขจังหวัดเชียงใหม่",
+                link_news: "https://www.facebook.com/chiangmaihealth/photos/a.108292647194644/224498412240733/?type=3&theater",
+                tb_code: "",
+                tb_th: "สุเทพ",
+                ap_th: "เมืองเชียงใหม่",
+                pro_th: "เชียงใหม่",
+                postcode: "50200",
+                age: "30",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.085167,
+                    20.274092,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "757",
+                place_name: "จังหวัดเชียงราย",
+                lat: "20.274092",
+                lon: "100.085167",
+                case_numbe: "3",
+                date_start: "2020-03-24",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "เชียงราย พบผู้ป่วยยืนยันติดเชื้อ COVID-19 จำนวน 3 คนเป็นผู้โดยสารครอบครัวเดียวกันที่เดินทางโดยรถสมบัติทัวร์ กรุงเทพ- เชียงแสน ปรับอากาศ VIP ทำให้ต้องประกาศให้ผู้ที่นั่งรถทะเบียน 16-3473 กทม. วันที่ 21 มี.ค.ที่ผ่านมา เวลา 19.15 น.รายงานตัวและเฝ้าระวัง",
+                ref_source: "สาธารณสุขจังหวัดเชียงราย",
+                link_news: "https://news.thaipbs.or.th/content/290183?fbclid=IwAR2_lsGMfCSZ0HSPVGi5ZCutgzVlbHnVkgyM3yNuUfkGQIaCfuZXSEL6C3g",
+                tb_code: "",
+                tb_th: "เวียง",
+                ap_th: "เชียงแสน",
+                pro_th: "เชียงราย",
+                postcode: "57150",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.57525,
+                    17.381324,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "589",
+                place_name: "สนามซ้อมไก่บริเวณหมู่ 5 บ้านโสกแก ต.เชียงเพ็ง อ.กุดจับ อุดรธานี",
+                lat: "17.381324",
+                lon: "102.57525",
+                case_numbe: "1",
+                date_start: "2020-03-20",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "พบ ส.ต.อ.สายตรวจ191 อยู่ใน กลุ่มเสี่ยงติดเชื้อโควิด-19 ขึ้นรถทัวร์เดินทางกลับบ้านที่อุดรฯ โดยไม่ได้กักตัว กลับมายังไปสนามชนไก่ ร่วมงานแต่ง ไข้ขึ้นจึงไปตรวจที่รพ.อำเภอ ล่าสุดผลออกมาชัดเจน ติดเชื้อโควิด-19 จริ",
+                ref_source: "ไทยรัฐ",
+                link_news: "https://www.thairath.co.th/news/local/northeast/1800986",
+                tb_code: "",
+                tb_th: "เชียงเพ็ง",
+                ap_th: "กุดจับ",
+                pro_th: "อุดรธานี",
+                postcode: "41250",
+                age: "33",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.780288,
+                    17.415019,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "590",
+                place_name: "ศูนย์ควบคุมโรคโรงพยาบาลศูนย์อุดรธานี",
+                lat: "17.415019",
+                lon: "102.780288",
+                case_numbe: "1",
+                date_start: "2020-03-20",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "พบ ส.ต.อ.สายตรวจ191 อยู่ใน กลุ่มเสี่ยงติดเชื้อโควิด-19 ขึ้นรถทัวร์เดินทางกลับบ้านที่อุดรฯ โดยไม่ได้กักตัว กลับมายังไปสนามชนไก่ ร่วมงานแต่ง ไข้ขึ้นจึงไปตรวจที่รพ.อำเภอ ล่าสุดผลออกมาชัดเจน ติดเชื้อโควิด-19 จริ",
+                ref_source: "ไทยรัฐ",
+                link_news: "https://www.thairath.co.th/news/local/northeast/1800986",
+                tb_code: "",
+                tb_th: "บ้านเลื่อม",
+                ap_th: "เมือง",
+                pro_th: "อุดรธานี",
+                postcode: "41000",
+                age: "33",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    104.770088195801,
+                    17.3922516450525,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "810",
+                place_name: "นครพนม",
+                lat: "17.392251645052525",
+                lon: "104.7700881958008",
+                case_numbe: "1",
+                date_start: "2020-03-27",
+                status_new: null,
+                status_pat: "กำลังรักษา",
+                description: "ผู้ว่าฯนครพนม เผยจังหวัดพบผู้ป่วยติดเชื้อ โควิด-19 รายแรกแล้ว เป็นหญิงอายุ 63 เพิ่งเดินทางกลับจาก กทม. สั่งเจ้าหน้าที่ไล่เช็กไทม์ไลน์ ติดตามบุคคลใกล้ชิด-สัมผัส เข้าสู่กระบวนการคัดกรองทั้งหมด",
+                ref_source: "ไทยรัฐ",
+                link_news: "https://www.thairath.co.th/news/local/northeast/1806101",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "",
+                pro_th: "นครพนม",
+                postcode: "",
+                age: "63",
+                gender: "หญิง",
             },
         },
     ],
