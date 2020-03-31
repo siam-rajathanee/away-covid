@@ -5209,7 +5209,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นนทบุรี",
-                count: "23",
+                count: "25",
             },
         },
         {
@@ -17476,7 +17476,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: null,
-                count: "300",
+                count: "298",
             },
         },
     ],
