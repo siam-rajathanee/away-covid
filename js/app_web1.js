@@ -33,7 +33,7 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
-}).addTo(map)
+})
 
 CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -49,13 +49,20 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
 })
 
+var today = new Date().getHours();
+console.log(today);
+
+if (today >= 18 && today <= 6) {
+    CartoDB_Positron.addTo(map)
+} else {
+    CartoDB_DarkMatter.addTo(map)
+}
+
+
 points_case = L.layerGroup().addTo(map)
 markerClusterGroup = L.markerClusterGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
-
-
-
 
 
 
