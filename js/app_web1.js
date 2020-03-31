@@ -115,6 +115,7 @@ function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
         div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
+        div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> ล็อกดาวน์ ปิดทางเข้า-ออก </small> <br> ';
         div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
@@ -139,6 +140,26 @@ function hideDisclaimer() {
 
 hideDisclaimer()
 get_point()
+
+
+function style(feature) {
+    return {
+        weight: 3,
+        opacity: 1,
+        color: '#800026',
+        dashArray: '3',
+        fillOpacity: 0
+    };
+}
+var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์'];
+for (let i = 0; i < list_lock_pro.length; i++) {
+    var found = province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]);
+    L.geoJson(found, {
+        style: style
+    }).addTo(map)
+}
+
+
 
 
 
@@ -566,8 +587,6 @@ $("#form_setting").submit(function (event) {
 
 
 })
-
-
 
 
 L.Control.watermark = L.Control.extend({
