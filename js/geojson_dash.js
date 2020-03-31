@@ -253,7 +253,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ยะลา",
-                count: "40",
+                count: "29",
             },
         },
         {
@@ -424,7 +424,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นราธิวาส",
-                count: "7",
+                count: "9",
             },
         },
         {
@@ -551,7 +551,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ปัตตานี",
-                count: "33",
+                count: "37",
             },
         },
         {
@@ -945,7 +945,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สงขลา",
-                count: "27",
+                count: "17",
             },
         },
         {
@@ -1096,7 +1096,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "พัทลุง",
-                count: "4",
+                count: "6",
             },
         },
         {
@@ -1251,7 +1251,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ตรัง",
-                count: "2",
+                count: "5",
             },
         },
         {
@@ -1350,7 +1350,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ภูเก็ต",
-                count: "41",
+                count: "51",
             },
         },
         {
@@ -1617,7 +1617,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "กระบี่",
-                count: "7",
+                count: "6",
             },
         },
         {
@@ -1852,7 +1852,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นครศรีธรรมราช",
-                count: "3",
+                count: "11",
             },
         },
         {
@@ -2310,7 +2310,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สุราษฎร์ธานี",
-                count: "10",
+                count: "13",
             },
         },
         {
@@ -2824,7 +2824,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ชุมพร",
-                count: "0",
+                count: "2",
             },
         },
         {
@@ -3087,7 +3087,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ประจวบคีรีขันธ์",
-                count: "7",
+                count: "11",
             },
         },
         {
@@ -3596,7 +3596,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ระยอง",
-                count: "2",
+                count: "4",
             },
         },
         {
@@ -4077,7 +4077,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ชลบุรี",
-                count: "36",
+                count: "40",
             },
         },
         {
@@ -4268,7 +4268,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ราชบุรี",
-                count: "5",
+                count: "8",
             },
         },
         {
@@ -4351,7 +4351,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สมุทรสาคร",
-                count: "7",
+                count: "10",
             },
         },
         {
@@ -4434,7 +4434,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สมุทรปราการ",
-                count: "33",
+                count: "44",
             },
         },
         {
@@ -4629,7 +4629,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ฉะเชิงเทรา",
-                count: "7",
+                count: "8",
             },
         },
         {
@@ -4748,7 +4748,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "กรุงเทพมหานคร",
-                count: "515",
+                count: "805",
             },
         },
         {
@@ -4971,7 +4971,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สระแก้ว",
-                count: "5",
+                count: "8",
             },
         },
         {
@@ -5118,7 +5118,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นครปฐม",
-                count: "7",
+                count: "16",
             },
         },
         {
@@ -5209,7 +5209,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นนทบุรี",
-                count: "68",
+                count: "23",
             },
         },
         {
@@ -5292,7 +5292,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ปทุมธานี",
-                count: "14",
+                count: "16",
             },
         },
         {
@@ -5602,7 +5602,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นครนายก",
-                count: "1",
+                count: "0",
             },
         },
         {
@@ -5976,7 +5976,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สุพรรณบุรี",
-                count: "1",
+                count: "2",
             },
         },
         {
@@ -6299,7 +6299,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "กาญจนบุรี",
-                count: "9",
+                count: "8",
             },
         },
         {
@@ -6589,7 +6589,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สระบุรี",
-                count: "3",
+                count: "2",
             },
         },
         {
@@ -7063,7 +7063,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นครราชสีมา",
-                count: "8",
+                count: "15",
             },
         },
         {
@@ -7410,7 +7410,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "บุรีรัมย์",
-                count: "9",
+                count: "11",
             },
         },
         {
@@ -7697,7 +7697,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สุรินทร์",
-                count: "8",
+                count: "7",
             },
         },
         {
@@ -7952,7 +7952,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ศรีสะเกษ",
-                count: "3",
+                count: "7",
             },
         },
         {
@@ -8521,7 +8521,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ลพบุรี",
-                count: "2",
+                count: "1",
             },
         },
         {
@@ -8772,7 +8772,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "นครสวรรค์",
-                count: "4",
+                count: "5",
             },
         },
         {
@@ -9035,7 +9035,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ร้อยเอ็ด",
-                count: "2",
+                count: "5",
             },
         },
         {
@@ -9414,7 +9414,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "อุบลราชธานี",
-                count: "12",
+                count: "13",
             },
         },
         {
@@ -10777,7 +10777,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ชัยภูมิ",
-                count: "2",
+                count: "1",
             },
         },
         {
@@ -11462,7 +11462,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "มหาสารคาม",
-                count: "0",
+                count: "1",
             },
         },
         {
@@ -11765,7 +11765,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ขอนแก่น",
-                count: "2",
+                count: "3",
             },
         },
         {
@@ -12012,7 +12012,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "กาฬสินธุ์",
-                count: "1",
+                count: "2",
             },
         },
         {
@@ -12247,7 +12247,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "สุโขทัย",
-                count: "2",
+                count: "3",
             },
         },
         {
@@ -12881,7 +12881,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "เลย",
-                count: "2",
+                count: "3",
             },
         },
         {
@@ -13052,7 +13052,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "หนองบัวลำภู",
-                count: "1",
+                count: "3",
             },
         },
         {
@@ -13391,7 +13391,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "อุดรธานี",
-                count: "8",
+                count: "7",
             },
         },
         {
@@ -13909,7 +13909,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "อุตรดิตถ์",
-                count: "0",
+                count: "3",
             },
         },
         {
@@ -14375,7 +14375,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "มุกดาหาร",
-                count: "4",
+                count: "5",
             },
         },
         {
@@ -14837,7 +14837,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ลำพูน",
-                count: "0",
+                count: "2",
             },
         },
         {
@@ -15894,7 +15894,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "แม่ฮ่องสอน",
-                count: "3",
+                count: "5",
             },
         },
         {
@@ -16441,7 +16441,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "เชียงใหม่",
-                count: "11",
+                count: "30",
             },
         },
         {
@@ -17242,7 +17242,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "เชียงราย",
-                count: "4",
+                count: "5",
             },
         },
         {
@@ -17461,7 +17461,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "พะเยา",
-                count: "1",
+                count: "3",
             },
         },
         {
@@ -17476,7 +17476,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: null,
-                count: "244",
+                count: "300",
             },
         },
     ],
