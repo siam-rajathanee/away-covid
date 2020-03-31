@@ -56,8 +56,16 @@ markerClusterGroup = L.markerClusterGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
 
+
+
+
+
+
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 // document.getElementById('tracking').innerHTML = ''
+document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
+</button>'
 
 var case_confirm = L.icon({
     iconUrl: 'img/confirm_case.png',
@@ -90,6 +98,10 @@ var case_send = L.icon({
 var case_hospital = L.icon({
     iconUrl: 'img/hospital.png',
     iconSize: [50, 50], // size of the icon
+});
+var case_hospital_1 = L.icon({
+    iconUrl: 'img/hospital_1.png',
+    iconSize: [40, 40], // size of the icon
 });
 var case_place_announce = L.icon({
     iconUrl: 'img/place.svg',
@@ -277,10 +289,10 @@ function get_point() {
 
 
         var radius = 5;
-        test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-        // test_latlng = [100.1912686, 16.7289774] // e.latlng16.7289774,100.1912686
+        //  get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
+        get_latlng = [100.1912686, 16.7289774] // e.latlng16.7289774,100.1912686
 
-        var point = turf.point(test_latlng);
+        var point = turf.point(get_latlng);
         L.geoJson(point, {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, {
@@ -350,6 +362,76 @@ function get_point() {
 
 
 
+function view_hospital() {
+    $("#search").modal("hide");
+    markerClusterGroup.clearLayers()
+    points_case.clearLayers()
+    set_map.clearLayers()
+
+    L.geoJson(point, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: local_icon,
+            });
+        }
+    })
+        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+        .addTo(set_map)
+
+    var point = turf.point(get_latlng);
+    var buffered = turf.buffer(point, 60, { units: 'kilometers' });
+    var buffereds = L.geoJson(buffered, {
+        stroke: false,
+        color: 'green',
+        fillColor: 'green',
+        fillOpacity: 0.1,
+    }).addTo(set_map)
+    map.fitBounds(buffereds.getBounds())
+
+    L.geoJson(labcovid, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: case_hospital,
+            });
+        },
+    }).addTo(points_case)
+
+    L.geoJson(hospital, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: case_hospital_1,
+            });
+        },
+    }).addTo(markerClusterGroup)
+
+    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#hospital">\
+             <i class="fa fa-hospital-o" aria-hidden="true"></i><br> สถานพยาบาลใกล้เคียง\
+        </button>'
+
+}
+
+
+
+function view_case() {
+    $("#search").modal("hide");
+    document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+
+    set_map.clearLayers()
+    markerClusterGroup.clearLayers()
+    points_case.clearLayers()
+    get_point()
+    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
+</button>'
+}
+
+
+
+
+
+
+
+
 
 $("#form_query").submit(function (event) {
     $("#search").modal("hide");
@@ -369,65 +451,11 @@ $("#form_query").submit(function (event) {
 
 function get_loca() {
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-    // document.getElementById('tracking').innerHTML = ''
     set_map.clearLayers()
-    line_track.clearLayers()
-    map.locate();
+    markerClusterGroup.clearLayers()
+    points_case.clearLayers()
+    get_point()
 }
-
-// function get_tracking() {
-//     set_map.clearLayers()
-//     var lat = test_latlng[1]
-//     var lng = test_latlng[0]
-
-//     $.ajax({
-//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=tracking',
-//         method: 'post',
-//         data: ({
-//             pictureUrl: pictureUrl,
-//             userId: userId,
-//             displayName: displayName,
-//             decodedIDToken: decodedIDToken,
-//             lat: lat,
-//             lng: lng
-//         }),
-//         success: function (res) {
-//             var json_track = JSON.parse(res)
-
-//             var trac_table = ''
-//             var p_t_l = [[
-//                 Number(json_track.features[0].properties.lng),
-//                 Number(json_track.features[0].properties.lat)
-//             ], [
-//                 Number(json_track.features[0].properties.lng),
-//                 Number(json_track.features[0].properties.lat)
-//             ]]
-
-//             for (var i = 0; i < json_track.features.length; i++) {
-//                 p_t_l.push(
-//                     [
-//                         Number(json_track.features[i].properties.lng),
-//                         Number(json_track.features[i].properties.lat)
-//                     ]
-//                 )
-
-//                 trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
-//                     + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
-//                     + json_track.features[i].properties.date_view + ' </td></tr > '
-//             }
-
-//             var line = turf.lineString(p_t_l);
-
-//             view_line = L.geoJson(line).addTo(line_track)
-
-//             map.fitBounds(view_line.getBounds())
-//             document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
-//         }, error: function (e) {
-//         }
-//     })
-
-// }
-
 
 $("#form_setting").submit(function (event) {
 
@@ -548,7 +576,7 @@ $("#form_setting").submit(function (event) {
     if (toggle_2 == true) {
         geojson_announce.addTo(markerClusterGroup)
     }
-    var point = turf.point(test_latlng);
+    var point = turf.point(get_latlng);
     L.geoJson(point, {
         pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {
@@ -589,7 +617,9 @@ $("#form_setting").submit(function (event) {
         tb_announce += '<div class="card mb-3 "><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
     });
     document.getElementById('tabel_announce').innerHTML = tb_announce
-
+    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
+</button>'
 
 
 
@@ -600,7 +630,7 @@ L.Control.watermark = L.Control.extend({
     onAdd: function (map) {
         var img = L.DomUtil.create('img');
         img.src = 'https://mapedia.co.th/assets/images/logo_1_1024.png';
-        img.style.width = '30px';
+        img.style.width = '35px';
         img.style.opacity = '0.5';
         return img;
     }

@@ -48,19 +48,18 @@
                     </div>
                 </div>
                 <div class="col-xs-8  text-left">
-                    <h4 id="displayname">
-                        AWAY COVID 19
-                    </h4>
+                    <h4 id="displayname">AWAY COVID 19</h4>
                     <!-- <p id="alert_text">ใกล้พื้นที่เสี่ยง</p> -->
                     <!-- <p class="alert_danger_text">ใกล้พื้นที่เสี่ยง / lockdown</p> -->
                 </div>
             </div>
             <div class="col-xs-4">
-                <p id="alert_text">ใกล้พื้นที่เสี่ยง</p>
+                <p id="alert_text"></p>
                 <p id="lock_down" class="alert_danger_text"></p>
                 <!-- <div class="text-right" id="tracking"> </div> -->
             </div>
         </div>
+        <br>
 
         <div id="map"></div>
         <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
@@ -70,9 +69,10 @@
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
                 <i class="fa fa-search" aria-hidden="true"></i> <br> ค้นหา
             </button>
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#list">
+            <button type="button" id="case_btn" class="btn btn-default"></button>
+            <!-- <button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">
                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง
-            </button>
+            </button> -->
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#setting">
                 <i class="fa fa-cogs" aria-hidden="true"></i> <br> ตั้งค่า
             </button>
@@ -91,13 +91,34 @@
                 </div>
                 <div class="modal-body">
                     <form id="form_query">
+                        <label for="">ค้นหาจากชื่อสถานที่</label>
                         <fieldset>
                             <div class="form-group">
                                 <select name="place" class="form-control" id="select_place">
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-warning btn-block">ค้นหา</button>
+                        </fieldset>
                     </form>
+
+                    <hr>
+                    <label for="">ค้นหาประเภทจุดข้อมูล</label>
+                    <fieldset>
+                        <div class="col-xs-6 text-center">
+                            <label>
+                                <input type="radio" name="basemap" value="base2">
+                                <img src="img/confirm_case.png" width="100%" onclick="view_case()">
+                                จุดผู้ป่วยและเคส
+                            </label>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <label>
+                                <input type="radio" name="basemap" value="base2" onclick="view_hospital()">
+                                <img src="img/hospital.png" width="100%">
+                                สถานพยาบาล
+                            </label>
+                        </div>
+                    </fieldset>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
@@ -237,8 +258,30 @@
                         </fieldset>
                         <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
                         <hr>
-                        <small> อัพเดตข้อมูลล่าสุดวันที่ : 2020-03-30</small>
+                        <small> อัพเดตข้อมูลล่าสุดวันที่ : 2020-03-31</small>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- hospital -->
+    <div id="hospital" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> <i class="fa fa-hospital-o" aria-hidden="true"></i> ค้นหาสถานพยาบาล</h4>
+                </div>
+                <div class="modal-body">
+                    <p>อยู่ระหว่างพัฒนา</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
@@ -253,6 +296,8 @@
     <script src="js/geojson_ann.js"></script>
     <script src="js/province.js"></script>
     <script src="js/geojson_covidcase.js"></script>
+    <script src="js/hospital.js"></script>
+    <script src="js/labcovid.js"></script>
 
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script src="js/app_web1.js"></script>

@@ -1,16 +1,16 @@
 
 
-async function main() {
-    await liff.init({ liffId: "1653984157-0qam36em" })
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-        } else {
-            liff.login()
-        }
-    })
+// async function main() {
+//     await liff.init({ liffId: "1653984157-0qam36em" })
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//         } else {
+//             liff.login()
+//         }
+//     })
 
-}
-main()
+// }
+// main()
 
 
 var map = L.map('map', {
@@ -62,39 +62,42 @@ function onLocationFound(e) {
 
 
     let covidlab = L.layerGroup().addTo(map);
-    $.getJSON("https://mapedia.co.th/demo/_labcovid.php", function (res) {
-        // console.log(res)
-        // const items = res.data;
+
+    // $.getJSON("https://mapedia.co.th/demo/_labcovid.php", function (res) {
+    // console.log(res)
+    // const items = res.data;
 
 
-        const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
-        const iconMarker = L.icon({
-            iconUrl: icon,
-            iconSize: [60, 60],
-        });
+    const icon = 'https://github.com/mapedia-th/away-covid/blob/master/img/hospital.png?raw=true';
+    const iconMarker = L.icon({
+        iconUrl: icon,
+        iconSize: [60, 60],
+    });
+    labcovid2 = labcovid.features
+    console.log(labcovid2);
+
+    var show_data = ''
+    labcovid2.forEach(item => {
+
+        let mk = L.marker([Number(labcovid.geometry.coordinates[1]), Number(labcovid.geometry.coordinates[0])], {
+            icon: iconMarker
+        }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + item.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-12"> <img src="' + item.webimage + '" alt="" width="100%"><hr> </div>   <div class="col-12"> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + item.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"><a href="https://www.google.com/maps/dir/' + latlng[1] + ',' + latlng[0] + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>   </div> </div>'
+        );
+
+        mk.addTo(covidlab);
+
+        $('#select_place').append($('<option>', {
+            value: labcovid.geometry.coordinates[1] + ',' + labcovid.geometry.coordinates[0],
+            text: item.name
+        }));
+        show_data += '<div class="card mb-3"> <h5 class="card-header">' + item.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-4"> <img src="' + item.webimage + '" alt="" width="100%"> </div> <div class="col-8"> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + item.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <i class="fa fa-search" onClick="select_place(' + item.lat + ',' + item.long + ' )">ตำแหน่ง </i>   </div> </div>'
 
 
-        var show_data = ''
-        res.forEach(item => {
-            let mk = L.marker([Number(item.lat), Number(item.long)], {
-                icon: iconMarker
-            }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + item.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-12"> <img src="' + item.webimage + '" alt="" width="100%"><hr> </div>   <div class="col-12"> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + item.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"><a href="https://www.google.com/maps/dir/' + latlng[1] + ',' + latlng[0] + '/' + Number(item.lat) + ',' + Number(item.long) + '/data=!3m1!4b1!4m2!4m1!3e0">เส้นทาง</a>   </div> </div>'
-            );
-
-            mk.addTo(covidlab);
-
-            $('#select_place').append($('<option>', {
-                value: item.lat + ',' + item.long,
-                text: item.name
-            }));
-            show_data += '<div class="card mb-3"> <h5 class="card-header">' + item.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-4"> <img src="' + item.webimage + '" alt="" width="100%"> </div> <div class="col-8"> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + item.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <i class="fa fa-search" onClick="select_place(' + item.lat + ',' + item.long + ' )">ตำแหน่ง </i>   </div> </div>'
+    });
+    document.getElementById('show_hos').innerHTML = show_data
 
 
-        });
-        document.getElementById('show_hos').innerHTML = show_data
-
-
-    })
+    //})
 
     document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-warning btn-lg btn-block" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
 
