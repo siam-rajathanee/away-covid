@@ -33,7 +33,7 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
-}).addTo(map)
+})
 
 CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -49,13 +49,20 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
 })
 
+var today = new Date().getHours();
+console.log(today);
+
+if (today >= 18 && today <= 6) {
+    CartoDB_Positron.addTo(map)
+} else {
+    CartoDB_DarkMatter.addTo(map)
+}
+
+
 points_case = L.layerGroup().addTo(map)
 markerClusterGroup = L.markerClusterGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
-
-
-
 
 
 
@@ -132,7 +139,7 @@ function showDisclaimer() {
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
         div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
-        div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
+        // div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <br> ';
         div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
         div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small> <br> ';
@@ -335,7 +342,7 @@ function get_point() {
 
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text">ใกล้พื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
 
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
@@ -432,11 +439,17 @@ function view_case() {
 
 
 function get_loca() {
+
+    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
+    </button>'
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+
     set_map.clearLayers()
     markerClusterGroup.clearLayers()
     points_case.clearLayers()
     get_point()
+
 }
 
 
