@@ -289,8 +289,8 @@ function get_point() {
 
 
         var radius = 5;
-        //  get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-        get_latlng = [100.1912686, 16.7289774] // e.latlng16.7289774,100.1912686
+        get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
+        //  get_latlng = [100.1912686, 16.7289774] // e.latlng16.7289774,100.1912686
 
         var point = turf.point(get_latlng);
         L.geoJson(point, {
