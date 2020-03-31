@@ -57,7 +57,7 @@ set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-document.getElementById('tracking').innerHTML = ''
+// document.getElementById('tracking').innerHTML = ''
 
 var case_confirm = L.icon({
     iconUrl: 'img/confirm_case.png',
@@ -101,13 +101,13 @@ var local_icon = L.icon({
 });
 
 
-function get_track() {
-    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
-}
+// function get_track() {
+//     document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+// }
 
-map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
-})
+// map.on('click', function () {
+//     document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+// })
 
 var legend = L.control({ position: 'bottomright' });
 
@@ -152,14 +152,13 @@ function style(feature) {
     };
 }
 var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์'];
+lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
-    var found = province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]);
-    L.geoJson(found, {
+    lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
+    L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]), {
         style: style
     }).addTo(map)
 }
-
-
 
 
 
@@ -274,11 +273,12 @@ function get_point() {
 
 
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+        // document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
         var radius = 5;
-        test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng
+        test_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
+        // test_latlng = [100.1912686, 16.7289774] // e.latlng16.7289774,100.1912686
 
         var point = turf.point(test_latlng);
         L.geoJson(point, {
@@ -290,6 +290,13 @@ function get_point() {
         })
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
+
+        for (let i = 0; i < lockdown.length; i++) {
+            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
+            if (pointlock.features.length == 1) {
+                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class="alert_danger_text"> <i class="fa fa-lock"></i> Lock down</p>'
+            }
+        }
 
         var buffered = turf.buffer(point, radius, { units: 'kilometers' });
 
@@ -362,64 +369,64 @@ $("#form_query").submit(function (event) {
 
 function get_loca() {
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-    document.getElementById('tracking').innerHTML = ''
+    // document.getElementById('tracking').innerHTML = ''
     set_map.clearLayers()
     line_track.clearLayers()
     map.locate();
 }
 
-function get_tracking() {
-    set_map.clearLayers()
-    var lat = test_latlng[1]
-    var lng = test_latlng[0]
+// function get_tracking() {
+//     set_map.clearLayers()
+//     var lat = test_latlng[1]
+//     var lng = test_latlng[0]
 
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=tracking',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            decodedIDToken: decodedIDToken,
-            lat: lat,
-            lng: lng
-        }),
-        success: function (res) {
-            var json_track = JSON.parse(res)
+//     $.ajax({
+//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=tracking',
+//         method: 'post',
+//         data: ({
+//             pictureUrl: pictureUrl,
+//             userId: userId,
+//             displayName: displayName,
+//             decodedIDToken: decodedIDToken,
+//             lat: lat,
+//             lng: lng
+//         }),
+//         success: function (res) {
+//             var json_track = JSON.parse(res)
 
-            var trac_table = ''
-            var p_t_l = [[
-                Number(json_track.features[0].properties.lng),
-                Number(json_track.features[0].properties.lat)
-            ], [
-                Number(json_track.features[0].properties.lng),
-                Number(json_track.features[0].properties.lat)
-            ]]
+//             var trac_table = ''
+//             var p_t_l = [[
+//                 Number(json_track.features[0].properties.lng),
+//                 Number(json_track.features[0].properties.lat)
+//             ], [
+//                 Number(json_track.features[0].properties.lng),
+//                 Number(json_track.features[0].properties.lat)
+//             ]]
 
-            for (var i = 0; i < json_track.features.length; i++) {
-                p_t_l.push(
-                    [
-                        Number(json_track.features[i].properties.lng),
-                        Number(json_track.features[i].properties.lat)
-                    ]
-                )
+//             for (var i = 0; i < json_track.features.length; i++) {
+//                 p_t_l.push(
+//                     [
+//                         Number(json_track.features[i].properties.lng),
+//                         Number(json_track.features[i].properties.lat)
+//                     ]
+//                 )
 
-                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
-                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
-                    + json_track.features[i].properties.date_view + ' </td></tr > '
-            }
+//                 trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
+//                     + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
+//                     + json_track.features[i].properties.date_view + ' </td></tr > '
+//             }
 
-            var line = turf.lineString(p_t_l);
+//             var line = turf.lineString(p_t_l);
 
-            view_line = L.geoJson(line).addTo(line_track)
+//             view_line = L.geoJson(line).addTo(line_track)
 
-            map.fitBounds(view_line.getBounds())
-            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
-        }, error: function (e) {
-        }
-    })
+//             map.fitBounds(view_line.getBounds())
+//             document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
+//         }, error: function (e) {
+//         }
+//     })
 
-}
+// }
 
 
 $("#form_setting").submit(function (event) {
