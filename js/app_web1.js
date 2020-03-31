@@ -24,8 +24,6 @@ main()
 
 
 
-
-
 var map = L.map('map'
     , { attributionControl: false }
 ).setView([13.751569, 100.501634], 10);
@@ -128,6 +126,8 @@ function showDisclaimer() {
         var div = L.DomUtil.create('div', 'info legend')
         div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
         div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> ล็อกดาวน์ ปิดทางเข้า-ออก </small> <br> ';
+        div.innerHTML += '<img src="img/hospital.png" width="30px"> <small class="prompt"> สถานที่รับตรวจ Covid </small> <br> ';
+        div.innerHTML += '<img src="img/hospital_1.png" width="30px"> <small class="prompt"> โรงพยาบาล </small> <br> ';
         div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
@@ -388,11 +388,16 @@ function view_hospital() {
     }).addTo(set_map)
     map.fitBounds(buffereds.getBounds())
 
+    console.log(get_latlng);
+
+
     L.geoJson(labcovid, {
         pointToLayer: function (f, latlng) {
+
+
             return L.marker(latlng, {
                 icon: case_hospital,
-            });
+            }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-12"> <img src="' + f.properties.webimage + '" alt="" width="100%"><hr> </div>   <div class="col-12"> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"><a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a>   </div> </div>')
         },
     }).addTo(points_case)
 
@@ -426,11 +431,13 @@ function view_case() {
 }
 
 
-
-
-
-
-
+function get_loca() {
+    document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+    set_map.clearLayers()
+    markerClusterGroup.clearLayers()
+    points_case.clearLayers()
+    get_point()
+}
 
 
 $("#form_query").submit(function (event) {
@@ -448,14 +455,6 @@ $("#form_query").submit(function (event) {
     map.setView([lat, lon], 17);
 })
 
-
-function get_loca() {
-    document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-    set_map.clearLayers()
-    markerClusterGroup.clearLayers()
-    points_case.clearLayers()
-    get_point()
-}
 
 $("#form_setting").submit(function (event) {
 
