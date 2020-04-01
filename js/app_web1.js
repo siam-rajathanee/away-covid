@@ -68,9 +68,7 @@ line_track = L.layerGroup().addTo(map)
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 // document.getElementById('tracking').innerHTML = ''
-document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
-</button>'
+
 
 var case_confirm = L.icon({
     iconUrl: 'img/confirm_case.png',
@@ -133,13 +131,11 @@ function showDisclaimer() {
         var div = L.DomUtil.create('div', 'info legend')
         div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
         div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> ล็อกดาวน์ ปิดทางเข้า-ออก </small> <br> ';
-        div.innerHTML += '<img src="img/hospital.png" width="30px"> <small class="prompt"> สถานที่รับตรวจ Covid </small> <br> ';
-        div.innerHTML += '<img src="img/hospital_1.png" width="30px"> <small class="prompt"> โรงพยาบาล </small> <br> ';
         div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
         div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
-        // div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
+        div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <br> ';
         div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
         div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small> <br> ';
@@ -170,7 +166,7 @@ function style(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์'];
+var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี'];
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
@@ -369,87 +365,11 @@ function get_point() {
 
 
 
-function view_hospital() {
-    $("#search").modal("hide");
-    markerClusterGroup.clearLayers()
-    points_case.clearLayers()
-    set_map.clearLayers()
-
-    L.geoJson(point, {
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: local_icon,
-            });
-        }
-    })
-        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-        .addTo(set_map)
-
-    var point = turf.point(get_latlng);
-    var buffered = turf.buffer(point, 60, { units: 'kilometers' });
-    var buffereds = L.geoJson(buffered, {
-        stroke: false,
-        color: 'green',
-        fillColor: 'green',
-        fillOpacity: 0.1,
-    }).addTo(set_map)
-    map.fitBounds(buffereds.getBounds())
-
-    console.log(get_latlng);
-
-
-    L.geoJson(labcovid, {
-        pointToLayer: function (f, latlng) {
-
-
-            return L.marker(latlng, {
-                icon: case_hospital,
-            }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-12"> <img src="' + f.properties.webimage + '" alt="" width="100%"><hr> </div>   <div class="col-12"> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"><a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a>   </div> </div>')
-        },
-    }).addTo(points_case)
-
-    L.geoJson(hospital, {
-        pointToLayer: function (f, latlng) {
-            return L.marker(latlng, {
-                icon: case_hospital_1,
-            });
-        },
-    }).addTo(markerClusterGroup)
-
-    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#hospital">\
-             <i class="fa fa-hospital-o" aria-hidden="true"></i><br> สถานพยาบาลใกล้เคียง\
-        </button>'
-
-}
-
-
-
-function view_case() {
-    $("#search").modal("hide");
-    document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-
-    set_map.clearLayers()
-    markerClusterGroup.clearLayers()
-    points_case.clearLayers()
-    get_point()
-    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
-</button>'
-}
-
-
 function get_loca() {
-
-    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
-        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
-    </button>'
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-
     set_map.clearLayers()
-    markerClusterGroup.clearLayers()
-    points_case.clearLayers()
-    get_point()
-
+    line_track.clearLayers()
+    map.locate();
 }
 
 
@@ -629,9 +549,7 @@ $("#form_setting").submit(function (event) {
         tb_announce += '<div class="card mb-3 "><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
     });
     document.getElementById('tabel_announce').innerHTML = tb_announce
-    document.getElementById('case_btn').innerHTML = '<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">\
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง\
-</button>'
+
 
 
 
