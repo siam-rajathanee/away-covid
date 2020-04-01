@@ -1,25 +1,25 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
-//     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
-//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-// }
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653981898-q0jEx1on" })
-// }
-// main()
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
+    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+}
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-q0jEx1on" })
+}
+main()
 
 
 
@@ -66,7 +66,7 @@ line_track = L.layerGroup().addTo(map)
 
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-//document.getElementById('tracking').innerHTML = ''
+document.getElementById('tracking').innerHTML = ''
 
 
 var case_confirm = L.icon({
@@ -164,7 +164,7 @@ function get_tracking() {
             var line = turf.lineString(p_t_l);
             view_line = L.geoJson(line).addTo(line_track)
             map.setView([lat, lng], 16);
-            document.getElementById('tracking').innerHTML = '<button class="btn btn-tracking btn-block btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้า <br> แผนที่</button>'
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-tracking btn-block btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br> Tracking</button>'
         }, error: function (e) {
         }
     })
@@ -336,7 +336,7 @@ function get_point() {
 
 
         document.getElementById('loading').innerHTML = ''
-        // document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
 
 
         var radius = 5;
@@ -386,7 +386,7 @@ function get_point() {
 
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            // document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
 
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
@@ -396,7 +396,7 @@ function get_point() {
             }).addTo(set_map)
             map.fitBounds(buffereds.getBounds())
         } else {
-            // document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
                 color: 'green',
