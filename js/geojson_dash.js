@@ -4077,7 +4077,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: "ชลบุรี",
-                count: "40",
+                count: "41",
             },
         },
         {
@@ -17476,7 +17476,7 @@ var dashboard = {
             properties: {
                 gid: null,
                 pv_th: null,
-                count: "298",
+                count: "297",
             },
         },
     ],
