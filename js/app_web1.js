@@ -340,7 +340,7 @@ function get_point() {
         pointToLayer: function (f, latlng) {
             return L.marker(latlng, {
                 icon: warning_covid,
-            }).bindPopup(f.properties.check_name + '<br>' + f.properties.description)
+            }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
         },
     }).addTo(points_case)
 
