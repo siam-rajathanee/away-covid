@@ -8,17 +8,17 @@
 //         pictureUrl = ''
 //     }
 // }
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             //getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653981898-EK590Od2" })
-// }
-// main()
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            //getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-EK590Od2" })
+}
+main()
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
