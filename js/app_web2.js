@@ -8,17 +8,17 @@
 //         pictureUrl = ''
 //     }
 // }
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            //getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({ liffId: "1653981898-EK590Od2" })
-}
-main()
+// async function main() {
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             //getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
+//     await liff.init({ liffId: "1653981898-EK590Od2" })
+// }
+// main()
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
@@ -69,9 +69,13 @@ $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
             if (e.properties.pv_tn == this.data_pv_th[i].Province) {
                 e.properties.value = this.data_pv_th[i].value
             }
-
+        }
+        if (e.properties.value == undefined) {
+            e.properties.value = 0
         }
     });
+
+
     var geojson = L.geoJson(province_geojson, {
         style: style,
         onEachFeature: onEachFeature
@@ -228,8 +232,6 @@ $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
     });
 })
 
-
-
 function getColor(d) {
     return d > 200 ? '#800026' :
         d > 100 ? '#BD0026' :
@@ -271,8 +273,6 @@ legend.onAdd = function (map) {
 };
 
 legend.addTo(map);
-
-
 
 $.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
 
@@ -346,7 +346,6 @@ function onEachFeature(feature, layer) {
         click: zoomToFeature
     });
 }
-
 
 var info = L.control();
 
