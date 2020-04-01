@@ -165,7 +165,7 @@ function get_tracking() {
             var line = turf.lineString(p_t_l);
             view_line = L.geoJson(line).addTo(line_track)
             map.setView([lat, lng], 16);
-            document.getElementById('tracking').innerHTML = '<button class="btn btn-tracking btn-block btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-tracking btn-block btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้า <br> แผนที่</button>'
         }, error: function (e) {
         }
     })
