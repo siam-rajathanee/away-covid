@@ -120,11 +120,11 @@ var warning_covid = L.icon({
 
 
 function get_track() {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> กด<br> Tracking </button>'
 }
 
 map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> กด<br> Tracking </button>'
 })
 
 function get_tracking() {
@@ -348,7 +348,7 @@ function get_point() {
 
     function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> กด<br> Tracking </button>'
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
