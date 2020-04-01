@@ -168,7 +168,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
 
         chart: {
 
-            type: 'areaspline'
+            type: 'line'
         },
         title: {
             text: 'จำแนกตามเวลา'
