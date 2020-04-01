@@ -22,10 +22,12 @@
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
-    document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.data.Confirmed + '</b> </h2>'
-    document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.data.Recovered + '</span>'
-    document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.data.Hospitalized + '</span>'
-    document.getElementById('Deaths').innerHTML = '<span class="sr-only" id="Deaths">' + data.data.Deaths + '</span>'
+    console.log(data);
+
+    document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.Confirmed + '</b> </h2>'
+    document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.Recovered + '</span>'
+    document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.Hospitalized + '</span>'
+    document.getElementById('Deaths').innerHTML = '<span class="sr-only" id="Deaths">' + data.Deaths + '</span>'
 })
 
 
