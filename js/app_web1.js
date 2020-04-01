@@ -157,17 +157,14 @@ function get_tracking() {
                         Number(json_track.features[i].properties.lat)
                     ]
                 )
-
                 trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
                     + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
                     + json_track.features[i].properties.date_view + ' </td></tr > '
             }
 
             var line = turf.lineString(p_t_l);
-
             view_line = L.geoJson(line).addTo(line_track)
-
-            map.fitBounds(view_line.getBounds())
+            map.setView([lat, lng], 16);
             document.getElementById('tracking').innerHTML = '<button class="btn btn-tracking btn-block btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }, error: function (e) {
         }
