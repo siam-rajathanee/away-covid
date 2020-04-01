@@ -218,7 +218,7 @@ function style(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี'];
+var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี', 'เชียงราย'];
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
