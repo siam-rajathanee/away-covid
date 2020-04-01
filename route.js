@@ -1,14 +1,14 @@
-async function main() {
-    await liff.init({ liffId: "1653984157-0qam36em" })
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-        } else {
-            liff.login()
-        }
-    })
+// async function main() {
+//     await liff.init({ liffId: "1653984157-0qam36em" })
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//         } else {
+//             liff.login()
+//         }
+//     })
 
-}
-main()
+// }
+// main()
 
 
 var map = L.map('map', {
