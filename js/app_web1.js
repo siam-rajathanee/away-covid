@@ -117,15 +117,14 @@ var local_icon = L.icon({
 
 
 function get_track() {
-    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
 }
 
 map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
 })
 
 function get_tracking() {
-    set_map.clearLayers()
     var lat = get_latlng[1]
     var lng = get_latlng[0]
 
@@ -139,8 +138,9 @@ function get_tracking() {
             lng: lng
         }),
         success: function (res) {
-            var json_track = JSON.parse(res)
+            set_map.clearLayers()
 
+            var json_track = JSON.parse(res)
             var trac_table = ''
             var p_t_l = [[
                 Number(json_track.features[0].properties.lng),
@@ -168,7 +168,7 @@ function get_tracking() {
             view_line = L.geoJson(line).addTo(line_track)
 
             map.fitBounds(view_line.getBounds())
-            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-tracking btn-block btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
         }, error: function (e) {
         }
     })
@@ -340,7 +340,7 @@ function get_point() {
 
 
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
 
 
         var radius = 5;
