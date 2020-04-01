@@ -43,7 +43,7 @@
     <div class="card">
 
         <div class="row  top_card">
-            <div class="col-xs-12">
+            <div class="col-xs-9">
                 <div class="col-xs-2  ">
                     <div id="img_profile"><img id="img_profile" class="profile_img" src="img/awaycovid19.png" alt="">
                     </div>
@@ -52,19 +52,17 @@
                     <h4 id="displayname">AWAY COVID 19</h4>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <p id="alert_text" class="btn btn-xs"></p>
-                        <p id="lock_down" class="btn btn-xs"></p>
+                        <!-- <p id="lock_down" class="btn btn-xs"></p> -->
                     </div>
                     <!-- <p id="alert_text">ใกล้พื้นที่เสี่ยง</p> -->
                     <!-- <p class="alert_danger_text">ใกล้พื้นที่เสี่ยง / lockdown</p> -->
                 </div>
             </div>
-            <!-- <div class="col-xs-4">
-                <p id="alert_text"></p>
-                <p id="lock_down" class="alert_danger_text"></p>
-                <div class="text-right" id="tracking"> </div>
-            </div> -->
+            <div class="col-xs-3">
+                <button class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i
+                        class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>
+            </div>
         </div>
-        <br>
 
         <div id="map"></div>
         <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
@@ -167,6 +165,8 @@
                 <div class="modal-header">
                     <h4 class="modal-title"><i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่าแผนที่</h4>
                 </div>
+                <div class="text-right" id="tracking"> </div>
+
                 <div class="modal-body ">
                     <form id="form_setting">
                         <fieldset>

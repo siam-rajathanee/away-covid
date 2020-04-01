@@ -67,7 +67,7 @@ line_track = L.layerGroup().addTo(map)
 
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-// document.getElementById('tracking').innerHTML = ''
+document.getElementById('tracking').innerHTML = ''
 
 
 var case_confirm = L.icon({
@@ -116,13 +116,66 @@ var local_icon = L.icon({
 });
 
 
-// function get_track() {
-//     document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
-// }
+function get_track() {
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+}
 
-// map.on('click', function () {
-//     document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
-// })
+map.on('click', function () {
+    document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+})
+
+function get_tracking() {
+    set_map.clearLayers()
+    var lat = get_latlng[1]
+    var lng = get_latlng[0]
+
+    $.ajax({
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=tracking',
+        method: 'post',
+        data: ({
+            userId: userId,
+            displayName: displayName,
+            lat: lat,
+            lng: lng
+        }),
+        success: function (res) {
+            var json_track = JSON.parse(res)
+
+            var trac_table = ''
+            var p_t_l = [[
+                Number(json_track.features[0].properties.lng),
+                Number(json_track.features[0].properties.lat)
+            ], [
+                Number(json_track.features[0].properties.lng),
+                Number(json_track.features[0].properties.lat)
+            ]]
+
+            for (var i = 0; i < json_track.features.length; i++) {
+                p_t_l.push(
+                    [
+                        Number(json_track.features[i].properties.lng),
+                        Number(json_track.features[i].properties.lat)
+                    ]
+                )
+
+                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
+                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
+                    + json_track.features[i].properties.date_view + ' </td></tr > '
+            }
+
+            var line = turf.lineString(p_t_l);
+
+            view_line = L.geoJson(line).addTo(line_track)
+
+            map.fitBounds(view_line.getBounds())
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> กลับหน้าแผนที่ <br> ดูตำแหน่งผู้ป่วย</button>'
+        }, error: function (e) {
+        }
+    })
+
+}
+
+
 
 var legend = L.control({ position: 'bottomright' });
 
@@ -130,13 +183,12 @@ function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
         div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
-        div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> ล็อกดาวน์ ปิดทางเข้า-ออก </small> <br> ';
         div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
         div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
         div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
-        div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <br> ';
+        div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <hr class="hr_0"> ';
         div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
         div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small> <br> ';
         return div;
@@ -157,23 +209,23 @@ hideDisclaimer()
 get_point()
 
 
-function style(feature) {
-    return {
-        weight: 3,
-        opacity: 1,
-        color: '#800026',
-        dashArray: '3',
-        fillOpacity: 0
-    };
-}
-var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี'];
-lockdown = []
-for (let i = 0; i < list_lock_pro.length; i++) {
-    lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
-    L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]), {
-        style: style
-    }).addTo(map)
-}
+// function style(feature) {
+//     return {
+//         weight: 3,
+//         opacity: 1,
+//         color: '#800026',
+//         dashArray: '3',
+//         fillOpacity: 0
+//     };
+// }
+// var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี'];
+// lockdown = []
+// for (let i = 0; i < list_lock_pro.length; i++) {
+//     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
+//     L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]), {
+//         style: style
+//     }).addTo(map)
+// }
 
 
 
@@ -288,7 +340,7 @@ function get_point() {
 
 
         document.getElementById('loading').innerHTML = ''
-        // document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
+        document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> กดบันทึก/ตรวจสอบ <br> การเดินทาง <br> </button>'
 
 
         var radius = 5;
@@ -306,12 +358,12 @@ function get_point() {
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
 
-        for (let i = 0; i < lockdown.length; i++) {
-            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
-            if (pointlock.features.length == 1) {
-                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class="alert_danger_text"> <i class="fa fa-lock"></i> Lock down</p>'
-            }
-        }
+        // for (let i = 0; i < lockdown.length; i++) {
+        //     var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
+        //     if (pointlock.features.length == 1) {
+        //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class="alert_danger_text"> <i class="fa fa-lock"></i> Lock down</p>'
+        //     }
+        // }
 
         var buffered = turf.buffer(point, radius, { units: 'kilometers' });
 

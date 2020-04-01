@@ -154,6 +154,13 @@ body{
   padding-top: 10px; */
 }
 
+.btn-tracking {
+  color: #fff;
+  background-color: rgb(7, 88, 211);
+  border-color: #3C89FF;
+}
+
+
 .card_table{
   border-radius: 10px;
   border: 1px;
@@ -184,5 +191,12 @@ body{
 
 .text-left{
   text-align: left;
-  padding-left: 25px;
+  padding-left: 44px;
+}
+
+.hr_0 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 0;
+  border-top: 1px solid #eee;
 }
