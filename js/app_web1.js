@@ -67,7 +67,7 @@ line_track = L.layerGroup().addTo(map)
 
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-document.getElementById('tracking').innerHTML = ''
+//document.getElementById('tracking').innerHTML = ''
 
 
 var case_confirm = L.icon({
@@ -337,7 +337,7 @@ function get_point() {
 
 
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
+        // document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
 
 
         var radius = 5;
