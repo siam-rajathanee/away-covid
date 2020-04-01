@@ -189,7 +189,8 @@ function showDisclaimer() {
         div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <hr class="hr_0"> ';
         div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
-        div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small> <br> ';
+        div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small> <hr class="hr_0">  ';
+        div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> จุดด่านตรวจ </small>  ';
         return div;
     };
     legend.addTo(map);
