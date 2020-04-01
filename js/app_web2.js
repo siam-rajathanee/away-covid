@@ -22,533 +22,11 @@
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
-    console.log(data);
-
     document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.Confirmed + '</b> </h2>'
     document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.Recovered + '</span>'
     document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.Hospitalized + '</span>'
     document.getElementById('Deaths').innerHTML = '<span class="sr-only" id="Deaths">' + data.Deaths + '</span>'
 })
-
-
-new Vue({
-    el: '#app_vue',
-    data() {
-        return {
-            info: '',
-            ptop: []
-        }
-    }, mounted() {
-        axios
-            .get('https://mapedia.co.th/demo/get_map_dashboard.php?type=geojson_1')
-            .then(function (res) {
-                const case_geojson = res.data
-                var geojson = L.geoJson(case_geojson, {
-                    style: style,
-                    onEachFeature: onEachFeature
-                }).addTo(map)
-            }).catch(async function () {
-                const case_geojson = dashboard
-                var geojson = L.geoJson(case_geojson, {
-                    style: style,
-                    onEachFeature: onEachFeature
-                }).addTo(map)
-
-
-            })
-    }
-})
-
-new Vue({
-    el: '#app_chart1',
-    data() {
-        return {
-            info: '',
-            ptop: []
-        }
-    }, mounted() {
-        axios
-            .get('https://mapedia.co.th/demo/get_map_dashboard.php?type=chart_1')
-            .then(function (res) {
-                var covid_dga = res.data
-                console.log(covid_dga);
-
-
-                var sum = 0
-                var group_3 = covid_dga.reduce(function (r, row) {
-                    r[row.announce_date] = ++r[row.announce_date] || 1;
-                    return r;
-                }, {});
-                this.data_time = Object.keys(group_3).map(function (key) {
-                    sum = group_3[key] + sum
-                    return {
-                        time: key,
-                        value: sum,
-                        vl: group_3[key]
-                    };
-
-                });
-
-
-
-                var categories_chart3 = []
-                var data_chart3 = []
-                var data_chart3_2 = []
-
-                for (var i = 0; i < this.data_time.length; i++) {
-                    categories_chart3.push(this.data_time[i].time)
-                    data_chart3.push(this.data_time[i].value)
-                    data_chart3_2.push(this.data_time[i].vl)
-                }
-                Highcharts.chart('container3', {
-
-                    chart: {
-
-                        type: 'areaspline'
-                    },
-                    title: {
-                        text: 'จำแนกตามเวลา'
-                    },
-                    xAxis: {
-                        categories: categories_chart3,
-                        crosshair: true,
-
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-                    yAxis: {
-                        title: {
-                            enabled: false,
-                        }
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    series: [{
-                        name: 'จำนวนผู้ป่วยสะสม',
-                        data: data_chart3,
-                        color: '#FD8D3C'
-
-                    }, {
-                        name: 'จำนวนผู้ป่วยรายวัน',
-                        data: data_chart3_2,
-                        color: '#FC4E2A'
-
-                    }]
-                });
-
-
-
-                var group_1 = covid_dga.reduce(function (r, row) {
-                    r[row.province] = ++r[row.province] || 1;
-                    return r;
-                }, {});
-                this.data_pv_th = Object.keys(group_1).map(function (key) {
-                    return {
-                        province: key,
-                        value: group_1[key]
-                    };
-                });
-                this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
-
-                var table = ''
-                for (var i = 0; i < this.data_pv_th.length; i++) {
-                    if (this.data_pv_th[i].province == 'null') {
-                        this.data_pv_th[i].province = 'ไม่ระบุ'
-                    }
-                    table += '  <tr> <td>   ' + this.data_pv_th[i].province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
-                }
-                document.getElementById('all_sum_table').innerHTML = table
-
-                var categories_chart1 = []
-                var data_chart1 = []
-                for (var i = 0; i < 10; i++) {
-                    if (this.data_pv_th[i].province == 'null') {
-                        this.data_pv_th[i].province = 'ไม่ระบุ'
-                    }
-                    categories_chart1.push(this.data_pv_th[i].province)
-                    data_chart1.push(this.data_pv_th[i].value)
-                }
-
-                Highcharts.chart('container', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'จำแนกตามจังหวัด'
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    xAxis: {
-
-                        categories: categories_chart1
-                    },
-                    yAxis: {
-                        title: {
-                            enabled: false,
-                        }
-                    },
-                    plotOptions: {
-                        area: {
-                            fillOpacity: 0.5
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    series: [{
-                        name: 'จำนวนผู้ป่วย',
-                        data: data_chart1,
-                        color: '#FED976'
-                    }]
-                });
-
-
-
-                var group_2 = covid_dga.reduce(function (r, row) {
-                    r[row.sex] = ++r[row.sex] || 1;
-                    return r;
-                }, {});
-                this.data_sex = Object.keys(group_2).map(function (key) {
-                    return {
-                        sex: key,
-                        value: group_2[key]
-                    };
-                });
-
-                var data_chart1 = []
-                var color_pie = ['#ffb3ff', '#00b8e6', '#808080']
-                for (var i = 0; i < this.data_sex.length; i++) {
-                    if (this.data_sex[i].sex == 'null') {
-                        this.data_sex[i].sex = 'ไม่ระบุ'
-                    }
-                    data_chart1.push({
-                        name: this.data_sex[i].sex,
-                        y: this.data_sex[i].value,
-                        color: color_pie[i]
-                    })
-                }
-
-
-
-                Highcharts.chart('container2', {
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'จำแนกตามเพศ'
-                    },
-                    accessibility: {
-                        point: {
-                            valueSuffix: '%'
-                        }
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: 'จำนวนผู้ป่วย',
-                        colorByPoint: true,
-                        data: data_chart1
-                    }]
-
-                });
-
-
-
-
-            }).catch(async function () {
-                var covid_dga = chart
-
-                var sum = 0
-                var group_3 = covid_dga.reduce(function (r, row) {
-                    r[row.announce_date] = ++r[row.announce_date] || 1;
-                    return r;
-                }, {});
-                this.data_time = Object.keys(group_3).map(function (key) {
-                    sum = group_3[key] + sum
-                    return {
-                        time: key,
-                        value: sum,
-                        vl: group_3[key]
-                    };
-
-                });
-
-
-
-                var categories_chart3 = []
-                var data_chart3 = []
-                var data_chart3_2 = []
-
-                for (var i = 0; i < this.data_time.length; i++) {
-                    categories_chart3.push(this.data_time[i].time)
-                    data_chart3.push(this.data_time[i].value)
-                    data_chart3_2.push(this.data_time[i].vl)
-                }
-                Highcharts.chart('container3', {
-
-                    chart: {
-
-                        type: 'areaspline'
-                    },
-                    title: {
-                        text: 'จำแนกตามเวลา'
-                    },
-                    xAxis: {
-                        categories: categories_chart3,
-                        crosshair: true,
-
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-                    yAxis: {
-                        title: {
-                            enabled: false,
-                        }
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    series: [{
-                        name: 'จำนวนผู้ป่วยสะสม',
-                        data: data_chart3,
-                        color: '#FD8D3C'
-
-                    }, {
-                        name: 'จำนวนผู้ป่วยรายวัน',
-                        data: data_chart3_2,
-                        color: '#FC4E2A'
-
-                    }]
-                });
-
-
-
-                var group_1 = covid_dga.reduce(function (r, row) {
-                    r[row.province] = ++r[row.province] || 1;
-                    return r;
-                }, {});
-                this.data_pv_th = Object.keys(group_1).map(function (key) {
-                    return {
-                        province: key,
-                        value: group_1[key]
-                    };
-                });
-                this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
-
-                var table = ''
-                for (var i = 0; i < this.data_pv_th.length; i++) {
-                    if (this.data_pv_th[i].province == 'null') {
-                        this.data_pv_th[i].province = 'ไม่ระบุ'
-                    }
-                    table += '  <tr> <td>   ' + this.data_pv_th[i].province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
-                }
-                document.getElementById('all_sum_table').innerHTML = table
-
-                var categories_chart1 = []
-                var data_chart1 = []
-                for (var i = 0; i < 10; i++) {
-                    if (this.data_pv_th[i].province == 'null') {
-                        this.data_pv_th[i].province = 'ไม่ระบุ'
-                    }
-                    categories_chart1.push(this.data_pv_th[i].province)
-                    data_chart1.push(this.data_pv_th[i].value)
-                }
-
-                Highcharts.chart('container', {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'จำแนกตามจังหวัด'
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    xAxis: {
-
-                        categories: categories_chart1
-                    },
-                    yAxis: {
-                        title: {
-                            enabled: false,
-                        }
-                    },
-                    plotOptions: {
-                        area: {
-                            fillOpacity: 0.5
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    series: [{
-                        name: 'จำนวนผู้ป่วย',
-                        data: data_chart1,
-                        color: '#FED976'
-                    }]
-                });
-
-
-
-                var group_2 = covid_dga.reduce(function (r, row) {
-                    r[row.sex] = ++r[row.sex] || 1;
-                    return r;
-                }, {});
-                this.data_sex = Object.keys(group_2).map(function (key) {
-                    return {
-                        sex: key,
-                        value: group_2[key]
-                    };
-                });
-
-                var data_chart1 = []
-                var color_pie = ['#ffb3ff', '#00b8e6', '#808080']
-                for (var i = 0; i < this.data_sex.length; i++) {
-                    if (this.data_sex[i].sex == 'null') {
-                        this.data_sex[i].sex = 'ไม่ระบุ'
-                    }
-                    data_chart1.push({
-                        name: this.data_sex[i].sex,
-                        y: this.data_sex[i].value,
-                        color: color_pie[i]
-                    })
-                }
-
-
-
-                Highcharts.chart('container2', {
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'จำแนกตามเพศ'
-                    },
-                    accessibility: {
-                        point: {
-                            valueSuffix: '%'
-                        }
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: 'จำนวนผู้ป่วย',
-                        colorByPoint: true,
-                        data: data_chart1
-                    }]
-
-                });
-
-
-
-
-            })
-    }
-})
-
-
-
 
 
 var map = L.map('map', {
@@ -572,6 +50,186 @@ var case_confirm = L.icon({
 
 
 
+
+$.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
+    var res = data.Data
+    var group_1 = res.reduce(function (r, row) {
+        r[row.Province] = ++r[row.Province] || 1;
+        return r;
+    }, {});
+    this.data_pv_th = Object.keys(group_1).map(function (key) {
+        return {
+            Province: key,
+            value: group_1[key]
+        };
+    });
+    this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
+    province_geojson.features.forEach(e => {
+        for (let i = 0; i < this.data_pv_th.length; i++) {
+            if (e.properties.pv_tn == this.data_pv_th[i].Province) {
+                e.properties.value = this.data_pv_th[i].value
+            }
+
+        }
+    });
+    var geojson = L.geoJson(province_geojson, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map)
+
+
+    var table = ''
+    for (var i = 0; i < this.data_pv_th.length; i++) {
+        if (this.data_pv_th[i].province == 'null') {
+            this.data_pv_th[i].province = 'ไม่ระบุ'
+        }
+        table += '  <tr> <td>   ' + this.data_pv_th[i].Province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
+    }
+    document.getElementById('all_sum_table').innerHTML = table
+    var categories_chart1 = []
+    var data_chart1 = []
+    for (var i = 0; i < 10; i++) {
+        if (this.data_pv_th[i].Province == 'null') {
+            this.data_pv_th[i].Province = 'ไม่ระบุ'
+        }
+        categories_chart1.push(this.data_pv_th[i].Province)
+        data_chart1.push(this.data_pv_th[i].value)
+    }
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'จำแนกตามจังหวัด'
+        },
+        legend: {
+            enabled: false,
+        },
+        exporting: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+
+            categories: categories_chart1
+        },
+        yAxis: {
+            title: {
+                enabled: false,
+            }
+        },
+        plotOptions: {
+            area: {
+                fillOpacity: 0.5
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        series: [{
+            name: 'จำนวนผู้ป่วย',
+            data: data_chart1,
+            color: '#FED976'
+        }]
+    });
+
+})
+
+
+$.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
+    var res = data.Data
+    var categories_chart3 = []
+    var data_chart3 = []
+    var data_chart3_2 = []
+    var death = []
+    var Recovered = []
+    var Hospitalized = []
+    for (var i = 0; i < res.length; i++) {
+        categories_chart3.push(res[i].Date)
+        data_chart3.push(res[i].Confirmed)
+        data_chart3_2.push(res[i].NewConfirmed)
+        death.push(res[i].Deaths)
+        Recovered.push(res[i].Recovered)
+        Hospitalized.push(res[i].Hospitalized)
+    }
+    Highcharts.chart('container3', {
+
+        chart: {
+
+            type: 'areaspline'
+        },
+        title: {
+            text: 'จำแนกตามเวลา'
+        },
+        xAxis: {
+            categories: categories_chart3,
+            crosshair: true,
+
+        },
+        legend: {
+            enabled: false,
+        },
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        yAxis: {
+            title: {
+                enabled: false,
+            }
+        },
+        plotOptions: {
+            series: {
+                marker: {
+                    enabled: false
+                }
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        series: [{
+            name: 'จำนวนผู้ป่วยสะสม',
+            data: data_chart3,
+            color: '#FD8D3C'
+
+        }, {
+            name: 'จำนวนผู้ป่วยรายวัน',
+            data: data_chart3_2,
+            color: '#FC4E2A'
+        }, {
+            name: 'กำลังรักษา',
+            data: Hospitalized,
+            color: '#80ffaa'
+        }, {
+            name: 'รักษาหาย',
+            data: Recovered,
+            color: '#00cc44'
+        }, {
+            name: 'ผู้เสียชีวิต',
+            data: death,
+            color: '#595959'
+        }]
+    });
+})
+
+
+
 function getColor(d) {
     return d > 200 ? '#800026' :
         d > 100 ? '#BD0026' :
@@ -585,7 +243,7 @@ function getColor(d) {
 
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.count),
+        fillColor: getColor(feature.properties.value),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -615,6 +273,68 @@ legend.onAdd = function (map) {
 legend.addTo(map);
 
 
+
+$.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
+
+
+
+    var data_chart1 = [{
+        name: 'Male',
+        y: data.Gender.Male,
+        color: '#ffb3ff'
+    }, {
+        name: 'Female',
+        y: data.Gender.Female,
+        color: '#00b8e6'
+    }, {
+        name: 'Unknown',
+        y: data.Gender.Unknown,
+        color: '#808080'
+    }]
+
+    Highcharts.chart('container2', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'จำแนกตามเพศ'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        legend: {
+            enabled: false,
+        },
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'จำนวนผู้ป่วย',
+            colorByPoint: true,
+            data: data_chart1
+        }]
+
+    });
+})
+
 function zoomToFeature(e) {
     var layer = e.target;
     map.fitBounds(e.target.getBounds());
@@ -636,16 +356,13 @@ info.onAdd = function (map) {
     return this._div;
 };
 
-// method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4>' + (props ?
-        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_th + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.count + ' คน </p>' :
+        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
         '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p>');
 };
 
 info.addTo(map);
-
-
 
 
 L.Control.watermark = L.Control.extend({
