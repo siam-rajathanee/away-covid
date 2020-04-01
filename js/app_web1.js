@@ -113,6 +113,10 @@ var local_icon = L.icon({
     iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
     iconSize: [20, 20]
 });
+var warning_covid = L.icon({
+    iconUrl: 'img/warning_covid.png',
+    iconSize: [30, 30], // size of the icon
+});
 
 
 function get_track() {
@@ -172,7 +176,6 @@ function get_tracking() {
 }
 
 
-
 var legend = L.control({ position: 'bottomright' });
 
 function showDisclaimer() {
@@ -222,6 +225,7 @@ get_point()
 //         style: style
 //     }).addTo(map)
 // }
+
 
 
 
@@ -332,12 +336,18 @@ function get_point() {
     }).addTo(markerClusterGroup)
 
 
+    L.geoJson(geojson_checkpoint, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: warning_covid,
+            }).bindPopup(f.properties.check_name + '<br>' + f.properties.description)
+        },
+    }).addTo(points_case)
+
+
     function onLocationFound(e) {
-
-
         document.getElementById('loading').innerHTML = ''
         document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button>'
-
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
