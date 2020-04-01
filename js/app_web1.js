@@ -49,12 +49,10 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
 })
 
 var today = new Date().getHours();
-console.log(today);
-
-if (today >= 18 && today <= 5) {
-    CartoDB_DarkMatter.addTo(map)
-} else {
+if (today >= 6 && today <= 18) {
     CartoDB_Positron.addTo(map)
+} else {
+    CartoDB_DarkMatter.addTo(map)
 }
 
 
@@ -182,14 +180,16 @@ function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
         div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">Hide legend</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
-        div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
-        div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
-        div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
-        div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> <hr class="hr_0"> ';
         div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
-        div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small> <hr class="hr_0">  ';
+        div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
+        div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
+        div.innerHTML += '<img src="img/death.png" width="30px"> <small class="prompt"> เสียชีวิต </small> ';
+        div.innerHTML += ' <hr class="hr_0">  ';
+        div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
+        div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small>   ';
+        div.innerHTML += ' <hr class="hr_0">  ';
         div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> จุดด่านตรวจ </small>  ';
         return div;
     };
@@ -209,23 +209,23 @@ hideDisclaimer()
 get_point()
 
 
-// function style(feature) {
-//     return {
-//         weight: 3,
-//         opacity: 1,
-//         color: '#800026',
-//         dashArray: '3',
-//         fillOpacity: 0
-//     };
-// }
-// var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี'];
-// lockdown = []
-// for (let i = 0; i < list_lock_pro.length; i++) {
-//     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
-//     L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]), {
-//         style: style
-//     }).addTo(map)
-// }
+function style(feature) {
+    return {
+        weight: 3,
+        opacity: 1,
+        color: '#800026',
+        dashArray: '3',
+        fillOpacity: 0
+    };
+}
+var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี'];
+lockdown = []
+for (let i = 0; i < list_lock_pro.length; i++) {
+    lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
+    L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]), {
+        style: style
+    }).addTo(map)
+}
 
 
 
@@ -343,7 +343,7 @@ function get_point() {
                 icon: warning_covid,
             }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
         },
-    }).addTo(points_case)
+    }).addTo(map)
 
 
     function onLocationFound(e) {
