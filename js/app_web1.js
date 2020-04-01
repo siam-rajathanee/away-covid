@@ -52,10 +52,10 @@ gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
 var today = new Date().getHours();
 console.log(today);
 
-if (today >= 18 && today <= 6) {
-    CartoDB_Positron.addTo(map)
-} else {
+if (today >= 18 && today <= 5) {
     CartoDB_DarkMatter.addTo(map)
+} else {
+    CartoDB_Positron.addTo(map)
 }
 
 
