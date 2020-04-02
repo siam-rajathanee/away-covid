@@ -190,6 +190,9 @@ function showDisclaimer() {
         div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small>   ';
         div.innerHTML += ' <hr class="hr_0">  ';
         div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> จุดคัดกรอง </small>  ';
+        div.innerHTML += ' <hr class="hr_0">  ';
+        div.innerHTML += '<img src="img/lock_down.png" width="20px"> <small class="prompt"> พื้นที่ Lock down </small> <br> ';
+        div.innerHTML += '<img src="img/curfew.png" width="20px"> <small class="prompt"> พื้นที่ Curfew </small> <br> ';
         return div;
     };
     legend.addTo(map);
@@ -419,7 +422,7 @@ function get_point() {
 
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
                 color: 'red',
