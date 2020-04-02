@@ -156,8 +156,8 @@ body{
 
 .btn-tracking {
   color: #fff;
-  background-color: #428bff;
-  border-color:#428bff;
+  background-color: #818181;
+  border-color:#afafaf;
 }
 
 
@@ -191,7 +191,7 @@ body{
 
 .text-left{
   text-align: left;
-  padding-left: 44px;
+  padding-left: 35px;
 }
 
 .hr_0 {

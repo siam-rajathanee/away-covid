@@ -118,11 +118,11 @@ var warning_covid = L.icon({
 
 
 function get_track() {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br>กด<br> Tracking </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
 }
 
 map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br>กด<br> Tracking </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
 })
 
 function get_tracking() {
@@ -166,7 +166,7 @@ function get_tracking() {
             var line = turf.lineString(p_t_l);
             view_line = L.geoJson(line).addTo(line_track)
             map.setView([lat, lng], 16);
-            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-block btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br> Tracking</button>'
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-block btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br> เส้นทาง</button>'
         }, error: function (e) {
         }
     })
@@ -348,7 +348,7 @@ function get_point() {
 
     function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br>กด<br> Tracking </button>'
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
@@ -365,12 +365,12 @@ function get_point() {
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
 
-        // for (let i = 0; i < lockdown.length; i++) {
-        //     var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
-        //     if (pointlock.features.length == 1) {
-        //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class="alert_danger_text"> <i class="fa fa-lock"></i> Lock down</p>'
-        //     }
-        // }
+        for (let i = 0; i < lockdown.length; i++) {
+            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
+            if (pointlock.features.length == 1) {
+                document.getElementById('lock_down').innerHTML = '<button id="lock_down" class="btn btn-danger btn-xs"><i class="fa fa-lock"></i> Lock</button>'
+            }
+        }
 
         var buffered = turf.buffer(point, radius, { units: 'kilometers' });
 
@@ -397,7 +397,7 @@ function get_point() {
 
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<button id="alert_text" class="btn btn-danger btn-xs"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</button>'
 
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
