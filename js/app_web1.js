@@ -229,7 +229,7 @@ function style_curfew(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง'];
+var list_lock_pro = ['ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง', 'สตูล'];
 var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
