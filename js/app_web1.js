@@ -238,6 +238,8 @@ for (let i = 0; i < list_lock_pro.length; i++) {
         style: style_lock
     }).addTo(map)
 }
+console.log(lockdown);
+
 // curfew = []
 // for (let i = 0; i < list_curfew_pro.length; i++) {
 //     curfew.push(province_geojson.features.find(e => e.properties.pv_tn == list_curfew_pro[i]))
@@ -380,13 +382,11 @@ function get_point() {
         })
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
-
+        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
         for (let i = 0; i < lockdown.length; i++) {
             var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
             if (pointlock.features.length == 1) {
                 document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
-            } else {
-                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
             }
         }
         // for (let i = 0; i < curfew.length; i++) {
