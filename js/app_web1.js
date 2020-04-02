@@ -191,7 +191,7 @@ function showDisclaimer() {
         div.innerHTML += ' <hr class="hr_0">  ';
         div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> จุดคัดกรอง </small>  ';
         div.innerHTML += ' <hr class="hr_0">  ';
-        div.innerHTML += '<img src="img/lock_down.png" width="20px"> <small class="prompt"> พื้นที่ Lock down </small> <br> ';
+        div.innerHTML += '<img src="img/lock_down.png" width="20px"> <small class="prompt"> พื้นที่ Lockdown </small> <br> ';
         div.innerHTML += '<img src="img/curfew.png" width="20px"> <small class="prompt"> พื้นที่ Curfew </small> <br> ';
         return div;
     };
@@ -384,7 +384,7 @@ function get_point() {
         for (let i = 0; i < lockdown.length; i++) {
             var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
             if (pointlock.features.length == 1) {
-                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text" ><i class="fa fa-lock"></i> Lock Down</p>'
+                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text" ><i class="fa fa-lock"></i> Lockdown</p>'
             }
         }
         for (let i = 0; i < curfew.length; i++) {
