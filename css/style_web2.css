@@ -18,12 +18,9 @@ body{
     z-index: 0;
 }
 
-#container3 {
-  height: 45vh; 
-  width: 100%;
-}
- #container2, #container {
-  height: 30vh; 
+
+#container3,#container2, #container {
+  height: 50vh; 
   width: 100%;
 }
 

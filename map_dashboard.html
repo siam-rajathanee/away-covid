@@ -13,23 +13,19 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style_web2.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-
-
 </head>
 
 <body>
 
 
     <div class="card">
-        <div class="row card_sum" id="app_vue">
+        <div class="row card_sum">
 
             <div class="col-xs-4 col-md-6 text-center blog1">
                 <h2 class="rating-num2" id="Confirmed"> <b></b> </h2>
@@ -86,21 +82,22 @@
 
 
 
-        <div class="tab-content" id="app_chart1">
+        <div class="tab-content">
+
             <div id="home" class="tab-pane fade in active">
                 <div id="map"></div>
             </div>
-            <div id="menu1" class="tab-pane fade">
-                <div class="col-xs-12">
-                    <div id="container3"></div>
-                </div>
-                <div class="col-xs-7">
-                    <div id="container"></div>
-                </div>
-                <div class="col-xs-5">
-                    <div id="container2"></div>
-                </div>
+
+            <div id="menu1" class="tab-pane fade table_data">
+
+                <div id="container3"></div>
+                <br>
+                <div id="container"></div>
+                <br>
+                <div id="container2"></div>
+
             </div>
+
             <div id="menu2" class="tab-pane fade table_data">
 
                 <table class="table table-bordered ">

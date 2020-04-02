@@ -9,20 +9,22 @@
 //     }
 // }
 
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             //getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653981898-EK590Od2" })
-// }
-// main()
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            //getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-EK590Od2" })
+}
+main()
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
+
+
     document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.Confirmed + '</b> </h2>'
     document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.Recovered + '</span>'
     document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.Hospitalized + '</span>'
@@ -76,7 +78,6 @@ $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
         }
     });
 
-
     var geojson = L.geoJson(province_geojson, {
         style: style,
         onEachFeature: onEachFeature
@@ -106,10 +107,10 @@ $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
             type: 'column'
         },
         title: {
-            text: 'จำแนกตามจังหวัด'
+            text: '<p style="font-family: Prompt;"> จำแนกตามจังหวัด </p>'
         },
         legend: {
-            enabled: false,
+            enabled: true,
         },
         exporting: {
             enabled: false
@@ -148,6 +149,63 @@ $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
 
 })
 
+$.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
+    var data_chart1 = [{
+        name: 'ชาย',
+        y: data.Gender.Male,
+        color: '#00b8e6'
+    }, {
+        name: 'หญิง',
+        y: data.Gender.Female,
+        color: '#ffb3ff'
+    }, {
+        name: 'ไม่ระบุ',
+        y: data.Gender.Unknown,
+        color: '#808080'
+    }]
+    Highcharts.chart('container2', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '<p style="font-family: Prompt;">จำแนกตามเพศ</p>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        legend: {
+            enabled: true,
+        },
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'จำนวนผู้ป่วย',
+            colorByPoint: true,
+            data: data_chart1
+        }]
+
+    });
+})
+
 
 $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
     var res = data.Data
@@ -157,7 +215,8 @@ $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
     var death = []
     var Recovered = []
     var Hospitalized = []
-    for (var i = 0; i < res.length; i++) {
+
+    for (var i = 75; i < res.length; i++) {
         categories_chart3.push(res[i].Date)
         data_chart3.push(res[i].Confirmed)
         data_chart3_2.push(res[i].NewConfirmed)
@@ -172,7 +231,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
             type: 'line'
         },
         title: {
-            text: 'จำแนกตามเวลา'
+            text: '<p style="font-family: Prompt;">จำแนกตามเวลา</p>'
         },
         xAxis: {
             categories: categories_chart3,
@@ -180,7 +239,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
 
         },
         legend: {
-            enabled: false,
+            enabled: true,
         },
         credits: {
             enabled: false
@@ -275,67 +334,6 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
-$.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
-
-
-
-    var data_chart1 = [{
-        name: 'Male',
-        y: data.Gender.Male,
-        color: '#ffb3ff'
-    }, {
-        name: 'Female',
-        y: data.Gender.Female,
-        color: '#00b8e6'
-    }, {
-        name: 'Unknown',
-        y: data.Gender.Unknown,
-        color: '#808080'
-    }]
-
-    Highcharts.chart('container2', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'จำแนกตามเพศ'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        legend: {
-            enabled: false,
-        },
-        credits: {
-            enabled: false
-        },
-        exporting: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        series: [{
-            name: 'จำนวนผู้ป่วย',
-            colorByPoint: true,
-            data: data_chart1
-        }]
-
-    });
-})
-
 function zoomToFeature(e) {
     var layer = e.target;
     map.fitBounds(e.target.getBounds());
@@ -357,9 +355,9 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-    this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4>' + (props ?
+    this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4> ' + (props ?
         '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
-        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p>');
+        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> <small  style="font-family: Prompt;">อัพเดตข้อมูลวันที่ </small>');
 };
 
 info.addTo(map);
