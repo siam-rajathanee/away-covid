@@ -1,27 +1,3 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
-//     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
-//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-// }
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653981898-q0jEx1on" })
-// }
-// main()
-
-
 
 var map = L.map('map'
     , { attributionControl: false }
@@ -40,12 +16,12 @@ CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}
     maxZoom: 19
 })
 
-ghyb = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-    attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
+ghyb = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+    attributions: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 })
 
-gter = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
-    attributions: '&copy; <a href="https://www.google.co.th/maps/">Google</a>'
+gter = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attributions: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 })
 
 var today = new Date().getHours();
