@@ -43,32 +43,29 @@
     <div class="card">
 
         <div class="row  top_card">
-            <div class="col-xs-9">
-                <div class="col-xs-2  ">
-                    <div id="img_profile"><img id="img_profile" class="profile_img" src="img/awaycovid19.png" alt="">
-                    </div>
+            <div class="col-xs-2  ">
+                <div id="img_profile"><img id="img_profile" class="profile_img" src="img/awaycovid19.png" alt="">
                 </div>
-                <div class="col-xs-10  text-left">
-                    <h4 id="displayname">AWAY COVID 19</h4>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button id="alert_text" class="btn btn-danger btn-xs"></button>
-                        <button id="lock_down" class="btn btn-danger btn-xs"></button>
-                    </div>
-                    <!-- <div class="btn-group" role="group" aria-label="Basic example">
+            </div>
+            <div class="col-xs-10  text-left">
+                <h4 id="displayname">AWAY COVID 19</h4>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button id="alert_text"></button>
+                    <button id="lock_down"></button>
+                </div>
+                <!-- <div class="btn-group" role="group" aria-label="Basic example">
                         <button id="alert_text" class="btn btn-xs"></button>
                         <button id="lock_down" class="btn btn-xs"></button>
                     </div> -->
-                    <!-- <p id="alert_text">ใกล้พื้นที่เสี่ยง</p> -->
-                    <!-- <p class="alert_danger_text">ใกล้พื้นที่เสี่ยง / lockdown</p> -->
-                </div>
+                <!-- <p id="alert_text">ใกล้พื้นที่เสี่ยง</p> -->
+                <!-- <p class="alert_danger_text">ใกล้พื้นที่เสี่ยง / lockdown</p> -->
             </div>
-            <div class="col-xs-3">
+            <!-- <div class="col-xs-3">
                 <p id="tracking"></p>
-                <!-- <button class="btn btn-tracking btn-block btn-xs" id="tracking" onclick="get_tracking()"> <i
-                        class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> Tracking </button> -->
-            </div>
+            </div> -->
         </div>
-
+        <br>
+        <p id="tracking"></p>
         <div id="map"></div>
         <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
             <button type="button" class="btn btn-default" onclick="get_loca()">

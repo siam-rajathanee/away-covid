@@ -118,11 +118,11 @@ var warning_covid = L.icon({
 
 
 function get_track() {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
 }
 
 map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
 })
 
 function get_tracking() {
@@ -166,7 +166,7 @@ function get_tracking() {
             var line = turf.lineString(p_t_l);
             view_line = L.geoJson(line).addTo(line_track)
             map.setView([lat, lng], 16);
-            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-block btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br> เส้นทาง</button>'
+            document.getElementById('tracking').innerHTML = '<button class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br> เส้นทาง</button>'
         }, error: function (e) {
         }
     })
@@ -348,7 +348,7 @@ function get_point() {
 
     function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-block btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
@@ -368,7 +368,7 @@ function get_point() {
         for (let i = 0; i < lockdown.length; i++) {
             var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
             if (pointlock.features.length == 1) {
-                document.getElementById('lock_down').innerHTML = '<button id="lock_down" class="btn btn-danger btn-xs"><i class="fa fa-lock"></i> Lock</button>'
+                document.getElementById('lock_down').innerHTML = '<button id="lock_down" class="btn btn-lockdown btn-xs" ><i class="fa fa-lock"></i> Lock Down</button>'
             }
         }
 
