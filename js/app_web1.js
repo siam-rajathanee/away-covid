@@ -9,6 +9,7 @@ async function getUserProfile() {
     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 }
+
 async function main() {
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
