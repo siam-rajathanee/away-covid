@@ -23,10 +23,14 @@ async function main() {
 main()
 
 
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});
 
 var map = L.map('map'
     , { attributionControl: false }
 ).setView([13.751569, 100.501634], 10);
+
 
 
 CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -59,9 +63,22 @@ gter = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 points_case = L.layerGroup().addTo(map)
 markerClusterGroup = L.markerClusterGroup().addTo(map)
+point_ann = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
 
+
+
+map.on('zoomend', function (e) {
+    zoom = e.target._zoom
+    if (zoom <= 10) {
+        point_ann.clearLayers()
+        geo_test.addTo(markerClusterGroup)
+    } else {
+        markerClusterGroup.clearLayers()
+        geo_test.addTo(point_ann)
+    }
+});
 
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
@@ -344,7 +361,7 @@ function get_point() {
         onEachFeature: onEachFeature
     }).addTo(points_case)
 
-    L.geoJson(place_announce, {
+    geo_test = L.geoJson(place_announce, {
         pointToLayer: function (f, latlng) {
             return L.marker(latlng, {
                 icon: case_place_announce,
@@ -352,7 +369,7 @@ function get_point() {
             });
         },
         onEachFeature: onEachFeature_place_announce
-    }).addTo(markerClusterGroup)
+    })
 
     L.geoJson(geojson_checkpoint, {
         pointToLayer: function (f, latlng) {
@@ -386,7 +403,7 @@ function get_point() {
         for (let i = 0; i < lockdown.length; i++) {
             var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
             if (pointlock.features.length == 1) {
-                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 <br>ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
+                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
             }
         }
         // for (let i = 0; i < curfew.length; i++) {
@@ -655,7 +672,3 @@ L.control.watermark = function (opts) {
     return new L.Control.watermark(opts);
 }
 L.control.watermark({ position: 'bottomleft' }).addTo(map);
-
-$(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-});
