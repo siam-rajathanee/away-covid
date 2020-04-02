@@ -22,13 +22,14 @@ async function main() {
 main()
 
 
-$.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
 
+$.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
 
     document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.Confirmed + '</b> </h2>'
     document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.Recovered + '</span>'
     document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.Hospitalized + '</span>'
     document.getElementById('Deaths').innerHTML = '<span class="sr-only" id="Deaths">' + data.Deaths + '</span>'
+
 })
 
 
@@ -354,12 +355,12 @@ info.onAdd = function (map) {
     return this._div;
 };
 
+
 info.update = function (props) {
     this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4> ' + (props ?
         '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
-        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> <small  style="font-family: Prompt;">อัพเดตข้อมูลวันที่ </small>');
+        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> <small  style="font-family: Prompt;">อัพเดตข้อมูลวันที่ 02/04/2020</small>');
 };
-
 info.addTo(map);
 
 
