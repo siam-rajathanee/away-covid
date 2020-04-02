@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style_web1.css">
+    <link rel="stylesheet" href="css/style_store.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -25,12 +25,12 @@
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-<style>
-.scrollit {
-    overflow:scroll;
-    height:400px;
-}
-</style>
+    <style>
+        .scrollit {
+            overflow: scroll;
+            height: 400px;
+        }
+    </style>
 </head>
 
 <body>
@@ -58,9 +58,9 @@
              <button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list"> 
                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง 
             </button> -->
-			<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">
-			  <i class="fa fa-shopping-basket" aria-hidden="true"></i><br> ค้นหาร้านค้าที่ใกล้คุณ
-			</button>
+            <button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">
+                <i class="fa fa-shopping-basket" aria-hidden="true"></i><br> ค้นหาร้านค้าที่ใกล้คุณ
+            </button>
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#setting">
                 <i class="fa fa-cogs" aria-hidden="true"></i> <br> ตั้งค่า
             </button>
@@ -109,54 +109,54 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-				<ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#home">ร้านค้าธงฟ้า</a></li>
                         <li><a data-toggle="tab" href="#menu1">ห้างสรรพสินค้า</a></li>
                     </ul>
-					<div class="tab-content">
-                     <div id="home" class="tab-pane fade in active table_view">
-                    <div class="scrollit">
-					<table class="table table-striped ">
-						<thead>
-							<tr>
-								<th width="40%">ชื่อร้านค้า</th>
-								<th>ประเภทร้านค้า</th>
-								<th>เส้นทาง</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody id="tabel_data">
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active table_view">
+                            <div class="scrollit">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th width="40%">ชื่อร้านค้า</th>
+                                            <th>ประเภทร้านค้า</th>
+                                            <th>เส้นทาง</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabel_data">
 
-						</tbody>
-					</table>
-					</div>
-					</div>
-					<div id="menu1" class="tab-pane fade table_view">
-					<div class="scrollit">
-					<table class="table table-striped ">
-						<thead>
-							<tr>
-								<th width="40%">ชื่อห้างสรรพสินค้า</th>
-								<th>เส้นทาง</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody id="tabel_mall">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="menu1" class="tab-pane fade table_view">
+                            <div class="scrollit">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th width="40%">ชื่อห้างสรรพสินค้า</th>
+                                            <th>เส้นทาง</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabel_mall">
 
-						</tbody>
-					</table>
-					</div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
-					
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
     <!-- setting -->
     <div id="setting" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -167,7 +167,7 @@
                 </div>
                 <div class="modal-body ">
                     <form id="form_setting">
-					<fieldset>
+                        <fieldset>
                             <div class="form-group">
                                 <label for="exampleSelect1">กำหนดรัศมี (km)</label>
                                 <select class="form-control" id="exampleSelect1" name="radius">
@@ -182,20 +182,20 @@
                                 </select>
                             </div>
                         </fieldset>
-					<fieldset>
+                        <fieldset>
                             <label for="exampleSelect1">การแสดงชั้นข้อมูล</label>
-							<div class="form-group">
+                            <div class="form-group">
                                 <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_2" checked
                                     data-toggle="toggle" id="toggle-1">
-                                <img src="img/ico_flagblue.png" width="30px"> <small class="prompt"> 
-                                ตำแหน่งร้านค้าธงฟ้า</small>
-                             <div class="form-group">
-                                <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_1" checked
-                                    data-toggle="toggle" id="toggle-2">
-                                <img src="img/ico_shopping.png" width="30px"> <small class="prompt">
-                                    ตำแหน่งห้างสรรพสินค้า</small>
-                            </div>
-                            
+                                <img src="img/ico_flagblue.png" width="30px"> <small class="prompt">
+                                    ตำแหน่งร้านค้าธงฟ้า</small>
+                                <div class="form-group">
+                                    <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_1"
+                                        checked data-toggle="toggle" id="toggle-2">
+                                    <img src="img/ico_shopping.png" width="30px"> <small class="prompt">
+                                        ตำแหน่งห้างสรรพสินค้า</small>
+                                </div>
+
                             </div>
                         </fieldset>
                         <fieldset>
@@ -237,8 +237,8 @@
     </div>
 
 
-	<script src="js/geojson_mall.js"></script>
-	<script src="js/geojson_chimshopuse.js"></script>
+    <script src="js/geojson_mall.js"></script>
+    <script src="js/geojson_chimshopuse.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script src="js/app_store.js"></script>
 
