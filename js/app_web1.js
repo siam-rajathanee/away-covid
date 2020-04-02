@@ -172,7 +172,6 @@ function get_tracking() {
 
 }
 
-
 var legend = L.control({ position: 'bottomright' });
 
 function showDisclaimer() {
@@ -208,6 +207,8 @@ hideDisclaimer()
 get_point()
 
 
+
+
 function style(feature) {
     return {
         weight: 3,
@@ -217,7 +218,7 @@ function style(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี', 'เชียงราย'];
+var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี', 'เชียงราย', 'สตูล'];
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
@@ -225,9 +226,6 @@ for (let i = 0; i < list_lock_pro.length; i++) {
         style: style
     }).addTo(map)
 }
-
-
-
 
 var date = new Date();
 date.setDate(date.getDate() - 7);
@@ -397,7 +395,6 @@ function get_point() {
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
             document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
-
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
                 color: 'red',
@@ -406,7 +403,7 @@ function get_point() {
             }).addTo(set_map)
             map.fitBounds(buffereds.getBounds())
         } else {
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text">ห่างพื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
                 color: 'green',

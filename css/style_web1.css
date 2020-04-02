@@ -196,6 +196,13 @@ body{
   background-color: rgb(180, 20, 3);
 }
 
+.alert_curfew_text{
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(240, 132, 9);
+}
+
 .alert_success_text{
   color: white;
   border-radius: 10px;
