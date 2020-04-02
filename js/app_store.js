@@ -75,18 +75,18 @@ function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
         div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">ซ่อนสัญลักษณ์</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
-       	div.innerHTML += '<img src="img/ico_flagblue.png" width="30px"> <small class="prompt"> ร้านค้าธงฟ้า </small> <br> ';
-	    div.innerHTML += '<img src="img/ico_shopping.png" width="30px"> <small class="prompt"> ห้างสรรพสินค้า  </small> <br> ';
+        div.innerHTML += '<img src="img/ico_flagblue.png" width="30px"> <small class="prompt"> ร้านค้าธงฟ้า </small> <br> ';
+        div.innerHTML += '<img src="img/ico_shopping.png" width="30px"> <small class="prompt"> ห้างสรรพสินค้า  </small> <br> ';
 
         return div;
     };
     legend.addTo(map);
 }
- 
+
 function hideDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
-		div.innerHTML += '<button class="btn btn-default " onClick="showDisclaimer()"><small class="prompt">แสดงสัญลักษณ์</small> <i class="fa fa-angle-double-up" aria-hidden="true"></i>   </button><br> ';
+        div.innerHTML += '<button class="btn btn-default " onClick="showDisclaimer()"><small class="prompt">แสดงสัญลักษณ์</small> <i class="fa fa-angle-double-up" aria-hidden="true"></i>   </button><br> ';
         return div;
     };
     legend.addTo(map);
@@ -99,9 +99,9 @@ get_point()
 
 
 function get_point() {
-   
+
     place_mall = geojson_mall
-	blue_shop = geojson_use
+    blue_shop = geojson_use
 
     var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
     for (var i = 0; i < place_mall.features.length; i++) {
@@ -116,7 +116,7 @@ function get_point() {
 
         var radius = 10;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-          //get_latlng = [100.501708, 13.752184] // e.latlng16.7289774,100.1912686
+        //get_latlng = [100.501708, 13.752184] // e.latlng16.7289774,100.1912686
         var point = turf.point(get_latlng);
         L.geoJson(point, {
             pointToLayer: function (feature, latlng) {
@@ -132,48 +132,48 @@ function get_point() {
 
 
         var ptsWithin = turf.pointsWithinPolygon(blue_shop, buffered);
-		var ptsWithin_mall = turf.pointsWithinPolygon(place_mall, buffered);
-		
-		L.geoJson(ptsWithin, {
-			pointToLayer: function (f, latlng) {
-				return L.marker(latlng, {
-					icon: case_shop,
-				}).bindPopup('<b>' + f.properties.name + ' </b><br>' + f.properties.desc + '<br><a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + f.properties.lat +','+ f.properties.lon +'/data=!3m1!1e3?hl=th" class="btn btn-info" target="_blank">แสดงเส้นทาง</a>')
-			},
-		}).addTo(points_store)
-		
-		L.geoJson(ptsWithin_mall, {
-			pointToLayer: function (f, latlng) {
-				return L.marker(latlng, {
-					icon: case_store,
-				}).bindPopup('<b>' + f.properties.name_th + ' </b><br>ละติจูด : ' + f.properties.lat + ' </b><br>ลองจิจูด : ' + f.properties.lon + '<br><a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + f.properties.lat +','+ f.properties.lon +'/data=!3m1!1e3?hl=th" class="btn btn-success" target="_blank">แสดงเส้นทาง</a>')
-			},
-		}).addTo(points_store)
+        var ptsWithin_mall = turf.pointsWithinPolygon(place_mall, buffered);
+
+        L.geoJson(ptsWithin, {
+            pointToLayer: function (f, latlng) {
+                return L.marker(latlng, {
+                    icon: case_shop,
+                }).bindPopup('<b>' + f.properties.name + ' </b><br>' + f.properties.desc + '<br><a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + f.properties.lat + ',' + f.properties.lon + '/data=!3m1!1e3?hl=th" class="btn btn-info" target="_blank">แสดงเส้นทาง</a>')
+            },
+        }).addTo(points_store)
+
+        L.geoJson(ptsWithin_mall, {
+            pointToLayer: function (f, latlng) {
+                return L.marker(latlng, {
+                    icon: case_store,
+                }).bindPopup('<b>' + f.properties.name_th + ' </b><br>ละติจูด : ' + f.properties.lat + ' </b><br>ลองจิจูด : ' + f.properties.lon + '<br><a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + f.properties.lat + ',' + f.properties.lon + '/data=!3m1!1e3?hl=th" class="btn btn-success" target="_blank">แสดงเส้นทาง</a>')
+            },
+        }).addTo(points_store)
 
         var data = ptsWithin.features
         var table = ''
         for (var i = 0; i < data.length; i++) {
             var distance = turf.distance(point, data[i], { units: 'kilometers' });
-            table += '  <tr> <td>   ' + data[i].properties.name + '</td><td>   ' + data[i].properties.type + '    </td><td> <a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + data[i].properties.lat +','+ data[i].properties.lon +'/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
+            table += '  <tr> <td>   ' + data[i].properties.name + '</td><td>   ' + data[i].properties.type + '    </td><td> <a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data[i].properties.lat + ',' + data[i].properties.lon + '/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
         }
         document.getElementById('tabel_data').innerHTML = table
 
-		var data_mall = ptsWithin_mall.features
+        var data_mall = ptsWithin_mall.features
         var table1 = ''
         for (var i = 0; i < data_mall.length; i++) {
             var distance = turf.distance(point, data_mall[i], { units: 'kilometers' });
-            table1 += '  <tr> <td>   ' + data_mall[i].properties.name_th + '</td><td> <a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + data_mall[i].properties.lat +','+ data_mall[i].properties.lon +'/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
+            table1 += '  <tr> <td>   ' + data_mall[i].properties.name_th + '</td><td> <a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_mall[i].properties.lat + ',' + data_mall[i].properties.lon + '/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
         }
         document.getElementById('tabel_mall').innerHTML = table1
-		
-		var buffereds = L.geoJson(buffered, {
-                stroke: false,
-                color: 'red',
-                fillColor: '#00DCFF',
-                fillOpacity: 0.1,
-            }).addTo(set_map)
-            map.setView([get_latlng[1], get_latlng[0]], 14);
-        
+
+        var buffereds = L.geoJson(buffered, {
+            stroke: false,
+            color: 'red',
+            fillColor: '#00DCFF',
+            fillOpacity: 0,
+        }).addTo(set_map)
+        map.setView([get_latlng[1], get_latlng[0]], 14);
+
     }
 
     map.on('locationfound', onLocationFound);
@@ -191,19 +191,19 @@ function get_loca() {
 
 
 // $("#form_query").submit(function (event) {
-    // $("#search").modal("hide");
-    // event.preventDefault();
-    // var place = event.target.place.value
-    // view_place = ''
-    // for (var i = 0; i < place_announce.features.length; i++) {
-        // if (place_announce.features[i].properties.storename == place) {
-            // view_place = place_announce.features[i]
-        // }
-    // }
-    // var lat = view_place.properties.lat
-    // var lon = view_place.properties.lon
-    // map.setView([lat, lon], 17);
-	
+// $("#search").modal("hide");
+// event.preventDefault();
+// var place = event.target.place.value
+// view_place = ''
+// for (var i = 0; i < place_announce.features.length; i++) {
+// if (place_announce.features[i].properties.storename == place) {
+// view_place = place_announce.features[i]
+// }
+// }
+// var lat = view_place.properties.lat
+// var lon = view_place.properties.lon
+// map.setView([lat, lon], 17);
+
 // })
 
 
@@ -217,7 +217,7 @@ $("#form_setting").submit(function (event) {
 
     event.preventDefault();
     radius = event.target.radius.value
-   // date = event.target.date.value
+    // date = event.target.date.value
     basemap = event.target.basemap.value
     toggle_1 = event.target.toggle_1.checked
     toggle_2 = event.target.toggle_2.checked
@@ -246,17 +246,17 @@ $("#form_setting").submit(function (event) {
     }
 
     place_mall = geojson_mall
-	blue_shop = geojson_use
+    blue_shop = geojson_use
 
     function onEachFeature_place_store(f, layer) {
         // var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-         var popup = '<div class="card-body"><h3 class="card-header">' + f.properties.storename + '</h3><h6 class="card-subtitle text-muted">วันที่ลงประกาศ ' + f.properties.date_update +'</h6><h5 class="card-title">facebook : ' + f.properties.facebook + ' </h5> <h5 class="card-title">line : ' + f.properties.lineid + ' </h5> <h5 class="card-title">Tel : ' + f.properties.tel + ' </h5><h4 class="card-title">ประเภทสินค้า </h4> <h5 class="card-title"><b>หน้ากากอนามัย : </b>' + f.properties.maskvol + ' </h5><h5 class="card-title">ราคาต่ำสุด : ' + f.properties.masklowprice + ' บาท   ราคาสูงสุด : ' + f.properties.maskhighprice +' บาท</h5><hr><h5 class="card-title"><b>เจลล้างมือ : </b>' + f.properties.gelvol + ' </h5><h5 class="card-title">ราคาต่ำสุด : ' + f.properties.gellowprice + ' บาท   ราคาสูงสุด : ' + f.properties.gelhighprice +' บาท</h5><hr></div>'
+        var popup = '<div class="card-body"><h3 class="card-header">' + f.properties.storename + '</h3><h6 class="card-subtitle text-muted">วันที่ลงประกาศ ' + f.properties.date_update + '</h6><h5 class="card-title">facebook : ' + f.properties.facebook + ' </h5> <h5 class="card-title">line : ' + f.properties.lineid + ' </h5> <h5 class="card-title">Tel : ' + f.properties.tel + ' </h5><h4 class="card-title">ประเภทสินค้า </h4> <h5 class="card-title"><b>หน้ากากอนามัย : </b>' + f.properties.maskvol + ' </h5><h5 class="card-title">ราคาต่ำสุด : ' + f.properties.masklowprice + ' บาท   ราคาสูงสุด : ' + f.properties.maskhighprice + ' บาท</h5><hr><h5 class="card-title"><b>เจลล้างมือ : </b>' + f.properties.gelvol + ' </h5><h5 class="card-title">ราคาต่ำสุด : ' + f.properties.gellowprice + ' บาท   ราคาสูงสุด : ' + f.properties.gelhighprice + ' บาท</h5><hr></div>'
         layer.bindPopup(popup)
     }
 
 
-    
-    
+
+
     var point = turf.point(get_latlng);
     L.geoJson(point, {
         pointToLayer: function (feature, latlng) {
@@ -273,53 +273,53 @@ $("#form_setting").submit(function (event) {
         stroke: false,
         color: 'red',
         fillColor: '#00DCFF',
-        fillOpacity: 0.1,
+        fillOpacity: 0,
     }).addTo(set_map)
-	map.setView([get_latlng[1], get_latlng[0]], 14);
+    map.setView([get_latlng[1], get_latlng[0]], 14);
 
     var ptsWithin = turf.pointsWithinPolygon(blue_shop, buffered);
     var ptsWithin_mall = turf.pointsWithinPolygon(place_mall, buffered);
 
-    
-	
-	var p_shop = L.geoJson(ptsWithin, {
-		pointToLayer: function (f, latlng) {
-			return L.marker(latlng, {
-				icon: case_shop,
-			}).bindPopup('<b>' + f.properties.name + ' </b><br>' + f.properties.desc + '<br><a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + f.properties.lat +','+ f.properties.lon +'/data=!3m1!1e3?hl=th" class="btn btn-info" target="_blank">แสดงเส้นทาง</a>' )
-		},
-	})
-	
-	if (toggle_1 == true) {
+
+
+    var p_shop = L.geoJson(ptsWithin, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: case_shop,
+            }).bindPopup('<b>' + f.properties.name + ' </b><br>' + f.properties.desc + '<br><a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + f.properties.lat + ',' + f.properties.lon + '/data=!3m1!1e3?hl=th" class="btn btn-info" target="_blank">แสดงเส้นทาง</a>')
+        },
+    })
+
+    if (toggle_1 == true) {
         p_shop.addTo(points_store)
     }
-	
-	var p_mall = L.geoJson(ptsWithin_mall, {
-		pointToLayer: function (f, latlng) {
-			return L.marker(latlng, {
-				icon: case_store,
-			}).bindPopup('<b>' + f.properties.name_th + ' </b><br>ละติจูด : ' + f.properties.lat + ' </b><br>ลองจิจูด : ' + f.properties.lon + '<br><a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + f.properties.lat +','+ f.properties.lon +'/data=!3m1!1e3?hl=th" class="btn btn-success" target="_blank">แสดงเส้นทาง</a>')
-		},
-	})
-	if (toggle_2 == true) {
+
+    var p_mall = L.geoJson(ptsWithin_mall, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: case_store,
+            }).bindPopup('<b>' + f.properties.name_th + ' </b><br>ละติจูด : ' + f.properties.lat + ' </b><br>ลองจิจูด : ' + f.properties.lon + '<br><a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + f.properties.lat + ',' + f.properties.lon + '/data=!3m1!1e3?hl=th" class="btn btn-success" target="_blank">แสดงเส้นทาง</a>')
+        },
+    })
+    if (toggle_2 == true) {
         p_mall.addTo(points_store)
     }
-		var data = ptsWithin.features
-        var table = ''
-        for (var i = 0; i < data.length; i++) {
-            var distance = turf.distance(point, data[i], { units: 'kilometers' });
-            table += '  <tr> <td>   ' + data[i].properties.name + '</td><td>   ' + data[i].properties.type + '    </td><td> <a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + data[i].properties.lat +','+ data[i].properties.lon +'/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
-        }
-        document.getElementById('tabel_data').innerHTML = table
-		
-		var data_mall = ptsWithin_mall.features
-		console.log(data_mall)
-        var table1 = ''
-        for (var i = 0; i < data_mall.length; i++) {
-            var distance = turf.distance(point, data_mall[i], { units: 'kilometers' });
-            table1 += '  <tr> <td>   ' + data_mall[i].properties.name_th + '</td><td> <a href="https://www.google.co.th/maps/dir/'+get_latlng[1]+','+get_latlng[0]+'/' + data_mall[i].properties.lat +','+ data_mall[i].properties.lon +'/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
-        }
-        document.getElementById('tabel_mall').innerHTML = table1
+    var data = ptsWithin.features
+    var table = ''
+    for (var i = 0; i < data.length; i++) {
+        var distance = turf.distance(point, data[i], { units: 'kilometers' });
+        table += '  <tr> <td>   ' + data[i].properties.name + '</td><td>   ' + data[i].properties.type + '    </td><td> <a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data[i].properties.lat + ',' + data[i].properties.lon + '/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
+    }
+    document.getElementById('tabel_data').innerHTML = table
+
+    var data_mall = ptsWithin_mall.features
+    console.log(data_mall)
+    var table1 = ''
+    for (var i = 0; i < data_mall.length; i++) {
+        var distance = turf.distance(point, data_mall[i], { units: 'kilometers' });
+        table1 += '  <tr> <td>   ' + data_mall[i].properties.name_th + '</td><td> <a href="https://www.google.co.th/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_mall[i].properties.lat + ',' + data_mall[i].properties.lon + '/data=!3m1!1e3?hl=th" target="_blank">แสดงเส้นทาง</a>  </td></tr> '
+    }
+    document.getElementById('tabel_mall').innerHTML = table1
 
 
 })
