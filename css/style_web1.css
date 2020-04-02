@@ -186,6 +186,13 @@ body{
   color: white;
   border-radius: 10px;
   text-align: center;
+  background-color: rgb(218, 30, 9);
+}
+
+.alert_lockdown_text{
+  color: white;
+  border-radius: 10px;
+  text-align: center;
   background-color: rgb(180, 20, 3);
 }
 
@@ -194,6 +201,10 @@ body{
   border-radius: 10px;
   text-align: center;
   background-color: rgb(34, 155, 4);
+}
+.pd0{
+  padding-left: 0;
+  padding-right: 0;
 }
 
 
