@@ -384,13 +384,13 @@ function get_point() {
         for (let i = 0; i < lockdown.length; i++) {
             var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
             if (pointlock.features.length == 1) {
-                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text" ><i class="fa fa-lock"></i> Lockdown</p>'
+                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19"  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
             }
         }
         for (let i = 0; i < curfew.length; i++) {
             var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
             if (pointlock.features.length == 1) {
-                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 23.00 น. ถึงเวลา 05.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
             }
         }
 
@@ -422,7 +422,8 @@ function get_point() {
 
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text"><i class="fa fa-exclamation" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-exclamation" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p>'
+
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
                 color: 'red',
@@ -652,3 +653,7 @@ L.control.watermark = function (opts) {
     return new L.Control.watermark(opts);
 }
 L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});

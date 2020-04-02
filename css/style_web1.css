@@ -226,3 +226,7 @@ body{
   border: 0;
   border-top: 1px solid #eee;
 }
+
+.popover-title,.popover-content {
+  font-family: 'Prompt', sans-serif;
+}
