@@ -8,6 +8,7 @@
 //         pictureUrl = ''
 //     }
 // }
+
 async function main() {
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {

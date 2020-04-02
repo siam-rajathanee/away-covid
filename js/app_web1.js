@@ -1,25 +1,25 @@
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
-    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
-    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-}
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({ liffId: "1653981898-q0jEx1on" })
-}
-main()
+// async function getUserProfile() {
+//     profile = await liff.getProfile()
+//     pictureUrl = profile.pictureUrl
+//     userId = profile.userId
+//     displayName = profile.displayName
+//     if (pictureUrl == undefined) {
+//         pictureUrl = ''
+//     }
+//     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+// }
+// async function main() {
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
+//     await liff.init({ liffId: "1653981898-q0jEx1on" })
+// }
+// main()
 
 
 
@@ -207,9 +207,7 @@ hideDisclaimer()
 get_point()
 
 
-
-
-function style(feature) {
+function style_lock(feature) {
     return {
         weight: 3,
         opacity: 1,
@@ -218,14 +216,32 @@ function style(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['ปัตตานี', 'ตาก', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'บุรีรัมย์', 'นนทบุรี', 'เชียงราย', 'สตูล'];
+function style_curfew(feature) {
+    return {
+        weight: 3,
+        opacity: 1,
+        color: '#ff6600',
+        dashArray: '3',
+        fillOpacity: 0
+    };
+}
+var list_lock_pro = ['ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง'];
+var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
     L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]), {
-        style: style
+        style: style_lock
     }).addTo(map)
 }
+curfew = []
+for (let i = 0; i < list_curfew_pro.length; i++) {
+    curfew.push(province_geojson.features.find(e => e.properties.pv_tn == list_curfew_pro[i]))
+    L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == list_curfew_pro[i]), {
+        style: style_curfew
+    }).addTo(map)
+}
+
 
 var date = new Date();
 date.setDate(date.getDate() - 7);
@@ -333,7 +349,6 @@ function get_point() {
         onEachFeature: onEachFeature_place_announce
     }).addTo(markerClusterGroup)
 
-
     L.geoJson(geojson_checkpoint, {
         pointToLayer: function (f, latlng) {
             return L.marker(latlng, {
@@ -349,7 +364,7 @@ function get_point() {
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-        //  get_latlng = [100.1912686, 16.7289774] // e.latlng16.7289774,100.1912686
+        // get_latlng = [100.501634, 13.751569]
 
         var point = turf.point(get_latlng);
         L.geoJson(point, {
@@ -368,6 +383,15 @@ function get_point() {
                 document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text" ><i class="fa fa-lock"></i> Lock Down</p>'
             }
         }
+        for (let i = 0; i < curfew.length; i++) {
+            var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
+            if (pointlock.features.length == 1) {
+                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+            }
+        }
+
+
+
 
         var buffered = turf.buffer(point, radius, { units: 'kilometers' });
 
