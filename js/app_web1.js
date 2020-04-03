@@ -26,6 +26,8 @@ main()
 
 $(function () {
     $('[data-toggle="popover"]').popover()
+    console.log(true);
+
 })
 
 
