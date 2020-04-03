@@ -301,7 +301,7 @@ function getColor(d) {
                     d > 10 ? '#FD8D3C' :
                         d > 5 ? '#FEB24C' :
                             d > 0 ? '#FED976' :
-                                '#f2f2f2';
+                                '#33cc33';
 }
 
 function style(feature) {
@@ -324,10 +324,14 @@ legend.onAdd = function (map) {
         grades = [0, 5, 10, 20, 50, 100, 200],
         labels = [];
 
+
+    div.innerHTML += '<i style="background:#33cc33"></i> ไม่มีผู้ป่วย <br>';
     for (var i = 0; i < grades.length; i++) {
+        console.log(grades[i]);
+
         div.innerHTML +=
             '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            (grades[i] + 1) + (grades[i + 1] ? '&ndash;' + (grades[i + 1]) + '<br>' : '+');
     }
 
     return div;
