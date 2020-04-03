@@ -24,9 +24,10 @@ main()
 
 
 
-$(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-});
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
+
 
 var map = L.map('map'
     , { attributionControl: false }
