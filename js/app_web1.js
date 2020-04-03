@@ -72,7 +72,7 @@ line_track = L.layerGroup().addTo(map)
 
 map.on('zoomend', function (e) {
     zoom = e.target._zoom
-    if (zoom <= 9) {
+    if (zoom <= 10) {
         point_ann.clearLayers()
         geo_test.addTo(markerClusterGroup)
     } else {
