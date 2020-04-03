@@ -9,7 +9,6 @@ async function getUserProfile() {
     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 }
-
 async function main() {
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
@@ -23,9 +22,6 @@ async function main() {
 main()
 
 
-$(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-});
 
 var map = L.map('map'
     , { attributionControl: false }
@@ -71,7 +67,7 @@ line_track = L.layerGroup().addTo(map)
 
 map.on('zoomend', function (e) {
     zoom = e.target._zoom
-    if (zoom <= 10) {
+    if (zoom <= 9) {
         point_ann.clearLayers()
         geo_test.addTo(markerClusterGroup)
     } else {
