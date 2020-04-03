@@ -209,8 +209,8 @@ function showDisclaimer() {
         div.innerHTML += ' <hr class="hr_0">  ';
         div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> จุดคัดกรอง </small>  ';
         div.innerHTML += ' <hr class="hr_0">  ';
-        div.innerHTML += '<img src="img/lock_down.png" width="20px"> <small class="prompt"> พื้นที่ Lockdown </small> <br> ';
-        div.innerHTML += '<img src="img/curfew.png" width="20px"> <small class="prompt"> พื้นที่ Curfew </small> <br> ';
+        div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> พื้นที่ Lockdown </small> <br> ';
+        // div.innerHTML += '<img src="img/curfew.png" width="20px"> <small class="prompt"> พื้นที่ Curfew </small> <br> ';
         return div;
     };
     legend.addTo(map);
