@@ -331,7 +331,7 @@ function get_point() {
     }
     function onEachFeature_place_announce(f, layer) {
         // var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
-        var popup = '<div class="card mb-3"><div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
+        var popup = '<div class="card mb-3"> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <h5 class="card-title">เหลือเวลอีก ' + f.properties.daysDiff + ' วัน จะพ้นระยะเฝ้าระวัง </h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
         layer.bindPopup(popup)
     }
 
@@ -393,11 +393,10 @@ function get_point() {
         sDate = new Date(date1[0], date1[1] - 1, date1[2]);
         eDate = new Date(date2[0], date2[1] - 1, date2[2]);
         var daysDiff = Math.round((eDate - sDate) / 86400000);
-
         if (daysDiff <= 14) {
+            e.properties.daysDiff = 14 - daysDiff
             json_place_ann.push(e)
         }
-
         if (daysDiff <= 5) {
             geo_test = L.geoJson(e, {
                 pointToLayer: function (f, latlng) {
@@ -429,7 +428,8 @@ function get_point() {
                 onEachFeature: onEachFeature_place_announce
             }).addTo(point_ann)
         }
-    });
+    })
+
 
     var nietos2 = [];
     var obj2 = {};
@@ -437,6 +437,7 @@ function get_point() {
     obj2["features"] = json_place_ann
     nietos2.push(obj2)
     place_announce = nietos2[0]
+    console.log(place_announce);
 
 
 
