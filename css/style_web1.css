@@ -9,16 +9,23 @@ body{
   padding: 10px;
 }
 
+.top_card{
+  min-height: 10vh;
+  max-height: 15vh;
+  z-index: 2;
+}
+
 #map{
   border-radius: 20px;
   width: 100%;
-  height: 74vh;
+  min-height: 75vh;
   z-index: 0;
 }
 
 .footer {
     position: fixed;
-    height: 15vh;
+    min-height: 10vh;
+    max-height: 15vh;
     bottom: 0px;
     left: 0px;
     right: 0px;
@@ -148,7 +155,7 @@ body{
   z-index: 3; 
   opacity: 0.8;
   position: fixed;
-  margin-top: 70px;
+  margin-top: 40px;
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 10px; 
