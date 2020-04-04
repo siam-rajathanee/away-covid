@@ -174,8 +174,8 @@ body{
   border-radius: 40px;
 }
 .btn-search {
-  color: #fff;
-  background-color: #062f5e;
+  color: rgb(255, 255, 255);
+  background-color: #969696;
   border-color:#afafaf;
   opacity: 0.8;
   border-radius: 10px;
@@ -246,4 +246,8 @@ body{
 
 .popover-title,.popover-content {
   font-family: 'Prompt', sans-serif;
+}
+
+.img_phone{
+  width: 60px;
 }
