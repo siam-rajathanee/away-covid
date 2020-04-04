@@ -26,8 +26,6 @@ main()
 
 $(function () {
     $('[data-toggle="popover"]').popover()
-    console.log(true);
-
 })
 
 
@@ -66,23 +64,24 @@ gter = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 points_case = L.layerGroup().addTo(map)
-markerClusterGroup = L.markerClusterGroup().addTo(map)
+//markerClusterGroup = L.markerClusterGroup().addTo(map)
+markerClusterGroup = L.layerGroup().addTo(map)
 point_ann = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
 
 
 
-map.on('zoomend', function (e) {
-    zoom = e.target._zoom
-    if (zoom <= 10) {
-        point_ann.clearLayers()
-        geo_test.addTo(markerClusterGroup)
-    } else {
-        markerClusterGroup.clearLayers()
-        geo_test.addTo(point_ann)
-    }
-});
+// map.on('zoomend', function (e) {
+//     zoom = e.target._zoom
+//     if (zoom <= 10) {
+//         point_ann.clearLayers()
+//         geo_test.addTo(markerClusterGroup)
+//     } else {
+//         markerClusterGroup.clearLayers()
+//         geo_test.addTo(point_ann)
+//     }
+// });
 
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
@@ -139,12 +138,12 @@ var warning_covid = L.icon({
 });
 
 
-function get_track() {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
-}
-map.on('click', function () {
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
-})
+// function get_track() {
+//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+// }
+// map.on('click', function () {
+//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+// })
 
 function get_tracking() {
     var lat = get_latlng[1]
@@ -216,7 +215,7 @@ function showDisclaimer() {
         div.innerHTML += ' <hr class="hr_0">  ';
         div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> พื้นที่ Lockdown </small> <br> ';
         // div.innerHTML += '<img src="img/curfew.png" width="20px"> <small class="prompt"> พื้นที่ Curfew </small> <br> ';
-        div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">ซ่อนสัญลักษณ์</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button>';
+        div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt"> ซ่อนสัญลักษณ์</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button>';
 
         return div;
     };
@@ -278,10 +277,6 @@ date.setDate(date.getDate() - 7);
 finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
 
-var date = new Date();
-date.setDate(date.getDate());
-nowdate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
-
 
 function get_point() {
     var date = new Date();
@@ -301,8 +296,11 @@ function get_point() {
     nietos.push(obj)
 
     case_point = nietos[0]
-    place_announce = geojson_ann
 
+
+    var date = new Date();
+    date.setDate(date.getDate());
+    nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 
     var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
     for (var i = 0; i < case_point.features.length; i++) {
@@ -369,15 +367,61 @@ function get_point() {
         onEachFeature: onEachFeature
     }).addTo(points_case)
 
-    geo_test = L.geoJson(place_announce, {
-        pointToLayer: function (f, latlng) {
-            return L.marker(latlng, {
-                icon: case_place_announce,
-                highlight: "temporary"
-            });
-        },
-        onEachFeature: onEachFeature_place_announce
-    })
+    var json_place_ann = []
+    geojson_ann.features.forEach(e => {
+        var date2 = nowdate
+        var date1 = e.properties.date_risk
+        date1 = date1.split("-");
+        date2 = date2.split("-");
+        sDate = new Date(date1[0], date1[1] - 1, date1[2]);
+        eDate = new Date(date2[0], date2[1] - 1, date2[2]);
+        var daysDiff = Math.round((eDate - sDate) / 86400000);
+
+        if (daysDiff <= 14) {
+            json_place_ann.push(e)
+        }
+
+        if (daysDiff <= 5) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 1
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 10) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.7
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 14) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.3
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        }
+    });
+
+    var nietos2 = [];
+    var obj2 = {};
+    obj2["type"] = "FeatureCollection";
+    obj2["features"] = json_place_ann
+    nietos2.push(obj2)
+    place_announce = nietos2[0]
+
+
 
     L.geoJson(geojson_checkpoint, {
         pointToLayer: function (f, latlng) {
@@ -385,7 +429,7 @@ function get_point() {
                 icon: warning_covid,
             }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
         },
-    }).addTo(map)
+    }).addTo(points_case)
 
 
     function onLocationFound(e) {
@@ -506,6 +550,7 @@ $("#form_setting").submit(function (event) {
 
     markerClusterGroup.clearLayers()
     points_case.clearLayers()
+    point_ann.clearLayers()
     set_map.clearLayers()
 
     event.preventDefault();
@@ -576,17 +621,63 @@ $("#form_setting").submit(function (event) {
     }
 
 
-    var geojson_announce = L.geoJson(place_announce, {
-        pointToLayer: function (f, latlng) {
-            return L.marker(latlng, {
-                icon: case_place_announce,
-                highlight: "temporary"
-            });
-        },
-        onEachFeature: onEachFeature_place_announce
-    })
+    var json_place_ann = []
+    geojson_ann.features.forEach(e => {
+        var date2 = nowdate
+        var date1 = e.properties.date_risk
+        date1 = date1.split("-");
+        date2 = date2.split("-");
+        sDate = new Date(date1[0], date1[1] - 1, date1[2]);
+        eDate = new Date(date2[0], date2[1] - 1, date2[2]);
+        var daysDiff = Math.round((eDate - sDate) / 86400000);
 
-    var geojson_case = L.geoJson(case_point, {
+        if (daysDiff <= 14) {
+            json_place_ann.push(e)
+        }
+
+        if (daysDiff <= 5) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 1
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 10) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.7
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 14) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.3
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        }
+    });
+
+    var nietos2 = [];
+    var obj2 = {};
+    obj2["type"] = "FeatureCollection";
+    obj2["features"] = json_place_ann
+    nietos2.push(obj2)
+    place_announce = nietos2[0]
+
+
+
+    L.geoJson(case_point, {
         pointToLayer: function (f, latlng) {
             if (f.properties.status_pat == 'รักษาหายแล้ว') {
                 return L.marker(latlng, {
@@ -611,13 +702,21 @@ $("#form_setting").submit(function (event) {
             }
         },
         onEachFeature: onEachFeature
-    })
+    }).addTo(points_case)
 
-    if (toggle_1 == true) {
-        geojson_case.addTo(points_case)
+    L.geoJson(geojson_checkpoint, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: warning_covid,
+            }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
+        },
+    }).addTo(points_case)
+
+    if (toggle_1 == false) {
+        points_case.clearLayers()
     }
-    if (toggle_2 == true) {
-        geojson_announce.addTo(markerClusterGroup)
+    if (toggle_2 == false) {
+        point_ann.clearLayers()
     }
     var point = turf.point(get_latlng);
     L.geoJson(point, {
