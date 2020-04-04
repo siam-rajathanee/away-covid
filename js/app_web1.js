@@ -437,8 +437,6 @@ function get_point() {
     obj2["features"] = json_place_ann
     nietos2.push(obj2)
     place_announce = nietos2[0]
-    console.log(place_announce);
-
 
 
     L.geoJson(geojson_checkpoint, {
