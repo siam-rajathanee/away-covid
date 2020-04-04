@@ -31,7 +31,7 @@ $(function () {
 
 var map = L.map('map'
     , { attributionControl: false }
-).setView([13.751569, 100.501634], 6);
+).setView([13.751569, 100.501634], 9);
 
 
 
