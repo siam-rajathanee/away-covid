@@ -272,16 +272,33 @@ for (let i = 0; i < list_lock_pro.length; i++) {
 // }
 
 
-var date = new Date();
-date.setDate(date.getDate() - 7);
-finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+function get_loca() {
+    document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+    set_map.clearLayers()
+    line_track.clearLayers()
+    map.locate();
+}
 
-
+$("#form_query").submit(function (event) {
+    $("#search").modal("hide");
+    event.preventDefault();
+    var place = event.target.place.value
+    view_place = ''
+    for (var i = 0; i < case_point.features.length; i++) {
+        if (case_point.features[i].properties.place_name == place) {
+            view_place = case_point.features[i]
+        }
+    }
+    var lat = view_place.properties.lat
+    var lon = view_place.properties.lon
+    map.setView([lat, lon], 17);
+})
 
 function get_point() {
     var date = new Date();
     date.setDate(date.getDate() - 7);
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
 
     var json_query = []
     for (let i = 0; i < geojson_covidcase.features.length; i++) {
@@ -518,32 +535,6 @@ function get_point() {
     map.locate();
 }
 
-
-
-function get_loca() {
-    document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-    set_map.clearLayers()
-    line_track.clearLayers()
-    map.locate();
-}
-
-
-$("#form_query").submit(function (event) {
-    $("#search").modal("hide");
-    event.preventDefault();
-    var place = event.target.place.value
-    view_place = ''
-    for (var i = 0; i < case_point.features.length; i++) {
-        if (case_point.features[i].properties.place_name == place) {
-            view_place = case_point.features[i]
-        }
-    }
-    var lat = view_place.properties.lat
-    var lon = view_place.properties.lon
-    map.setView([lat, lon], 17);
-})
-
-
 $("#form_setting").submit(function (event) {
 
     $("#setting").modal("hide");
@@ -587,6 +578,7 @@ $("#form_setting").submit(function (event) {
     date.setDate(date.getDate() - event.target.date.value);
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
+
     var json_query = []
     for (let i = 0; i < geojson_covidcase.features.length; i++) {
         if (Date.parse(geojson_covidcase.features[i].properties.date_start) >= Date.parse(finalDate)) {
@@ -600,7 +592,6 @@ $("#form_setting").submit(function (event) {
     nietos.push(obj)
 
     case_point = nietos[0]
-    place_announce = geojson_ann
 
 
     var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
@@ -630,11 +621,9 @@ $("#form_setting").submit(function (event) {
         sDate = new Date(date1[0], date1[1] - 1, date1[2]);
         eDate = new Date(date2[0], date2[1] - 1, date2[2]);
         var daysDiff = Math.round((eDate - sDate) / 86400000);
-
         if (daysDiff <= 14) {
             json_place_ann.push(e)
         }
-
         if (daysDiff <= 5) {
             geo_test = L.geoJson(e, {
                 pointToLayer: function (f, latlng) {
@@ -676,7 +665,6 @@ $("#form_setting").submit(function (event) {
     place_announce = nietos2[0]
 
 
-
     L.geoJson(case_point, {
         pointToLayer: function (f, latlng) {
             if (f.properties.status_pat == 'รักษาหายแล้ว') {
@@ -699,7 +687,28 @@ $("#form_setting").submit(function (event) {
                     icon: case_null,
                     highlight: "temporary"
                 });
+            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_clean,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'เสียชีวิต') {
+                return L.marker(latlng, {
+                    icon: case_death,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
+                return L.marker(latlng, {
+                    icon: case_send,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
+                return L.marker(latlng, {
+                    icon: case_hospital,
+                    highlight: "temporary"
+                });
             }
+
         },
         onEachFeature: onEachFeature
     }).addTo(points_case)
@@ -764,7 +773,6 @@ $("#form_setting").submit(function (event) {
 
 
 })
-
 
 L.Control.watermark = L.Control.extend({
     onAdd: function (map) {
