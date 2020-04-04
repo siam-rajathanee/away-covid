@@ -148,7 +148,7 @@ body{
   z-index: 3; 
   opacity: 0.8;
   position: fixed;
-  margin-top: 10%;
+  margin-top: 20%;
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 10px; 
@@ -164,6 +164,13 @@ body{
   color: #fff;
   background-color: #8f0b0b;
   border-color:#afafaf;
+  border-radius: 40px;
+}
+.btn-search {
+  color: #fff;
+  background-color: #062f5e;
+  border-color:#afafaf;
+  opacity: 0.8;
   border-radius: 40px;
 }
 .btn-danger {
