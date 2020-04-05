@@ -21,6 +21,8 @@ async function main() {
 }
 main()
 
+// userId = 'U813edb9e9e22c2dc43d39fcdab3d9ff9'
+// displayName = 'MAPEDIA'
 
 
 
@@ -149,13 +151,24 @@ function onEachFeature(f, layer) {
 }
 
 // function get_track() {
-//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>ตำแหน่ง<br>เส้นทาง </button>'
 // }
 // map.on('click', function () {
-//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>ตำแหน่ง<br>เส้นทาง </button>'
 // })
 
 function get_tracking() {
+    var json_buf = []
+    json_place_ann.forEach(e => {
+        buffered = turf.buffer(e, 1, { units: 'kilometers' });
+        json_buf.push(buffered)
+    });
+
+
+
+
+
+
     var lat = get_latlng[1]
     var lng = get_latlng[0]
 
@@ -172,6 +185,26 @@ function get_tracking() {
             set_map.clearLayers()
 
             var json_track = JSON.parse(res)
+
+            var alert_anno = []
+            for (let a = 0; a < json_track.features.length; a++) {
+                for (let b = 0; b < json_buf.length; b++) {
+                    var ptsWithin = turf.pointsWithinPolygon(json_track.features[a], json_buf[b]);
+                    var res = json_track.features[a].properties.date_view.split(" ");
+                    if (ptsWithin.features.length > 0 && json_buf[b].properties.date_risk == res[0]) {
+                        alert_anno.push(json_buf[b].properties)
+                    }
+                }
+            }
+
+            if (alert_anno.length > 0) {
+                document.getElementById('alert_anno').innerHTML = '<div class="alert alert-dismissible alert-danger"> <button type="button" class="close" data-dismiss="alert">&times;</button> <strong>คำเตือน !</strong> ท่านเคยเข้าไปยังสถานที่ที่มีผู้ป่วยโรค Covid 19 เมื่อวันนี้ ' + alert_anno[0].date_risk + ' ณ สถานที่ ' + alert_anno[0].place + ' กรุณาติดต่อไปยัง' + alert_anno[0].announce + ' </div>'
+
+                map.setView([alert_anno[0].lat, alert_anno[0].lon], 14);
+            } else {
+                map.setView([lat, lng], 14);
+            }
+
             var trac_table = ''
             var p_t_l = [[
                 Number(json_track.features[0].properties.lng),
@@ -197,8 +230,7 @@ function get_tracking() {
             view_line = L.geoJson(line).addTo(line_track)
 
 
-            map.setView([lat, lng], 16);
-            document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br> เส้นทาง</button>'
+            document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br>ตำแหน่ง <br> เส้นทาง</button>'
 
         }, error: function (e) {
         }
@@ -263,7 +295,7 @@ function style_curfew(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง', 'สตูล', 'พังงา', 'กระบี่', 'ตราด', 'บุรีรัมย์', 'อุทัยธานี'];
+var list_lock_pro = ['ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง', 'สตูล', 'พังงา', 'กระบี่', 'ตราด', 'บุรีรัมย์', 'อุทัยธานี', 'พัทลุง'];
 //var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
@@ -329,6 +361,8 @@ function get_point() {
     var date = new Date();
     date.setDate(date.getDate());
     nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    document.getElementById('date_up').innerHTML = '<small> อัพเดตข้อมูลล่าสุดวันที่ : ' + nowdate + '</small>'
+
 
     var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
     for (var i = 0; i < case_point.features.length; i++) {
@@ -385,7 +419,7 @@ function get_point() {
         onEachFeature: onEachFeature
     }).addTo(points_case)
 
-    var json_place_ann = []
+    json_place_ann = []
     geojson_ann.features.forEach(e => {
         var date2 = nowdate
         var date1 = e.properties.date_risk
@@ -395,7 +429,7 @@ function get_point() {
         eDate = new Date(date2[0], date2[1] - 1, date2[2]);
         var daysDiff = Math.round((eDate - sDate) / 86400000);
         if (daysDiff <= 14) {
-            e.properties.daysDiff = 14 - daysDiff
+            e.properties.daysDiff = 15 - daysDiff
             json_place_ann.push(e)
         }
         if (daysDiff <= 5) {
@@ -440,6 +474,10 @@ function get_point() {
     place_announce = nietos2[0]
 
 
+
+
+
+
     L.geoJson(geojson_checkpoint, {
         pointToLayer: function (f, latlng) {
             return L.marker(latlng, {
@@ -451,11 +489,11 @@ function get_point() {
 
     function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>เส้นทาง </button>'
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>ตำแหน่ง<br>เส้นทาง </button>'
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-        // get_latlng = [100.501634, 13.751569]
+        // get_latlng = [100.266778, 16.842412]
 
         var point = turf.point(get_latlng);
         L.geoJson(point, {

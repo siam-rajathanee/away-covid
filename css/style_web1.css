@@ -251,3 +251,12 @@ body{
 .img_phone{
   width: 60px;
 }
+
+#alert_anno{
+  position: fixed;
+  z-index: 3;
+  margin-top: 15vh;
+  max-width: 50%;
+  min-width: 50%;
+  margin-left: 50%;
+}
