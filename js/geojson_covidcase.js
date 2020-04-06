@@ -14257,5 +14257,41 @@ var geojson_covidcase = {
                 gender: "ชาย",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.763284,
+                    14.871061,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "984",
+                place_name: "สาวโคราชทำงานเรือสำราญมะกัน ติดโควิด",
+                lat: "14.871061",
+                lon: "101.763284",
+                case_numbe: "1",
+                date_start: "2020-04-03",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "สาวโคราช ติดโควิด หลังกลับจากทำงานบนเรือสำราญ ที่สหรัฐอเมริกา เร่งดูแลครอบครัวเสี่ยงโควิดทั้งบ้าน",
+                ref_source: "ข่าวสด",
+                link_news: "https://www.khaosod.co.th/covid-19/news_3879732",
+                tb_code: "",
+                tb_th: "มะเกลือใหม่",
+                ap_th: "สูงเนิน",
+                pro_th: "นครราชสีมา",
+                postcode: "30170",
+                age: "37",
+                gender: "หญิง",
+            },
+        },
     ],
 }
