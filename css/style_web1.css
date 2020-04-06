@@ -166,7 +166,7 @@ body{
   z-index: 3; 
   opacity: 0.8;
   position: fixed;
-  margin-top: 160px;
+  margin-top: 25vh;
   padding-right: 10px;
   padding-left: 20px;
 }

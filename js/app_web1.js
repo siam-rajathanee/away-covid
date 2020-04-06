@@ -912,7 +912,7 @@ function viewRouting() {
                 }
             });
         })
-            .addTo(map);
+            .addTo(points_case);
     });
 
 
