@@ -847,7 +847,7 @@ function viewRouting() {
             L.latLng(e.latlng.lat, e.latlng.lng)
         ]
 
-        $.getJSON("https://rti2dss.com:3300/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
+        $.getJSON("https://covid.mapedia.co.th:3300/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
             document.getElementById('loading').innerHTML = ''
 
             L.marker([data.data.waypoints[1].location[1], data.data.waypoints[1].location[0]]).addTo(points_case)
