@@ -12570,42 +12570,6 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
-                    100.522758,
-                    13.853706,
-                ],
-            },
-            crs: {
-                type: "EPSG",
-                properties: {
-                    code: "4326"
-                },
-            },
-            properties: {
-                gid: "937",
-                place_name: "4 เม.ย 63 เสียชีวิตเพิ่ม 1 ราย",
-                lat: "13.853706",
-                lon: "100.522758",
-                case_numbe: "1",
-                date_start: "2020-04-03",
-                status_news: "ได้รับการยืนยัน",
-                status_pat: "เสียชีวิต",
-                description: "อื๊อ อพอลโล่ นายมงคล เสถียรวราภรณ์ เซียนมวยรุ่นใหญ่ อายุ 74 ปี ที่เข้าดูมวยประจำอยู่โซนล็อค2 เสียชีวิตแล้วที่โรงพยาบาลทรวงอก หลังพบว่าติดเชื้อโควิดจากสนามมวยลุมพินี รามอินทรา ก.ม.2 สำหรับเซียนมวยคนดังกล่าว เป็นที่รู้จักของคนในวงการมวยมากว่า 40 ปี",
-                ref_source: "ข่าวสด",
-                link_news: "https://www.khaosod.co.th/breaking-news/news_3881030",
-                tb_code: "",
-                tb_th: "ตลาดขวัญ",
-                ap_th: "เมืองนนทบุรี",
-                pro_th: "นนทบุรี",
-                postcode: "11000",
-                age: "74",
-                gender: "ชาย",
-            },
-        },
-        {
-            type: "Feature",
-            geometry: {
-                type: "Point",
-                coordinates: [
                     100.758639,
                     13.72172,
                 ],
@@ -13074,6 +13038,42 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
+                    100.522758,
+                    13.853706,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "937",
+                place_name: "4 เม.ย 63 เสียชีวิตเพิ่ม 1 ราย",
+                lat: "13.853706",
+                lon: "100.522758",
+                case_numbe: "1",
+                date_start: "2020-04-03",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "เสียชีวิต",
+                description: "อื๊อ อพอลโล่ นายมงคล เสถียรวราภรณ์ เซียนมวยรุ่นใหญ่ อายุ 74 ปี ที่เข้าดูมวยประจำอยู่โซนล็อค2 เสียชีวิตแล้วที่โรงพยาบาลทรวงอก หลังพบว่าติดเชื้อโควิดจากสนามมวยลุมพินี รามอินทรา ก.ม.2 สำหรับเซียนมวยคนดังกล่าว เป็นที่รู้จักของคนในวงการมวยมากว่า 40 ปี",
+                ref_source: "ข่าวสด",
+                link_news: "https://www.khaosod.co.th/breaking-news/news_3881030",
+                tb_code: "",
+                tb_th: "ตลาดขวัญ",
+                ap_th: "เมืองนนทบุรี",
+                pro_th: "นนทบุรี",
+                postcode: "11000",
+                age: "74",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
                     98.963448,
                     18.797427,
                 ],
@@ -13090,7 +13090,7 @@ var geojson_covidcase = {
                 lat: "18.797427",
                 lon: "98.963448",
                 case_numbe: "1",
-                date_start: "2020-04-27",
+                date_start: "2020-04-04",
                 status_news: "ไม่ระบุพิกัด",
                 status_pat: "กำลังรักษา",
                 description: "ในส่วนของผู้ป่วยรายที่ 37 ของจังหวัดเชียงใหม่นั้น เป็นผู้ป่วยเพศหญิง อายุ 21 ปี ทำงานเป็นพนักงานรับจ้างเอนเตอร์เทน โดยได้มีการเดินทางไปยังพื้นที่สถานบันเทิงที่สุ่มเสี่ยงต่อการระบาดโรคหลายที่",
@@ -13102,6 +13102,150 @@ var geojson_covidcase = {
                 pro_th: "เชียงใหม่",
                 postcode: "50200",
                 age: "21",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.872064,
+                    14.349069,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "952",
+                place_name: "สุพรรณบุรี พบผู้ป่วยรายที่ 3",
+                lat: "14.349069",
+                lon: "99.872064",
+                case_numbe: "1",
+                date_start: "2020-04-03",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "สุพรรณบุรี พบผู้ป่วยรายที่ 3 และ 4 พร้อมกัน เป็นหญิงอายุ 51 ปี และชายไทยอายุ 34 ปี โดยทั้งคู่เป็นผู้สัมผัสใกล้ชิด ผู้ป่วยรายที่ 2 ที่กลับมาจากภูเก็ต",
+                ref_source: "ไทยรัฐออนไลน์",
+                link_news: "https://www.thairath.co.th/news/local/central/1811871",
+                tb_code: "",
+                tb_th: "จรเข้สามพัน",
+                ap_th: "อู่ทอง",
+                pro_th: "สุพรรณบุรี",
+                postcode: "72160",
+                age: "51",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.871806,
+                    14.34867,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "953",
+                place_name: "สุพรรณบุรี พบผู้ป่วยรายที่ 4",
+                lat: "14.34867",
+                lon: "99.871806",
+                case_numbe: "1",
+                date_start: "2020-04-03",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "สุพรรณบุรี พบผู้ป่วยรายที่ 3 และ 4 พร้อมกัน เป็นหญิงอายุ 51 ปี และชายไทยอายุ 34 ปี โดยทั้งคู่เป็นผู้สัมผัสใกล้ชิด ผู้ป่วยรายที่ 2 ที่กลับมาจากภูเก็ต",
+                ref_source: "ไทยรัฐออนไลน์",
+                link_news: "https://www.thairath.co.th/news/local/central/1811871",
+                tb_code: "",
+                tb_th: "จรเข้สามพัน",
+                ap_th: "อู่ทอง",
+                pro_th: "สุพรรณบุรี",
+                postcode: "72160",
+                age: "34",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.872326,
+                    14.348602,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "954",
+                place_name: "สุพรรณบุรี พบผู้ป่วยรายที่ 5",
+                lat: "14.348602",
+                lon: "99.872326",
+                case_numbe: "1",
+                date_start: "2020-04-04",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "สุพรรณบุรี พบเด็กวัย 11 ปี ติดเชื้อโควิด-19 เพิ่ม 1 ราย เป็นรายที่ 5 โดยติดมาจากแม่ที่เป็นผู้ป่วยรายที่ 4 ของจังหวัด ผู้ว่าฯ เรียกประชุมเตรียมปิดหมู่บ้านใน อ.อู่ทอง หลังพบมีการแพร่เชื้อในหมู่ญาติและคนที่ติดต่อใกล้ชิด",
+                ref_source: "ไทยรัฐออนไลน์",
+                link_news: "https://www.thairath.co.th/news/local/central/1812414",
+                tb_code: "",
+                tb_th: "จรเข้สามพัน",
+                ap_th: "อู่ทอง",
+                pro_th: "สุพรรณบุรี",
+                postcode: "72160",
+                age: "11",
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.973967,
+                    12.697454,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "955",
+                place_name: "หญิงไทย อำเภอสัตหีบ",
+                lat: "12.697454",
+                lon: "100.973967",
+                case_numbe: "1",
+                date_start: "2020-04-05",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "พบว่าภรรยาของผู้ป่วย หญิงไทย อายุ 33 ปี ก็ได้รับเชื้อโควิด-19 จากสามี ซึ่งลำดับที่ 69 ในจังหวัดชลบุรี และเป็นรายที่ 3 ในพื้นที่อำเภอสัตหีบ",
+                ref_source: "คม-ชัด-ลึก",
+                link_news: "komchadluek.net/news/local/426287",
+                tb_code: "",
+                tb_th: "พลูตาหลวง",
+                ap_th: "สัตหีบ",
+                pro_th: "ชลบุรี",
+                postcode: "20180",
+                age: "33",
                 gender: "หญิง",
             },
         },
