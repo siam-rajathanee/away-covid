@@ -924,7 +924,7 @@ function viewRouting() {
 
 
         })
-            .addTo(points_case);
+            .addTo(map);
     });
 
 
