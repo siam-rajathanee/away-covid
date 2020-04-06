@@ -909,20 +909,8 @@ function viewRouting() {
                         },
                         onEachFeature: onEachFeature
                     }).addTo(points_case)
-
-
-
                 }
-
-
             });
-
-
-
-
-
-
-
         })
             .addTo(map);
     });
