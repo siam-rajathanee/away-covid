@@ -834,34 +834,32 @@ function viewRouting() {
 
         document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>เส้นทาง </button>'
 
-        L.Routing.control({
-            waypoints: [
-                L.latLng(get_latlng[1], get_latlng[0]),
-                L.latLng(e.latlng.lat, e.latlng.lng)
-            ],
-            routeWhileDragging: false,
-            collapsible: false,
-            show: false,
-            addWaypoints: false,
-        }).on('routesfound', function (e) {
-            routes = e.routes;
+        var waypoints = [
+            L.latLng(get_latlng[1], get_latlng[0]),
+            L.latLng(e.latlng.lat, e.latlng.lng)
+        ]
 
-            var log_line = []
-            routes[0].coordinates.forEach(e => {
-                log_line.push([e.lng, e.lat])
+        $.getJSON("https://rti2dss.com:3300/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
+
+
+            L.marker([data.data.waypoints[1].location[1], data.data.waypoints[1].location[0]]).addTo(points_case)
+
+            var step = data.data.routes[0].legs[0].steps
+
+            var line_step = []
+            step.forEach(e => {
+                e.intersections.forEach(element => {
+                    line_step.push([element.location[0], element.location[1]])
+                });
             });
-            var linestring1 = turf.lineString(log_line);
-
+            var linestring1 = turf.lineString(line_step);
             var buffered = turf.buffer(linestring1, 10, { units: 'kilometers' });
 
             L.geoJson(linestring1).addTo(points_case)
 
-
             case_point.features.forEach(e => {
                 var ptsWithin = turf.pointsWithinPolygon(e, buffered);
                 if (ptsWithin.features.length > 0) {
-                    console.log(ptsWithin);
-
                     L.geoJson(ptsWithin, {
                         pointToLayer: function (f, latlng) {
                             if (f.properties.status_pat == 'รักษาหายแล้ว') {
@@ -911,8 +909,10 @@ function viewRouting() {
                     }).addTo(points_case)
                 }
             });
+
         })
-            .addTo(points_case);
+
+
     });
 
 
