@@ -855,7 +855,8 @@ function viewRouting() {
             var linestring1 = turf.lineString(line_step);
             var buffered = turf.buffer(linestring1, 10, { units: 'kilometers' });
 
-            L.geoJson(linestring1).addTo(points_case)
+            var line_view = L.geoJson(linestring1).addTo(points_case)
+            map.fitBounds(line_view.getBounds())
 
             case_point.features.forEach(e => {
                 var ptsWithin = turf.pointsWithinPolygon(e, buffered);
