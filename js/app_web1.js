@@ -57,6 +57,10 @@ gter = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attributions: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 })
 
+gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+    attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
+})
+
 // var today = new Date().getHours();
 // if (today >= 6 && today <= 18) {
 //     CartoDB_Positron.addTo(map)
@@ -165,10 +169,6 @@ function get_tracking() {
     });
 
 
-
-
-
-
     var lat = get_latlng[1]
     var lng = get_latlng[0]
 
@@ -237,9 +237,7 @@ function get_tracking() {
     })
 
 }
-
 var legend = L.control({ position: 'bottomright' });
-
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -263,7 +261,6 @@ function showDisclaimer() {
     };
     legend.addTo(map);
 }
-
 function hideDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -315,10 +312,14 @@ for (let i = 0; i < list_lock_pro.length; i++) {
 
 
 function get_loca() {
+
+
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-    set_map.clearLayers()
-    line_track.clearLayers()
-    map.locate();
+    document.getElementById("form_setting").submit();
+
+    // set_map.clearLayers()
+    // line_track.clearLayers()
+    // map.locate();
 }
 
 $("#form_query").submit(function (event) {
@@ -335,7 +336,6 @@ $("#form_query").submit(function (event) {
     var lon = view_place.properties.lon
     map.setView([lat, lon], 17);
 })
-
 
 function get_point() {
     var date = new Date();
@@ -490,6 +490,7 @@ function get_point() {
     function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
         document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>ตำแหน่ง<br>เส้นทาง </button>'
+        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> สำรวจ <br>เส้นทาง </button>'
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
@@ -819,6 +820,116 @@ $("#form_setting").submit(function (event) {
 
 
 })
+
+
+function viewRouting() {
+    markerClusterGroup.clearLayers()
+    points_case.clearLayers()
+    point_ann.clearLayers()
+
+
+    map.setView([13.817504, 100.715385], 6)
+    map.on('click', function (e) {
+        points_case.clearLayers()
+
+        document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>เส้นทาง </button>'
+
+        L.Routing.control({
+            waypoints: [
+                L.latLng(get_latlng[1], get_latlng[0]),
+                L.latLng(e.latlng.lat, e.latlng.lng)
+            ],
+            routeWhileDragging: false,
+            collapsible: false,
+            show: false,
+            addWaypoints: false,
+        }).on('routesfound', function (e) {
+            routes = e.routes;
+
+            var log_line = []
+            routes[0].coordinates.forEach(e => {
+                log_line.push([e.lng, e.lat])
+            });
+            var linestring1 = turf.lineString(log_line);
+
+            var buffered = turf.buffer(linestring1, 10, { units: 'kilometers' });
+
+            L.geoJson(linestring1).addTo(points_case)
+
+
+            case_point.features.forEach(e => {
+                var ptsWithin = turf.pointsWithinPolygon(e, buffered);
+                if (ptsWithin.features.length > 0) {
+                    console.log(ptsWithin);
+
+                    L.geoJson(ptsWithin, {
+                        pointToLayer: function (f, latlng) {
+                            if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                                return L.marker(latlng, {
+                                    icon: case_success,
+                                    highlight: "temporary"
+                                });
+                            } else if (f.properties.status_pat == 'กำลังรักษา') {
+                                return L.marker(latlng, {
+                                    icon: case_confirm,
+                                    highlight: "temporary"
+                                });
+                            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                                return L.marker(latlng, {
+                                    icon: case_warning,
+                                    highlight: "temporary"
+                                });
+                            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                                return L.marker(latlng, {
+                                    icon: case_null,
+                                    highlight: "temporary"
+                                });
+                            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
+                                return L.marker(latlng, {
+                                    icon: case_clean,
+                                    highlight: "temporary"
+                                });
+                            } else if (f.properties.status_pat == 'เสียชีวิต') {
+                                return L.marker(latlng, {
+                                    icon: case_death,
+                                    highlight: "temporary"
+                                });
+                            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
+                                return L.marker(latlng, {
+                                    icon: case_send,
+                                    highlight: "temporary"
+                                });
+                            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
+                                return L.marker(latlng, {
+                                    icon: case_hospital,
+                                    highlight: "temporary"
+                                });
+                            }
+
+                        },
+                        onEachFeature: onEachFeature
+                    }).addTo(points_case)
+
+
+
+                }
+
+
+            });
+
+
+
+
+
+
+
+        })
+            .addTo(points_case);
+    });
+
+
+
+}
 
 L.Control.watermark = L.Control.extend({
     onAdd: function (map) {

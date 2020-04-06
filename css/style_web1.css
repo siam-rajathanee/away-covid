@@ -149,7 +149,7 @@ body{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
+/* 
 #tracking{
   border-radius: 10px;
   z-index: 3; 
@@ -159,9 +159,21 @@ body{
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 10px; 
+} */
+
+.btn-group-vertical{
+  border-radius: 10px;
+  z-index: 3; 
+  opacity: 0.8;
+  position: fixed;
+  margin-top: 160px;
+  padding-right: 10px;
+  padding-left: 20px;
 }
 
 .btn-tracking {
+  min-width: 55px;
+  max-width: 60px;
   color: #fff;
   background-color: #062f5e;
   border-color:#afafaf;
@@ -182,6 +194,14 @@ body{
 }
 .btn-danger {
   border-radius: 40px;
+}
+.btn-routing {
+  min-width: 55px;
+  max-width: 60px;
+  color: rgb(255, 255, 255);
+  background-color: #054083;
+  border-color:#afafaf;
+  opacity: 0.8;
 }
 
 .card_table{
@@ -259,4 +279,8 @@ body{
   max-width: 50%;
   min-width: 50%;
   margin-left: 50%;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
 }
