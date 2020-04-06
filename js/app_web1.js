@@ -828,7 +828,7 @@ $("#form_setting").submit(function (event) {
 
 
 function viewRouting() {
-    document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" data-dismiss="alert">&times;</button> <strong>การสำรวจเส้นทาง!</strong> <br> ท่านสามารถกดไปยังแผนที่เพื่อค้นหาเส้นทางได้ </div>'
+    document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class="btn btn-link" data-dismiss="alert">&times;</button> <strong>การสำรวจเส้นทาง!</strong> <br> ท่านสามารถกดไปยังแผนที่เพื่อค้นหาเส้นทางได้ </div>'
     markerClusterGroup.clearLayers()
     points_case.clearLayers()
     point_ann.clearLayers()
