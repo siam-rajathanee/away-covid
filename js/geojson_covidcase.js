@@ -8106,6 +8106,78 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
+                    102.103374,
+                    14.984619,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "988",
+                place_name: "ผู้ติดเชื้อรายที่ 7",
+                lat: "14.984619",
+                lon: "102.103374",
+                case_numbe: "1",
+                date_start: "2020-03-26",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "พนักงานบริการของผับแห่งหนึ่ง ย่านสุขุมวิท กทม.",
+                ref_source: "สยามรัฐ",
+                link_news: "https://siamrath.co.th/n/142057",
+                tb_code: "",
+                tb_th: "ท่าอ่าง",
+                ap_th: "โชคชัย",
+                pro_th: "นครราชสีมา",
+                postcode: "30190",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.103529,
+                    14.984599,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "989",
+                place_name: "ผู้ติดเชื้อรายที่ 8",
+                lat: "14.984599",
+                lon: "102.103529",
+                case_numbe: "1",
+                date_start: "2020-03-26",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ติดเชื้อรายที่ 8 เป็นลูกสาวของผู้ติดเชื้อรายที่ 7 พนักงานบริการของผับแห่งหนึ่ง ย่านสุขุมวิท กทม. มีกิจกรรมร่วมกับผู้เป็นแม่",
+                ref_source: "สยามรัฐ",
+                link_news: "https://siamrath.co.th/n/142057",
+                tb_code: "",
+                tb_th: "ท่าอ่าง",
+                ap_th: "โชคชัย",
+                pro_th: "นครราชสีมา",
+                postcode: "30190",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
                     100.08685,
                     17.618725,
                 ],
@@ -14291,6 +14363,222 @@ var geojson_covidcase = {
                 postcode: "30170",
                 age: "37",
                 gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.103414,
+                    14.984676,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "985",
+                place_name: "พบผู้ติดเชื้อเชื้อไวรัสโควิด-19 รายใหม่เพิ่มขึ้นอีก 1 ราย",
+                lat: "14.984676",
+                lon: "102.103414",
+                case_numbe: "1",
+                date_start: "2020-03-30",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "พื้นที่จังหวัดนครราชสีมา ล่าสุดพบผู้ติดเชื้อเชื้อไวรัสโควิด-19 รายใหม่เพิ่มขึ้นอีก 1 ราย ซึ่งผู้ติดเชื้อรายล่าสุดเป็นหญิง อายุ 42 ปี อาศัยอยู่ที่ตำบลปรุใหญ่ อำเภอเมืองนครราชสีมา",
+                ref_source: "บ้านเมือง",
+                link_news: "https://www.banmuang.co.th/news/region/186035",
+                tb_code: "",
+                tb_th: "ปรุใหญ่",
+                ap_th: "เมืองนครราชสีมา",
+                pro_th: "นครราชสีมา",
+                postcode: "30000",
+                age: "42",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.965168,
+                    14.924631,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "986",
+                place_name: "ผู้ติดเชื้อรายที่ 13",
+                lat: "14.924631",
+                lon: "101.965168",
+                case_numbe: "1",
+                date_start: "2020-03-28",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "พนักงานบริการในสถานบริการแห่งหนึ่งในเมืองปอยเปต ประเทศกัมพูชา",
+                ref_source: "ข่าวสด",
+                link_news: "https://www.khaosod.co.th/covid-19/news_3840961",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "เมืองนครราชสีมา",
+                pro_th: "นครราชสีมา",
+                postcode: "30000",
+                age: "23",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.965388,
+                    14.924628,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "987",
+                place_name: "ผู้ติดเชื้อรายที่ 12",
+                lat: "14.924628",
+                lon: "101.965388",
+                case_numbe: "1",
+                date_start: "2020-03-27",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "พนักงานบริการในสถานบริการแห่งหนึ่งในเมืองปอยเปต ประเทศกัมพูชา",
+                ref_source: "ประชาชาติธุรกิจ",
+                link_news: "https://www.prachachat.net/local-economy/news-439086",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "เมืองนครราชสีมา",
+                pro_th: "นครราชสีมา",
+                postcode: "30000",
+                age: "25",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.103337,
+                    14.98451,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "990",
+                place_name: "ผู้ติดเชื้อรายที่ 9",
+                lat: "14.98451",
+                lon: "102.103337",
+                case_numbe: "1",
+                date_start: "2020-03-26",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "มีความเกี่ยวพันเป็นหลานสาวผู้ติดเชื้อรายที่ 7 สอบสวนโรคมีกิจกรรมร่วมกับผู้ติดเชื้อรายที่ 7-8",
+                ref_source: "สยามรัฐ",
+                link_news: "https://siamrath.co.th/n/142057",
+                tb_code: "",
+                tb_th: "ท่าอ่าง",
+                ap_th: "โชคชัย",
+                pro_th: "นครราชสีมา",
+                postcode: "30190",
+                age: "2",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.103406,
+                    14.98487,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "991",
+                place_name: "ผู้ติดเชื้อรายที่ 10",
+                lat: "14.98487",
+                lon: "102.103406",
+                case_numbe: "1",
+                date_start: "2020-03-26",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ปิดภาคเรียนได้เดินทางไปกับแม่ทำงานในผับแห่งหนึ่ง ซึ่งทราบผลภายหลังเป็นผู้ติดเชื้อและขณะนี้พักรักษาที่ รพ.ใน กรุงเทพ",
+                ref_source: "สยามรัฐ",
+                link_news: "https://siamrath.co.th/n/142057",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "",
+                pro_th: "นครราชสีมา",
+                postcode: "",
+                age: "9",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.103227,
+                    14.984697,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "992",
+                place_name: "ผู้ติดเชื้อรายที่ 11",
+                lat: "14.984697",
+                lon: "102.103227",
+                case_numbe: "1",
+                date_start: "2020-03-26",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "เป็นชายอายุ 36 ปี เซียนมวย วันที่ 6 มีค. ดูมวยที่สนามมวยลุมพินี",
+                ref_source: "สยามรัฐ",
+                link_news: "https://siamrath.co.th/n/142057",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "",
+                pro_th: "นครราชสีมา",
+                postcode: "",
+                age: "36",
+                gender: "ชาย",
             },
         },
     ],
