@@ -6,7 +6,7 @@ async function getUserProfile() {
     if (pictureUrl == undefined) {
         pictureUrl = ''
     }
-    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+    document.getElloadingementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 }
 async function main() {
@@ -92,6 +92,7 @@ line_track = L.layerGroup().addTo(map)
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 document.getElementById('tracking').innerHTML = ''
+document.getElementById('routing_readme').innerHTML = ''
 
 
 var case_confirm = L.icon({
@@ -292,7 +293,9 @@ function style_curfew(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง', 'สตูล', 'พังงา', 'กระบี่', 'ตราด', 'บุรีรัมย์', 'อุทัยธานี', 'พัทลุง'];
+var list_lock_pro = [
+    'ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง', 'สตูล', 'พังงา', 'กระบี่', 'ตราด', 'บุรีรัมย์', 'อุทัยธานี', 'พัทลุง', 'เชียงราย', 'น่าน', 'ตาก', 'สงขลา'
+];
 //var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
@@ -823,13 +826,16 @@ $("#form_setting").submit(function (event) {
 
 
 function viewRouting() {
+    document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" data-dismiss="alert">&times;</button> <strong>การสำรวจเส้นทาง!</strong> <br> ท่านสามารถกดไปยังแผนที่เพื่อค้นหาเส้นทางได้ </div>'
     markerClusterGroup.clearLayers()
     points_case.clearLayers()
     point_ann.clearLayers()
 
 
+
     map.setView([13.817504, 100.715385], 6)
     map.on('click', function (e) {
+        document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
         points_case.clearLayers()
 
         document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>เส้นทาง </button>'
@@ -840,7 +846,7 @@ function viewRouting() {
         ]
 
         $.getJSON("https://rti2dss.com:3300/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
-
+            document.getElementById('loading').innerHTML = ''
 
             L.marker([data.data.waypoints[1].location[1], data.data.waypoints[1].location[0]]).addTo(points_case)
 
