@@ -24,7 +24,7 @@ async function getUserProfile() {
 async function main() {
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
-            //getUserProfile()
+            getUserProfile()
         } else {
             liff.login()
         }

@@ -1,14 +1,39 @@
-// async function main() {
-//     await liff.init({ liffId: "1653984157-0qam36em" })
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//         } else {
-//             liff.login()
-//         }
-//     })
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
+    $.ajax({
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            page_view: 'route.html'
+        }),
+        success: function (data) {
+        }
+    })
+}
 
-// }
-// main()
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653984157-0qam36em" })
+}
+main()
+
+
 
 
 var map = L.map('map', {
