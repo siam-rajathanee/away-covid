@@ -158,10 +158,10 @@ function onEachFeature(f, layer) {
 }
 
 // function get_track() {
-//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>ตำแหน่ง<br>เส้นทาง </button>'
+//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
 // }
 // map.on('click', function () {
-//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>ตำแหน่ง<br>เส้นทาง </button>'
+//     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
 // })
 
 function get_tracking() {
@@ -233,7 +233,7 @@ function get_tracking() {
             view_line = L.geoJson(line).addTo(line_track)
 
 
-            document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br>ตำแหน่ง <br> เส้นทาง</button>'
+            document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br>การบันทึก <br> ตำแหน่ง</button>'
 
         }, error: function (e) {
         }
@@ -320,6 +320,7 @@ function get_loca() {
 
 
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+
     document.getElementById("form_setting").submit();
 
     // set_map.clearLayers()
@@ -494,8 +495,8 @@ function get_point() {
 
     function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> บันทึก<br>ตำแหน่ง<br>เส้นทาง </button>'
-        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> สำรวจ <br>เส้นทาง </button>'
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
+        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> สำรวจ <br>ข้อมูล <br>เส้นทาง </button>'
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
@@ -828,7 +829,8 @@ $("#form_setting").submit(function (event) {
 
 
 function viewRouting() {
-    document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class="btn btn-link" data-dismiss="alert">&times;</button> <strong>การสำรวจเส้นทาง!</strong> <br> ท่านสามารถกดไปยังแผนที่เพื่อค้นหาเส้นทางได้ </div>'
+    document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class=" btn btn-link" data-dismiss="alert">&times;</button> <strong>ตรวจสอบเส้นทาง!</strong> <br> กดจุดหมายปลายทางลงบนแผนที่ เพื่อค้นหาเส้นทาง </div>'
+    document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>การแสดง <br>เส้นทาง </button>'
     markerClusterGroup.clearLayers()
     points_case.clearLayers()
     point_ann.clearLayers()
@@ -840,7 +842,7 @@ function viewRouting() {
         document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
         points_case.clearLayers()
 
-        document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>เส้นทาง </button>'
+
 
         var waypoints = [
             L.latLng(get_latlng[1], get_latlng[0]),
