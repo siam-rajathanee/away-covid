@@ -73,14 +73,14 @@ gter = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
-}).addTo(map)
+})
 
-// var today = new Date().getHours();
-// if (today >= 6 && today <= 18) {
-//     CartoDB_Positron.addTo(map)
-// } else {
-//     CartoDB_DarkMatter.addTo(map)
-// }
+var today = new Date().getHours();
+if (today >= 4 && today <= 22) {
+    gmap.addTo(map)
+} else {
+    CartoDB_DarkMatter.addTo(map)
+}
 
 
 points_case = L.layerGroup().addTo(map)
@@ -176,82 +176,6 @@ function onEachFeature(f, layer) {
 //     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
 // })
 
-function get_tracking() {
-    var json_buf = []
-    json_place_ann.forEach(e => {
-        buffered = turf.buffer(e, 1, { units: 'kilometers' });
-        json_buf.push(buffered)
-    });
-
-
-    var lat = get_latlng[1]
-    var lng = get_latlng[0]
-
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=tracking',
-        method: 'post',
-        data: ({
-            userId: userId,
-            displayName: displayName,
-            lat: lat,
-            lng: lng
-        }),
-        success: function (res) {
-            set_map.clearLayers()
-
-            var json_track = JSON.parse(res)
-
-            var alert_anno = []
-            for (let a = 0; a < json_track.features.length; a++) {
-                for (let b = 0; b < json_buf.length; b++) {
-                    var ptsWithin = turf.pointsWithinPolygon(json_track.features[a], json_buf[b]);
-                    var res = json_track.features[a].properties.date_view.split(" ");
-                    if (ptsWithin.features.length > 0 && json_buf[b].properties.date_risk == res[0]) {
-                        alert_anno.push(json_buf[b].properties)
-                    }
-                }
-            }
-
-            if (alert_anno.length > 0) {
-                document.getElementById('alert_anno').innerHTML = '<div class="alert alert-dismissible alert-danger"> <button type="button" class="close" data-dismiss="alert">&times;</button> <strong>คำเตือน !</strong> ท่านเคยเข้าไปยังสถานที่ที่มีผู้ป่วยโรค Covid 19 เมื่อวันนี้ ' + alert_anno[0].date_risk + ' ณ สถานที่ ' + alert_anno[0].place + ' กรุณาติดต่อไปยัง' + alert_anno[0].announce + ' </div>'
-
-                map.setView([alert_anno[0].lat, alert_anno[0].lon], 14);
-            } else {
-                map.setView([lat, lng], 14);
-            }
-
-            var trac_table = ''
-            var p_t_l = [[
-                Number(json_track.features[0].properties.lng),
-                Number(json_track.features[0].properties.lat)
-            ], [
-                Number(json_track.features[0].properties.lng),
-                Number(json_track.features[0].properties.lat)
-            ]]
-
-            for (var i = 0; i < json_track.features.length; i++) {
-                p_t_l.push(
-                    [
-                        Number(json_track.features[i].properties.lng),
-                        Number(json_track.features[i].properties.lat)
-                    ]
-                )
-                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
-                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
-                    + json_track.features[i].properties.date_view + ' </td></tr > '
-            }
-
-            var line = turf.lineString(p_t_l);
-            view_line = L.geoJson(line).addTo(line_track)
-
-
-            document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br>การบันทึก <br> ตำแหน่ง</button>'
-
-        }, error: function (e) {
-        }
-    })
-
-}
 var legend = L.control({ position: 'bottomright' });
 function showDisclaimer() {
     legend.onAdd = function (map) {
@@ -284,11 +208,8 @@ function hideDisclaimer() {
     };
     legend.addTo(map);
 }
-
 hideDisclaimer()
 get_point()
-
-
 function style_lock(feature) {
     return {
         weight: 3,
@@ -330,15 +251,197 @@ for (let i = 0; i < list_lock_pro.length; i++) {
 
 function get_loca() {
 
-
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
+    document.getElementById('routing_list').innerHTML = ''
+    // document.getElementById("form_setting").submit();
+    markerClusterGroup.clearLayers()
+    points_case.clearLayers()
+    point_ann.clearLayers()
+    line_track.clearLayers()
+    map.off('click');
 
-    document.getElementById("form_setting").submit();
 
-    // set_map.clearLayers()
-    // line_track.clearLayers()
-    // map.locate();
+
+    L.geoJson(case_point, {
+        pointToLayer: function (f, latlng) {
+            if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_success,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กำลังรักษา') {
+                return L.marker(latlng, {
+                    icon: case_confirm,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                return L.marker(latlng, {
+                    icon: case_warning,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                return L.marker(latlng, {
+                    icon: case_null,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_clean,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'เสียชีวิต') {
+                return L.marker(latlng, {
+                    icon: case_death,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
+                return L.marker(latlng, {
+                    icon: case_send,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
+                return L.marker(latlng, {
+                    icon: case_hospital,
+                    highlight: "temporary"
+                });
+            }
+
+        },
+        onEachFeature: onEachFeature
+    }).addTo(points_case)
+
+    json_place_ann = []
+    geojson_ann.features.forEach(e => {
+        var date2 = nowdate
+        var date1 = e.properties.date_risk
+        date1 = date1.split("-");
+        date2 = date2.split("-");
+        sDate = new Date(date1[0], date1[1] - 1, date1[2]);
+        eDate = new Date(date2[0], date2[1] - 1, date2[2]);
+        var daysDiff = Math.round((eDate - sDate) / 86400000);
+        if (daysDiff <= 14) {
+            e.properties.daysDiff = 15 - daysDiff
+            json_place_ann.push(e)
+        }
+        if (daysDiff <= 5) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 1
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 10) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.7
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 14) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.3
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        }
+    })
+
+
+
+    L.geoJson(geojson_checkpoint, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: warning_covid,
+            }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
+        },
+    }).addTo(points_case)
+
+
+    document.getElementById('loading').innerHTML = ''
+    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
+    document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> สำรวจ <br>ข้อมูล <br>เส้นทาง </button>'
+
+    var radius = 5;
+
+
+    var point = turf.point(get_latlng);
+    L.geoJson(point, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: local_icon,
+            });
+        }
+    })
+        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+    document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+
+    for (let i = 0; i < lockdown.length; i++) {
+        var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
+        if (pointlock.features.length == 1) {
+            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
+        }
+    }
+
+    var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+
+
+    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+    var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
+
+    var data = ptsWithin.features
+    var table = ''
+    for (var i = 0; i < data.length; i++) {
+        var distance = turf.distance(point, data[i], { units: 'kilometers' });
+        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+    }
+    document.getElementById('tabel_data').innerHTML = table
+
+    var data_place_announce = ptsWithplace_announce.features
+    var tb_announce = ''
+    data_place_announce.forEach(function (f) {
+        // tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+        tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+    });
+    document.getElementById('tabel_announce').innerHTML = tb_announce
+
+
+    if (data.length != 0 || data_place_announce.length != 0) {
+        // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
+        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
+
+        var buffereds = L.geoJson(buffered, {
+            stroke: false,
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.1,
+        })
+        map.fitBounds(buffereds.getBounds())
+    } else {
+        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
+        var buffereds = L.geoJson(buffered, {
+            stroke: false,
+            color: 'green',
+            fillColor: 'green',
+            fillOpacity: 0.1,
+        })
+        map.fitBounds(buffereds.getBounds())
+    }
+
+
+
+
 }
+
 
 $("#form_query").submit(function (event) {
     $("#search").modal("hide");
@@ -593,7 +696,7 @@ function get_point() {
 }
 
 $("#form_setting").submit(function (event) {
-
+    map.off('click');
     $("#setting").modal("hide");
 
     markerClusterGroup.clearLayers()
@@ -840,9 +943,90 @@ $("#form_setting").submit(function (event) {
 })
 
 
+
+function get_tracking() {
+    document.getElementById('routing').innerHTML = ''
+
+    var json_buf = []
+    json_place_ann.forEach(e => {
+        buffered = turf.buffer(e, 1, { units: 'kilometers' });
+        json_buf.push(buffered)
+    });
+
+
+    var lat = get_latlng[1]
+    var lng = get_latlng[0]
+
+    $.ajax({
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=tracking',
+        method: 'post',
+        data: ({
+            userId: userId,
+            displayName: displayName,
+            lat: lat,
+            lng: lng
+        }),
+        success: function (res) {
+
+
+            var json_track = JSON.parse(res)
+
+            var alert_anno = []
+            for (let a = 0; a < json_track.features.length; a++) {
+                for (let b = 0; b < json_buf.length; b++) {
+                    var ptsWithin = turf.pointsWithinPolygon(json_track.features[a], json_buf[b]);
+                    var res = json_track.features[a].properties.date_view.split(" ");
+                    if (ptsWithin.features.length > 0 && json_buf[b].properties.date_risk == res[0]) {
+                        alert_anno.push(json_buf[b].properties)
+                    }
+                }
+            }
+
+            if (alert_anno.length > 0) {
+                document.getElementById('alert_anno').innerHTML = '<div class="alert alert-dismissible alert-danger"> <button type="button" class="close" data-dismiss="alert">&times;</button> <strong>คำเตือน !</strong> ท่านเคยเข้าไปยังสถานที่ที่มีผู้ป่วยโรค Covid 19 เมื่อวันนี้ ' + alert_anno[0].date_risk + ' ณ สถานที่ ' + alert_anno[0].place + ' กรุณาติดต่อไปยัง' + alert_anno[0].announce + ' </div>'
+
+                map.setView([alert_anno[0].lat, alert_anno[0].lon], 14);
+            } else {
+                map.setView([lat, lng], 14);
+            }
+
+            var trac_table = ''
+            var p_t_l = [[
+                Number(json_track.features[0].properties.lng),
+                Number(json_track.features[0].properties.lat)
+            ], [
+                Number(json_track.features[0].properties.lng),
+                Number(json_track.features[0].properties.lat)
+            ]]
+
+            for (var i = 0; i < json_track.features.length; i++) {
+                p_t_l.push(
+                    [
+                        Number(json_track.features[i].properties.lng),
+                        Number(json_track.features[i].properties.lat)
+                    ]
+                )
+                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
+                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
+                    + json_track.features[i].properties.date_view + ' </td></tr > '
+            }
+
+            var line = turf.lineString(p_t_l);
+            view_line = L.geoJson(line).addTo(line_track)
+
+
+            document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br>การบันทึก <br> ตำแหน่ง</button>'
+
+        }, error: function (e) {
+        }
+    })
+
+}
+
 function viewRouting() {
 
-    document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class=" btn btn-link" data-dismiss="alert">&times;</button> <strong>ตรวจสอบเส้นทาง!</strong> <br> กดจุดหมายปลายทางลงบนแผนที่ เพื่อค้นหาเส้นทาง </div>'
+    document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class=" btn btn-link" data-dismiss="alert">X</button> <strong>ตรวจสอบเส้นทาง!</strong> <br> กดจุดหมายปลายทางลงบนแผนที่ เพื่อค้นหาเส้นทาง </div>'
+    document.getElementById('tracking').innerHTML = ''
 
     document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>การแสดง <br>เส้นทาง </button>'
 
@@ -954,6 +1138,9 @@ function viewRouting() {
 
 
 }
+
+
+
 
 L.Control.watermark = L.Control.extend({
     onAdd: function (map) {
