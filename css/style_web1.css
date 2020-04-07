@@ -283,6 +283,20 @@ body{
   margin-left: 50%;
 }
 
+#routing_list2{
+  border-color: rgb(240, 240, 240);
+  background-color: white;
+  position: fixed;
+  z-index: 4;
+  padding: 10px;
+  min-width: 100%;
+  margin-top: 60vh;
+  max-height: 30vh;
+  min-height: 30vh;
+  overflow-y: scroll;
+  opacity: 0.9;
+}
+
 .leaflet-control-container .leaflet-routing-container-hide {
   display: none;
 }

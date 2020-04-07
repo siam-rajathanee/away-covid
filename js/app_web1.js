@@ -829,8 +829,11 @@ $("#form_setting").submit(function (event) {
 
 
 function viewRouting() {
+
     document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class=" btn btn-link" data-dismiss="alert">&times;</button> <strong>ตรวจสอบเส้นทาง!</strong> <br> กดจุดหมายปลายทางลงบนแผนที่ เพื่อค้นหาเส้นทาง </div>'
+
     document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>การแสดง <br>เส้นทาง </button>'
+
     markerClusterGroup.clearLayers()
     points_case.clearLayers()
     point_ann.clearLayers()
@@ -868,9 +871,16 @@ function viewRouting() {
             var line_view = L.geoJson(linestring1).addTo(points_case)
             map.fitBounds(line_view.getBounds())
 
+            document.getElementById('routing_list').innerHTML = '<div class="alert alert-dismissible alert-primary" id="routing_list2"> <table class="table table-hover"> <thead> <tr> <th scope="col">รายละเอียด</th> <th scope="col">จำนวนเคส</th> <th scope="col">สถานะ</th> <th scope="col">จังหวัด</th> </tr> </thead> <tbody id="case_list_table"> </tbody> </table> </div>'
+
+            var case_list_table = ''
             case_point.features.forEach(e => {
                 var ptsWithin = turf.pointsWithinPolygon(e, buffered);
                 if (ptsWithin.features.length > 0) {
+                    var list_within = ptsWithin.features[0]
+
+                    case_list_table += ' <tr><th>' + list_within.properties.place_name + '</th><td>' + list_within.properties.case_numbe + '</td><td>' + list_within.properties.status_pat + '</td><td>' + list_within.properties.pro_th + '</td></tr>'
+
                     L.geoJson(ptsWithin, {
                         pointToLayer: function (f, latlng) {
                             if (f.properties.status_pat == 'รักษาหายแล้ว') {
@@ -920,6 +930,9 @@ function viewRouting() {
                     }).addTo(points_case)
                 }
             });
+
+
+            document.getElementById('case_list_table').innerHTML = case_list_table
 
         })
 

@@ -360,10 +360,14 @@ info.onAdd = function (map) {
 };
 
 
+var date = new Date();
+date.setDate(date.getDate());
+nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+
 info.update = function (props) {
     this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4> ' + (props ?
         '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
-        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> <small  style="font-family: Prompt;">อัพเดตข้อมูลวันที่ 06/04/2020</small>');
+        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> <small  style="font-family: Prompt;">อัพเดตข้อมูลวันที่ ' + nowdate + '</small>');
 };
 info.addTo(map);
 
