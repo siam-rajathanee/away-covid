@@ -1,13 +1,26 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     decodedIDToken = liff.getDecodedIDToken().email
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
-// }
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
+    $.ajax({
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            decodedIDToken: decodedIDToken,
+            page_view: 'map_dashboard.html'
+        }),
+        success: function (data) {
+        }
+    })
+}
 
 async function main() {
     liff.ready.then(() => {
@@ -327,8 +340,6 @@ legend.onAdd = function (map) {
 
     div.innerHTML += '<i style="background:#33cc33"></i> ไม่มีผู้ป่วย <br>';
     for (var i = 0; i < grades.length; i++) {
-        console.log(grades[i]);
-
         div.innerHTML +=
             '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
             (grades[i] + 1) + (grades[i + 1] ? '&ndash;' + (grades[i + 1]) + '<br>' : '+');
