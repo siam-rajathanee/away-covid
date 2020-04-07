@@ -43,7 +43,7 @@ CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
-}).addTo(map)
+})
 
 CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -61,7 +61,7 @@ gter = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
-})
+}).addTo(map)
 
 // var today = new Date().getHours();
 // if (today >= 6 && today <= 18) {
@@ -296,7 +296,7 @@ function style_curfew(feature) {
     };
 }
 var list_lock_pro = [
-    'ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง', 'สตูล', 'พังงา', 'กระบี่', 'ตราด', 'บุรีรัมย์', 'อุทัยธานี', 'พัทลุง', 'เชียงราย', 'น่าน', 'ตาก', 'สงขลา'
+    'ปัตตานี', 'ยะลา', 'นราธิวาส', 'ภูเก็ต', 'พิษณุโลก', 'ระนอง', 'สตูล', 'พังงา', 'กระบี่', 'ตราด', 'บุรีรัมย์', 'อุทัยธานี', 'พัทลุง', 'เชียงราย', 'น่าน', 'ตาก', 'สงขลา', 'บึงกาฬ'
 ];
 //var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 lockdown = []
