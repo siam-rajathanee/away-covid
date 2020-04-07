@@ -76,7 +76,7 @@ gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
 })
 
 var today = new Date().getHours();
-if (today >= 4 && today <= 22) {
+if (today >= 3 && today <= 21) {
     gmap.addTo(map)
 } else {
     CartoDB_DarkMatter.addTo(map)
