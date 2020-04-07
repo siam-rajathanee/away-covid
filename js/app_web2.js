@@ -14,7 +14,6 @@ async function getUserProfile() {
             pictureUrl: pictureUrl,
             userId: userId,
             displayName: displayName,
-            decodedIDToken: decodedIDToken,
             page_view: 'map_dashboard.html'
         }),
         success: function (data) {

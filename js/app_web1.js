@@ -15,7 +15,6 @@ async function getUserProfile() {
             pictureUrl: pictureUrl,
             userId: userId,
             displayName: displayName,
-            decodedIDToken: decodedIDToken,
             page_view: 'index.html'
         }),
         success: function (data) {
