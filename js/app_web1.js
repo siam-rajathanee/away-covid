@@ -76,7 +76,7 @@ gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
 })
 
-hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
+hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&ppi=72&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
     attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
     subdomains: '1234',
     maxZoom: 20
