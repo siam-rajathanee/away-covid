@@ -7,6 +7,7 @@ body{
   font-family: Prompt;
 }
 .card{
+  text-align: center;
   padding: 10px;
 }
 
@@ -17,7 +18,7 @@ body{
 #map{
     border-radius: 10px;
     width: 100%;
-    height: 65vh;
+    height: 95vh;
     z-index: 0;
 }
 .table_data{
@@ -139,13 +140,15 @@ body{
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
 
-.jumbotron{
+.jumbotron-c1{
+  text-align: center;
   color: rgb(73, 73, 73);
   border-radius: 40px;
   background-color: rgb(243, 187, 45);
-  max-height: 80vh;
-  min-height: 80vh;
+  max-height: 90vh;
+  min-height: 90vh;
   padding-top: 10px;
+  margin-bottom: 20px;
 }
 
 .card_view{
@@ -153,6 +156,7 @@ body{
   border-radius: 40px;
   margin-left: 15px;
   margin-right: 15px;
+  margin-bottom: 15px;
   background-color: white;
 }
 
