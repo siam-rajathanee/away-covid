@@ -7,8 +7,9 @@ async function getUserProfile() {
     if (pictureUrl == undefined) {
         pictureUrl = ''
     }
-    document.getElementById('displayname').innerHTML = '<img id="img_profile" class="profile_img" src="' + displayName + '" alt="">'
-    document.getElementById('img_profile').innerHTML = '<h5 id="displayname">' + pictureUrl + '</h5>'
+    document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
+    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+
 
 
 }
