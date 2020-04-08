@@ -58,8 +58,6 @@ body{
   height: 85vh;
 }
 
-
-
 #container3,#container2, #container {
   height: 60vh; 
   width: 100%;
@@ -224,7 +222,7 @@ body{
   margin-left: 15px;
   margin-right: 15px;
   background-color: white;
- height: 33vh;
+  height: 180px;
 }
 
 .tb_view{
@@ -236,7 +234,7 @@ body{
 
 #myChart{
   width: 100%;
-  height: 170px;
+  height: 150px;
 }
 
 .btn_slide{

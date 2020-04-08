@@ -270,6 +270,7 @@ function get_chart() {
     })
 
     $.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
+        document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + '</small>'
         var data_chart1 = [{
             name: 'ชาย',
             y: data.Gender.Male,
