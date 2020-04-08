@@ -251,6 +251,7 @@ for (let i = 0; i < list_lock_pro.length; i++) {
 
 function get_loca() {
 
+    document.getElementById('routing_readme').innerHTML = ''
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
     document.getElementById('routing_list').innerHTML = ''
     // document.getElementById("form_setting").submit();
