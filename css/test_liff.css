@@ -14,8 +14,10 @@ body{
   font-family: Prompt;
 }
 .card{
+  max-height: 100vh;
   text-align: center;
   padding: 10px;
+  margin-bottom: 20px;
 }
 .card2{
   text-align: center;
