@@ -75,13 +75,14 @@ gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
 })
 
-heremap = L.tileLayer('https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk&ml=tha', {
-    attributions: ''
+heremap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?lg=tha&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
+    attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
+    subdomains: '1234'
 })
 
 var today = new Date().getHours();
 if (today >= 3 && today <= 21) {
-    gmap.addTo(map)
+    heremap.addTo(map)
 } else {
     CartoDB_DarkMatter.addTo(map)
 }

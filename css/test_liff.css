@@ -12,6 +12,7 @@ body{
 }
 .card2{
   text-align: center;
+  padding: 10px;
 }
 
 #map{
@@ -26,7 +27,7 @@ body{
 
 
 #container3,#container2, #container {
-  height: 50vh; 
+  height: 70vh; 
   width: 100%;
 }
 
@@ -117,11 +118,10 @@ body{
 
 .blog1{
   color: #ffffff;
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(2242, 80, 148,1) 70%);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgba(2242, 80, 148,1) 70%);
   border-radius: 40px;
-  height: 150px;
+  height: 24vh;
 }
-
 
 .blog2{
   color: #4b4b4b;
@@ -130,7 +130,18 @@ body{
   padding-right: 1px;
   padding-left: 1px;
 }
-
+.Recovered{
+  color: #ffffff;
+  background-color: #33adff;
+}
+.Hospitalized{
+  color: #ffffff;
+  background-color: #5cd65c
+}
+.Deaths{
+  color: #ffffff;
+  background-color: #800000
+}
 
 .glyphicon { margin-right:5px;}
 .rating .glyphicon {font-size: 22px;}
