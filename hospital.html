@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AWAY COVID 19 </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style_hospital.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+
+</head>
+
+<body>
+
+
+    <!-- <div class="alert  alert-success alert_show"> <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>AWAY COVID 19 !</strong> ขอยืนยันว่า พวกเราไม่ได้ดักเก็บ ข้อมูลหรือหลอกแปลงข้อมูลใด ๆ ทั้งสิ้น
+        ข้อมูลทุกอย่างภายในแอปเราทำด้วยใจ สามารถเข้าไปดูข้อมูลเพิ่มเติมได้ที่ <a
+            href="http://mapedia.co.th/">MAPEDIA</a>
+    </div> -->
+    <div id="loading"></div>
+
+
+    <div class="card">
+
+
+        <div id="map"></div>
+        <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
+            <!--<button type="button" class="btn btn-default" onclick="get_loca()">
+                <i class="fa fa-compass" aria-hidden="true"></i> <br> ตำแหน่ง
+            </button>-->
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#search">
+                <i class="fa fa-search" aria-hidden="true"></i> <br> ค้นหาโรงพยาบาลที่ใกล้คุณ
+            </button>
+           <!--  <button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list"> 
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><br> จุดระบาด/พื้นที่เสี่ยง 
+            </button> -->
+			<button type="button" id="case_btn" class="btn btn-default" data-toggle="modal" data-target="#list">
+			  <i class="fa fa-hospital-o" aria-hidden="true"></i><br> รายชื่อสถานพยาบาลที่ใกล้คุณ
+			</button>
+            <!-- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#setting">
+                <i class="fa fa-cogs" aria-hidden="true"></i> <br> ตั้งค่าแผนที่
+            </button> -->
+        </div>
+    </div>
+
+
+
+    <!-- search -->
+    <div id="search" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาโรงพยาบาลที่ใกล้คุณ</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form_query">
+                        <label for="">ค้นหาชื่อโรงพยาบาลที่ใกล้คุณ</label>
+                        <fieldset>
+                            <div class="form-group">
+                                <select name="place" class="form-control" id="select_place">
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-warning btn-block">ค้นหา</button>
+                        </fieldset>
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- list -->
+    <div id="list" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> <i class="fa fa-list-alt" aria-hidden="true"></i> สถานพยาบาลที่อยู่ใกล้คุณในระยะ 20 กิโลเมตร
+                    </h4>
+                </div>
+                <div class="modal-body">
+				<ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#home">โรงพยาบาลที่ใกล้คุณ</a></li>
+                        <li><a data-toggle="tab" href="#menu1">รพ.สต.ที่ใกล้คุณ</a></li>
+						<li><a data-toggle="tab" href="#menu2">คลีนิคที่ใกล้คุณ</a></li>
+						<li><a data-toggle="tab" href="#menu3">ร้านขายยาที่ใกล้คุณ</a></li>
+                    </ul>
+					<div class="tab-content">
+                     <div id="home" class="tab-pane fade in active table_view">
+					<table class="table table-striped ">
+						<thead>
+							<tr>
+								<th width="40%">ชื่อโรงพยาบาล</th>
+								<th>ระยะทาง</th>
+								<th>เส้นทาง</th>
+								<th>ข้อมูลสถานพยาบาล</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="tabel_data">
+
+						</tbody>
+					</table>
+					</div>
+
+					 <div id="menu1" class="tab-pane fade table_view">
+					<div class="scrollit">
+					<table class="table table-striped ">
+						<thead>
+							<tr>
+								<th width="40%">ชื่อรพ.สต.</th>
+								<th>ระยะทาง</th>
+								<th>เส้นทาง</th>
+								<th>ข้อมูลสถานพยาบาล</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="tabel_rpst">
+
+						</tbody>
+					</table>
+					</div>
+                    </div>
+					
+					 <div id="menu2" class="tab-pane fade table_view">
+					<div class="scrollit">
+					<table class="table table-striped ">
+						<thead>
+							<tr>
+								<th width="40%">ชื่อคลีนิค</th>
+								<th>ระยะทาง</th>
+								<th>เส้นทาง</th>
+								<th>ข้อมูลเพิ่มเติม</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="tabel_clinic">
+
+						</tbody>
+					</table>
+					</div>
+                    </div>
+					
+					<div id="menu3" class="tab-pane fade table_view">
+					<div class="scrollit">
+					<table class="table table-striped ">
+						<thead>
+							<tr>
+								<th width="40%">ชื่อร้านขายยา</th>
+								<th>ระยะทาง</th>
+								<th>เส้นทาง</th>
+								<th>ข้อมูลเพิ่มเติม</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="tabel_medicine">
+
+						</tbody>
+					</table>
+					</div>
+                    </div>
+					
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <!-- setting -->
+    <div id="setting" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่าแผนที่</h4>
+                </div>
+                <div class="modal-body ">
+                    <form id="form_setting">
+					<fieldset>
+                            <div class="form-group">
+                                <label for="exampleSelect1">กำหนดรัศมี (km)</label>
+                                <select class="form-control" id="exampleSelect1" name="radius">
+                                    <option value="1">1 km</option>
+                                    <option value="3">3 km</option>
+                                    <option value="5">5 km</option>
+                                    <option value="10" selected>10 km</option>
+                                    <option value="15">15 km</option>
+                                    <option value="30">30 km</option>
+                                    <option value="60">60 km</option>
+                                    <option value="90">90 km</option>
+                                </select>
+                            </div>
+                        </fieldset>
+					<!-- <fieldset>
+                            <label for="exampleSelect1">การแสดงชั้นข้อมูล</label>
+							<div class="form-group">
+                                <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_2" checked
+                                    data-toggle="toggle" id="toggle-1">
+                                <img src="img/ico_flagblue.png" width="30px"> <small class="prompt"> 
+                                ตำแหน่งร้านค้าธงฟ้า</small>
+                             <div class="form-group">
+                                <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_1" checked
+                                    data-toggle="toggle" id="toggle-2">
+                                <img src="img/ico_shopping.png" width="30px"> <small class="prompt">
+                                    ตำแหน่งห้างสรรพสินค้า</small>
+                            </div>
+                            
+                            </div>
+                        </fieldset> -->
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <label for="exampleSelect1">เลือก Basemap</label>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <label>
+                                        <input type="radio" name="basemap" value="base1" checked>
+                                        <img src="img/base1.png" width="100%">
+                                    </label>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <label>
+                                        <input type="radio" name="basemap" value="base2">
+                                        <img src="img/base2.png" width="100%">
+                                    </label>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <label>
+                                        <input type="radio" name="basemap" value="base4">
+                                        <img src="img/base4.png" width="100%">
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
+                        <hr>
+                        <small> อัพเดตข้อมูลล่าสุดวันที่ : 2020-04-08</small>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+	<script src="js/geojson_clinic.js"></script>
+	<script src="js/geojson_medicine.js"></script>
+	<script src="js/geojson_rpst.js"></script>
+	<script src="js/geojson_health.js"></script>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script src="js/app_hospital.js"></script>
+
+
+</body>
+
+</html>
