@@ -63,7 +63,7 @@ function onLocationFound(e) {
 
 
 
-    $.getJSON("http://mapedia.co.th/demo/get_cv_province.php", function (data) {
+    $.getJSON("https://mapedia.co.th/demo/get_cv_province.php", function (data) {
         data.forEach(e => {
             if (e.province == province) {
                 if (e.acc_pui == 0) {
