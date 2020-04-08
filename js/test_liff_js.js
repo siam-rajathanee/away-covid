@@ -50,6 +50,7 @@ var map = L.map('map', {
     gestureHandling: true,
     attributionControl: false
 }).setView([13.822496, 100.716057], 6);
+
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
@@ -122,7 +123,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
             type: 'column'
         },
         title: {
-            text: '<p style="font-family: Prompt;"> จำแนกตามจังหวัด </p>'
+            text: ''
         },
         legend: {
             enabled: true,
@@ -186,7 +187,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
             type: 'pie'
         },
         title: {
-            text: '<p style="font-family: Prompt;">จำแนกตามเพศ</p>'
+            text: ''
         },
         accessibility: {
             point: {
@@ -246,7 +247,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
             type: 'line'
         },
         title: {
-            text: '<p style="font-family: Prompt;">จำแนกตามเวลา</p>'
+            text: ''
         },
         xAxis: {
             categories: categories_chart3,

@@ -2,6 +2,13 @@ body{
     font-family: 'Prompt', sans-serif;
     background-color: #ffffff;
 }
+.glyphicon { margin-right:5px;}
+.rating .glyphicon {font-size: 22px;}
+.rating-num { margin-top:0px;font-size: 54px; }
+.progress { margin-bottom: 5px;}
+.progress-bar { text-align: left; }
+.rating-desc .col-md-3 {padding-right: 0px;}
+.sr-only { margin-left: 5px;overflow: visible;clip: auto; }
 
 .prompt{
   font-family: Prompt;
@@ -16,7 +23,7 @@ body{
 }
 
 #map{
-  border-radius: 0px 0px 40px 40px;
+  border-radius: 40px;
     width: 100%;
     height: 70vh;
     z-index: 0;
@@ -117,8 +124,8 @@ body{
 }
 
 .blog1{
-  color: #ffffff;
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgba(2242, 80, 148,1) 70%);
+  color: #505050;
+  /* background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgba(2242, 80, 148,1) 70%); */
   border-radius: 40px;
   height: 24vh;
 }
@@ -131,27 +138,17 @@ body{
   padding-left: 1px;
 }
 .Recovered{
-  color: #ffffff;
-  background-color: #33adff;
+  color: #505050;
+  /* background-color: #33adff; */
 }
 .Hospitalized{
-  color: #ffffff;
-  background-color: #5cd65c
+  color: #505050;
+  /* background-color: #5cd65c */
 }
 .Deaths{
-  color: #ffffff;
-  background-color: #800000
+  color: #505050;
+  /* background-color: #800000 */
 }
-
-.glyphicon { margin-right:5px;}
-.rating .glyphicon {font-size: 22px;}
-.rating-num { margin-top:0px;font-size: 54px; }
-.progress { margin-bottom: 5px;}
-.progress-bar { text-align: left; }
-.rating-desc .col-md-3 {padding-right: 0px;}
-.sr-only { margin-left: 5px;overflow: visible;clip: auto; }
-
-
 
 .card_sum{
   text-align: center;
@@ -170,7 +167,7 @@ body{
   max-height: 93vh;
   min-height: 93vh;
   padding-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .jumbotron-c1{
   background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(253,215,75,1) 99%);

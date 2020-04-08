@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"
+        type="text/css">
+    <script src="//unpkg.com/leaflet-gesture-handling"></script>
     <link rel="stylesheet" href="css/test_liff.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
@@ -110,22 +112,30 @@
 
             </div>
 
-
-
             <div id="map"></div>
         </div>
 
     </div>
 
 
-    <div id="container3"></div>
-    <br>
-    <div id="container"></div>
-    <br>
-    <div id="container2"></div>
-    <br>
-    <small>ที่มา : <a href="https://covid19.ddc.moph.go.th/" target="_blank">กรมควบคุมโรค
-            กระทรวงสาธารณสุข</a> </small>
+
+    <div class="card2">
+        <h3> <b>จำแนกตามวันเวลา</b> </h3>
+        <div id="container3"></div>
+        <br>
+
+        <h3> <b>จำแนกตามจังหวัด</b> </h3>
+        <div id="container"></div>
+        <br>
+
+        <h3> <b>จำแนกตามเพศ</b> </h3>
+        <div id="container2"></div>
+        <br>
+        <small>ที่มา : <a href="https://covid19.ddc.moph.go.th/" target="_blank">กรมควบคุมโรค
+                กระทรวงสาธารณสุข</a> </small>
+    </div>
+
+
 
 
     <table class="table table-bordered ">
