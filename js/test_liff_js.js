@@ -32,7 +32,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
     document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '</b> '
 
 })
-
+document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 var map = L.map('map', {
     scrollWheelZoom: false,
     gestureHandling: true,
@@ -50,6 +50,7 @@ var case_confirm = L.icon({
 });
 
 function onLocationFound(e) {
+
     get_latlng = [e.latlng.lng, e.latlng.lat]
     //   get_latlng = [100.602242, 13.729625]
     //get_latlng = [100.956508, 12.894307]
@@ -80,7 +81,7 @@ function onLocationFound(e) {
                 document.getElementById('admission').innerHTML = ' <div id="admission">' + e.admission + ' <br>รักษาอยู่</div> '
                 document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + e.patient_new + ' <br>เพิ่มใหม่</div> '
                 document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + e.acc_pui + '<br> PUI สะสม</div> '
-                document.getElementById('death').innerHTML = '  <div id="death">' + e.death + ' <br>ตาย</div> '
+                document.getElementById('death').innerHTML = '  <div id="death">' + e.death + ' <br>เสียชีวิต</div> '
                 document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + e.date + '</small>'
                 Number(e.patient_tt)
                 pa_tt = Number(e.patient_tt)
@@ -103,6 +104,7 @@ function onLocationFound(e) {
         })
     })
     get_chart()
+    document.getElementById('loading').innerHTML = ''
 
 }
 
@@ -149,10 +151,10 @@ function get_chart() {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'จำนวนผู้ป่วย',
+                    label: '  จำนวนผู้ป่วย',
                     data: data_vale,
                     backgroundColor: 'rgb(255, 204, 63)',
-                    borderWidth: 1,
+                    borderWidth: 0
                 }]
             },
             options: {
@@ -212,7 +214,7 @@ function get_chart() {
         document.getElementById('all_sum_table').innerHTML = table
         var categories_chart1 = []
         var data_chart1 = []
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 20; i++) {
             if (this.data_pv_th[i].Province == 'null') {
                 this.data_pv_th[i].Province = 'ไม่ระบุ'
             }
@@ -228,7 +230,7 @@ function get_chart() {
                 text: ''
             },
             legend: {
-                enabled: true,
+                enabled: false,
             },
             exporting: {
                 enabled: false
@@ -286,7 +288,7 @@ function get_chart() {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                type: 'pie'
+                type: 'variablepie'
             },
             title: {
                 text: ''
@@ -297,7 +299,7 @@ function get_chart() {
                 }
             },
             legend: {
-                enabled: true,
+                enabled: false,
             },
             credits: {
                 enabled: false
@@ -316,14 +318,16 @@ function get_chart() {
                 }
             },
             series: [{
+                minPointSize: 10,
+                innerSize: '20%',
                 name: 'จำนวนผู้ป่วย',
                 colorByPoint: true,
                 data: data_chart1
             }]
 
         });
-    })
 
+    })
 
     $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
         var res = data.Data
@@ -334,7 +338,7 @@ function get_chart() {
         var Recovered = []
         var Hospitalized = []
 
-        for (var i = 75; i < res.length; i++) {
+        for (var i = 10; i < res.length; i++) {
             categories_chart3.push(res[i].Date)
             data_chart3.push(res[i].Confirmed)
             data_chart3_2.push(res[i].NewConfirmed)
@@ -357,7 +361,7 @@ function get_chart() {
 
             },
             legend: {
-                enabled: true,
+                enabled: false,
             },
             credits: {
                 enabled: false
@@ -409,8 +413,6 @@ function get_chart() {
             }]
         });
     })
-
-
 
 }
 
