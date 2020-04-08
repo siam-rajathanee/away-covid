@@ -17,8 +17,7 @@ async function getUserProfile() {
             displayName: displayName,
             page_view: 'index.html'
         }),
-        success: function (data) {
-        }
+        success: function (data) {}
     })
 }
 async function main() {
@@ -29,7 +28,9 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653981898-q0jEx1on" })
+    await liff.init({
+        liffId: "1653981898-q0jEx1on"
+    })
 }
 main()
 
@@ -45,9 +46,9 @@ $(function () {
 })
 
 
-var map = L.map('map'
-    , { attributionControl: false }
-).setView([13.751569, 100.501634], 9);
+var map = L.map('map', {
+    attributionControl: false
+}).setView([13.751569, 100.501634], 9);
 
 
 
@@ -75,9 +76,10 @@ gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
 })
 
-heremap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?lg=tha&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
+heremap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
     attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
-    subdomains: '1234'
+    subdomains: '1234',
+    maxZoom: 20
 })
 
 var today = new Date().getHours();
@@ -169,6 +171,7 @@ function onEachFeature_place_announce(f, layer) {
     var popup = '<div class="card mb-3"> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <h5 class="card-title">เหลืออีก ' + f.properties.daysDiff + ' วัน จะพ้นระยะเฝ้าระวัง </h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + '</div> </div>'
     layer.bindPopup(popup)
 }
+
 function onEachFeature(f, layer) {
     var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_numbe + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_source + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
     layer.bindPopup(popup)
@@ -181,7 +184,10 @@ function onEachFeature(f, layer) {
 //     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking  btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
 // })
 
-var legend = L.control({ position: 'bottomright' });
+var legend = L.control({
+    position: 'bottomright'
+});
+
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -205,6 +211,7 @@ function showDisclaimer() {
     };
     legend.addTo(map);
 }
+
 function hideDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -215,6 +222,7 @@ function hideDisclaimer() {
 }
 hideDisclaimer()
 get_point()
+
 function style_lock(feature) {
     return {
         weight: 3,
@@ -224,6 +232,7 @@ function style_lock(feature) {
         fillOpacity: 0
     };
 }
+
 function style_curfew(feature) {
     return {
         weight: 3,
@@ -382,12 +391,12 @@ function get_loca() {
 
     var point = turf.point(get_latlng);
     L.geoJson(point, {
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: local_icon,
-            });
-        }
-    })
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                });
+            }
+        })
         .bindPopup("ตำแหน่งปัจจุบันของท่าน")
     document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
 
@@ -398,7 +407,9 @@ function get_loca() {
         }
     }
 
-    var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+    var buffered = turf.buffer(point, radius, {
+        units: 'kilometers'
+    });
 
 
     var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
@@ -407,7 +418,9 @@ function get_loca() {
     var data = ptsWithin.features
     var table = ''
     for (var i = 0; i < data.length; i++) {
-        var distance = turf.distance(point, data[i], { units: 'kilometers' });
+        var distance = turf.distance(point, data[i], {
+            units: 'kilometers'
+        });
         table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
     }
     document.getElementById('tabel_data').innerHTML = table
@@ -625,12 +638,12 @@ function get_point() {
 
         var point = turf.point(get_latlng);
         L.geoJson(point, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: local_icon,
-                });
-            }
-        })
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, {
+                        icon: local_icon,
+                    });
+                }
+            })
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
@@ -651,7 +664,9 @@ function get_point() {
 
 
 
-        var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+        var buffered = turf.buffer(point, radius, {
+            units: 'kilometers'
+        });
 
 
         var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
@@ -660,7 +675,9 @@ function get_point() {
         var data = ptsWithin.features
         var table = ''
         for (var i = 0; i < data.length; i++) {
-            var distance = turf.distance(point, data[i], { units: 'kilometers' });
+            var distance = turf.distance(point, data[i], {
+                units: 'kilometers'
+            });
             table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
         }
         document.getElementById('tabel_data').innerHTML = table
@@ -887,16 +904,18 @@ $("#form_setting").submit(function (event) {
     }
     var point = turf.point(get_latlng);
     L.geoJson(point, {
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: local_icon,
-            });
-        }
-    })
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                });
+            }
+        })
         .bindPopup("ตำแหน่งปัจจุบันของท่าน")
         .addTo(set_map)
 
-    var buffered = turf.buffer(point, radius, { units: 'kilometers' });
+    var buffered = turf.buffer(point, radius, {
+        units: 'kilometers'
+    });
     var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
     var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
 
@@ -931,7 +950,9 @@ $("#form_setting").submit(function (event) {
 
     var table = ''
     for (var i = 0; i < data.length; i++) {
-        var distance = turf.distance(point, data[i], { units: 'kilometers' });
+        var distance = turf.distance(point, data[i], {
+            units: 'kilometers'
+        });
         table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
     }
     document.getElementById('tabel_data').innerHTML = table
@@ -955,7 +976,9 @@ function get_tracking() {
 
     var json_buf = []
     json_place_ann.forEach(e => {
-        buffered = turf.buffer(e, 1, { units: 'kilometers' });
+        buffered = turf.buffer(e, 1, {
+            units: 'kilometers'
+        });
         json_buf.push(buffered)
     });
 
@@ -997,13 +1020,16 @@ function get_tracking() {
             }
 
             var trac_table = ''
-            var p_t_l = [[
-                Number(json_track.features[0].properties.lng),
-                Number(json_track.features[0].properties.lat)
-            ], [
-                Number(json_track.features[0].properties.lng),
-                Number(json_track.features[0].properties.lat)
-            ]]
+            var p_t_l = [
+                [
+                    Number(json_track.features[0].properties.lng),
+                    Number(json_track.features[0].properties.lat)
+                ],
+                [
+                    Number(json_track.features[0].properties.lng),
+                    Number(json_track.features[0].properties.lat)
+                ]
+            ]
 
             for (var i = 0; i < json_track.features.length; i++) {
                 p_t_l.push(
@@ -1012,9 +1038,9 @@ function get_tracking() {
                         Number(json_track.features[i].properties.lat)
                     ]
                 )
-                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , '
-                    + parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> '
-                    + json_track.features[i].properties.date_view + ' </td></tr > '
+                trac_table += ' <tr> <td>  ' + parseInt(json_track.features[i].properties.lng).toFixed(2) + ' , ' +
+                    parseInt(json_track.features[i].properties.lat).toFixed(2) + '  </td>  <td> ' +
+                    json_track.features[i].properties.date_view + ' </td></tr > '
             }
 
             var line = turf.lineString(p_t_l);
@@ -1023,8 +1049,8 @@ function get_tracking() {
 
             document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br>การบันทึก <br> ตำแหน่ง</button>'
 
-        }, error: function (e) {
-        }
+        },
+        error: function (e) {}
     })
 
 }
@@ -1068,7 +1094,9 @@ function viewRouting() {
                 });
             });
             var linestring1 = turf.lineString(line_step);
-            var buffered = turf.buffer(linestring1, 10, { units: 'kilometers' });
+            var buffered = turf.buffer(linestring1, 10, {
+                units: 'kilometers'
+            });
 
             var line_view = L.geoJson(linestring1).addTo(points_case)
             map.fitBounds(line_view.getBounds())
@@ -1160,4 +1188,6 @@ L.Control.watermark = L.Control.extend({
 L.control.watermark = function (opts) {
     return new L.Control.watermark(opts);
 }
-L.control.watermark({ position: 'bottomleft' }).addTo(map);
+L.control.watermark({
+    position: 'bottomleft'
+}).addTo(map);
