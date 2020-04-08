@@ -741,20 +741,20 @@ $("#form_setting").submit(function (event) {
         osm.remove()
         CartoDB_DarkMatter.remove()
     } else if (basemap == 'base2') {
-        hmap.remove(map)
+        hmap.remove()
         gmap.addTo(map)
         osm.remove()
         CartoDB_DarkMatter.remove()
     } else if (basemap == 'base3') {
-        hmap.remove(map)
+        hmap.remove()
         gmap.remove()
         osm.addTo(map)
         CartoDB_DarkMatter.remove()
     }  else if (basemap == 'base4') {
-        hmap.remove(map)
+        hmap.remove()
         gmap.remove()
-        osm.remove(map)
-        CartoDB_DarkMatter.addTo()
+        osm.remove()
+        CartoDB_DarkMatter.addTo(map)
     } else {
         hmap.addTo(map)
         gmap.remove()
