@@ -77,17 +77,17 @@ function onLocationFound(e) {
                 document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + e.acc_pui + '<br> PUI สะสม</div> '
                 document.getElementById('death').innerHTML = '  <div id="death">' + e.death + ' <br>ตาย</div> '
                 document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + e.date + '</small>'
+                Number(e.patient_tt)
+                var pa_tt = Number(e.patient_tt)
 
-                if (e.patient_tt >= 200) {
-                    document.getElementById("jumbotron").style.background = 'rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(228, 38, 0) 99%)'
-                } else if (e.patient_tt >= 100) {
-                    document.getElementById("jumbotron").style.background = 'rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(255, 86, 35) 99%)'
-                } else if (e.patient_tt >= 50) {
+                if (pa_tt >= 100) {
+                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(228, 38, 0) 99%)'
+                } else if (pa_tt >= 50) {
+                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(255, 86, 35) 99%)'
+                } else if (pa_tt >= 10) {
                     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(255, 150, 13) 99%)'
-                } else if (e.patient_tt >= 10) {
-                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%'
-                } else if (e.patient_tt = 0) {
-                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
+                } else if (pa_tt > 0) {
+                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%)'
                 } else {
                     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
                 }
