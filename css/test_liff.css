@@ -52,6 +52,11 @@ body{
   height: 5vh;
 }
 
+.profile_img{
+  border-radius: 10px;
+  width: 50px;
+
+}
 
 .text_show{
   margin-top: -12px;

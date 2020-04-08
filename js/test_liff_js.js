@@ -1,37 +1,29 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     decodedIDToken = liff.getDecodedIDToken().email
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
-//     $.ajax({
-//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-//         method: 'post',
-//         data: ({
-//             pictureUrl: pictureUrl,
-//             userId: userId,
-//             displayName: displayName,
-//             page_view: 'map_dashboard.html'
-//         }),
-//         success: function (data) {
-//         }
-//     })
-// }
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
+    document.getElementById('displayname').innerHTML = '<img id="img_profile" class="profile_img" src="' + displayName + '" alt="">'
+    document.getElementById('img_profile').innerHTML = '<h5 id="displayname">' + pictureUrl + '</h5>'
 
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653981898-EK590Od2" })
-// }
-// main()
+
+}
+
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-ZNBANLd7" })
+}
+main()
 
 
 
@@ -380,7 +372,7 @@ nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(
 info.update = function (props) {
     this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4> ' + (props ?
         '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
-        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> <small  style="font-family: Prompt;">อัพเดตข้อมูลวันที่ ' + nowdate + '</small>');
+        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> ');
 };
 info.addTo(map);
 
