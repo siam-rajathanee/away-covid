@@ -35,7 +35,7 @@ body{
 
 
 #container3,#container2, #container {
-  height: 70vh; 
+  height: 60vh; 
   width: 100%;
 }
 
@@ -133,6 +133,7 @@ body{
   color: #505050;
   /* background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgba(2242, 80, 148,1) 70%); */
   border-radius: 40px;
+  padding-bottom: 10px;
 }
 
 .blog2{
@@ -175,7 +176,7 @@ body{
   margin-bottom: 10px;
 }
 .jumbotron-c1{
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(253,215,75,1) 99%);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgba(253,215,75,1) 99%);
 }
 .jumbotron-c2{
   background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(168, 224, 95,1) 99%);

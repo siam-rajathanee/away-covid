@@ -26,38 +26,47 @@ main()
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
-
     document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '</b> '
     document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '</b>  '
     document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '</b>'
     document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '</b> '
-
 })
-
 
 var map = L.map('map', {
     scrollWheelZoom: false,
     gestureHandling: true,
     attributionControl: false
-}).setView([13.822496, 100.716057], 6);
+}).setView([13.822496, 100.716057], 5);
 
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
 }).addTo(map)
-var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-})
+
 var case_confirm = L.icon({
     iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
-
 });
+function onLocationFound(e) {
+    get_latlng = [e.latlng.lng, e.latlng.lat]
+    var point = turf.point(get_latlng);
+
+
+    province_geojson.features.forEach(e => {
+        var ptsWithin = turf.pointsWithinPolygon(point, e);
+        if (ptsWithin.features.length > 0) {
+            province = e.properties.pv_tn
+        }
+    });
+
+    console.log(province);
 
 
 
+}
+
+map.on('locationfound', onLocationFound);
+map.locate();
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
@@ -312,7 +321,7 @@ function getColor(d) {
 function style(feature) {
     return {
         fillColor: getColor(feature.properties.value),
-        weight: 2,
+        weight: 1,
         opacity: 1,
         color: 'white',
         fillOpacity: 1
