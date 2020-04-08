@@ -23,6 +23,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 
 <body>
@@ -35,16 +36,51 @@
 
             <div id="home" class="tab-pane fade in active ">
 
-                <div class="jumbotron text-center">
-                    <h1 class="display-3">พิษณุโลก</h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
-                        attention to featured content or information.</p>
+                <div class="jumbotron text-center ">
+                    <h1 class="display-3 "><i class="fa fa-location-arrow" aria-hidden="true"></i> พิษณุโลก
+                    </h1>
+                    <br>
+                    <div class="row card_view text_center ">
+                        <h3>
+                            ผู้ป่วยสะสม : 4 ราย
+                        </h3>
+                        <div class="tb_view">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>
+                                        12 <br>รักษาหาย
+                                    </td>
+                                    <td>
+                                        12 <br>รักษาอยู่
+                                    </td>
+                                    <td>
+                                        2<br> เพิ่มใหม่
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2<br> PUI สะสม
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        12 <br>ตาย
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+
+                    </div>
+
+
                     <hr class="my-4">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger
-                        container.</p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    <p>
+                        <canvas id="myChart"></canvas>
                     </p>
+                    <small>update วันที่ : 2020-03-01</small>
+
                 </div>
 
 
@@ -146,7 +182,37 @@
 
     </div>
 
-
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 255, 255, 1)',
+                        'rgba(255, 255, 255, 1)',
+                        'rgba(255, 255, 255, 1)',
+                        'rgba(255, 255, 255, 1)',
+                        'rgba(255, 255, 255, 1)',
+                        'rgba(255, 255, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
     <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
         <button type="button" class="btn btn-default" data-toggle="tab" href="#home">
             <i class="fa fa-compass" aria-hidden="true"></i> ภาพรวม

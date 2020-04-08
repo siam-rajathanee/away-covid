@@ -138,3 +138,33 @@ body{
 .progress-bar { text-align: left; }
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
+
+.jumbotron{
+  color: rgb(73, 73, 73);
+  border-radius: 40px;
+  background-color: rgb(243, 187, 45);
+  max-height: 85vh;
+  min-height: 85vh;
+}
+
+.card_view{
+  min-height: 200px;
+  border-radius: 40px;
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: white;
+}
+
+.tb_view{
+  border-radius: 40px;
+  
+}
+.table{
+  border: 0em;
+}
+#myChart{
+  width: 100%;
+  height: 130px;
+}
+.display-3{
+}
