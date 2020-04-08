@@ -750,16 +750,11 @@ $("#form_setting").submit(function (event) {
         gmap.remove()
         osm.addTo(map)
         CartoDB_DarkMatter.remove()
-    }  else if (basemap == 'base4') {
+    } else {
         hmap.remove()
         gmap.remove()
         osm.remove()
         CartoDB_DarkMatter.addTo(map)
-    } else {
-        hmap.addTo(map)
-        gmap.remove()
-        osm.remove()
-        CartoDB_DarkMatter.remove()
     }
 
     var date = new Date();
