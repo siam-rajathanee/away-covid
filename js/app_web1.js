@@ -35,8 +35,8 @@ main()
 
 
 
-// userId = 'U813edb9e9e22c2dc43d39fcdab3d9ff9'
-// displayName = 'MAPEDIA'
+userId = 'U813edb9e9e22c2dc43d39fcdab3d9ff9'
+displayName = 'MAPEDIA'
 
 
 
@@ -460,7 +460,7 @@ $("#form_query").submit(function (event) {
 
 function get_point() {
     var date = new Date();
-    date.setDate(date.getDate() - 7);
+    date.setDate(date.getDate() - 14);
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
 
