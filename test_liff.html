@@ -37,92 +37,90 @@
     <div class="card">
 
         <img src="img/logoawaycovid.jpg" alt="" width="30%">
-        <div class="jumbotron jumbotron-c1">
-            <div id="img_profile">
-                <img id="img_profile" class="profile_img" src="img/awaycovid19.png" alt="">
-            </div>
-            <h5 id="displayname">AWAY COVID 19</h5>
-
-            <h2 class="display-3 ">
-                <i class="fa fa-location-arrow" aria-hidden="true"></i> พิษณุโลก
-            </h2>
-
-            <br>
-            <div class="row card_view text_center ">
-                <h3>
-                    ผู้ป่วยสะสม : 4 ราย
-                </h3>
-                <div class="tb_view">
-                    <table class="table table-borderless">
-                        <tr>
-                            <td>
-                                12 <br>รักษาหาย
-                            </td>
-                            <td>
-                                12 <br>รักษาอยู่
-                            </td>
-                            <td>
-                                2<br> เพิ่มใหม่
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                2<br> PUI สะสม
-                            </td>
-                            <td></td>
-                            <td>
-                                12 <br>ตาย
-                            </td>
-                        </tr>
-                    </table>
+        <div id="section_1">
+            <div id="jumbotron" class="jumbotron">
+                <div id="img_profile">
+                    <img id="img_profile" class="profile_img" src="img/awaycovid19.png" alt="">
                 </div>
-            </div>
-            <p>
-                <canvas id="myChart"></canvas>
-            </p>
-            <small>update วันที่ : 2020-03-01</small>
+                <h5 id="displayname">AWAY COVID 19</h5>
 
+                <h2 class="display-3" id="pro">
+                    <i class="fa fa-location-arrow" aria-hidden="true"></i> -
+                </h2>
+
+                <br>
+                <div class="row card_view text_center ">
+                    <h3 id="sum_val">
+                        ผู้ป่วยสะสม : - ราย
+                    </h3>
+                    <div class="tb_view">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td>
+                                    <div id="recovery">- <br>รักษาหาย</div>
+                                </td>
+                                <td>
+                                    <div id="admission">- <br>รักษาอยู่</div>
+                                </td>
+                                <td>
+                                    <div id="patient_new">- <br>เพิ่มใหม่</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="acc_pui"> - <br> PUI สะสม</div>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <div id="death">- <br>ตาย</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <p>
+                    <canvas id="myChart"></canvas>
+                </p>
+                <small id="update_1">ข้อมูล ณ วันที่ : -</small>
+            </div>
         </div>
+
     </div>
 
     <div class="card">
-
-        <div class="row card_sum">
-
-            <div class="col-xs-12  blog1">
-                <h1 class="rating-num1"> <b id="Confirmed"></b> </h1>
-                <div class="text_show">
-                    <span class="glyphicon glyphicon-user"></span>
-                    ยอดผู้ติดเชื้อสะสม
-                </div>
-                <div class="row  blog2">
-                    <div class="col-xs-4 Recovered">
-                        <h3> <b id="Recovered"></b> </h3>
-                        <div class="text_show">
-                            หายแล้ว
-                        </div>
-                    </div>
-                    <div class="col-xs-4 Hospitalized">
-                        <h3> <b id="Hospitalized"></b> </h3>
-                        <div class="text_show">
-                            รักษาตัว
-                        </div>
-                    </div>
-                    <div class="col-xs-4 Deaths">
-                        <h3> <b id="Deaths"></b> </h3>
-                        <div class="text_show">
-                            เสียชีวิต
-                        </div>
+        <div class="col-xs-12  blog1">
+            <h1 class="rating-num1"> <b id="Confirmed"></b> </h1>
+            <div class="text_show">
+                <span class="glyphicon glyphicon-user"></span>
+                ยอดผู้ติดเชื้อสะสม
+            </div>
+            <div class="row  blog2">
+                <div class="col-xs-4 Recovered">
+                    <h3> <b id="Recovered"></b> </h3>
+                    <div class="text_show">
+                        หายแล้ว
                     </div>
                 </div>
-
+                <div class="col-xs-4 Hospitalized">
+                    <h3> <b id="Hospitalized"></b> </h3>
+                    <div class="text_show">
+                        รักษาตัว
+                    </div>
+                </div>
+                <div class="col-xs-4 Deaths">
+                    <h3> <b id="Deaths"></b> </h3>
+                    <div class="text_show">
+                        เสียชีวิต
+                    </div>
+                </div>
             </div>
 
-            <div id="map"></div>
-            <small>update วันที่ : 2020-03-01</small>
         </div>
 
+        <div id="map"></div>
+        <small>update วันที่ : 2020-03-01</small>
     </div>
+
 
 
     <div class="card2">
@@ -154,46 +152,6 @@
         </tbody>
     </table>
 
-
-
-
-
-
-
-
-
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255,224,0, 1)',
-                        'rgba(255,224,0, 1)',
-                        'rgba(255,224,0, 1)',
-                        'rgba(255,224,0, 1)',
-                        'rgba(255,224,0, 1)',
-                        'rgba(255,224,0, 1)',
-                        'rgba(255,224,0, 1)',
-                    ],
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
 
     <!-- <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
         <button type="button" class="btn btn-default" data-toggle="tab" href="#home">

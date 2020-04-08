@@ -1,27 +1,27 @@
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    decodedIDToken = liff.getDecodedIDToken().email
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
-    document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
-    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-}
+// async function getUserProfile() {
+//     profile = await liff.getProfile()
+//     pictureUrl = profile.pictureUrl
+//     userId = profile.userId
+//     displayName = profile.displayName
+//     decodedIDToken = liff.getDecodedIDToken().email
+//     if (pictureUrl == undefined) {
+//         pictureUrl = ''
+//     }
+//     document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
+//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+// }
 
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({ liffId: "1653981898-ZNBANLd7" })
-}
-main()
+// async function main() {
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
+//     await liff.init({ liffId: "1653981898-ZNBANLd7" })
+// }
+// main()
 
 
 
@@ -30,6 +30,7 @@ $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
     document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '</b>  '
     document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '</b>'
     document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '</b> '
+
 })
 
 var map = L.map('map', {
@@ -59,14 +60,47 @@ function onLocationFound(e) {
         }
     });
 
-    console.log(province);
-
-
-
 }
 
 map.on('locationfound', onLocationFound);
 map.locate();
+
+
+
+
+$.getJSON("http://mapedia.co.th/demo/get_cv_province.php", function (data) {
+    data.forEach(e => {
+        if (e.province == province) {
+            if (e.acc_pui == 0) {
+                e.acc_pui = 'ไม่ทราบ'
+            }
+            document.getElementById('pro').innerHTML = '<h2 class="display-3" id="pro"> <i class="fa fa-location-arrow" aria-hidden="true"></i> ' + e.province + ' </h2>'
+            document.getElementById('sum_val').innerHTML = ' <h3 id="sum_val">ผู้ป่วยสะสม : ' + e.patient_tt + ' ราย</h3>'
+            document.getElementById('recovery').innerHTML = '  <div id="recovery">' + e.recovery + ' <br>รักษาหาย</div> '
+            document.getElementById('admission').innerHTML = ' <div id="admission">' + e.admission + ' <br>รักษาอยู่</div> '
+            document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + e.patient_new + ' <br>เพิ่มใหม่</div> '
+            document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + e.acc_pui + '<br> PUI สะสม</div> '
+            document.getElementById('death').innerHTML = '  <div id="death">' + e.death + ' <br>ตาย</div> '
+            document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + e.date + '</small>'
+
+            if (e.patient_tt = 0) {
+                document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
+            } else if (e.patient_tt <= 10) {
+                document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%'
+            } else if (e.patient_tt <= 50) {
+                document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(255, 150, 13) 99%)'
+            } else if (e.patient_tt <= 100) {
+                document.getElementById("jumbotron").style.background = 'rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(255, 86, 35) 99%)'
+            } else if (e.patient_tt <= 100) {
+                document.getElementById("jumbotron").style.background = 'rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(228, 38, 0) 99%)'
+            } else {
+                document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
+            }
+
+
+        }
+    })
+})
 
 
 $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
@@ -377,7 +411,7 @@ date.setDate(date.getDate());
 nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 
 info.update = function (props) {
-    this._div.innerHTML = '<h4 style="font-family: Prompt;">แผนที่สรุปข้อมูลผู้ป่วย Covid 19</h4> ' + (props ?
+    this._div.innerHTML = ' ' + (props ?
         '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
         '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> ');
 };
@@ -399,3 +433,35 @@ L.control.watermark = function (opts) {
 L.control.watermark({ position: 'bottomleft' }).addTo(map);
 
 
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255,224,0, 1)',
+                'rgba(255,224,0, 1)',
+                'rgba(255,224,0, 1)',
+                'rgba(255,224,0, 1)',
+                'rgba(255,224,0, 1)',
+                'rgba(255,224,0, 1)',
+                'rgba(255,224,0, 1)',
+            ],
+            borderWidth: 1,
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});

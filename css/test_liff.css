@@ -2,6 +2,9 @@ body{
     font-family: 'Prompt', sans-serif;
     background-color: #ffffff;
 }
+#section_1{
+  height: 93vh;
+}
 .glyphicon { margin-right:5px;}
 .rating .glyphicon {font-size: 22px;}
 .rating-num { margin-top:0px;font-size: 54px; }
@@ -160,8 +163,6 @@ body{
   text-align: center;
   color: rgb(80, 80, 80);
   border-radius: 40px;
-  max-height: 93vh;
-  min-height: 93vh;
   padding: 10px;
   margin-bottom: 50px;
 }
@@ -170,16 +171,22 @@ body{
   text-align: center;
   color: rgb(80, 80, 80);
   border-radius: 40px;
-  max-height: 93vh;
-  min-height: 93vh;
   padding-top: 10px;
-  margin-bottom: 10px;
+}
+.jumbotron-c0{
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%);
 }
 .jumbotron-c1{
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgba(253,215,75,1) 99%);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%);
 }
 .jumbotron-c2{
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(168, 224, 95,1) 99%);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(255, 150, 13) 99%);
+}
+.jumbotron-c3{
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(255, 86, 35) 99%);
+}
+.jumbotron-c4{
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(228, 38, 0) 99%);
 }
 
 .card_view{
