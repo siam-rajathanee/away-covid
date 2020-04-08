@@ -10,15 +10,14 @@ body{
   text-align: center;
   padding: 10px;
 }
-
-.card_sum{
-  padding: 10px;
-  border-radius: 10px;
+.card2{
+  text-align: center;
 }
+
 #map{
-    border-radius: 10px;
+  border-radius: 0px 0px 40px 40px;
     width: 100%;
-    height: 95vh;
+    height: 70vh;
     z-index: 0;
 }
 .table_data{
@@ -111,26 +110,27 @@ body{
   text-align: center;
 }
 
-.rating-num2 {
+.rating-num1 {
   margin-top: 2vh;
-  font-size: 30px;
+  font-size: 48px;
 }
 
 .blog1{
   color: #ffffff;
-  background-color: #FEB24C;
-  border-radius: 10px;
-  height: 13vh;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(2242, 80, 148,1) 70%);
+  border-radius: 40px;
+  height: 150px;
 }
 
 
 .blog2{
-  color: #181818;
-  background-color: rgb(255, 245, 232);
+  color: #4b4b4b;
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  height: 13vh;
- 
+  padding-right: 1px;
+  padding-left: 1px;
 }
+
 
 .glyphicon { margin-right:5px;}
 .rating .glyphicon {font-size: 22px;}
@@ -140,12 +140,24 @@ body{
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
 
+
+
+.card_sum{
+  text-align: center;
+  color: rgb(80, 80, 80);
+  border-radius: 40px;
+  max-height: 93vh;
+  min-height: 93vh;
+  padding: 10px;
+  margin-bottom: 50px;
+}
+
 .jumbotron{
   text-align: center;
-  color: rgb(90, 90, 90);
+  color: rgb(80, 80, 80);
   border-radius: 40px;
-  max-height: 90vh;
-  min-height: 90vh;
+  max-height: 93vh;
+  min-height: 93vh;
   padding-top: 10px;
   margin-bottom: 20px;
 }
@@ -176,4 +188,15 @@ body{
 #myChart{
   width: 100%;
   height: 130px;
+}
+
+.btn_slide{
+  opacity: 0.3;
+  max-width: 20%;
+  position: fixed;
+  z-index: 4;
+  margin-top: 95vh;
+  margin-left: 90%;
+  background-color: #838383;
+  border-color: #2e6da4;
 }

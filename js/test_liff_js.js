@@ -37,10 +37,10 @@
 
 $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
 
-    document.getElementById('Confirmed').innerHTML = ' <h2 class="rating-num2" id="Confirmed"> <b>' + data.Confirmed + '</b> </h2>'
-    document.getElementById('Recovered').innerHTML = '<span class="sr-only" id="Recovered">' + data.Recovered + '</span>'
-    document.getElementById('Hospitalized').innerHTML = '  <span class="sr-only" id="Hospitalized">' + data.Hospitalized + '</span>'
-    document.getElementById('Deaths').innerHTML = '<span class="sr-only" id="Deaths">' + data.Deaths + '</span>'
+    document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '</b> '
+    document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '</b>  '
+    document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '</b>'
+    document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '</b> '
 
 })
 
@@ -397,3 +397,5 @@ L.control.watermark = function (opts) {
     return new L.Control.watermark(opts);
 }
 L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+
