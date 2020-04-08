@@ -370,7 +370,7 @@ function get_loca() {
 
     document.getElementById('loading').innerHTML = ''
     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
-    document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> สำรวจ <br>ข้อมูล <br>เส้นทาง </button>'
+    document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
 
     var radius = 5;
 
@@ -612,7 +612,7 @@ function get_point() {
     function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
         document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
-        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> สำรวจ <br>ข้อมูล <br>เส้นทาง </button>'
+        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
 
         var radius = 5;
         get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
