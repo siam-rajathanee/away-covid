@@ -1,180 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <title>AWAY COVID 19 </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>สถานรักษาพยาบาล | AWAY COVID 19</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
+    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css"
-        type="text/css">
-    <script src="//unpkg.com/leaflet-gesture-handling"></script>
     <link rel="stylesheet" href="css/test_liff.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+
+
 </head>
 
 <body>
+
     <div id="loading"></div>
-    <button type="button" class="btn  btn_slide">
-        <i class="fa fa-angle-double-down" aria-hidden="true"></i>
-    </button>
 
     <div class="card">
 
-        <img src="img/logoawaycovid.jpg" alt="" width="30%">
-        <div id="section_1">
-            <div id="jumbotron" class="jumbotron">
 
-                <div id="img_profile">
-                    <img id="img_profile" class="profile_img" src="img/awaycovid19.png" alt="">
-                </div>
-                <h5 id="displayname">AWAY COVID 19</h5>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <img id="img_profile" class="profile_img   text-left" src="img/awaycovid19.png" alt="">
+                        </div>
+                        <div class="col-xs-7">
+                            AWAY COVID 19 <br>
+                            <small class="btn btn-xs ner_hos"> สถานพยาบาลใกล้ที่สุด 10 km</small>
+
+                        </div>
 
 
-
-                <h2 class="display-3" id="pro">
-                    <i class="fa fa-location-arrow" aria-hidden="true"></i> -
-                </h2>
-                <br>
-                <div class="row card_view text_center ">
-                    <h3 id="sum_val">
-                        ผู้ป่วยสะสม : - ราย
-                    </h3>
-                    <div class="tb_view">
-                        <table class="table table-borderless">
-                            <tr>
-                                <td>
-                                    <div id="recovery">- <br>รักษาหาย</div>
-                                </td>
-                                <td>
-                                    <div id="admission">- <br>รักษาอยู่</div>
-                                </td>
-                                <td>
-                                    <div id="patient_new">- <br>เพิ่มใหม่</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div id="acc_pui"> - <br> PUI สะสม</div>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <div id="death">- <br>เสียชีวิต</div>
-                                </td>
-                            </tr>
-                        </table>
                     </div>
-                </div>
-                <p>
-                    <canvas id="myChart"></canvas>
-                </p>
-                <small id="update_1">ข้อมูล ณ วันที่ : -</small>
-            </div>
-        </div>
 
-    </div>
-
-    <div class="card">
-        <div class="col-xs-12  blog1">
-            <h1 class="rating-num1"> <b id="Confirmed"></b> </h1>
-            <div class="text_show">
-                <span class="glyphicon glyphicon-user"></span>
-                ยอดผู้ติดเชื้อสะสมภายในประเทศ
-            </div>
-            <div class="row  blog2">
-                <div class="col-xs-4 Recovered">
-                    <h3> <b id="Recovered"></b> </h3>
-                    <div class="text_show">
-                        หายแล้ว
-                    </div>
                 </div>
-                <div class="col-xs-4 Hospitalized">
-                    <h3> <b id="Hospitalized"></b> </h3>
-                    <div class="text_show">
-                        รักษาตัว
-                    </div>
-                </div>
-                <div class="col-xs-4 Deaths">
-                    <h3> <b id="Deaths"></b> </h3>
-                    <div class="text_show">
-                        เสียชีวิต
-                    </div>
-                </div>
-            </div>
 
-        </div>
-
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
         <div id="map"></div>
-        <small id="update_2">ข้อมูล ณ วันที่ : -</small>
 
-    </div>
-
-
-
-    <div class="card2">
-        <h3> <b>จำแนกตามวันเวลา</b> </h3>
-        <div id="container3"></div>
-        <br>
-
-        <h3> <b>จำแนกตามจังหวัด</b> </h3>
-        <div id="container"></div>
-        <br>
-
-        <h3> <b>จำแนกตามเพศ</b> </h3>
-        <div id="container2"></div>
-        <br>
-        <small>ที่มา : <a href="https://covid19.ddc.moph.go.th/" target="_blank">กรมควบคุมโรค
-                กระทรวงสาธารณสุข</a> </small>
-    </div>
+        <div class="footer" role="group" aria-label="...">
+            <!-- <button type="button" class="btn btn-warning " data-toggle="modal" data-target="#search" >
+        <i class="fa fa-map-marker" aria-hidden="true"></i> กรุณาเปิด GPS ก่อนใช้งานเส้นทาง </button> -->
+            <button class="btn btn-awaycovid btn-block" type="button" id="btn_search">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                กำลังรอรับค่าตำแหน่ง Location . . . .
+            </button>
+            <!-- <button class="btn btn-warning" type="button" id="btn_search2">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        กำลังรอรับค่าตำแหน่ง Location . . . .
+      </button> -->
+        </div>
 
 
 
-    <table class="table table-bordered ">
-        <thead>
-            <tr>
-                <th>จังหวัด</th>
-                <th>ผู้ป่วย</th>
-            </tr>
-        </thead>
-        <tbody id="all_sum_table">
-        </tbody>
-    </table>
+
+        <!-- search -->
+        <div id="search" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาโรงพยาบาล</h4>
+                    </div>
+                    <div class="modal-body table_data">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">ตรวจโควิด</a></li>
+                            <li><a data-toggle="tab" href="#menu1">โรงพยาบาล</a></li>
+                            <li><a data-toggle="tab" href="#menu2">รพ.สต.</a></li>
+                            <li><a data-toggle="tab" href="#menu3">คลีนิค</a></li>
+                            <li><a data-toggle="tab" href="#menu4">ร้านยา</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <div id="show_lab"></div>
+                            </div>
+                            <div id="menu1" class="tab-pane fade">
+                                <div id="show_hos"></div>
 
 
-    <!-- <div class="footer btn-group special" role="group" aria-label="..." id="app_vue">
-        <button type="button" class="btn btn-default" data-toggle="tab" href="#home">
-            <i class="fa fa-compass" aria-hidden="true"></i> ภาพรวม
-        </button>
-        <button type="button" class="btn btn-default" data-toggle="tab" href="#menu1">
-            <i class="fa fa-bar-chart" aria-hidden="true"></i> กราฟ
-        </button>
-        <button type="button" class="btn btn-default" data-toggle="tab" href="#menu2">
-            <i class="fa fa-list-alt" aria-hidden="true"></i> ตาราง
-        </button>
-    </div> -->
 
-    <script src="js/geojson_dash.js"></script>
-    <script src="js/js_chart.js"></script>
-    <script src="js/province.js"></script>
-    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-    <script src="js/test_liff_js.js"></script>
+                            </div>
+
+
+                        </div>
+
+                        <!-- <div class="card mb-3">
+              <h5 class="card-header">' + item.name + '</h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-4">
+                    <img src="' + item.webimage + '" alt="" width="100%">
+                  </div>
+                  <div class="col-8">
+                    <h6 class="card-subtitle text-muted">ที่อยู่ : ' + item.add + '</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-muted text-right"> <a href="  ' + item.route + '  "> ตำแหน่ง </a> </div>
+            </div> -->
+
+                        <!-- <form id="form_query">
+              <fieldset>
+                <div class="form-group">
+                  <select name="place" class="form-control" id="select_place">
+                    <option>เลือกสถานที่</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">ดูตำแหน่ง</button>
+            </form> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
 
 </body>
+
+
+<script src="js/hospital.js"></script>
+<script src="js/labcovid.js"></script>
+<script src="js/geojson_clinic.js"></script>
+<script src="js/geojson_medicine.js"></script>
+<script src="js/geojson_rpst.js"></script>
+<script src="js/geojson_health.js"></script>
+<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+<script src="js/test_liff_js.js"></script>
 
 </html>

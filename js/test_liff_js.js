@@ -7,8 +7,18 @@
 //     if (pictureUrl == undefined) {
 //         pictureUrl = ''
 //     }
-//     document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
-//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+//     $.ajax({
+//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+//         method: 'post',
+//         data: ({
+//             pictureUrl: pictureUrl,
+//             userId: userId,
+//             displayName: displayName,
+//             page_view: 'route.html'
+//         }),
+//         success: function (data) {
+//         }
+//     })
 // }
 
 // async function main() {
@@ -19,496 +29,348 @@
 //             liff.login()
 //         }
 //     })
-//     await liff.init({ liffId: "1653981898-ZNBANLd7" })
+//     await liff.init({ liffId: "1653984157-0qam36em" })
 // }
 // main()
 
 
 
-document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
-var map = L.map('map', {
-    scrollWheelZoom: false,
-    gestureHandling: true,
-    attributionControl: false
-}).setView([13.822496, 100.716057], 5);
 
-var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+var map = L.map('map', {
+    attributionControl: false,
+    center: [13.742701, 100.673909],
+    zoom: 13
+});
+var Stamen = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     subdomains: 'abcd',
-    maxZoom: 19
+    maxZoom: 20
 }).addTo(map)
 
-var case_confirm = L.icon({
-    iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
-});
+var urlParams = new URLSearchParams(window.location.search);
+var marker, gps, dataurl, tam, amp, pro, x, y;
 
-function onLocationFound(e) {
-
-    get_latlng = [e.latlng.lng, e.latlng.lat]
-    //  get_latlng = [100.602242, 13.729625]
-    // get_latlng = [100.956508, 12.894307]
-    // get_latlng = [105.102829, 19.635037]
+document.getElementById('loading').innerHTML = '  <div class="spinner-grow text-danger loading" role="status"><span class="sr-only"></span></div>'
+document.getElementById('btn_search').innerHTML = '<button class="btn btn-awaycovid  btn-lg  btn-block" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> กำลังรอรับค่าตำแหน่ง Location . . . . </button>'
 
 
-    var point = turf.point(get_latlng);
-
-    province = ''
-    province_geojson.features.forEach(e => {
-        var ptsWithin = turf.pointsWithinPolygon(point, e);
-        if (ptsWithin.features.length > 0) {
-            province = e.properties.pv_tn
-        }
-    });
-    if (province == '') {
-        province = 'กรุงเทพมหานคร'
-    }
-
-
-    $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
-        document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '<sup><small>(+' + data.NewConfirmed + ' )</small>  </sup></b> '
-        document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '<sup><small>(+' + data.NewRecovered + ' )</small>  </sup></b>  '
-        document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '<sup><small>(+' + data.NewHospitalized + ' )</small>  </sup></b>'
-        document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '<sup><small>(+' + data.NewDeaths + ' )</small>  </sup></b> '
-    })
-
-
-    $.getJSON("https://mapedia.co.th/demo/get_cv_province.php", function (data) {
-        const found = data.find(e => e.province == province);
-        if (found.acc_pui == 0) {
-            found.acc_pui = 'ไม่ทราบ'
-        }
-        document.getElementById('pro').innerHTML = '<h2 class="display-3" id="pro"> <i class="fa fa-location-arrow" aria-hidden="true"></i> ' + found.province + ' </h2>'
-        document.getElementById('sum_val').innerHTML = ' <h3 id="sum_val">ผู้ป่วยสะสม : ' + found.patient_tt + ' ราย</h3>'
-        document.getElementById('recovery').innerHTML = '  <div id="recovery">' + found.recovery + ' <br>รักษาหาย</div> '
-        document.getElementById('admission').innerHTML = ' <div id="admission">' + found.admission + ' <br>รักษาอยู่</div> '
-        document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + found.patient_new + ' <br>เพิ่มใหม่</div> '
-        document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + found.acc_pui + '<br> PUI สะสม</div> '
-        document.getElementById('death').innerHTML = '  <div id="death">' + found.death + ' <br>เสียชีวิต</div> '
-        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + found.date + '</small>'
-        Number(found.patient_tt)
-        pa_tt = Number(found.patient_tt)
-
-        if (pa_tt >= 100) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 106, 106) 99%)'
-        } else if (pa_tt >= 50) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 155, 87) 99%)'
-        } else if (pa_tt >= 10) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(255, 150, 13) 99%)'
-        } else if (pa_tt > 0) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%)'
-        } else {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
-        }
-    })
-    get_chart()
-    document.getElementById('loading').innerHTML = ''
-}
-
-map.on('locationfound', onLocationFound);
-map.locate();
-
-function get_chart() {
-
-
-
-    $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
-        var res = data.Data
-
-
-        var data_chart4 = []
-        res.forEach(e => {
-            if (e.Province == province) {
-                data_chart4.push(e)
-            }
-        });
-        var group_2 = data_chart4.reduce(function (r, row) {
-            r[row.ConfirmDate] = ++r[row.ConfirmDate] || 1;
-            return r;
-        }, {});
-        this.ConfirmDate = Object.keys(group_2).map(function (key) {
-            return {
-                ConfirmDate: key,
-                value: group_2[key]
-            };
-        });
-
-        ConfirmDate = this.ConfirmDate.sort((a, b) => (a.ConfirmDate > b.ConfirmDate) ? 1 : -1)
-
-        var labels = []
-        var data_vale = []
-        ConfirmDate.forEach(e => {
-            var date = e.ConfirmDate.split(" ");
-            labels.push([date[0]])
-            data_vale.push(e.value)
-        });
-
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '  จำนวนผู้ป่วย',
-                    data: data_vale,
-                    backgroundColor: 'rgb(255, 204, 63)',
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-
-
-
-
-
-
-        var group_1 = res.reduce(function (r, row) {
-            r[row.Province] = ++r[row.Province] || 1;
-            return r;
-        }, {});
-        this.data_pv_th = Object.keys(group_1).map(function (key) {
-            return {
-                Province: key,
-                value: group_1[key]
-            };
-        });
-        this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
-
-
-        province_geojson.features.forEach(e => {
-            for (let i = 0; i < this.data_pv_th.length; i++) {
-                if (e.properties.pv_tn == this.data_pv_th[i].Province) {
-                    e.properties.value = this.data_pv_th[i].value
-                }
-            }
-            if (e.properties.value == undefined) {
-                e.properties.value = 0
-            }
-        });
-
-        var geojson = L.geoJson(province_geojson, {
-            style: style,
-            onEachFeature: onEachFeature
-        }).addTo(map)
-
-
-        var table = ''
-        for (var i = 0; i < this.data_pv_th.length; i++) {
-            if (this.data_pv_th[i].province == 'null') {
-                this.data_pv_th[i].province = 'ไม่ระบุ'
-            }
-            table += '  <tr> <td>   ' + this.data_pv_th[i].Province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
-        }
-        document.getElementById('all_sum_table').innerHTML = table
-        var categories_chart1 = []
-        var data_chart1 = []
-        for (var i = 0; i < 20; i++) {
-            if (this.data_pv_th[i].Province == 'null') {
-                this.data_pv_th[i].Province = 'ไม่ระบุ'
-            }
-            categories_chart1.push(this.data_pv_th[i].Province)
-            data_chart1.push(this.data_pv_th[i].value)
-        }
-
-        Highcharts.chart('container', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: ''
-            },
-            legend: {
-                enabled: false,
-            },
-            exporting: {
-                enabled: false
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-
-                categories: categories_chart1
-            },
-            yAxis: {
-                title: {
-                    enabled: false,
-                }
-            },
-            plotOptions: {
-                area: {
-                    fillOpacity: 0.5
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            series: [{
-                name: 'จำนวนผู้ป่วย',
-                data: data_chart1,
-                color: '#FED976'
-            }]
-        });
-
-    })
-
-    $.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
-
-        document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + '</small>'
-        var data_chart1 = [{
-            name: 'ชาย',
-            y: data.Gender.Male,
-            color: '#00b8e6'
-        }, {
-            name: 'หญิง',
-            y: data.Gender.Female,
-            color: '#ffb3ff'
-        }, {
-            name: 'ไม่ระบุ',
-            y: data.Gender.Unknown,
-            color: '#808080'
-        }]
-        Highcharts.chart('container2', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'variablepie'
-            },
-            title: {
-                text: ''
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            legend: {
-                enabled: false,
-            },
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                minPointSize: 10,
-                innerSize: '20%',
-                name: 'จำนวนผู้ป่วย',
-                colorByPoint: true,
-                data: data_chart1
-            }]
-
-        });
-
-    })
-
-    $.getJSON("https://covid19.th-stat.com/api/open/timeline", function (data) {
-        var res = data.Data
-        var categories_chart3 = []
-        var data_chart3 = []
-        var data_chart3_2 = []
-        var death = []
-        var Recovered = []
-        var Hospitalized = []
-
-        for (var i = 10; i < res.length; i++) {
-            categories_chart3.push(res[i].Date)
-            data_chart3.push(res[i].Confirmed)
-            data_chart3_2.push(res[i].NewConfirmed)
-            death.push(res[i].Deaths)
-            Recovered.push(res[i].Recovered)
-            Hospitalized.push(res[i].Hospitalized)
-        }
-        Highcharts.chart('container3', {
-
-            chart: {
-
-                type: 'line'
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                categories: categories_chart3,
-                crosshair: true,
-
-            },
-            legend: {
-                enabled: false,
-            },
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            yAxis: {
-                title: {
-                    enabled: false,
-                }
-            },
-            plotOptions: {
-                series: {
-                    marker: {
-                        enabled: false
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            series: [{
-                name: 'จำนวนผู้ป่วยสะสม',
-                data: data_chart3,
-                color: '#FD8D3C'
-
-            }, {
-                name: 'จำนวนผู้ป่วยรายวัน',
-                data: data_chart3_2,
-                color: '#FC4E2A'
-            }, {
-                name: 'กำลังรักษา',
-                data: Hospitalized,
-                color: '#80ffaa'
-            }, {
-                name: 'รักษาหาย',
-                data: Recovered,
-                color: '#00cc44'
-            }, {
-                name: 'ผู้เสียชีวิต',
-                data: death,
-                color: '#595959'
-            }]
-        });
-    })
-
-}
-
-
-
-
-function getColor(d) {
-    return d > 200 ? '#800026' :
-        d > 100 ? '#BD0026' :
-            d > 50 ? '#E31A1C' :
-                d > 20 ? '#FC4E2A' :
-                    d > 10 ? '#FD8D3C' :
-                        d > 5 ? '#FEB24C' :
-                            d > 0 ? '#FED976' :
-                                '#33cc33';
-}
-
-function style(feature) {
-    return {
-        fillColor: getColor(feature.properties.value),
-        weight: 1,
-        opacity: 1,
-        color: 'white',
-        fillOpacity: 1
-    };
-}
+markerClusterGroup = L.markerClusterGroup().addTo(map)
+covidlab = L.layerGroup().addTo(map);
 
 var legend = L.control({
     position: 'bottomright'
 });
 
-legend.onAdd = function (map) {
+function showDisclaimer() {
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend')
+        div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">ซ่อนสัญลักษณ์</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
+        div.innerHTML += '<img src="img/hospital.png" width="30px"> <small class="prompt"> สถานรับตรวจโรค Covid-19 </small> <br> ';
+        div.innerHTML += '<img src="img/hospital_1.png" width="30px"> <small class="prompt"> โรงพยาบาล </small> <br> ';
+        div.innerHTML += '<img src="img/hospital_2.png" width="30px"> <small class="prompt"> โรงพยาบาลเอกชน </small> <br> ';
+        div.innerHTML += '<img src="img/rpst.png" width="30px"> <small class="prompt"> รพ.สต./สาธารณสุขชุมชน  </small> <br> ';
+        div.innerHTML += '<img src="img/h2.png" width="30px"> <small class="prompt"> คลีนิค  </small> <br> ';
+        div.innerHTML += '<img src="img/h3.png" width="30px"> <small class="prompt"> ร้านขายยา  </small> <br> ';
 
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 5, 10, 20, 50, 100, 200],
-        labels = [];
-
-
-    div.innerHTML += '<i style="background:#33cc33"></i> ไม่มีผู้ป่วย <br>';
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            (grades[i] + 1) + (grades[i + 1] ? '&ndash;' + (grades[i + 1]) + '<br>' : '+');
-    }
-
-    return div;
-};
-
-legend.addTo(map);
-
-function zoomToFeature(e) {
-    var layer = e.target;
-    map.fitBounds(e.target.getBounds());
-    info.update(layer.feature.properties);
+        return div;
+    };
+    legend.addTo(map);
 }
 
-function onEachFeature(feature, layer) {
-    layer.on({
-        click: zoomToFeature
-    });
+function hideDisclaimer() {
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend')
+        div.innerHTML += '<button class="btn btn-default " onClick="showDisclaimer()"><small class="prompt">แสดงสัญลักษณ์</small> <i class="fa fa-angle-double-up" aria-hidden="true"></i>   </button><br> ';
+        return div;
+    };
+    legend.addTo(map);
 }
 
-var info = L.control();
+hideDisclaimer()
 
-info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-    this.update();
-    return this._div;
-};
-
-
-var date = new Date();
-date.setDate(date.getDate());
-nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-
-info.update = function (props) {
-    this._div.innerHTML = ' ' + (props ?
-        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
-        '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> ');
-};
-info.addTo(map);
-
-
-L.Control.watermark = L.Control.extend({
-    onAdd: function (map) {
-        var img = L.DomUtil.create('img');
-        img.src = 'https://mapedia.co.th/assets/images/logo_1_1024.png';
-        img.style.width = '30px';
-        img.style.opacity = '0.5';
-        return img;
-    }
+var case_hospital = L.icon({
+    iconUrl: 'img/hospital.png',
+    iconSize: [50, 50], // size of the icon
 });
-L.control.watermark = function (opts) {
-    return new L.Control.watermark(opts);
+var case_hospital_1 = L.icon({
+    iconUrl: 'img/hospital_1.png',
+    iconSize: [30, 30], // size of the icon
+});
+
+var case_hospital_2 = L.icon({
+    iconUrl: 'img/hospital_2.png',
+    iconSize: [30, 30], // size of the icon
+});
+
+var case_rpst = L.icon({
+    iconUrl: 'img/rpst.png',
+    iconSize: [30, 30], // size of the icon
+});
+
+var case_clinic = L.icon({
+    iconUrl: 'img/h2.png',
+    iconSize: [30, 30], // size of the icon
+});
+
+var case_medicine = L.icon({
+    iconUrl: 'img/h3.png',
+    iconSize: [30, 30], // size of the icon
+});
+
+place_health = geojson_health
+rpst = geojson_rpst
+clinic = geojson_clinic
+medicine = geojson_medicine
+labcovid = labcovid
+
+async function onLocationFound(e) {
+    document.getElementById('loading').innerHTML = ''
+
+    var radius = 50;
+    get_latlng = [e.latlng.lng, e.latlng.lat]
+
+    var point = turf.point(get_latlng);
+
+    L.geoJson(point, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: local_icon,
+                highlight: 'permanent'
+            });
+        }
+    }).bindPopup("ตำแหน่งปัจจุบันของท่าน")
+        .addTo(map)
+
+    var buffered = turf.buffer(point, radius, {
+        units: 'kilometers'
+    });
+    var buffereds = L.geoJson(buffered, {
+        stroke: false,
+        color: 'green',
+        fillColor: 'green',
+        fillOpacity: 0.0,
+    }).addTo(map)
+    map.fitBounds(buffereds.getBounds())
+    console.log(geojson_health);
+    L.geoJson(geojson_health, {
+
+
+        pointToLayer: function (f, latlng) {
+            var distance = turf.distance(point, f, {
+                units: 'kilometers'
+            });
+            f.properties.dis = Number(distance.toFixed(2))
+            if (f.properties.type_code == '4') {
+                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                <div class="modal-footer">\
+                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                </div>';
+
+                return L.marker(latlng, {
+                    icon: case_hospital_1,
+                }).bindPopup(popupContent, {
+                    maxWidth: "300"
+                });
+            } else if (f.properties.type_code == '5') {
+                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                <div class="modal-footer">\
+                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                </div>';
+
+                return L.marker(latlng, {
+                    icon: case_hospital_1,
+                }).bindPopup(popupContent, {
+                    maxWidth: "300"
+                });
+            } else if (f.properties.type_code == '7') {
+                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                <div class="modal-footer">\
+                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                </div>';
+
+                return L.marker(latlng, {
+                    icon: case_hospital_2,
+                }).bindPopup(popupContent, {
+                    maxWidth: "300"
+                });
+            } else if (f.properties.type_code == '62') {
+                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div></p>\
+                <div class="modal-footer">\
+                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                </div>';
+                return L.marker(latlng, {
+                    icon: case_hospital_1,
+                    highlight: "temporary"
+                }).bindPopup(popupContent, {
+                    maxWidth: "300"
+                });
+            }
+        }
+    })
+
+    var buffered = turf.buffer(point, radius, {
+        units: 'kilometers'
+    });
+    // var ptsWithin_health = turf.pointsWithinPolygon(place_health, buffered);
+    var ptsWithin_rpst = turf.pointsWithinPolygon(rpst, buffered);
+    var ptsWithin_clinic = turf.pointsWithinPolygon(clinic, buffered);
+    var ptsWithin_medicine = turf.pointsWithinPolygon(medicine, buffered);
+
+    // รพสต    
+    L.geoJson(ptsWithin_rpst, {
+        pointToLayer: function (f, latlng) {
+            var distance = turf.distance(point, f, {
+                units: 'kilometers'
+            });
+            f.properties.dis = Number(distance.toFixed(2))
+            if (f.properties.type_code == '3') {
+                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                    <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                    <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                    <div class="modal-footer">\
+                    <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                    <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                    </div>';
+                return L.marker(latlng, {
+                    icon: case_rpst,
+                    highlight: "temporary"
+                }).bindPopup(popupContent, {
+                    maxWidth: "300"
+                });
+            }
+
+        }
+    }).addTo(markerClusterGroup)
+
+    // คลีนิค
+    L.geoJson(ptsWithin_clinic, {
+        pointToLayer: function (f, latlng) {
+            var distance = turf.distance(point, f, {
+                units: 'kilometers'
+            });
+            f.properties.dis = Number(distance.toFixed(0))
+            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                <div class="modal-footer">\
+                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
+                </div>';
+            return L.marker(latlng, {
+                icon: case_clinic,
+            }).bindPopup(popupContent, {
+                maxWidth: "300"
+            });
+            // }).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+        }
+    }).addTo(markerClusterGroup)
+
+    // ร้านยา
+    L.geoJson(ptsWithin_medicine, {
+        pointToLayer: function (f, latlng) {
+            var distance = turf.distance(point, f, {
+                units: 'kilometers'
+            });
+            f.properties.dis = Number(distance.toFixed(0))
+            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                <div class="modal-footer">\
+                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
+                </div>';
+            return L.marker(latlng, {
+                icon: case_medicine,
+            }).bindPopup(popupContent, {
+                maxWidth: "300"
+            });
+            //}).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+        }
+    }).addTo(markerClusterGroup)
+
+    //var data = ptsWithin_health.features
+
+
+    var show_hos = ''
+    var data_set_hos = []
+    geojson_health.features.forEach(f => {
+        var distance = turf.distance(point, f, {
+            units: 'kilometers'
+        });
+        f.properties.dis = Number(distance.toFixed(2))
+        data_set_hos.push(f.properties)
+    });
+    data_set_hos.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
+    for (let i = 0; i < 50; i++) {
+        show_hos += '<div class="card mb-3"> <h5 class="card-header">' + data_set_hos[i].name + '</h5>\
+         <h5 class="card-header"> จำนวนเตียงที่รองรับผู้ป่วย ' + data_set_hos[i].bed_total + ' เตียง </h5>\
+         <div class="row">\
+         <div class="col-6 col-xs-5 text-left"> ระยะทาง ' + data_set_hos[i].dis + ' กม. </div>\
+         <div class="col-6 col-xs-4 text-right"> <a  href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_set_hos[i].lat + ',' + data_set_hos[i].lon + ' "  target="_blank">  <i class="fa fa-location-arrow"></i> นำทาง</a> </div>\
+         <div class="col-6 col-xs-3 text-right" onClick="select_place(' + data_set_hos[i].lat + ',' + data_set_hos[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง </div>\
+       </div></div> </div> </div><hr>'
+    }
+    document.getElementById('show_hos').innerHTML = show_hos
+
+
+
+
+    L.geoJson(labcovid, {
+        pointToLayer: function (f, latlng) {
+            var distance = turf.distance(point, f, {
+                units: 'kilometers'
+            });
+            f.properties.dis = Number(distance.toFixed(2))
+            return L.marker(latlng, {
+                icon: case_hospital,
+            }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.properties.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.properties.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div> <div class="col-xs-6  text-right"> <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank"><button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button></a></div> </div> </div> </div>')
+        }
+    }).addTo(covidlab)
+
+    var show_lab = ''
+    var data_set_labcovid = []
+    labcovid.features.forEach(f => {
+        var distance = turf.distance(point, f, {
+            units: 'kilometers'
+        });
+        f.properties.dis = Number(distance.toFixed(2))
+        data_set_labcovid.push(f.properties)
+    });
+    data_set_labcovid.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
+    data_set_labcovid.forEach(f => {
+        show_lab += '<div class="card mb-3"> <h5 class="card-header">' + f.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.dis + ' กม. </div> <div class="col-xs-6  text-right"  onClick="select_place(' + f.lat + ',' + f.long + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> </div> <hr>'
+    })
+    document.getElementById('show_lab').innerHTML = show_lab
+
+
+
+
+
+
+    document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-awaycovid btn-lg btn-block" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
+
 }
-L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+map.on('locationfound', onLocationFound);
+map.locate();
 
 
+var local_icon = L.icon({
+    iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
+    iconSize: [20, 20]
+});
 
+
+function select_place(lat, lng) {
+    $("#search").modal("hide");
+    map.setView([lat, lng], 19);
+}
