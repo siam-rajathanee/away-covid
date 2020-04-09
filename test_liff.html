@@ -5,12 +5,12 @@
     <title>AWAY COVID 19 </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-    <link href="https://fonts.googleapis.com/css?family=Prompt:300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,10 +26,11 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
 </head>
 
 <body>
-
+    <div id="loading"></div>
     <button type="button" class="btn  btn_slide">
         <i class="fa fa-angle-double-down" aria-hidden="true"></i>
     </button>
@@ -39,15 +40,17 @@
         <img src="img/logoawaycovid.jpg" alt="" width="30%">
         <div id="section_1">
             <div id="jumbotron" class="jumbotron">
+
                 <div id="img_profile">
                     <img id="img_profile" class="profile_img" src="img/awaycovid19.png" alt="">
                 </div>
                 <h5 id="displayname">AWAY COVID 19</h5>
 
+
+
                 <h2 class="display-3" id="pro">
                     <i class="fa fa-location-arrow" aria-hidden="true"></i> -
                 </h2>
-
                 <br>
                 <div class="row card_view text_center ">
                     <h3 id="sum_val">
@@ -72,7 +75,7 @@
                                 </td>
                                 <td></td>
                                 <td>
-                                    <div id="death">- <br>ตาย</div>
+                                    <div id="death">- <br>เสียชีวิต</div>
                                 </td>
                             </tr>
                         </table>
@@ -92,7 +95,7 @@
             <h1 class="rating-num1"> <b id="Confirmed"></b> </h1>
             <div class="text_show">
                 <span class="glyphicon glyphicon-user"></span>
-                ยอดผู้ติดเชื้อสะสม
+                ยอดผู้ติดเชื้อสะสมภายในประเทศ
             </div>
             <div class="row  blog2">
                 <div class="col-xs-4 Recovered">
@@ -118,7 +121,8 @@
         </div>
 
         <div id="map"></div>
-        <small>update วันที่ : 2020-03-01</small>
+        <small id="update_2">ข้อมูล ณ วันที่ : -</small>
+
     </div>
 
 
