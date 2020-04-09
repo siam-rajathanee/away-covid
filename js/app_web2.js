@@ -23,7 +23,6 @@ async function getUserProfile() {
         }
     })
 }
-
 async function main() {
     liff.ready.then(() => {
         if (liff.isLoggedIn()) {
@@ -77,6 +76,7 @@ function onLocationFound(e) {
 
 
     $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
+        document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + '</small>'
         document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '<sup><small>(+' + data.NewConfirmed + ' )</small>  </sup></b> '
         document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '<sup><small>(+' + data.NewRecovered + ' )</small>  </sup></b>  '
         document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '<sup><small>(+' + data.NewHospitalized + ' )</small>  </sup></b>'
@@ -281,7 +281,6 @@ function get_chart() {
 
     $.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
 
-        document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + '</small>'
         var data_chart1 = [{
             name: 'ชาย',
             y: data.Gender.Male,
