@@ -1,37 +1,37 @@
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    decodedIDToken = liff.getDecodedIDToken().email
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            page_view: 'route.html'
-        }),
-        success: function (data) {
-        }
-    })
-}
+// async function getUserProfile() {
+//     profile = await liff.getProfile()
+//     pictureUrl = profile.pictureUrl
+//     userId = profile.userId
+//     displayName = profile.displayName
+//     decodedIDToken = liff.getDecodedIDToken().email
+//     if (pictureUrl == undefined) {
+//         pictureUrl = ''
+//     }
+//     $.ajax({
+//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+//         method: 'post',
+//         data: ({
+//             pictureUrl: pictureUrl,
+//             userId: userId,
+//             displayName: displayName,
+//             page_view: 'route.html'
+//         }),
+//         success: function (data) {
+//         }
+//     })
+// }
 
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({ liffId: "1653984157-0qam36em" })
-}
-main()
+// async function main() {
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
+//     await liff.init({ liffId: "1653984157-0qam36em" })
+// }
+// main()
 
 
 
@@ -130,13 +130,13 @@ async function onLocationFound(e) {
     var point = turf.point(get_latlng);
 
     L.geoJson(point, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: local_icon,
-                    highlight: 'permanent'
-                });
-            }
-        }).bindPopup("ตำแหน่งปัจจุบันของท่าน")
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: local_icon,
+                highlight: 'permanent'
+            });
+        }
+    }).bindPopup("ตำแหน่งปัจจุบันของท่าน")
         .addTo(map)
 
     var buffered = turf.buffer(point, radius, {
@@ -149,7 +149,10 @@ async function onLocationFound(e) {
         fillOpacity: 0.0,
     }).addTo(map)
     map.fitBounds(buffereds.getBounds())
+    console.log(geojson_health);
     L.geoJson(geojson_health, {
+
+
         pointToLayer: function (f, latlng) {
             var distance = turf.distance(point, f, {
                 units: 'kilometers'
@@ -213,7 +216,7 @@ async function onLocationFound(e) {
                 });
             }
         }
-    }).addTo(markerClusterGroup)
+    })
 
     var buffered = turf.buffer(point, radius, {
         units: 'kilometers'

@@ -76,7 +76,7 @@ function onLocationFound(e) {
 
 
     $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
-        document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + '</small>'
+        document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + ' </small>'
         document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '<sup><small>(+' + data.NewConfirmed + ' )</small>  </sup></b> '
         document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '<sup><small>(+' + data.NewRecovered + ' )</small>  </sup></b>  '
         document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '<sup><small>(+' + data.NewHospitalized + ' )</small>  </sup></b>'
@@ -96,7 +96,7 @@ function onLocationFound(e) {
         document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + found.patient_new + ' <br>เพิ่มใหม่</div> '
         document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + found.acc_pui + '<br> PUI สะสม</div> '
         document.getElementById('death').innerHTML = '  <div id="death">' + found.death + ' <br>เสียชีวิต</div> '
-        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + found.date + '</small>'
+        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + found.date + ' ที่มา <a target="_blank" href="' + found.link + '">Link </a></small>'
         Number(found.patient_tt)
         pa_tt = Number(found.patient_tt)
 
