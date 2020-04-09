@@ -26,12 +26,24 @@
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
     <style>
-        .leaflet-popup-content-wrapper,
-        .leaflet-popup-tip {
-            background: white;
-            color: #333;
-            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
-            min-width: 250px;
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 0px solid #ddd;
+        }
+
+        caption {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            color: #000;
+            text-align: left;
+            font-size: 16px;
         }
     </style>
 </head>
