@@ -252,3 +252,12 @@ body{
   margin-bottom: -10px;
   margin-top: -5px;
 }
+
+#recovery{
+  color: green;
+}
+
+.col-xs-4{
+  padding-right: 5px;
+  padding-left: 5px;
+}

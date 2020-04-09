@@ -25,13 +25,6 @@ main()
 
 
 
-$.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
-    document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '</b> '
-    document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '</b>  '
-    document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '</b>'
-    document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '</b> '
-
-})
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
 var map = L.map('map', {
     scrollWheelZoom: false,
@@ -52,66 +45,71 @@ var case_confirm = L.icon({
 function onLocationFound(e) {
 
     get_latlng = [e.latlng.lng, e.latlng.lat]
-    //   get_latlng = [100.602242, 13.729625]
-    //get_latlng = [100.956508, 12.894307]
+    //  get_latlng = [100.602242, 13.729625]
+    // get_latlng = [100.956508, 12.894307]
+    // get_latlng = [105.102829, 19.635037]
 
 
     var point = turf.point(get_latlng);
 
-
+    province = ''
     province_geojson.features.forEach(e => {
         var ptsWithin = turf.pointsWithinPolygon(point, e);
         if (ptsWithin.features.length > 0) {
             province = e.properties.pv_tn
         }
     });
+    if (province == '') {
+        province = 'กรุงเทพมหานคร'
+    }
 
 
+    $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
+        document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '<sup><small>(+' + data.NewConfirmed + ' )</small>  </sup></b> '
+        document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '<sup><small>(+' + data.NewRecovered + ' )</small>  </sup></b>  '
+        document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '<sup><small>(+' + data.NewHospitalized + ' )</small>  </sup></b>'
+        document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '<sup><small>(+' + data.NewDeaths + ' )</small>  </sup></b> '
+    })
 
 
     $.getJSON("https://mapedia.co.th/demo/get_cv_province.php", function (data) {
-        data.forEach(e => {
-            if (e.province == province) {
-                if (e.acc_pui == 0) {
-                    e.acc_pui = 'ไม่ทราบ'
-                }
-                document.getElementById('pro').innerHTML = '<h2 class="display-3" id="pro"> <i class="fa fa-location-arrow" aria-hidden="true"></i> ' + e.province + ' </h2>'
-                document.getElementById('sum_val').innerHTML = ' <h3 id="sum_val">ผู้ป่วยสะสม : ' + e.patient_tt + ' ราย</h3>'
-                document.getElementById('recovery').innerHTML = '  <div id="recovery">' + e.recovery + ' <br>รักษาหาย</div> '
-                document.getElementById('admission').innerHTML = ' <div id="admission">' + e.admission + ' <br>รักษาอยู่</div> '
-                document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + e.patient_new + ' <br>เพิ่มใหม่</div> '
-                document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + e.acc_pui + '<br> PUI สะสม</div> '
-                document.getElementById('death').innerHTML = '  <div id="death">' + e.death + ' <br>เสียชีวิต</div> '
-                document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + e.date + '</small>'
-                Number(e.patient_tt)
-                pa_tt = Number(e.patient_tt)
+        const found = data.find(e => e.province == province);
+        if (found.acc_pui == 0) {
+            found.acc_pui = 'ไม่ทราบ'
+        }
+        document.getElementById('pro').innerHTML = '<h2 class="display-3" id="pro"> <i class="fa fa-location-arrow" aria-hidden="true"></i> ' + found.province + ' </h2>'
+        document.getElementById('sum_val').innerHTML = ' <h3 id="sum_val">ผู้ป่วยสะสม : ' + found.patient_tt + ' ราย</h3>'
+        document.getElementById('recovery').innerHTML = '  <div id="recovery">' + found.recovery + ' <br>รักษาหาย</div> '
+        document.getElementById('admission').innerHTML = ' <div id="admission">' + found.admission + ' <br>รักษาอยู่</div> '
+        document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + found.patient_new + ' <br>เพิ่มใหม่</div> '
+        document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + found.acc_pui + '<br> PUI สะสม</div> '
+        document.getElementById('death').innerHTML = '  <div id="death">' + found.death + ' <br>เสียชีวิต</div> '
+        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + found.date + '</small>'
+        Number(found.patient_tt)
+        pa_tt = Number(found.patient_tt)
 
-                if (pa_tt >= 100) {
-                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 106, 106) 99%)'
-                } else if (pa_tt >= 50) {
-                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 155, 87) 99%)'
-                } else if (pa_tt >= 10) {
-                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(255, 150, 13) 99%)'
-                } else if (pa_tt > 0) {
-                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%)'
-                } else {
-                    document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
-                }
-
-
-            }
-
-        })
+        if (pa_tt >= 100) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 106, 106) 99%)'
+        } else if (pa_tt >= 50) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 155, 87) 99%)'
+        } else if (pa_tt >= 10) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(255, 150, 13) 99%)'
+        } else if (pa_tt > 0) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%)'
+        } else {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
+        }
     })
     get_chart()
     document.getElementById('loading').innerHTML = ''
-
 }
 
 map.on('locationfound', onLocationFound);
 map.locate();
 
 function get_chart() {
+
+
 
     $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
         var res = data.Data
@@ -270,6 +268,7 @@ function get_chart() {
     })
 
     $.getJSON("https://covid19.th-stat.com/api/open/cases/sum", function (data) {
+
         document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + '</small>'
         var data_chart1 = [{
             name: 'ชาย',
