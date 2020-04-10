@@ -103,17 +103,29 @@ function onLocationFound(e) {
         Number(found.patient_tt)
         pa_tt = Number(found.patient_tt)
 
-        if (pa_tt >= 100) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 106, 106) 99%)'
+        if (pa_tt >= 200) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #99002e 99%)'
+            document.getElementById("jumbotron").style.color = '#4d0017'
+        } else if (pa_tt >= 100) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #fe1b1b 99%)'
+            document.getElementById("jumbotron").style.color = '#650101'
         } else if (pa_tt >= 50) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(254, 155, 87) 99%)'
-        } else if (pa_tt >= 10) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgb(255, 150, 13) 99%)'
-        } else if (pa_tt > 0) {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, rgb(255, 204, 63) 99%)'
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #ea484b 99%)'
+            document.getElementById("jumbotron").style.color = '#5b0b0c'
+        } else if (pa_tt >= 20) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #FC4E2A 99%)'
+            document.getElementById("jumbotron").style.color = '#7e2102'
+        } else if (pa_tt > 10) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #FD8D3C 99%)'
+            document.getElementById("jumbotron").style.color = '#652b01'
+        } else if (pa_tt > 5) {
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #FEB24C 99%)'
+            document.getElementById("jumbotron").style.color = '#653a01'
         } else {
-            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #48da48 99%)'
+            document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #33cc33 99%)'
         }
+
+
     })
     get_chart()
     document.getElementById('loading').innerHTML = ''
@@ -184,10 +196,6 @@ function get_chart() {
 
 
 
-
-
-
-
         var group_1 = res.reduce(function (r, row) {
             r[row.Province] = ++r[row.Province] || 1;
             return r;
@@ -223,7 +231,7 @@ function get_chart() {
             if (this.data_pv_th[i].province == 'null') {
                 this.data_pv_th[i].province = 'ไม่ระบุ'
             }
-            table += '  <tr> <td>   ' + this.data_pv_th[i].Province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
+            table += '  <tr> <td>' + (i + 1) + '</td> <td>   ' + this.data_pv_th[i].Province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
         }
         document.getElementById('all_sum_table').innerHTML = table
         var categories_chart1 = []
