@@ -212,3 +212,8 @@ border-radius: 30px;
     outline: 2px solid rgb(255, 169, 9);
   }
   
+
+  .modal-body2 {
+    position: relative;
+    padding: 1px;
+}

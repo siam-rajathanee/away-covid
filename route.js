@@ -109,6 +109,8 @@ markerClusterGroup = L.markerClusterGroup().addTo(map)
 covidlab = L.layerGroup().addTo(map);
 
 
+
+
 var legend = L.control({
     position: 'bottomright'
 });
@@ -446,10 +448,7 @@ function onLocationFound(e) {
         data_set_hos.push(f.properties)
     });
     data_set_hos.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
-
-
     document.getElementById('dis_hospital').innerHTML = '<small id="dis_hospital" class="btn btn-xs ner_hos" onClick="select_place(' + data_set_hos[0].lat + ',' + data_set_hos[0].lon + ' )"> สถานพยาบาลใกล้ที่สุด ' + data_set_hos[0].dis + ' km</small>'
-
 
     for (let i = 0; i < 50; i++) {
         show_hos += '<div class="card mb-3"> <h5 class="card-header">' + data_set_hos[i].name + '</h5>\
@@ -462,6 +461,8 @@ function onLocationFound(e) {
     }
     document.getElementById('show_hos').innerHTML = show_hos
 
+
+
     var show_lab = ''
     var data_set_labcovid = []
     labcovid.features.forEach(f => {
@@ -472,10 +473,68 @@ function onLocationFound(e) {
         data_set_labcovid.push(f.properties)
     });
     data_set_labcovid.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
+
     data_set_labcovid.forEach(f => {
         show_lab += '<div class="card mb-3"> <h5 class="card-header">' + f.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.dis + ' กม. </div> <div class="col-xs-6  text-right"  onClick="select_place(' + f.lat + ',' + f.long + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> </div> <hr>'
     })
     document.getElementById('show_lab').innerHTML = show_lab
+
+
+
+
+    var show_rpst = ''
+    var data_set_rpst = []
+    rpst.features.forEach(f => {
+        var distance = turf.distance(point, f, {
+            units: 'kilometers'
+        });
+        f.properties.dis = Number(distance.toFixed(2))
+        data_set_rpst.push(f.properties)
+    });
+    data_set_rpst.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
+    for (let i = 0; i < 30; i++) {
+        show_rpst += '<div class="card mb-3"> <h5 class="card-header">' + data_set_rpst[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_rpst[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_rpst[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_rpst[i].lat + ',' + data_set_rpst[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+    }
+    document.getElementById('show_rpst').innerHTML = show_rpst
+
+
+
+
+
+    var show_h2 = ''
+    var data_set_clinic = []
+    clinic.features.forEach(f => {
+        var distance = turf.distance(point, f, {
+            units: 'kilometers'
+        });
+        f.properties.dis = Number(distance.toFixed(2))
+        data_set_clinic.push(f.properties)
+    });
+    data_set_clinic.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
+    for (let i = 0; i < 30; i++) {
+        show_h2 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_clinic[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_clinic[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_clinic[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_clinic[i].lat + ',' + data_set_clinic[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+    }
+    document.getElementById('show_h2').innerHTML = show_h2
+
+
+
+    var show_h3 = ''
+    var data_set_medicine = []
+    medicine.features.forEach(f => {
+        var distance = turf.distance(point, f, {
+            units: 'kilometers'
+        });
+        f.properties.dis = Number(distance.toFixed(2))
+        data_set_medicine.push(f.properties)
+    });
+    data_set_medicine.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
+    for (let i = 0; i < 30; i++) {
+        show_h3 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_medicine[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_medicine[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_medicine[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_medicine[i].lat + ',' + data_set_medicine[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+    }
+    document.getElementById('show_h3').innerHTML = show_h3
+
+
+
 
 
     document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-awaycovid btn-lg btn-block" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
