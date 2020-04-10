@@ -117,13 +117,14 @@ var legend = L.control({
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
-        div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">ซ่อนสัญลักษณ์</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button><br> ';
+
         div.innerHTML += '<img src="img/hospital.png" width="30px"> <small class="prompt"> สถานรับตรวจโรค Covid-19 </small> <br> ';
         div.innerHTML += '<img src="img/hospital_1.png" width="30px"> <small class="prompt"> โรงพยาบาล </small> <br> ';
         div.innerHTML += '<img src="img/hospital_2.png" width="30px"> <small class="prompt"> โรงพยาบาลเอกชน </small> <br> ';
         div.innerHTML += '<img src="img/rpst.png" width="30px"> <small class="prompt"> รพ.สต./สาธารณสุขชุมชน  </small> <br> ';
         div.innerHTML += '<img src="img/h2.png" width="30px"> <small class="prompt"> คลีนิค  </small> <br> ';
         div.innerHTML += '<img src="img/h3.png" width="30px"> <small class="prompt"> ร้านขายยา  </small> <br> ';
+        div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt">ซ่อนสัญลักษณ์</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button>';
 
         return div;
     };
