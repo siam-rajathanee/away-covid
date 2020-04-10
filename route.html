@@ -25,33 +25,46 @@
   <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
   <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+  <link rel="stylesheet" href="https://brandonxiang.github.io/leaflet.marker.highlight/index.css">
+  <script src="https://brandonxiang.github.io/leaflet.marker.highlight/index.js#"></script>
 
 
 </head>
 
 <body>
+
   <div id="loading"></div>
+
   <div class="card">
+
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="modal" data-target="#setting">
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+          </button>
+          <div class="row">
+            <div class="col-xs-2">
+              <img id="img_profile" class="profile_img   text-left" src="img/awaycovid19.png" alt="">
+            </div>
+            <div class="col-xs-7">
+              <h5 id="displayname">AWAY COVID 19</h5>
+              <small id="dis_hospital" class="btn btn-xs ner_hos"> สถานพยาบาลใกล้ที่สุด - km</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
 
     <div id="map"></div>
 
     <div class="footer" role="group" aria-label="...">
-
-
-
-
-      <!-- <button type="button" class="btn btn-warning " data-toggle="modal" data-target="#search" >
-        <i class="fa fa-map-marker" aria-hidden="true"></i> กรุณาเปิด GPS ก่อนใช้งานเส้นทาง </button> -->
-
-      <button class="btn btn-warning btn-block" type="button" id="btn_search">
+      <button class="btn btn-awaycovid btn-block" type="button" id="btn_search">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         กำลังรอรับค่าตำแหน่ง Location . . . .
       </button>
-      <!-- <button class="btn btn-warning" type="button" id="btn_search2">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        กำลังรอรับค่าตำแหน่ง Location . . . .
-      </button> -->
-
     </div>
 
 
@@ -123,6 +136,100 @@
     </div>
 
 
+    <!-- setting -->
+    <div id="setting" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><i class="fa fa-cogs" aria-hidden="true"></i> ตั้งค่าแผนที่</h4>
+          </div>
+          <div class="modal-body ">
+
+            <form id="form_setting">
+              <fieldset>
+                <label for="exampleSelect1">เลือกแสดงข้อมูล</label>
+
+                <div class="form-group">
+                  <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_1" checked
+                    data-toggle="toggle" id="toggle-1">
+                  <img src="img/hospital.png" width="30px"> <small class="prompt">
+                    สถานรับตรวจโรค Covid-19 </small>
+                </div>
+
+                <div class="form-group">
+                  <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_2" checked
+                    data-toggle="toggle" id="toggle-1">
+                  <img src="img/hospital_1.png" width="30px"> <small class="prompt">
+                    โรงพยาบาล </small>
+                </div>
+
+                <div class="form-group">
+                  <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_4" checked
+                    data-toggle="toggle" id="toggle-1">
+                  <img src="img/rpst.png" width="30px"> <small class="prompt">
+                    รพ.สต./สาธารณสุขชุมชน </small>
+                </div>
+
+                <div class="form-group">
+                  <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_5" data-toggle="toggle"
+                    id="toggle-1">
+                  <img src="img/h2.png" width="30px"> <small class="prompt">
+                    คลีนิค </small>
+                </div>
+
+                <div class="form-group">
+                  <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_6" data-toggle="toggle"
+                    id="toggle-1">
+                  <img src="img/h3.png" width="30px"> <small class="prompt">
+                    ร้านขายยา </small>
+                </div>
+              </fieldset>
+
+
+              <fieldset>
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <label for="exampleSelect1">เลือก Basemap</label>
+                  </div>
+                  <div class="col-xs-3 text-center">
+                    <label>
+                      <input type="radio" name="basemap" value="base1" checked>
+                      <img src="img/base5.png" width="100%">
+                    </label>
+                  </div>
+                  <div class="col-xs-3 text-center">
+                    <label>
+                      <input type="radio" name="basemap" value="base2">
+                      <img src="img/base6.png" width="100%">
+                    </label>
+                  </div>
+                  <div class="col-xs-3 text-center">
+                    <label>
+                      <input type="radio" name="basemap" value="base3">
+                      <img src="img/base4.png" width="100%">
+                    </label>
+                  </div>
+                  <div class="col-xs-3 text-center">
+                    <label>
+                      <input type="radio" name="basemap" value="base4">
+                      <img src="img/base2.png" width="100%">
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+              <hr>
+              <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
 </body>
 

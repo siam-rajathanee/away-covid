@@ -1,37 +1,40 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     decodedIDToken = liff.getDecodedIDToken().email
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
-//     $.ajax({
-//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-//         method: 'post',
-//         data: ({
-//             pictureUrl: pictureUrl,
-//             userId: userId,
-//             displayName: displayName,
-//             page_view: 'route.html'
-//         }),
-//         success: function (data) {
-//         }
-//     })
-// }
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
+    document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
+    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653984157-0qam36em" })
-// }
-// main()
+    $.ajax({
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            page_view: 'route.html'
+        }),
+        success: function (data) {
+        }
+    })
+}
+
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653984157-0qam36em" })
+}
+main()
 
 
 
@@ -41,10 +44,45 @@ var map = L.map('map', {
     center: [13.742701, 100.673909],
     zoom: 13
 });
-var Stamen = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+
+CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
+    maxZoom: 19
+})
+
+CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+})
+
+stadia = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+    attributions: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+})
+
+osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attributions: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+})
+
+gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+    attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
+})
+
+hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&ppi=72&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
+    attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
+    subdomains: '1234',
     maxZoom: 20
-}).addTo(map)
+})
+
+
+var today = new Date().getHours();
+if (today >= 3 && today <= 21) {
+    hmap.addTo(map)
+} else {
+    CartoDB_DarkMatter.addTo(map)
+}
+
 
 var urlParams = new URLSearchParams(window.location.search);
 var marker, gps, dataurl, tam, amp, pro, x, y;
@@ -182,6 +220,8 @@ function onLocationFound(e) {
                     var distance = turf.distance(point, f, {
                         units: 'kilometers'
                     });
+
+
                     f.properties.dis = Number(distance.toFixed(2))
                     if (f.properties.type_code == '4') {
                         popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
@@ -311,6 +351,7 @@ function onLocationFound(e) {
         }
     });
 
+
     labcovid.features.forEach(e => {
         var ptsWithin_labcovid = turf.pointsWithinPolygon(e, buffered);
         if (ptsWithin_labcovid.features.length > 0) {
@@ -406,6 +447,10 @@ function onLocationFound(e) {
         data_set_hos.push(f.properties)
     });
     data_set_hos.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
+
+    document.getElementById('dis_hospital').innerHTML = '<small id="dis_hospital" class="btn btn-xs ner_hos"> สถานพยาบาลใกล้ที่สุด ' + data_set_hos[0].dis + ' km</small>'
+
+
     for (let i = 0; i < 50; i++) {
         show_hos += '<div class="card mb-3"> <h5 class="card-header">' + data_set_hos[i].name + '</h5>\
              <h5 class="card-header"> จำนวนเตียงที่รองรับผู้ป่วย ' + data_set_hos[i].bed_total + ' เตียง </h5>\
@@ -465,6 +510,30 @@ $("#form_setting").submit(function (event) {
     toggle_4 = event.target.toggle_4.checked
     toggle_5 = event.target.toggle_5.checked
     toggle_6 = event.target.toggle_6.checked
+
+    basemap = event.target.basemap.value
+
+    if (basemap == 'base1') {
+        hmap.addTo(map)
+        gmap.remove()
+        osm.remove()
+        CartoDB_DarkMatter.remove()
+    } else if (basemap == 'base2') {
+        hmap.remove()
+        gmap.addTo(map)
+        osm.remove()
+        CartoDB_DarkMatter.remove()
+    } else if (basemap == 'base3') {
+        hmap.remove()
+        gmap.remove()
+        osm.addTo(map)
+        CartoDB_DarkMatter.remove()
+    } else {
+        hmap.remove()
+        gmap.remove()
+        osm.remove()
+        CartoDB_DarkMatter.addTo(map)
+    }
 
 
     if (toggle_1 == true) {
