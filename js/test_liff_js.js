@@ -52,14 +52,13 @@ var marker, gps, dataurl, tam, amp, pro, x, y;
 document.getElementById('loading').innerHTML = '  <div class="spinner-grow text-danger loading" role="status"><span class="sr-only"></span></div>'
 document.getElementById('btn_search').innerHTML = '<button class="btn btn-awaycovid  btn-lg  btn-block" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> กำลังรอรับค่าตำแหน่ง Location . . . . </button>'
 
-
 markerClusterGroup = L.markerClusterGroup().addTo(map)
 covidlab = L.layerGroup().addTo(map);
+
 
 var legend = L.control({
     position: 'bottomright'
 });
-
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -75,7 +74,6 @@ function showDisclaimer() {
     };
     legend.addTo(map);
 }
-
 function hideDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -84,8 +82,8 @@ function hideDisclaimer() {
     };
     legend.addTo(map);
 }
-
 hideDisclaimer()
+
 
 var case_hospital = L.icon({
     iconUrl: 'img/hospital.png',
@@ -122,11 +120,16 @@ clinic = geojson_clinic
 medicine = geojson_medicine
 labcovid = labcovid
 
-async function onLocationFound(e) {
+
+
+
+
+function onLocationFound(e) {
     document.getElementById('loading').innerHTML = ''
 
-    var radius = 50;
-    get_latlng = [e.latlng.lng, e.latlng.lat]
+    var radius = 5;
+    // get_latlng = [e.latlng.lng, e.latlng.lat]
+    get_latlng = [100.571060, 13.701618]
 
     var point = turf.point(get_latlng);
 
@@ -144,14 +147,16 @@ async function onLocationFound(e) {
         units: 'kilometers'
     });
     var buffereds = L.geoJson(buffered, {
-        stroke: false,
-        color: 'green',
-        fillColor: 'green',
-        fillOpacity: 0.0,
+        stroke: true,
+        color: 'rgb(6, 167, 167)',
+        weight: 5,
+        opacity: 0.3,
+        fillOpacity: 0,
     }).addTo(map)
     map.fitBounds(buffereds.getBounds())
     console.log(geojson_health);
-    L.geoJson(geojson_health, {
+
+    hos_all = L.geoJson(geojson_health, {
 
 
         pointToLayer: function (f, latlng) {
@@ -217,7 +222,7 @@ async function onLocationFound(e) {
                 });
             }
         }
-    })
+    }).addTo(covidlab)
 
     var buffered = turf.buffer(point, radius, {
         units: 'kilometers'
@@ -226,9 +231,10 @@ async function onLocationFound(e) {
     var ptsWithin_rpst = turf.pointsWithinPolygon(rpst, buffered);
     var ptsWithin_clinic = turf.pointsWithinPolygon(clinic, buffered);
     var ptsWithin_medicine = turf.pointsWithinPolygon(medicine, buffered);
+    console.log(ptsWithin_rpst);
 
     // รพสต    
-    L.geoJson(ptsWithin_rpst, {
+    รพสต = L.geoJson(ptsWithin_rpst, {
         pointToLayer: function (f, latlng) {
             var distance = turf.distance(point, f, {
                 units: 'kilometers'
@@ -251,10 +257,10 @@ async function onLocationFound(e) {
             }
 
         }
-    }).addTo(markerClusterGroup)
+    }).addTo(covidlab)
 
     // คลีนิค
-    L.geoJson(ptsWithin_clinic, {
+    คลีนิค = L.geoJson(ptsWithin_clinic, {
         pointToLayer: function (f, latlng) {
             var distance = turf.distance(point, f, {
                 units: 'kilometers'
@@ -273,7 +279,8 @@ async function onLocationFound(e) {
             });
             // }).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
         }
-    }).addTo(markerClusterGroup)
+    }).addTo(covidlab)
+    //.addTo(markerClusterGroup)
 
     // ร้านยา
     L.geoJson(ptsWithin_medicine, {
@@ -295,7 +302,8 @@ async function onLocationFound(e) {
             });
             //}).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
         }
-    }).addTo(markerClusterGroup)
+    })
+    //.addTo(markerClusterGroup)
 
     //var data = ptsWithin_health.features
 
@@ -358,10 +366,38 @@ async function onLocationFound(e) {
 
     document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-awaycovid btn-lg btn-block" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
 
+
+
+    map.on('zoomend', function (e) {
+        zoom = e.target._zoom
+        console.log(zoom);
+
+        if (zoom <= 11) {
+            covidlab.clearLayers()
+            hos_all.addTo(markerClusterGroup)
+            รพสต.addTo(markerClusterGroup)
+            คลีนิค.addTo(markerClusterGroup)
+        } else {
+            markerClusterGroup.clearLayers()
+            hos_all.addTo(covidlab)
+            รพสต.addTo(covidlab)
+            คลีนิค.addTo(covidlab)
+        }
+    });
+
+
+
 }
+
+
 
 map.on('locationfound', onLocationFound);
 map.locate();
+
+
+
+
+
 
 
 var local_icon = L.icon({
