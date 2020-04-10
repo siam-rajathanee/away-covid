@@ -128,8 +128,8 @@ function onLocationFound(e) {
     document.getElementById('loading').innerHTML = ''
 
     var radius = 5;
-    // get_latlng = [e.latlng.lng, e.latlng.lat]
-    get_latlng = [100.571060, 13.701618]
+    get_latlng = [e.latlng.lng, e.latlng.lat]
+    // get_latlng = [100.571060, 13.701618]
 
     var point = turf.point(get_latlng);
 
@@ -154,9 +154,21 @@ function onLocationFound(e) {
         fillOpacity: 0,
     }).addTo(map)
     map.fitBounds(buffereds.getBounds())
-    console.log(geojson_health);
 
-    hos_all = L.geoJson(geojson_health, {
+    var buffered = turf.buffer(point, radius, {
+        units: 'kilometers'
+    });
+    // var ptsWithin_health = turf.pointsWithinPolygon(place_health, buffered);
+    var ptsWithin_rpst = turf.pointsWithinPolygon(rpst, buffered);
+    var ptsWithin_clinic = turf.pointsWithinPolygon(clinic, buffered);
+    var ptsWithin_medicine = turf.pointsWithinPolygon(medicine, buffered);
+    var ptsWithin_geojson_health = turf.pointsWithinPolygon(geojson_health, buffered);
+
+
+    console.log(ptsWithin_geojson_health);
+
+
+    hos_all = L.geoJson(ptsWithin_geojson_health, {
 
 
         pointToLayer: function (f, latlng) {
@@ -224,15 +236,6 @@ function onLocationFound(e) {
         }
     }).addTo(covidlab)
 
-    var buffered = turf.buffer(point, radius, {
-        units: 'kilometers'
-    });
-    // var ptsWithin_health = turf.pointsWithinPolygon(place_health, buffered);
-    var ptsWithin_rpst = turf.pointsWithinPolygon(rpst, buffered);
-    var ptsWithin_clinic = turf.pointsWithinPolygon(clinic, buffered);
-    var ptsWithin_medicine = turf.pointsWithinPolygon(medicine, buffered);
-    console.log(ptsWithin_rpst);
-
     // รพสต    
     รพสต = L.geoJson(ptsWithin_rpst, {
         pointToLayer: function (f, latlng) {
@@ -280,7 +283,6 @@ function onLocationFound(e) {
             // }).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
         }
     }).addTo(covidlab)
-    //.addTo(markerClusterGroup)
 
     // ร้านยา
     L.geoJson(ptsWithin_medicine, {
@@ -302,10 +304,8 @@ function onLocationFound(e) {
             });
             //}).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
         }
-    })
-    //.addTo(markerClusterGroup)
+    }).addTo(covidlab)
 
-    //var data = ptsWithin_health.features
 
 
     var show_hos = ''
@@ -365,26 +365,6 @@ function onLocationFound(e) {
 
 
     document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-awaycovid btn-lg btn-block" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
-
-
-
-    map.on('zoomend', function (e) {
-        zoom = e.target._zoom
-        console.log(zoom);
-
-        if (zoom <= 11) {
-            covidlab.clearLayers()
-            hos_all.addTo(markerClusterGroup)
-            รพสต.addTo(markerClusterGroup)
-            คลีนิค.addTo(markerClusterGroup)
-        } else {
-            markerClusterGroup.clearLayers()
-            hos_all.addTo(covidlab)
-            รพสต.addTo(covidlab)
-            คลีนิค.addTo(covidlab)
-        }
-    });
-
 
 
 }
