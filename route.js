@@ -447,7 +447,8 @@ function onLocationFound(e) {
     });
     data_set_hos.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
 
-    document.getElementById('dis_hospital').innerHTML = '<small id="dis_hospital" class="btn btn-xs ner_hos"> สถานพยาบาลใกล้ที่สุด ' + data_set_hos[0].dis + ' km</small>'
+
+    document.getElementById('dis_hospital').innerHTML = '<small id="dis_hospital" class="btn btn-xs ner_hos" onClick="select_place(' + data_set_hos[0].lat + ',' + data_set_hos[0].lon + ' )"> สถานพยาบาลใกล้ที่สุด ' + data_set_hos[0].dis + ' km</small>'
 
 
     for (let i = 0; i < 50; i++) {
@@ -495,7 +496,11 @@ var local_icon = L.icon({
 
 function select_place(lat, lng) {
     $("#search").modal("hide");
-    map.setView([lat, lng], 19);
+    map.setView([lat, lng], 16);
+}
+
+function back_local() {
+    map.fitBounds(buffereds.getBounds())
 }
 
 

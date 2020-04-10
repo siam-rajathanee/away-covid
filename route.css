@@ -175,7 +175,10 @@ height: 13vh;
 .rating-desc .col-md-3 {padding-right: 0px;}
 .sr-only { margin-left: 5px;overflow: visible;clip: auto; }
 
-
+h5{
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
 
 
 .loading {
