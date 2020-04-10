@@ -14910,6 +14910,42 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
+                    101.395795,
+                    14.054253,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1050",
+                place_name: "จังหวัดปราจีนบุรี รายที่ 6",
+                lat: "14.054253",
+                lon: "101.395795",
+                case_numbe: "1",
+                date_start: "2020-04-08",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 6 เพศชาย อายุ 37 ปี",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดปราจีนบุรี",
+                link_news: "https://www.facebook.com/pho.prachin/photos/pcb.3085691984827704/3086089611454608/?type=3&theater",
+                tb_code: "",
+                tb_th: "ท่างาม",
+                ap_th: "เมืองปราจีนบุรี",
+                pro_th: "ปราจีนบุรี",
+                postcode: "25000",
+                age: "37",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
                     99.810914,
                     6.863838,
                 ],
@@ -15774,6 +15810,42 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
+                    101.178635,
+                    6.170938,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1054",
+                place_name: "จังหวัดยะลา รายที่ 76 และ 77",
+                lat: "6.170938",
+                lon: "101.178635",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.6 ตำบลบ้านแหร รักาษอยู่ รพ.ธารโต",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/a.1544915838907760/2880902731975724/?type=3&theater",
+                tb_code: "",
+                tb_th: "ธารโต",
+                ap_th: "ธารโต",
+                pro_th: "ยะลา",
+                postcode: "95150",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
                     98.296022,
                     7.893567,
                 ],
@@ -16054,6 +16126,42 @@ var geojson_covidcase = {
                 pro_th: "ภูเก็ต",
                 postcode: "83150",
                 age: "29",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.395924,
+                    14.053952,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1051",
+                place_name: "จังหวัดปราจีนบุรี รายที่ 7",
+                lat: "14.053952",
+                lon: "101.395924",
+                case_numbe: "1",
+                date_start: "2020-04-08",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 7 เพศชาย อายุ 15 ปี บุตรชายผู้ป่วยรายที่ 4",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดปราจีนบุรี",
+                link_news: "https://www.facebook.com/pho.prachin/photos/pcb.3085691984827704/3086089844787918/?type=3&theater",
+                tb_code: "",
+                tb_th: "ท่างาม",
+                ap_th: "เมืองปราจีนบุรี",
+                pro_th: "ปราจีนบุรี",
+                postcode: "25000",
+                age: "15",
                 gender: "ชาย",
             },
         },
@@ -16350,6 +16458,78 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
+                    101.257656,
+                    6.263482,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1052",
+                place_name: "จังหวัดยะลา รายที่ 72 73 และ74",
+                lat: "6.263482",
+                lon: "101.257656",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.1 ตำบลเขื่อนบางลาง รักษาอยู่ รพ.บันนังสตา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/a.1544915838907760/2880902731975724/?type=3&theater",
+                tb_code: "",
+                tb_th: "บันนังสตา",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.257943,
+                    6.263106,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1053",
+                place_name: "จังหวัดยะลา รายที่ 75",
+                lat: "6.263106",
+                lon: "101.257943",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.2 ตำบลบาเจาะ รักษาอยู่ รพ.บันนังสตา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/a.1544915838907760/2880902731975724/?type=3&theater",
+                tb_code: "",
+                tb_th: "บันนังสตา",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
                     98.974176,
                     18.790096,
                 ],
@@ -16558,6 +16738,510 @@ var geojson_covidcase = {
                 pro_th: "",
                 postcode: "",
                 age: "39",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.877589,
+                    19.190167,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1048",
+                place_name: "จังหวัดพะเยา รายที่ 3",
+                lat: "19.190167",
+                lon: "99.877589",
+                case_numbe: "1",
+                date_start: "2020-04-09",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยติดเชื้อไวรัสโควิด-19 เพิ่มอีก 1 ราย โดยเป็นผู้ป่วยชายไทย อายุ 42 ปี เป็นคน อ.เมือง จ.พะเยา พบประวัติมีโรคประจำตัวเป็นภูมิแพ้ และประวัติการทำงานเป็นพนักงานขายอิสระ เส้นทางสายเหนือ เมื่อวันที่ 25 มี.ค.63 ได้เดินทางกลับภูมิลำเนาด้วยรถยนต์ส่วนตัว จึงกักตัวเองอยู่ที่บ้านสวนเพียงลำพัง ระหว่างวันที่ 25 มี.ค.-7 เม.ย.63 เริ่มป่วยเมื่อวันที่ 6 เม.ย.63 ด้วยอาการครั่นเนื้อครั่นตัว ไอ มีน้ำมูก จึงไปเข้ารับการตรวจรักษาที่โรงพยาบาลพะเยา โดยให้ประวัติสัมผัสใกล้ชิดกับผู้ป่วยโควิด-19 ผลการตรวจเมื่อวันที่ 8 เม.ย.ที่ผ่านมา พบติดเชื้อไวรัสโควิด-19 ขณะนี้ผู้ป่วยรักษาตัวอยู่ที่โรงพยาบาลพะเยา มีผู้สัมผัสผู้ป่วยทั้งสิ้นจำนวน 20 ราย ทุกรายเป็นกลุ่มผู้สัมผัสเสี่ยงต่ำ ได้รับคำแนะนำให้ปฎิบัติตนตามหลักสุขอนามัยในการป้องกันโรคแล้ว",
+                ref_source: "ไทยรัฐออนไลน์",
+                link_news: "https://www.thairath.co.th/news/local/north/1816776",
+                tb_code: "",
+                tb_th: "บ้านต๋อม",
+                ap_th: "เมืองพะเยา",
+                pro_th: "พะเยา",
+                postcode: "56000",
+                age: "42",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.577149,
+                    14.360572,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1049",
+                place_name: "จังหวัดอยุธยาผู้ป่วยรายที่ 6",
+                lat: "14.360572",
+                lon: "100.577149",
+                case_numbe: "1",
+                date_start: "2020-04-09",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยหญิง อายุ 28 ปี อาชีพธุรกิจส่วนตัว เป็นร้านอาหาร และเปิดบริการที่พัก",
+                ref_source: "ผู้ว่าราชการจังหวัดพระนครศรีอยุธยา",
+                link_news: "https://www.facebook.com/281944462527379/photos/a.281945085860650/556059315115891/?type=3&theater",
+                tb_code: "",
+                tb_th: "หัวรอ",
+                ap_th: "พระนครศรีอยุธยา",
+                pro_th: "พระนครศรีอยุธยา",
+                postcode: "13000",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.29535,
+                    7.896013,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1055",
+                place_name: "จังหวัดภูเก็ต รายที่ 162",
+                lat: "7.896013",
+                lon: "98.29535",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 162 หญิงไทย อายุ 56 ปี อาชีพขายอาหาร ในพื้นที่ ต.ป่าตอง อ.กะทู้เป็นผู้สัมผัสใกล้กับผู้ป่วยยืนยันรายที่ 92 และ 114 มีอาการป่วยวันที่ 29 มีนาคม 2563",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ป่าตอง",
+                ap_th: "กะทู้",
+                pro_th: "ภูเก็ต",
+                postcode: "83150",
+                age: "56",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.29893,
+                    7.893463,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1056",
+                place_name: "จังหวัดภูเก็ต รายที่ 163",
+                lat: "7.893463",
+                lon: "98.29893",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 163 หญิงไทย อายุ 37 ปี อาชีพ พนักงานเสิร์ฟโรงแรม EXTAT",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ป่าตอง",
+                ap_th: "กะทู้",
+                pro_th: "ภูเก็ต",
+                postcode: "83150",
+                age: "37",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.295357,
+                    7.89613,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1057",
+                place_name: "จังหวัดภูเก็ต รายที่ 164",
+                lat: "7.89613",
+                lon: "98.295357",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 164 หญิงไทย อายุ 29 ปี อาชีพ พนักงานเสิร์ฟไทเกอร์ ป่าตอง",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ป่าตอง",
+                ap_th: "กะทู้",
+                pro_th: "ภูเก็ต",
+                postcode: "83150",
+                age: "29",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.299284,
+                    7.887636,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1058",
+                place_name: "จังหวัดภูเก็ต รายที่ 165",
+                lat: "7.887636",
+                lon: "98.299284",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 165 หญิงไทย อายุ 45 ปี อาชีพ รีเซฟชั่น ROOM22",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ป่าตอง",
+                ap_th: "กะทู้",
+                pro_th: "ภูเก็ต",
+                postcode: "83150",
+                age: "45",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.296188,
+                    7.893707,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1059",
+                place_name: "จังหวัดภูเก็ต รายที่ 166",
+                lat: "7.893707",
+                lon: "98.296188",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 166 หญิงไทย อายุ 21 ปี อาชีพ พนักงานเคาร์เตอร์ทัวร์",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ป่าตอง",
+                ap_th: "กะทู้",
+                pro_th: "ภูเก็ต",
+                postcode: "83150",
+                age: "21",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.404967,
+                    7.880995,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1060",
+                place_name: "จังหวัดภูเก็ต รายที่ 167",
+                lat: "7.880995",
+                lon: "98.404967",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 167 หญิงไทย อายุ 30 ปี อาชีพ พยาบาล ห้องผ่าตัด โรงพยาบาลอบจ.ภูเก็ต เริ่มป่วย 4 เมษายน 2563",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตลาดใหญ่",
+                ap_th: "เมืองภูเก็ต",
+                pro_th: "ภูเก็ต",
+                postcode: "83000",
+                age: "30",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.404967,
+                    7.880995,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1061",
+                place_name: "จังหวัดภูเก็ต รายที่ 168",
+                lat: "7.880995",
+                lon: "98.404967",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 168 เด็กชายไทย อายุ 3 ปี ลูก ของผู้ติดเชื้อยืนยัน",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตลาดใหญ่",
+                ap_th: "เมืองภูเก็ต",
+                pro_th: "ภูเก็ต",
+                postcode: "83000",
+                age: "3",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.40726,
+                    7.882185,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1062",
+                place_name: "จังหวัดภูเก็ต รายที่ 169",
+                lat: "7.882185",
+                lon: "98.40726",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 169 ชายไทย อายุ 60 ปี. บิดา ของผู้ติดเชื้อยืนยัน",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตลาดใหญ่",
+                ap_th: "เมืองภูเก็ต",
+                pro_th: "ภูเก็ต",
+                postcode: "83000",
+                age: "60",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.40726,
+                    7.882185,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1063",
+                place_name: "จังหวัดภูเก็ต รายที่ 170",
+                lat: "7.882185",
+                lon: "98.40726",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 170 หญิงไทย อายุ 60 ปี มารดา ของผู้ติดเชื้อยืนยัน",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3042768642451807/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตลาดใหญ่",
+                ap_th: "เมืองภูเก็ต",
+                pro_th: "ภูเก็ต",
+                postcode: "83000",
+                age: "60",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.970701,
+                    6.027149,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1064",
+                place_name: "จังหวัดนราธิวาส รายที่ 26",
+                lat: "6.027149",
+                lon: "101.970701",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 26 เพศชายอายุ 27 ปี อยู่ ต.สุไหงโก-ลก อ..สุไหงโก-ลก สัมผัสกับผู้ป่วยรายที่ 15",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดนราธิวาส",
+                link_news: "https://www.facebook.com/NaraPublicHealth/photos/a.1445954118760610/3025319807490692/?type=3&theater",
+                tb_code: "",
+                tb_th: "สุไหงโก-ลก",
+                ap_th: "สุไหงโก-ลก",
+                pro_th: "นราธิวาส",
+                postcode: "96120",
+                age: "27",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.467744,
+                    8.030091,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1065",
+                place_name: "จังหวัดนครศรีธรรมราช รายที่ 7",
+                lat: "8.030091",
+                lon: "99.467744",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 7 ล่าสุดที่ถูกตรวจพบในวันนี้เป็นชายชราอายุ 74 ปี มีภูมิลำเนาอยู่ที่ ตำบลบ้านลำนาว อำเภอบางขัน จังหวัดนครศรีธรรมราช ซึ่งขณะนี้ได้ถูกนำตัวส่ง รพ.มหาราชนครศรีธรรมราช ยังดึกผู้ป่วยโควิด-19 เรียบร้อยแล้ว โดยเจ้าหน้าที่ได้เข้าทำการสืบสวนโรคพบว่าผู้ป่วยรายนี้มีประวัติป่วยเบาหวาน ความดัน และหัวใจ อาการหลังจากการแสดงอาการและตรวจพบเชื้อค่อนข้างวิกฤติมีความเสี่ยงสูง",
+                ref_source: "Sanook",
+                link_news: "https://www.sanook.com/news/8077030/",
+                tb_code: "",
+                tb_th: "บ้านลำนาว",
+                ap_th: "บางขัน",
+                pro_th: "นครศรีธรรมราช",
+                postcode: "80360",
+                age: "74",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.585126,
+                    8.0688,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1066",
+                place_name: "จังหวัดพังงา รายที่ 1",
+                lat: "8.0688",
+                lon: "98.585126",
+                case_numbe: "1",
+                date_start: "2020-04-09",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ยืนยันรายแรกในพื้นที่ตำบลเกาะยาวใหญ่ อ.เกาะยาว จ.พังงา ซึ่งผู้ป่วยเป็นเด็กชายอายุ 8 ขวบ สอบสวนมีผู้สัมผัสใกล้ชิดในครอบครัวเด็กรวม 9 คน และผู้ที่เข้าข่ายต้องสอบสวนโรคอีก 68 คน ทางจังหวัดพังงาได้ออกประกาศล็อกดาวน์ปิดการเข้าออกเกาะยาวทั้งอำเภอ และปิดตำบลเกาะยาวใหญ่ทั้งตำบลห้ามการเดินทางเข้าออก พร้อมประกาศปิดร้านค้า ร้านอาหาร ร้านสะดวกซื้อตั้งแต่เวลา 20.00 – 05.00 น.ตั้งแต่วันที่ 9 เมษายน เป็นต้นไป",
+                ref_source: "สำนักงานสาธารณสุข จังหวัดพังงา",
+                link_news: "https://www.facebook.com/pngo.moph",
+                tb_code: "",
+                tb_th: "เกาะยาวใหญ่",
+                ap_th: "เกาะยาว",
+                pro_th: "พังงา",
+                postcode: "82160",
+                age: "8",
                 gender: "ชาย",
             },
         },
