@@ -9,7 +9,6 @@ async function getUserProfile() {
     }
     document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-
     $.ajax({
         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
         method: 'post',
