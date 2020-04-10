@@ -36,8 +36,8 @@ main()
 
 
 
-// userId = 'U813edb9e9e22c2dc43d39fcdab3d9ff9'
-// displayName = 'MAPEDIA'
+userId = 'U813edb9e9e22c2dc43d39fcdab3d9ff9'
+displayName = 'MAPEDIA'
 
 
 
@@ -96,19 +96,10 @@ markerClusterGroup = L.layerGroup().addTo(map)
 point_ann = L.layerGroup().addTo(map)
 set_map = L.layerGroup().addTo(map)
 line_track = L.layerGroup().addTo(map)
+checkpoint = L.layerGroup().addTo(map)
 
 
 
-// map.on('zoomend', function (e) {
-//     zoom = e.target._zoom
-//     if (zoom <= 10) {
-//         point_ann.clearLayers()
-//         geo_test.addTo(markerClusterGroup)
-//     } else {
-//         markerClusterGroup.clearLayers()
-//         geo_test.addTo(point_ann)
-//     }
-// });
 
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
@@ -162,7 +153,7 @@ var local_icon = L.icon({
 });
 var warning_covid = L.icon({
     iconUrl: 'img/warning_covid.png',
-    iconSize: [30, 30], // size of the icon
+    iconSize: [20, 20], // size of the icon
 });
 
 
@@ -617,17 +608,34 @@ function get_point() {
     place_announce = nietos2[0]
 
 
-
-
-
-
-    L.geoJson(geojson_checkpoint, {
+    ck_point_phs = L.geoJson(geojson_checkpoint, {
         pointToLayer: function (f, latlng) {
             return L.marker(latlng, {
                 icon: warning_covid,
             }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
         },
-    }).addTo(points_case)
+    })
+
+
+    ck_point = L.geoJson(checkpoint_th, {
+        pointToLayer: function (f, latlng) {
+            return L.marker(latlng, {
+                icon: warning_covid,
+            }).bindPopup('<p>จุดตรวจ : ' + f.properties.name + ' </p>')
+        },
+    })
+
+    map.on('zoomend', function (e) {
+        zoom = e.target._zoom
+        if (zoom <= 9) {
+            checkpoint.clearLayers()
+        } else {
+            ck_point_phs.addTo(checkpoint)
+            ck_point.addTo(checkpoint)
+        }
+    });
+
+
 
 
     function onLocationFound(e) {
