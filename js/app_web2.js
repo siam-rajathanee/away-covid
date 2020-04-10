@@ -74,13 +74,16 @@ function onLocationFound(e) {
         province = 'กรุงเทพมหานคร'
     }
 
-
+    function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
     $.getJSON("https://covid19.th-stat.com/api/open/today", function (data) {
         document.getElementById('update_2').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + data.UpdateDate + ' </small>'
-        document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + data.Confirmed + '<sup><small>(+' + data.NewConfirmed + ' )</small>  </sup></b> '
-        document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + data.Recovered + '<sup><small>(+' + data.NewRecovered + ' )</small>  </sup></b>  '
-        document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + data.Hospitalized + '<sup><small>(+' + data.NewHospitalized + ' )</small>  </sup></b>'
-        document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + data.Deaths + '<sup><small>(+' + data.NewDeaths + ' )</small>  </sup></b> '
+
+        document.getElementById('Confirmed').innerHTML = ' <b id="Confirmed">' + formatNumber(data.Confirmed) + '<sup><small>(+' + formatNumber(data.NewConfirmed) + ')</small>  </sup></b> '
+        document.getElementById('Recovered').innerHTML = '<b id="Recovered">' + formatNumber(data.Recovered) + '<sup><small>(+' + formatNumber(data.NewRecovered) + ')</small>  </sup></b>  '
+        document.getElementById('Hospitalized').innerHTML = '<b id="Hospitalized">' + formatNumber(data.Hospitalized) + '<sup><small>(+' + formatNumber(data.NewHospitalized) + ')</small>  </sup></b>'
+        document.getElementById('Deaths').innerHTML = ' <b  id="Deaths">' + formatNumber(data.Deaths) + '<sup><small>(+' + formatNumber(data.NewDeaths) + ')</small>  </sup></b> '
     })
 
 
