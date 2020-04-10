@@ -53,6 +53,22 @@ document.getElementById('loading').innerHTML = '  <div class="spinner-grow text-
 document.getElementById('btn_search').innerHTML = '<button class="btn btn-awaycovid  btn-lg  btn-block" type="button" disabled> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> กำลังรอรับค่าตำแหน่ง Location . . . . </button>'
 
 markerClusterGroup = L.markerClusterGroup().addTo(map)
+
+แลป_clus = L.markerClusterGroup().addTo(map)
+แลป_group = L.layerGroup().addTo(map)
+
+โรงพยาบาล_clus = L.markerClusterGroup().addTo(map)
+โรงพยาบาล_group = L.layerGroup().addTo(map)
+
+รพสต_clus = L.markerClusterGroup().addTo(map)
+รพสต_group = L.layerGroup().addTo(map)
+
+คลีนิค_clus = L.markerClusterGroup().addTo(map)
+คลีนิค_group = L.layerGroup().addTo(map)
+
+ยา_clus = L.markerClusterGroup().addTo(map);
+ยา_group = L.layerGroup().addTo(map);
+
 covidlab = L.layerGroup().addTo(map);
 
 
@@ -122,16 +138,14 @@ labcovid = labcovid
 
 
 
-
-
 function onLocationFound(e) {
     document.getElementById('loading').innerHTML = ''
 
-    var radius = 5;
+    radius = 5;
     get_latlng = [e.latlng.lng, e.latlng.lat]
     // get_latlng = [100.571060, 13.701618]
 
-    var point = turf.point(get_latlng);
+    point = turf.point(get_latlng);
 
     L.geoJson(point, {
         pointToLayer: function (feature, latlng) {
@@ -143,10 +157,10 @@ function onLocationFound(e) {
     }).bindPopup("ตำแหน่งปัจจุบันของท่าน")
         .addTo(map)
 
-    var buffered = turf.buffer(point, radius, {
+    buffered = turf.buffer(point, radius, {
         units: 'kilometers'
     });
-    var buffereds = L.geoJson(buffered, {
+    buffereds = L.geoJson(buffered, {
         stroke: true,
         color: 'rgb(6, 167, 167)',
         weight: 5,
@@ -155,23 +169,21 @@ function onLocationFound(e) {
     }).addTo(map)
     map.fitBounds(buffereds.getBounds())
 
-    var buffered = turf.buffer(point, radius, {
+    buffered = turf.buffer(point, radius, {
         units: 'kilometers'
     });
-    // var ptsWithin_health = turf.pointsWithinPolygon(place_health, buffered);
 
 
-
-    rpst.features.forEach(e => {
-        var ptsWithin_rpst = turf.pointsWithinPolygon(e, buffered);
-        if (ptsWithin_rpst.features.length > 0) {
-            รพสต = L.geoJson(ptsWithin_rpst, {
+    geojson_health.features.forEach(e => {
+        var ptsWithin_geojson_health = turf.pointsWithinPolygon(e, buffered);
+        if (ptsWithin_geojson_health.features.length > 0) {
+            hos_all = L.geoJson(ptsWithin_geojson_health, {
                 pointToLayer: function (f, latlng) {
                     var distance = turf.distance(point, f, {
                         units: 'kilometers'
                     });
                     f.properties.dis = Number(distance.toFixed(2))
-                    if (f.properties.type_code == '3') {
+                    if (f.properties.type_code == '4') {
                         popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
                             <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
                             <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
@@ -179,24 +191,13 @@ function onLocationFound(e) {
                             <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
                             <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
                             </div>';
+
                         return L.marker(latlng, {
-                            icon: case_rpst,
-                            highlight: "temporary"
+                            icon: case_hospital_1,
                         }).bindPopup(popupContent, {
                             maxWidth: "300"
                         });
-                    }
-
-                }
-            }).addTo(covidlab)
-        } else {
-            รพสต = L.geoJson(e, {
-                pointToLayer: function (f, latlng) {
-                    var distance = turf.distance(point, f, {
-                        units: 'kilometers'
-                    });
-                    f.properties.dis = Number(distance.toFixed(2))
-                    if (f.properties.type_code == '3') {
+                    } else if (f.properties.type_code == '5') {
                         popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
                             <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
                             <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
@@ -204,191 +205,195 @@ function onLocationFound(e) {
                             <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
                             <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
                             </div>';
+
                         return L.marker(latlng, {
-                            icon: case_rpst,
+                            icon: case_hospital_1,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    } else if (f.properties.type_code == '7') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+
+                        return L.marker(latlng, {
+                            icon: case_hospital_2,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    } else if (f.properties.type_code == '62') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div></p>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+                        return L.marker(latlng, {
+                            icon: case_hospital_1,
                             highlight: "temporary"
                         }).bindPopup(popupContent, {
                             maxWidth: "300"
                         });
                     }
-
                 }
-            }).addTo(markerClusterGroup)
-        }
-    });
-
-    clinic.features.forEach(e => {
-        var ptsWithin_clinic = turf.pointsWithinPolygon(e, buffered);
-        if (ptsWithin_clinic.features.length > 0) {
-            คลีนิค = L.geoJson(ptsWithin_clinic, {
-                pointToLayer: function (f, latlng) {
-                    var distance = turf.distance(point, f, {
-                        units: 'kilometers'
-                    });
-                    f.properties.dis = Number(distance.toFixed(0))
-                    popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
-                <div class="modal-footer">\
-                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
-                </div>';
-                    return L.marker(latlng, {
-                        icon: case_clinic,
-                    }).bindPopup(popupContent, {
-                        maxWidth: "300"
-                    });
-                    // }).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
-                }
-            }).addTo(covidlab)
+            }).addTo(โรงพยาบาล_group)
         } else {
-            คลีนิค = L.geoJson(e, {
+            hos_all = L.geoJson(e, {
                 pointToLayer: function (f, latlng) {
                     var distance = turf.distance(point, f, {
                         units: 'kilometers'
                     });
-                    f.properties.dis = Number(distance.toFixed(0))
-                    popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
-                <div class="modal-footer">\
-                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
-                </div>';
-                    return L.marker(latlng, {
-                        icon: case_clinic,
-                    }).bindPopup(popupContent, {
-                        maxWidth: "300"
-                    });
-                    // }).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+                    f.properties.dis = Number(distance.toFixed(2))
+                    if (f.properties.type_code == '4') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+
+                        return L.marker(latlng, {
+                            icon: case_hospital_1,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    } else if (f.properties.type_code == '5') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+
+                        return L.marker(latlng, {
+                            icon: case_hospital_1,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    } else if (f.properties.type_code == '7') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+
+                        return L.marker(latlng, {
+                            icon: case_hospital_2,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    } else if (f.properties.type_code == '62') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div></p>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+                        return L.marker(latlng, {
+                            icon: case_hospital_1,
+                            highlight: "temporary"
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    }
                 }
-            }).addTo(markerClusterGroup)
+            }).addTo(โรงพยาบาล_clus)
         }
     });
 
-
-    medicine.features.forEach(e => {
-        var ptsWithin_medicine = turf.pointsWithinPolygon(e, buffered);
-        if (ptsWithin_medicine.features.length > 0) {
-            L.geoJson(ptsWithin_medicine, {
+    labcovid.features.forEach(e => {
+        var ptsWithin_labcovid = turf.pointsWithinPolygon(e, buffered);
+        if (ptsWithin_labcovid.features.length > 0) {
+            L.geoJson(ptsWithin_labcovid, {
                 pointToLayer: function (f, latlng) {
                     var distance = turf.distance(point, f, {
                         units: 'kilometers'
                     });
-                    f.properties.dis = Number(distance.toFixed(0))
-                    popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
-            <div class="modal-footer">\
-            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
-            </div>';
+                    f.properties.dis = Number(distance.toFixed(2))
                     return L.marker(latlng, {
-                        icon: case_medicine,
-                    }).bindPopup(popupContent, {
-                        maxWidth: "300"
-                    });
-                    //}).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+                        icon: case_hospital,
+                    }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.properties.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.properties.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div> <div class="col-xs-6  text-right"> <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank"><button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button></a></div> </div> </div> </div>')
                 }
-            }).addTo(covidlab)
+            }).addTo(แลป_group)
         } else {
             L.geoJson(e, {
                 pointToLayer: function (f, latlng) {
                     var distance = turf.distance(point, f, {
                         units: 'kilometers'
                     });
-                    f.properties.dis = Number(distance.toFixed(0))
-                    popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
-            <div class="modal-footer">\
-            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
-            </div>';
+                    f.properties.dis = Number(distance.toFixed(2))
                     return L.marker(latlng, {
-                        icon: case_medicine,
-                    }).bindPopup(popupContent, {
-                        maxWidth: "300"
-                    });
-                    //}).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+                        icon: case_hospital,
+                    }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.properties.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.properties.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div> <div class="col-xs-6  text-right"> <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank"><button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button></a></div> </div> </div> </div>')
                 }
-            }).addTo(markerClusterGroup)
+            }).addTo(แลป_clus)
         }
-
     });
 
+    rpst.features.forEach(e => {
+        var ptsWithin_rpst = turf.pointsWithinPolygon(e, buffered);
+        if (ptsWithin_rpst.features.length > 0) {
+            รพสต_in = L.geoJson(ptsWithin_rpst, {
+                pointToLayer: function (f, latlng) {
+                    var distance = turf.distance(point, f, {
+                        units: 'kilometers'
+                    });
+                    f.properties.dis = Number(distance.toFixed(2))
+                    if (f.properties.type_code == '3') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+                        return L.marker(latlng, {
+                            icon: case_rpst,
+                            highlight: "temporary"
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    }
 
-    var ptsWithin_geojson_health = turf.pointsWithinPolygon(geojson_health, buffered);
+                }
+            }).addTo(รพสต_group)
+        } else {
+            รพสต_out = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    var distance = turf.distance(point, f, {
+                        units: 'kilometers'
+                    });
+                    f.properties.dis = Number(distance.toFixed(2))
+                    if (f.properties.type_code == '3') {
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                            <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                            <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                            <div class="modal-footer">\
+                            <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                            <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                            </div>';
+                        return L.marker(latlng, {
+                            icon: case_rpst,
+                            highlight: "temporary"
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                    }
 
-
-
-
-    hos_all = L.geoJson(ptsWithin_geojson_health, {
-
-
-        pointToLayer: function (f, latlng) {
-            var distance = turf.distance(point, f, {
-                units: 'kilometers'
-            });
-            f.properties.dis = Number(distance.toFixed(2))
-            if (f.properties.type_code == '4') {
-                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
-                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
-                <div class="modal-footer">\
-                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
-                </div>';
-
-                return L.marker(latlng, {
-                    icon: case_hospital_1,
-                }).bindPopup(popupContent, {
-                    maxWidth: "300"
-                });
-            } else if (f.properties.type_code == '5') {
-                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
-                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
-                <div class="modal-footer">\
-                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
-                </div>';
-
-                return L.marker(latlng, {
-                    icon: case_hospital_1,
-                }).bindPopup(popupContent, {
-                    maxWidth: "300"
-                });
-            } else if (f.properties.type_code == '7') {
-                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
-                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
-                <div class="modal-footer">\
-                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
-                </div>';
-
-                return L.marker(latlng, {
-                    icon: case_hospital_2,
-                }).bindPopup(popupContent, {
-                    maxWidth: "300"
-                });
-            } else if (f.properties.type_code == '62') {
-                popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
-                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
-                <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div></p>\
-                <div class="modal-footer">\
-                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
-                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
-                </div>';
-                return L.marker(latlng, {
-                    icon: case_hospital_1,
-                    highlight: "temporary"
-                }).bindPopup(popupContent, {
-                    maxWidth: "300"
-                });
-            }
+                }
+            }).addTo(รพสต_clus)
         }
-    }).addTo(covidlab)
-
-
-
+    });
 
 
     var show_hos = ''
@@ -403,29 +408,14 @@ function onLocationFound(e) {
     data_set_hos.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
     for (let i = 0; i < 50; i++) {
         show_hos += '<div class="card mb-3"> <h5 class="card-header">' + data_set_hos[i].name + '</h5>\
-         <h5 class="card-header"> จำนวนเตียงที่รองรับผู้ป่วย ' + data_set_hos[i].bed_total + ' เตียง </h5>\
-         <div class="row">\
-         <div class="col-6 col-xs-5 text-left"> ระยะทาง ' + data_set_hos[i].dis + ' กม. </div>\
-         <div class="col-6 col-xs-4 text-right"> <a  href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_set_hos[i].lat + ',' + data_set_hos[i].lon + ' "  target="_blank">  <i class="fa fa-location-arrow"></i> นำทาง</a> </div>\
-         <div class="col-6 col-xs-3 text-right" onClick="select_place(' + data_set_hos[i].lat + ',' + data_set_hos[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง </div>\
-       </div></div> </div> </div><hr>'
+             <h5 class="card-header"> จำนวนเตียงที่รองรับผู้ป่วย ' + data_set_hos[i].bed_total + ' เตียง </h5>\
+             <div class="row">\
+             <div class="col-6 col-xs-5 text-left"> ระยะทาง ' + data_set_hos[i].dis + ' กม. </div>\
+             <div class="col-6 col-xs-4 text-right"> <a  href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_set_hos[i].lat + ',' + data_set_hos[i].lon + ' "  target="_blank">  <i class="fa fa-location-arrow"></i> นำทาง</a> </div>\
+             <div class="col-6 col-xs-3 text-right" onClick="select_place(' + data_set_hos[i].lat + ',' + data_set_hos[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง </div>\
+           </div></div> </div> </div><hr>'
     }
     document.getElementById('show_hos').innerHTML = show_hos
-
-
-
-
-    L.geoJson(labcovid, {
-        pointToLayer: function (f, latlng) {
-            var distance = turf.distance(point, f, {
-                units: 'kilometers'
-            });
-            f.properties.dis = Number(distance.toFixed(2))
-            return L.marker(latlng, {
-                icon: case_hospital,
-            }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.properties.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.properties.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div> <div class="col-xs-6  text-right"> <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank"><button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button></a></div> </div> </div> </div>')
-        }
-    }).addTo(covidlab)
 
     var show_lab = ''
     var data_set_labcovid = []
@@ -443,21 +433,11 @@ function onLocationFound(e) {
     document.getElementById('show_lab').innerHTML = show_lab
 
 
-
-
-
-
     document.getElementById('btn_search').innerHTML = '<button type="button" class="btn btn-awaycovid btn-lg btn-block" data-toggle="modal" data-target="#search"> <i class="fa fa-search" aria-hidden="true"></i> ค้นหาสถานพยาบาล </button>'
 
-
 }
-
-
-
 map.on('locationfound', onLocationFound);
 map.locate();
-
-
 
 
 
@@ -473,3 +453,377 @@ function select_place(lat, lng) {
     $("#search").modal("hide");
     map.setView([lat, lng], 19);
 }
+
+
+
+$("#form_setting").submit(function (event) {
+    $("#setting").modal("hide");
+    map.fitBounds(buffereds.getBounds())
+    event.preventDefault();
+    toggle_1 = event.target.toggle_1.checked
+    toggle_2 = event.target.toggle_2.checked
+    toggle_4 = event.target.toggle_4.checked
+    toggle_5 = event.target.toggle_5.checked
+    toggle_6 = event.target.toggle_6.checked
+
+
+    if (toggle_1 == true) {
+        แลป_group.clearLayers()
+        แลป_clus.clearLayers()
+        labcovid.features.forEach(e => {
+            var ptsWithin_labcovid = turf.pointsWithinPolygon(e, buffered);
+            if (ptsWithin_labcovid.features.length > 0) {
+                L.geoJson(ptsWithin_labcovid, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(2))
+                        return L.marker(latlng, {
+                            icon: case_hospital,
+                        }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.properties.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.properties.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div> <div class="col-xs-6  text-right"> <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank"><button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button></a></div> </div> </div> </div>')
+                    }
+                }).addTo(แลป_group)
+            } else {
+                L.geoJson(e, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(2))
+                        return L.marker(latlng, {
+                            icon: case_hospital,
+                        }).bindPopup('<div class="card mb-3"> <h5 class="card-header">' + f.properties.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.properties.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.properties.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.properties.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div> <div class="col-xs-6  text-right"> <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.long) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank"><button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button></a></div> </div> </div> </div>')
+                    }
+                }).addTo(แลป_clus)
+            }
+        });
+    } else {
+        แลป_group.clearLayers()
+        แลป_clus.clearLayers()
+    }
+
+
+    if (toggle_2 == true) {
+        โรงพยาบาล_group.clearLayers()
+        โรงพยาบาล_clus.clearLayers()
+        geojson_health.features.forEach(e => {
+            var ptsWithin_geojson_health = turf.pointsWithinPolygon(e, buffered);
+            if (ptsWithin_geojson_health.features.length > 0) {
+                hos_all = L.geoJson(ptsWithin_geojson_health, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(2))
+                        if (f.properties.type_code == '4') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+
+                            return L.marker(latlng, {
+                                icon: case_hospital_1,
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        } else if (f.properties.type_code == '5') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+
+                            return L.marker(latlng, {
+                                icon: case_hospital_1,
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        } else if (f.properties.type_code == '7') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+
+                            return L.marker(latlng, {
+                                icon: case_hospital_2,
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        } else if (f.properties.type_code == '62') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div></p>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+                            return L.marker(latlng, {
+                                icon: case_hospital_1,
+                                highlight: "temporary"
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        }
+                    }
+                }).addTo(โรงพยาบาล_group)
+            } else {
+                hos_all = L.geoJson(e, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(2))
+                        if (f.properties.type_code == '4') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+
+                            return L.marker(latlng, {
+                                icon: case_hospital_1,
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        } else if (f.properties.type_code == '5') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+
+                            return L.marker(latlng, {
+                                icon: case_hospital_1,
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        } else if (f.properties.type_code == '7') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+
+                            return L.marker(latlng, {
+                                icon: case_hospital_2,
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        } else if (f.properties.type_code == '62') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' กม. </div></p>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+                            return L.marker(latlng, {
+                                icon: case_hospital_1,
+                                highlight: "temporary"
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        }
+                    }
+                }).addTo(โรงพยาบาล_clus)
+            }
+        });
+    } else {
+        โรงพยาบาล_group.clearLayers()
+        โรงพยาบาล_clus.clearLayers()
+    }
+
+    if (toggle_4 == true) {
+        รพสต_group.clearLayers()
+        รพสต_clus.clearLayers()
+        rpst.features.forEach(e => {
+            var ptsWithin_rpst = turf.pointsWithinPolygon(e, buffered);
+            if (ptsWithin_rpst.features.length > 0) {
+                รพสต_in = L.geoJson(ptsWithin_rpst, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(2))
+                        if (f.properties.type_code == '3') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+                            return L.marker(latlng, {
+                                icon: case_rpst,
+                                highlight: "temporary"
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        }
+
+                    }
+                }).addTo(รพสต_group)
+            } else {
+                รพสต_out = L.geoJson(e, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(2))
+                        if (f.properties.type_code == '3') {
+                            popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                                <h5 class="card-header">จำนวนเตียงที่รองรับผู้ป่วย : ' + f.properties.bed_total + ' เตียง</h5>\
+                                <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                                <div class="modal-footer">\
+                                <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                                <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลสถานพยาบาล </button></a>\
+                                </div>';
+                            return L.marker(latlng, {
+                                icon: case_rpst,
+                                highlight: "temporary"
+                            }).bindPopup(popupContent, {
+                                maxWidth: "300"
+                            });
+                        }
+
+                    }
+                }).addTo(รพสต_clus)
+            }
+        });
+    } else {
+        รพสต_group.clearLayers()
+        รพสต_clus.clearLayers()
+    }
+
+    if (toggle_5 == true) {
+        คลีนิค_group.clearLayers()
+        คลีนิค_clus.clearLayers()
+        clinic.features.forEach(e => {
+            var ptsWithin_clinic = turf.pointsWithinPolygon(e, buffered);
+            if (ptsWithin_clinic.features.length > 0) {
+                คลีนิค = L.geoJson(ptsWithin_clinic, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(0))
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                        <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                        <div class="modal-footer">\
+                        <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                        <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
+                        </div>';
+                        return L.marker(latlng, {
+                            icon: case_clinic,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                        // }).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+                    }
+                }).addTo(คลีนิค_group)
+            } else {
+                คลีนิค = L.geoJson(e, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(0))
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                        <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                        <div class="modal-footer">\
+                        <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                        <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
+                        </div>';
+                        return L.marker(latlng, {
+                            icon: case_clinic,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                        // }).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+                    }
+                }).addTo(คลีนิค_clus)
+            }
+        });
+    } else {
+        คลีนิค_group.clearLayers()
+        คลีนิค_clus.clearLayers()
+    }
+
+
+    if (toggle_6 == true) {
+        ยา_group.clearLayers()
+        ยา_clus.clearLayers()
+        medicine.features.forEach(e => {
+            var ptsWithin_medicine = turf.pointsWithinPolygon(e, buffered);
+            if (ptsWithin_medicine.features.length > 0) {
+                ยา = L.geoJson(ptsWithin_medicine, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(0))
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                    <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                    <div class="modal-footer">\
+                    <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                    <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
+                    </div>';
+                        return L.marker(latlng, {
+                            icon: case_medicine,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                        //}).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+                    }
+                }).addTo(ยา_group)
+            } else {
+                ยา = L.geoJson(e, {
+                    pointToLayer: function (f, latlng) {
+                        var distance = turf.distance(point, f, {
+                            units: 'kilometers'
+                        });
+                        f.properties.dis = Number(distance.toFixed(0))
+                        popupContent = '<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4> \
+                    <h5 class="card-header"> ระยะทาง ' + f.properties.dis + ' กม. </h5></div>\
+                    <div class="modal-footer">\
+                    <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">  <button type="button" class="btn btn-info" data-dismiss="modal">นำทาง</button> </a>\
+                    <a href="http://gishealth.moph.go.th/healthmap/info.php?maincode=' + f.properties.main_code + '" target="_blank"> <button type="button" class="btn btn-success" data-dismiss="modal">ข้อมูลเพิ่มเติม </button></a>\
+                    </div>';
+                        return L.marker(latlng, {
+                            icon: case_medicine,
+                        }).bindPopup(popupContent, {
+                            maxWidth: "300"
+                        });
+                        //}).bindPopup('<div class="card mb-3"> <h4 class="card-header">' + f.properties.name + '</h4><div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.properties.dis + ' km </div> <div class="col-xs-6  text-right" > <a href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + Number(f.properties.lat) + ',' + Number(f.properties.lon) + '/data=!3m1!4b1!4m2!4m1!3e0" target="_blank">เส้นทาง</a> </div> <br><div class="col-xs-4  text-left"></div><div class="col-xs-8  text-right" > <a href="http://gishealth.moph.go.th/clinic/info.php?maincode=' + f.properties.main_code + '"  target="_blank">ข้อมูลเพิ่มเติม</a> </div></div>');
+                    }
+                }).addTo(ยา_clus)
+            }
+        });
+    } else {
+        ยา_group.clearLayers()
+        ยา_clus.clearLayers()
+    }
+
+
+
+
+
+
+
+
+})

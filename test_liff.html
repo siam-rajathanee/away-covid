@@ -149,18 +149,41 @@
 
                         <form id="form_setting">
                             <fieldset>
+                                <label for="exampleSelect1">เลือกแสดงข้อมูล</label>
+
                                 <div class="form-group">
-                                    <label for="exampleSelect1">กำหนดรัศมี (km)</label>
-                                    <select class="form-control" id="exampleSelect1" name="radius">
-                                        <option value="1">1 km</option>
-                                        <option value="5" selected>5 km</option>
-                                        <option value="10">10 km</option>
-                                        <option value="30">30 km</option>
-                                        <option value="60">60 km</option>
-                                        <option value="90">90 km</option>
-                                        <option value="120">120 km</option>
-                                        <option value="150">150 km</option>
-                                    </select>
+                                    <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_1"
+                                        checked data-toggle="toggle" id="toggle-1">
+                                    <img src="img/hospital.png" width="30px"> <small class="prompt">
+                                        สถานรับตรวจโรค Covid-19 </small>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_2"
+                                        checked data-toggle="toggle" id="toggle-1">
+                                    <img src="img/hospital_1.png" width="30px"> <small class="prompt">
+                                        โรงพยาบาล </small>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_4"
+                                        checked data-toggle="toggle" id="toggle-1">
+                                    <img src="img/rpst.png" width="30px"> <small class="prompt">
+                                        รพ.สต./สาธารณสุขชุมชน </small>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_5"
+                                        data-toggle="toggle" id="toggle-1">
+                                    <img src="img/h2.png" width="30px"> <small class="prompt">
+                                        คลีนิค </small>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" data-size="mini" data-onstyle="warning" name="toggle_6"
+                                        data-toggle="toggle" id="toggle-1">
+                                    <img src="img/h3.png" width="30px"> <small class="prompt">
+                                        ร้านขายยา </small>
                                 </div>
                             </fieldset>
 
@@ -196,10 +219,8 @@
                                     </div>
                                 </div>
                             </fieldset>
-
-                            <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
                             <hr>
-                            <small id="date_up"> อัพเดตข้อมูลล่าสุดวันที่ : </small>
+                            <button type="submit" class="btn btn-warning btn-block">บันทึกการตั้งค่า</button>
                         </form>
                     </div>
                     <div class="modal-footer">
