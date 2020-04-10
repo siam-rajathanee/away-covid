@@ -96,7 +96,7 @@ function onLocationFound(e) {
         document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + found.patient_new + ' <br>เพิ่มใหม่</div> '
         document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + found.acc_pui + '<br> PUI สะสม</div> '
         document.getElementById('death').innerHTML = '  <div id="death">' + found.death + ' <br>เสียชีวิต</div> '
-        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูล ณ วันที่  : ' + found.date + ' ที่มา <a target="_blank" href="' + found.link + '">Link </a></small>'
+        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูลตาราง ณ วันที่  : ' + found.date + ' ที่มา <a target="_blank" href="' + found.link + '">Link </a></small>'
         Number(found.patient_tt)
         pa_tt = Number(found.patient_tt)
 
@@ -125,6 +125,7 @@ function get_chart() {
 
     $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
         var res = data.Data
+        document.getElementById('update_date_chart').innerHTML = '<small id="update_date_chart">ข้อมูลกราฟ ณ วันที่ : ' + data.UpdateDate + ' ที่มา: <a href="https://covid19.ddc.moph.go.th/" target="_blank"> กรมควบคุมโรค </a></small>'
 
 
         var data_chart4 = []
