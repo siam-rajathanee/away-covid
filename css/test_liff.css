@@ -14,6 +14,7 @@ margin-right: -15px;
 margin-left: -15px;
 background-color: rgb(255, 255, 255);
 }
+
 .navbar-default {
 background-color: #ffffff;
 }
@@ -61,9 +62,23 @@ border-radius: 10px;
 }
 
 .navbar-default .navbar-toggle {
-border-color: rgb(238, 238, 238);
-border-radius: 20px;
-
+  color: rgb(83, 99, 99);
+  border-color: rgb(10, 126, 126);
+  border-width: 1px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+}
+.navbar-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-right: 1px; 
+  margin-top: 1px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 .profile_img{
@@ -174,3 +189,23 @@ z-index: 5;
 .img_hos{
 border-radius: 30px;
 }
+
+
+  /* HIDE RADIO */
+  [type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* IMAGE STYLES */
+  [type=radio] + img {
+    cursor: pointer;
+  }
+  
+  /* CHECKED STYLES */
+  [type=radio]:checked + img {
+    outline: 2px solid rgb(255, 169, 9);
+  }
+  
