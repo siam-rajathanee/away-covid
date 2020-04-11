@@ -51,7 +51,7 @@ I hope you will join us.
 * [@teerayoot](https://github.com/aegistz)
 * [@sakda](https://github.com/dookda)
 * [@rojjanasak](https://github.com/rojjanasak)
-* [@chanon](https://#)
+* [@chanon](#)
 
 ## Contribute to this project on GitHub.
 Deploying the application on github.io [![Deploy by GitHub](https://github.com/favicon.ico)](https://mapedia-th.github.io/away-covid/)
