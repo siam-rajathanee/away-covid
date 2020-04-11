@@ -47,6 +47,5 @@ Built and maintained by Chingchai HOOMHONG, Teerayoot INJUN, Chanon KITCHARAK, R
 Deploying the application on github.io [![Deploy by GitHub](https://github.com/favicon.ico)](https://mapedia-th.github.io/away-covid/)
 
 ## Tools
-----
 <img src="https://github.com/mapedia-th/away-covid/blob/master/img/line_dev2.png"  alt="Line Dev" />
 <img width="250" src="https://rawgit.com/Leaflet/Leaflet/master/src/images/logo.svg" alt="Leaflet" />
