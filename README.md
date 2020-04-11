@@ -30,4 +30,4 @@ Away Covid-19 จะขอให้ผู้ใช้อนุญาตข้อ
 
 พัฒนาโดย บริษัท แมพพิเดีย จำกัด
 
-http://mapedia.co.th/
+https://mapedia.co.th/
