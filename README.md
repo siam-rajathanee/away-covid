@@ -43,9 +43,31 @@ https://mapedia.co.th/
 
 Built and maintained by Chingchai HOOMHONG, Teerayoot INJUN, Chanon KITCHARAK, Rojjanasak SINGHSAWAT, Sakda HOMHUAN and Teerayoot Injun (16° North) and these contributors. Concept and design by Assoc.Prof.Dr.Chada Narongrit. Supported by MAPEDIA, Leaflet, OpenStreetMap, HERE, Google, Carto and NUxLINE Mentorship Programme
 
+## Collaborators
+
+I hope you will join us.
+
+* [@chingchai](https://github.com/chingchai)
+* [@teerayoot](https://github.com/aegistz)
+* [@sakda](https://github.com/dookda)
+* [@rojjanasak](https://github.com/rojjanasak)
+* [@chanon](https://#)
+
 ## Contribute to this project on GitHub.
 Deploying the application on github.io [![Deploy by GitHub](https://github.com/favicon.ico)](https://mapedia-th.github.io/away-covid/)
 
 ## Tools
 <img src="https://github.com/mapedia-th/away-covid/blob/master/img/line_dev2.png"  alt="Line Dev" />
 <img width="250" src="https://rawgit.com/Leaflet/Leaflet/master/src/images/logo.svg" alt="Leaflet" />
+
+## License
+### Apache License 2.0
+This work is licensed under a [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
+
+A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+----
+### Creative Commons License
+[![Creative Commons License](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
