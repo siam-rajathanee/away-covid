@@ -12,6 +12,12 @@ If you want to contribute code, please test your changes.
 
 Press `F5` if you open this project by VS Code
 
+## Clone with HTTPS 
+Use Git or checkout with SVN using the web URL.
+```sh
+git clone https://github.com/mapedia-th/away-covid.git
+```
+
 ## Pull Request
 
 * Fork it(via GitHub) in your account
@@ -41,8 +47,3 @@ git push mine my-new-feature
 
 * Create new Pull Request(via GitHub)
 
-## Clone with HTTPS 
-Use Git or checkout with SVN using the web URL.
-```sh
-git clone https://github.com/mapedia-th/away-covid.git
-```
