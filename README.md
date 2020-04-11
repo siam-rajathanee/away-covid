@@ -1,6 +1,6 @@
 Away Covid-19
 =============
-<img width="600" src="https://github.com/mapedia-th/away-covid/blob/master/img/linerichmenu-new5.png" alt="Away Covid-19" />
+[<img width="600" src="https://github.com/mapedia-th/away-covid/blob/master/img/linerichmenu-new5.png" alt="Away Covid-19" />](https://lin.ee/aiQ8lsq)
 
 🎯 Away Covid 19 Application : อยู่ห่างอย่างหายห่วงจากโควิด
 ----
@@ -57,8 +57,9 @@ I hope you will join us.
 Deploying the application on github.io [![Deploy by GitHub](https://github.com/favicon.ico)](https://mapedia-th.github.io/away-covid/)
 
 ## Tools
-<img src="https://github.com/mapedia-th/away-covid/blob/master/img/line_dev2.png"  alt="Line Dev" />
-<img width="250" src="https://rawgit.com/Leaflet/Leaflet/master/src/images/logo.svg" alt="Leaflet" />
+[<img src="https://github.com/mapedia-th/away-covid/blob/master/img/line_dev2.png"  alt="Line Dev" />](https://developers.line.biz/)
+
+[<img width="250" src="https://rawgit.com/Leaflet/Leaflet/master/src/images/logo.svg" alt="Leaflet" />](https://leafletjs.com/)
 
 ## License
 ### Apache License 2.0
