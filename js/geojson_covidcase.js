@@ -17245,5 +17245,293 @@ var geojson_covidcase = {
                 gender: "ชาย",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.586157,
+                    6.985278,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1067",
+                place_name: "กลุ่มดาวะห์ชาวสงขลาที่กักตัว ติดเชื้อโควิด-19 เพิ่มอีก 8 คน",
+                lat: "6.985278",
+                lon: "100.586157",
+                case_numbe: "8",
+                date_start: "2020-04-11",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "โรงพยาบาลหาดใหญ่-นาหม่อม อ.นาหม่อม จ.สงขลา ซึ่งใช้เป็นสถานที่รักษาผู้ป่วย โรคติดเชื้อไวรัสโคโรนา 2019 (COVID-19) หรือ โควิด-19 ล่าสุด ได้มีการส่งตัวกลุ่มดาวะห์ที่เดินทางกลับมาจากประเทศอินโดนีเซีย และถูกกักตัวอยู่ที่สนามกีฬาเมืองหลักพรุค้างคาว อ.หาดใหญ่ เข้ามารักษาเพิ่มอีก 8 คน หลังจากยืนยันผลการตรวจพบเชื้อโควิด-19 แน่นอนแล้ว",
+                ref_source: "Sanook",
+                link_news: "https://www.sanook.com/news/8077506/",
+                tb_code: "",
+                tb_th: "พิจิตร",
+                ap_th: "นาหม่อม",
+                pro_th: "สงขลา",
+                postcode: "90310",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.278894,
+                    7.975538,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1068",
+                place_name: "จังหวัดภูเก็ต รายที่ 171",
+                lat: "7.975538",
+                lon: "98.278894",
+                case_numbe: "1",
+                date_start: "2020-04-11",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่171 ผู้หญิงไทย อายุ 64 ปี อาชีพ แม่บ้าน ไม่มีประวัติสัมผัสผู้ป่วยยืนยันหรือประวัติเสี่ยงอื่น พักอาศัยแถวหาดสุรินทร์ ต.เชิงทะเล อ.ถลาง โดยเริ่มมีอาการป่วยวันที่ 2 เมษายน 2563",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/pcb.3045102488885089/3045102188885119/?type=3&theater",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "64",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.295769,
+                    7.893849,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1069",
+                place_name: "จังหวัดภูเก็ต รายที่ 172",
+                lat: "7.893849",
+                lon: "98.295769",
+                case_numbe: "1",
+                date_start: "2020-04-11",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่172 ผู้หญิงไทย อายุ 36 ปี อาชีพ ขายอาหารอีสานในป่าตอง ต.ป่าตอง อ.กะทู้ เป็นผู้สัมผัสใกล้ชิดของผู้ป่วยยืนยันรายที่ 146 และ 147 พักอาศัยในเขตป่าตอง",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/pcb.3045102488885089/3045102188885119/?type=3&theater",
+                tb_code: "",
+                tb_th: "ป่าตอง",
+                ap_th: "กะทู้",
+                pro_th: "ภูเก็ต",
+                postcode: "83150",
+                age: "36",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.886141,
+                    12.921808,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1070",
+                place_name: "จังหวัดชลบุรี รายที่ 77",
+                lat: "12.921808",
+                lon: "100.886141",
+                case_numbe: "1",
+                date_start: "2020-04-09",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ลำดับที่ 77 ชายไทย อายุ 88 ปี พื้นที่อำเภอบางละมุง อาชีพขับรถยนต์รับจ้างให้ชาวต่างชาติ",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.742139422604557/1654301764721647/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางละมุง",
+                pro_th: "ชลบุรี",
+                postcode: "20150",
+                age: "38",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.883695,
+                    12.922854,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1071",
+                place_name: "จังหวัดชลบุรี รายที่ 78",
+                lat: "12.922854",
+                lon: "100.883695",
+                case_numbe: "1",
+                date_start: "2020-04-09",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ลำดับที่ 78 ชายชาวออสเตรเลีย อายุ 45 ปี พื้นที่อำเภอบางละมุง อยู่ระหว่างสอบสวนโรค",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.742139422604557/1654301764721647/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางละมุง",
+                pro_th: "ชลบุรี",
+                postcode: "20150",
+                age: "45",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.096735,
+                    13.470677,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1072",
+                place_name: "จังหวัดชลบุรี รายที่ 79",
+                lat: "13.470677",
+                lon: "101.096735",
+                case_numbe: "1",
+                date_start: "2020-04-09",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ลำดับที่ 79 ชายไทย อายุ 25 ปี พื้นที่อำเภอพานทอง เป็นผู้สัมผัสใกล้ชิดผู้ติดเชื้อลำดับที่ 65",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.742139422604557/1654301764721647/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "พานทอง",
+                pro_th: "ชลบุรี",
+                postcode: "20160",
+                age: null,
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.885277,
+                    12.926194,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1073",
+                place_name: "จังหวัดชลบุรี รายที่ 80",
+                lat: "12.926194",
+                lon: "100.885277",
+                case_numbe: "1",
+                date_start: "2020-04-11",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 80 หญิงไทย พื้นที่อำเภอบางละมุง ความเสี่ยงพนักงานโคโยตี้",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.742139422604557/1655145191303971/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางละมุง",
+                pro_th: "ชลบุรี",
+                postcode: "20150",
+                age: null,
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.395625,
+                    14.05429,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1074",
+                place_name: "จังหวัดปราจีนบุรี รายที่ 8",
+                lat: "14.05429",
+                lon: "101.395625",
+                case_numbe: "1",
+                date_start: "2020-04-10",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 8 เพศชาย อายุ 45 ปี ผู้สัมผัสใกล้ชิดรายที่ 6",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดปราจีนบุรี",
+                link_news: "https://www.facebook.com/pho.prachin/photos/a.1064245743639015/3087780967952139/?type=3&theater",
+                tb_code: "",
+                tb_th: "ท่างาม",
+                ap_th: "เมืองปราจีนบุรี",
+                pro_th: "ปราจีนบุรี",
+                postcode: "25000",
+                age: "45",
+                gender: "ชาย",
+            },
+        },
     ],
 }
