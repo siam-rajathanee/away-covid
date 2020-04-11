@@ -1,5 +1,9 @@
-# Away Covid-19 อยู่ห่างอย่างหายห่วงจากโควิด
-🎯 Away Covid 19 Application
+Away Covid-19
+=============
+<img width="600" src="https://github.com/mapedia-th/away-covid/blob/master/img/linerichmenu-new5.png" alt="Away Covid-19" />
+
+🎯 Away Covid 19 Application : อยู่ห่างอย่างหายห่วงจากโควิด
+----
 
 ✅ เป็น Line Official เรียบร้อยแล้วนะครับ🎉
 Add Friend ได้อย่างมั่นใจแค่พิมพ์ @awaycovid19 (ซึ่งเป็นพรีเมียม ID แล้ว)
@@ -32,7 +36,6 @@ Away Covid-19 จะขอให้ผู้ใช้อนุญาตข้อ
 
 https://mapedia.co.th/
 
-#
 ## Primary Data Sources
 - http://covid19.ddc.moph.go.th/th/api
 - https://data.go.th/dataset/covid-19-daily
@@ -40,4 +43,10 @@ https://mapedia.co.th/
 
 Built and maintained by Chingchai HOOMHONG, Teerayoot INJUN, Chanon KITCHARAK, Rojjanasak SINGHSAWAT, Sakda HOMHUAN and Teerayoot Injun (16° North) and these contributors. Concept and design by Assoc.Prof.Dr.Chada Narongrit. Supported by MAPEDIA, Leaflet, OpenStreetMap, HERE, Google, Carto and NUxLINE Mentorship Programme
 
-Contribute to this project on GitHub.
+## Contribute to this project on GitHub.
+Deploying the application on github.io [![Deploy by GitHub](https://github.com/favicon.ico)](https://mapedia-th.github.io/away-covid/)
+
+## Tools
+----
+<img src="https://github.com/mapedia-th/away-covid/blob/master/img/line_dev2.png"  alt="Line Dev" />
+<img width="250" src="https://rawgit.com/Leaflet/Leaflet/master/src/images/logo.svg" alt="Leaflet" />
