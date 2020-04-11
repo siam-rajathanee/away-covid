@@ -1,4 +1,6 @@
-# Citizen Code of Conduct
+# Code of Conduct
+
+## 0. Don't be a beast.
 
 ## 1. Purpose
 
