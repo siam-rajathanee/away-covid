@@ -31,3 +31,13 @@ Away Covid-19 จะขอให้ผู้ใช้อนุญาตข้อ
 พัฒนาโดย บริษัท แมพพิเดีย จำกัด
 
 https://mapedia.co.th/
+
+#
+## Primary Data Sources
+- http://covid19.ddc.moph.go.th/th/api
+- https://data.go.th/dataset/covid-19-daily
+- See all sources
+
+Built and maintained by Chingchai HOOMHONG, Teerayoot INJUN, Chanon KITCHARAK, Rojjanasak SINGHSAWAT, Sakda HOMHUAN and Teerayoot Injun (16° North) and these contributors. Concept and design by Assoc.Prof.Dr.Chada Narongrit. Supported by MAPEDIA, Leaflet, OpenStreetMap, HERE, Google, Carto and NUxLINE Mentorship Programme
+
+Contribute to this project on GitHub.
