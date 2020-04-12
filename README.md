@@ -1,6 +1,6 @@
 Away Covid-19
 =============
-[<img width="600" src="https://github.com/mapedia-th/away-covid/blob/master/img/linerichmenu-new5.png" alt="Away Covid-19" />](https://lin.ee/aiQ8lsq)
+[<img width="800" src="https://github.com/mapedia-th/away-covid/blob/master/img/linerichmenu-new5.png" alt="Away Covid-19" />](https://lin.ee/aiQ8lsq)
 
 🎯 Away Covid 19 Application : อยู่ห่างอย่างหายห่วงจากโควิด
 ----
