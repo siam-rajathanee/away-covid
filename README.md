@@ -37,6 +37,7 @@ Away Covid-19 จะขอให้ผู้ใช้อนุญาตข้อ
 https://mapedia.co.th/
 
 ## Screenshot Application
+<img width="400" src="https://github.com/mapedia-th/away-covid/blob/master/img/awaycovid19_pr_1.png" alt="ฟีเจอร์ปรับใหม่" /><img width="400" src="https://github.com/mapedia-th/away-covid/blob/master/img/awaycovid19_pr_2.png" alt="ปุ่มเตือนก่อนเข้าใกล้พื้นที่มีเคส" /><img width="400" src="https://github.com/mapedia-th/away-covid/blob/master/img/awaycovid19_pr_3.png" alt="ปุ่มสถิติผู้ติดเชื้อในประเทศไทย" /><img width="400" src="https://github.com/mapedia-th/away-covid/blob/master/img/awaycovid19_pr_4.png" alt="ปุ่มสถานพยาบาล" />
 
 ## Primary Data Sources
 - http://covid19.ddc.moph.go.th/th/api
