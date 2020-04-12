@@ -36,6 +36,8 @@ Away Covid-19 จะขอให้ผู้ใช้อนุญาตข้อ
 
 https://mapedia.co.th/
 
+## Screenshot Application
+
 ## Primary Data Sources
 - http://covid19.ddc.moph.go.th/th/api
 - https://data.go.th/dataset/covid-19-daily
