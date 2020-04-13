@@ -56,10 +56,10 @@ CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}
     maxZoom: 19
 })
 
-stadia = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
-    maxZoom: 20,
-    attributions: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-})
+// stadia = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+//     maxZoom: 20,
+//     attributions: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+// })
 
 
 osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -580,24 +580,24 @@ $("#form_setting").submit(function (event) {
     basemap = event.target.basemap.value
 
     if (basemap == 'base1') {
-        hmap.addTo(map)
-        gmap.remove()
-        osm.remove()
-        CartoDB_DarkMatter.remove()
-    } else if (basemap == 'base2') {
-        hmap.remove()
         gmap.addTo(map)
         osm.remove()
+        CartoDB_Positron.remove()
         CartoDB_DarkMatter.remove()
-    } else if (basemap == 'base3') {
-        hmap.remove()
+    } else if (basemap == 'base2') {
         gmap.remove()
         osm.addTo(map)
+        CartoDB_Positron.remove()
         CartoDB_DarkMatter.remove()
-    } else {
-        hmap.remove()
+    } else if (basemap == 'base3') {
         gmap.remove()
         osm.remove()
+        CartoDB_Positron.addTo(map)
+        CartoDB_DarkMatter.remove()
+    } else {
+        gmap.remove()
+        osm.remove()
+        CartoDB_Positron.remove()
         CartoDB_DarkMatter.addTo(map)
     }
 
