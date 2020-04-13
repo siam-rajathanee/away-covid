@@ -4267,6 +4267,18 @@ var checkpoint_th = {
             "type": "Point",
             "coordinates": [98.29952832, 8.246852898]
         }
+    },{
+        "type": "Feature",
+        "properties": {
+            "Id": 9999,
+            "name": "จุดคัดกรองบ้านท่านุ่น",
+            "lat": 8.222089,
+            "long": 98.298672
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [98.298672, 8.222089]
+        }
     }, {
         "type": "Feature",
         "properties": {
