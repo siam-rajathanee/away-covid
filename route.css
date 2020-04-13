@@ -61,14 +61,12 @@ margin-top: -12px;
 border-radius: 10px;
 }
 
-.navbar-default .navbar-toggle {
+.btn-setting {
   color: rgb(83, 99, 99);
   border-color: rgb(10, 126, 126);
   border-width: 1px;
   border-radius: 20px;
   margin-bottom: 22px;
-}
-.navbar-toggle {
   position: relative;
   float: right;
   padding: 9px 10px;
@@ -77,8 +75,6 @@ border-radius: 10px;
   margin-bottom: 8px;
   background-color: transparent;
   background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
 }
 
 .profile_img{
