@@ -77,7 +77,7 @@ hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/new
 
 var today = new Date().getHours();
 if (today >= 3 && today <= 21) {
-    hmap.addTo(map)
+    gmap.addTo(map)
 } else {
     CartoDB_DarkMatter.addTo(map)
 }
