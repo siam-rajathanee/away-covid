@@ -76,11 +76,11 @@ gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
 })
 
-hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&ppi=72&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
-    attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
-    subdomains: '1234',
-    maxZoom: 20
-})
+// hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&ppi=72&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
+//     attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
+//     subdomains: '1234',
+//     maxZoom: 20
+// })
 
 var today = new Date().getHours();
 if (today >= 3 && today <= 21) {
@@ -747,19 +747,19 @@ $("#form_setting").submit(function (event) {
 
 
     if (basemap == 'base1') {
-        hmap.addTo(map)
-        gmap.remove()
-        osm.remove()
-        CartoDB_DarkMatter.remove()
-    } else if (basemap == 'base2') {
-        hmap.remove()
         gmap.addTo(map)
         osm.remove()
+        stadia.remove()
         CartoDB_DarkMatter.remove()
-    } else if (basemap == 'base3') {
-        hmap.remove()
+    } else if (basemap == 'base2') {
         gmap.remove()
         osm.addTo(map)
+        stadia.remove()
+        CartoDB_DarkMatter.remove()
+    } else if (basemap == 'base3') {
+        gmap.remove()
+        osm.remove()
+        stadia.addTo(map)
         CartoDB_DarkMatter.remove()
     } else {
         hmap.remove()
