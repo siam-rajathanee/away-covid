@@ -4267,7 +4267,7 @@ var checkpoint_th = {
             "type": "Point",
             "coordinates": [98.29952832, 8.246852898]
         }
-    },{
+    }, {
         "type": "Feature",
         "properties": {
             "Id": 9999,
@@ -5778,6 +5778,126 @@ var checkpoint_th = {
         "geometry": {
             "type": "Point",
             "coordinates": [100.407665, 13.68925]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 481,
+            "name": "แยกคลองเมม อ.พรหมพิราม",
+            "lat": 16.952058,
+            "long": 100.124429
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.124429, 16.952058, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 482,
+            "name": "ท่างาม อ.วัดโบสถ์",
+            "lat": 16.997585,
+            "long": 100.326547
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.326547, 16.997585, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 483,
+            "name": "โป่งแค อ.วัดโบสถ์",
+            "lat": 17.343561,
+            "long": 100.378385
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.378385, 17.343561, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 484,
+            "name": "แยกชาติตระการ อ.ชาติตระการ",
+            "lat": 17.270341,
+            "long": 100.608525
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.608525, 17.270341, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 485,
+            "name": "บ้านบ่อโพธิ์ อ.นครไทย",
+            "lat": 17.146989,
+            "long": 100.948087
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.948087, 17.146989, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 486,
+            "name": "แยกบ้านแยง อ.นครไทย",
+            "lat": 16.888479,
+            "long": 100.799446
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.799446, 16.888479, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 487,
+            "name": "แยกสินติบันเทิง อ.บางระกำ",
+            "lat": 16.537899,
+            "long": 100.462912
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.462912, 16.537899, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 488,
+            "name": "ไผ่ล้อม อ.บางกระทุ่ม",
+            "lat": 16.574175,
+            "long": 100.348079
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.348079, 16.574175, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 489,
+            "name": "บ่อทอง อ.บางระกำ",
+            "lat": 16.634671,
+            "long": 100.149597
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.149597, 16.634671, ]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "Id": 490,
+            "name": "แยกเทศบาล อ.บางระกำ",
+            "lat": 16.753943,
+            "long": 100.115554
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.115554, 16.753943, ]
         }
     }]
 }
