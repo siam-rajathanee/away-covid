@@ -19009,5 +19009,257 @@ var geojson_covidcase = {
                 gender: "หญิง",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    102.784406,
+                    16.698173,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1116",
+                place_name: "จังหวัดขอนแก่น รายที่ 5",
+                lat: "16.698173",
+                lon: "102.784406",
+                case_numbe: "1",
+                date_start: "2020-04-14",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "พบผู้ติดเชื้อไวรัสโควิด-19 รายใหม่เพิ่มอีก 1 คน เป็นผู้ติดเชื้อรายที่ 5 ของจังหวัด เป็นหญิงอายุ 63 ปี ชาวบ้านกุดน้ำใส อำเภอน้ำพอง หลังจากที่มีอุณหภูมิในร่างกายสูง โดยวัดได้ 37.9 องศาเซลเซียส",
+                ref_source: "Sanook",
+                link_news: "https://www.sanook.com/news/8080882/",
+                tb_code: "",
+                tb_th: "กุดน้ำใส",
+                ap_th: "น้ำพอง",
+                pro_th: "ขอนแก่น",
+                postcode: "40310",
+                age: "63",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.292394,
+                    7.981261,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1117",
+                place_name: "จังหวัดภูเก็ต รายที่ 189",
+                lat: "7.981261",
+                lon: "98.292394",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 189 ชายไทย อายุ 33 ปี อาชีพ ช่างพนักงานร้านทำกระจกในบางเทาเป็นผู้สัมผัสใกล้ชิดของผู้ป่วยยืนยันรายที่ 187 พักอาศัยที่บางเทา ต.เชิงทะเล อ.ถลาง",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3054177297977608/?type=3&theater",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "33",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.292438,
+                    7.981185,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1118",
+                place_name: "จังหวัดภูเก็ต รายที่ 190",
+                lat: "7.981185",
+                lon: "98.292438",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 190 หญิงไทย อายุ 47 ปี อาชีพ ทำอาหารขายในบางเทาเป็นผู้สัมผัสใกล้ชิดของผู้ป่วยยืนยันรายที่ 177 พักอาศัยที่บางเทา ต.เชิงทะเล อ.ถลาง",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3054177297977608/?type=3&theater",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "47",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.292188,
+                    7.981316,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1119",
+                place_name: "จังหวัดภูเก็ต รายที่ 191",
+                lat: "7.981316",
+                lon: "98.292188",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 191 เด็กหญิงไทย อายุ 12 ปี อาชีพ นักเรียนเป็นบุตรสาวของผู้ป่วยยืนยันรายที่ 190 และพักอาศัยที่บ้านหลังเดียวกันในบางเทา ต.เชิงทะเล อ. ถลาง",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3054177297977608/?type=3&theater",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "12",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.722324,
+                    17.487546,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1120",
+                place_name: "จังหวัดเลย",
+                lat: "17.487546",
+                lon: "101.722324",
+                case_numbe: "1",
+                date_start: "2020-04-13",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 4 ซึ่งเป็นสามีของผู้ป่วยรายที่ 3 ที่ตรวจพบเชื้อไปเมื่อวันที่ 10 เมษายน",
+                ref_source: "Sanook",
+                link_news: "https://www.sanook.com/news/8078986/",
+                tb_code: "",
+                tb_th: "กุดป่อง",
+                ap_th: "เมืองเลย",
+                pro_th: "เลย",
+                postcode: "42000",
+                age: "57",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.973198,
+                    18.789745,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1121",
+                place_name: "เสียชีวิตรายที่ 42",
+                lat: "18.789745",
+                lon: "98.973198",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "เสียชีวิต",
+                description: "รายที่ 42 เป็นหญิงไทย อายุ 65 ปี อาชีพ ขายอาหารที่ถนนคนเดิน มีโรคประจำตัวเบาหวาน ไตเรื้อรัง ความดันโลหิตสูง วันที่ 7 มี.ค. มีอาการไข้สูง ไอ ซื้อยารับประทานเอง ต่อมาวันที่ 12 มี.ค. อาการไม่ดีขึ้น รับการตรวจที่ รพ.แห่งหนึ่งในเชียงใหม่ มีประวัติสัมผัสผู้ป่วยยืนยันในบ้าน วันที่ 15 มี.ค. หน้ามืด รับการรักษาอีกครั้ง วันที่ 17 มี.ค เข้ารับการรักษาในโรงพยาบาล วันที่ 19 มี.ค. ผลออกว่าเป็นโควิด วันที่ 22 มี.ค. พบว่า ปอดอักเสบอย่างรุนแรง วันที่ 6 เม.ย. ผู้ป่วยไม่รู้สึกตัว ความดันตก แม้ได้รับยากระตุ้น เสียชีวิตวันที 13 เม.ย.",
+                ref_source: "The Thaiger ประเทศไทย",
+                link_news: "https://thethaiger.com/thai/news-th/thailand-th/%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B8%A7%E0%B8%B4%E0%B8%94-19-15-%E0%B9%80%E0%B8%A1%E0%B8%A9%E0%B8%B2%E0%B8%A2%E0%B8%99-%E0%B9%84-3",
+                tb_code: "",
+                tb_th: "สุเทพ",
+                ap_th: "เมืองเชียงใหม่",
+                pro_th: "เชียงใหม่",
+                postcode: "50200",
+                age: "65",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.560209,
+                    14.343318,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1122",
+                place_name: "เสียชีวิตรายที่ 43",
+                lat: "14.343318",
+                lon: "100.560209",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "เสียชีวิต",
+                description: "รายที่ 43 ผู้ป่วยชาวไทย อายุ 60 ปี เดินทางเข้าร่วมพิธีทางศาสนาที่อินโดนีเซีย วันที่ 24 มี.ค กลับไทย . วันที่ 2 เม.ย. ไข้สูง ปวดเมื่อยกล้ามเนื้อ เข้ารับการักษาที่ รพ.แห่งหนึ่ง ใน จ.พระนครศรีอยุธยา อาการแย่ลงเรื่อยๆ และเสียชีวิตวันที่ 14 เม.ย.",
+                ref_source: "The Thaiger ประเทศไทย",
+                link_news: "https://thethaiger.com/thai/news-th/thailand-th/%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B8%A7%E0%B8%B4%E0%B8%94-19-15-%E0%B9%80%E0%B8%A1%E0%B8%A9%E0%B8%B2%E0%B8%A2%E0%B8%99-%E0%B9%84-3",
+                tb_code: "",
+                tb_th: "ประตูชัย",
+                ap_th: "พระนครศรีอยุธยา",
+                pro_th: "พระนครศรีอยุธยา",
+                postcode: "1300",
+                age: "60",
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
     ],
 }
