@@ -100,6 +100,6 @@ _Revision 2.0, adopted by the [Stumptown Syndicate](http://stumptownsyndicate.or
 - https://data.go.th/dataset/covid-19-daily
 - See all sources
 
-Built and maintained by Chingchai HOOMHONG, Teerayoot INJUN, Chanon KITCHARAK, Rojjanasak SINGHSAWAT, Sakda HOMHUAN and Teerayoot Injun (16° North) and these contributors. Concept and design by Assoc.Prof.Dr.Chada Narongrit. Supported by MAPEDIA, Leaflet, OpenStreetMap, HERE, Google, Carto and NUxLINE Mentorship Programme
+Built and maintained by Chingchai HOOMHONG, Teerayoot INJUN, Chanon KITCHARAK, Rojjanasak SINGHSAWAT, Sakda HOMHUAN and Teerayoot Injun (16° North) and these contributors. Concept and design by Assoc.Prof.Dr.Chada Narongrit. Supported by MAPEDIA, Leaflet, OpenStreetMap, Google, Carto and NUxLINE Mentorship Programme
 
 Contribute to this project on GitHub.
