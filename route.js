@@ -478,7 +478,13 @@ function onLocationFound(e) {
     data_set_labcovid.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
 
     data_set_labcovid.forEach(f => {
-        show_lab += '<div class="card mb-3"> <h5 class="card-header">' + f.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.dis + ' กม. </div> <div class="col-xs-6  text-right"  onClick="select_place(' + f.lat + ',' + f.long + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> </div> <hr>'
+        //show_lab += '<div class="card mb-3"> <h5 class="card-header">' + f.name + '</h5> <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.webimage + '" alt="" width="100%"> </div> <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.add + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-6  text-left"> ระยะทาง ' + f.dis + ' กม. </div> <div class="col-xs-6  text-right"  onClick="select_place(' + f.lat + ',' + f.long + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> </div> <hr>'
+        show_lab += '<div class="card mb-3"> <h5 class="card-header">' + f.name + '</h5> \
+        <div class="card-body"> <div class="row"> <div class="col-xs-4  text-center"> <img style="border-radius: 10px;" src="' + f.webimage + '" alt="" width="100%"> </div> \
+        <div class="col-xs-8"> <h6 class="card-subtitle text-muted">จังหวัด : ' + f.prov + '</h6> <h6 class="card-subtitle text-muted">ที่อยู่ : ' + f.add + '</h6> </div> </div> </div> \
+        <div class="card-footer text-muted text-right"> <div class="row"> <div class="col-xs-5  text-left"> ระยะทาง ' + f.dis + ' กม. </div>\
+        <div class="col-6 col-xs-4 text-right"> <a  href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + f.lat + ',' + f.long + ' "  target="_blank">  <i class="fa fa-location-arrow"></i> นำทาง</a> </div>\
+        <div class="col-6 col-xs-3  text-right"  onClick="select_place(' + f.lat + ',' + f.long + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> </div> <hr>'
     })
     document.getElementById('show_lab').innerHTML = show_lab
 
@@ -496,7 +502,15 @@ function onLocationFound(e) {
     });
     data_set_rpst.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
     for (let i = 0; i < 30; i++) {
-        show_rpst += '<div class="card mb-3"> <h5 class="card-header">' + data_set_rpst[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_rpst[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_rpst[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_rpst[i].lat + ',' + data_set_rpst[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+        //show_rpst += '<div class="card mb-3"> <h5 class="card-header">' + data_set_rpst[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_rpst[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_rpst[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_rpst[i].lat + ',' + data_set_rpst[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+        //}
+        show_rpst += '<div class="card mb-3"> <h5 class="card-header">' + data_set_rpst[i].name + '</h5>\
+        <h5 class="card-header"> ประเภท ' + data_set_rpst[i].type_desc + ' </h5>\
+        <div class="row">\
+        <div class="col-6 col-xs-5 text-left"> ระยะทาง ' + data_set_rpst[i].dis + ' กม. </div>\
+        <div class="col-6 col-xs-4 text-right"> <a  href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_set_rpst[i].lat + ',' + data_set_rpst[i].lon + ' "  target="_blank">  <i class="fa fa-location-arrow"></i> นำทาง</a> </div>\
+        <div class="col-6 col-xs-3 text-right" onClick="select_place(' + data_set_rpst[i].lat + ',' + data_set_rpst[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง </div>\
+         </div></div> </div> </div><hr>'
     }
     document.getElementById('show_rpst').innerHTML = show_rpst
 
@@ -515,7 +529,14 @@ function onLocationFound(e) {
     });
     data_set_clinic.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
     for (let i = 0; i < 30; i++) {
-        show_h2 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_clinic[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_clinic[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_clinic[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_clinic[i].lat + ',' + data_set_clinic[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+        //show_h2 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_clinic[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_clinic[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_clinic[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_clinic[i].lat + ',' + data_set_clinic[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+        show_h2 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_clinic[i].name + '</h5>\
+        <h5 class="card-header"> ประเภท ' + data_set_clinic[i].type_desc + ' </h5>\
+        <div class="row">\
+        <div class="col-6 col-xs-5 text-left"> ระยะทาง ' + data_set_clinic[i].dis + ' กม. </div>\
+        <div class="col-6 col-xs-4 text-right"> <a  href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_set_clinic[i].lat + ',' + data_set_clinic[i].lon + ' "  target="_blank">  <i class="fa fa-location-arrow"></i> นำทาง</a> </div>\
+        <div class="col-6 col-xs-3 text-right" onClick="select_place(' + data_set_clinic[i].lat + ',' + data_set_clinic[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง </div>\
+         </div></div> </div> </div><hr>'
     }
     document.getElementById('show_h2').innerHTML = show_h2
 
@@ -532,7 +553,14 @@ function onLocationFound(e) {
     });
     data_set_medicine.sort((a, b) => (a.dis > b.dis) ? 1 : -1)
     for (let i = 0; i < 30; i++) {
-        show_h3 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_medicine[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_medicine[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_medicine[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_medicine[i].lat + ',' + data_set_medicine[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+        //show_h3 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_medicine[i].name + '</h5> <div class="card-body"> <div class="row"> </div> <div class=""> <h6 class="card-subtitle text-muted">ประเภท : ' + data_set_medicine[i].type_desc + '</h6> </div> </div> </div> <div class="card-footer text-muted text-right"> <div class="col-xs-12"> <div class="col-xs-6  text-left"> ระยะทาง ' + data_set_medicine[i].dis + ' กม. </div> <div class="col-xs-6  text-right" onClick="select_place(' + data_set_medicine[i].lat + ',' + data_set_medicine[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง</div> </div> </div> <hr>'
+        show_h3 += '<div class="card mb-3"> <h5 class="card-header">' + data_set_medicine[i].name + '</h5>\
+        <h5 class="card-header"> ประเภท ' + data_set_medicine[i].type_desc + ' </h5>\
+        <div class="row">\
+        <div class="col-6 col-xs-5 text-left"> ระยะทาง ' + data_set_medicine[i].dis + ' กม. </div>\
+        <div class="col-6 col-xs-4 text-right"> <a  href="https://www.google.com/maps/dir/' + get_latlng[1] + ',' + get_latlng[0] + '/' + data_set_medicine[i].lat + ',' + data_set_medicine[i].lon + ' "  target="_blank">  <i class="fa fa-location-arrow"></i> นำทาง</a> </div>\
+        <div class="col-6 col-xs-3 text-right" onClick="select_place(' + data_set_medicine[i].lat + ',' + data_set_medicine[i].lon + ' )"> <i class="fa fa-search"></i> ตำแหน่ง </div>\
+         </div></div> </div> </div><hr>'
     }
     document.getElementById('show_h3').innerHTML = show_h3
 
