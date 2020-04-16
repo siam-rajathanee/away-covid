@@ -19261,5 +19261,221 @@ var geojson_covidcase = {
                 gender: "ไม่ระบุข้อมูล",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.884299,
+                    12.922694,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1123",
+                place_name: "จังหวัดชลบุรี รายที่ 82",
+                lat: "12.922694",
+                lon: "100.884299",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 82 ชายไทย พื้นที่ อำเภอบางละมุง เป็นผู้สัมผัสเสี่ยงสูง ของผู้ติดเชื้อรายที่ 81",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.742139422604557/1659183087566848/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางละมุง",
+                pro_th: "ชลบุรี",
+                postcode: "20150",
+                age: null,
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.885213,
+                    12.926282,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1124",
+                place_name: "จังหวัดชลบุรี รายที่ 83",
+                lat: "12.926282",
+                lon: "100.885213",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 83 หญิงไทย พื้นที่ อำเภอบางละมุง ความเสี่ยง เป็นบุคลากรทางการแพทย์",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.742139422604557/1659183087566848/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางละมุง",
+                pro_th: "ชลบุรี",
+                postcode: "20150",
+                age: null,
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.263789,
+                    6.266752,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1125",
+                place_name: "จังหวัดยะลา รายที่ 91 92 และ93",
+                lat: "6.266752",
+                lon: "101.263789",
+                case_numbe: "3",
+                date_start: "2020-04-15",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.2 ตำบลบันนังสตา รักษาตัวอยู่ รพ.บันนังสตา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/a.1544915838907760/2893259190740078/?type=3&theater",
+                tb_code: "",
+                tb_th: "บันนังสตา",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.304999,
+                    6.553129,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1126",
+                place_name: "จังหวัดยะลา รายที่ 94",
+                lat: "6.553129",
+                lon: "101.304999",
+                case_numbe: "1",
+                date_start: "2020-04-16",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.3 ตำบลสะเตงนอก รักษาตัวอยู่รพ. ยะลา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/rpp.1449464995119512/2894645120601485/?type=3&theater",
+                tb_code: "",
+                tb_th: "สะเตงนอก",
+                ap_th: "เมืองยะลา",
+                pro_th: "ยะลา",
+                postcode: "95000",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.65235,
+                    6.517646,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1127",
+                place_name: "จังหวัดยะลา รายที่ 95",
+                lat: "6.517646",
+                lon: "101.65235",
+                case_numbe: "1",
+                date_start: "2020-04-16",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.2 ตำบลบาเจาะ รักษาตัวอยู่รพ. บันนังสตา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/rpp.1449464995119512/2894645120601485/?type=3&theater",
+                tb_code: "",
+                tb_th: "บาเจาะ",
+                ap_th: "บาเจาะ",
+                pro_th: "นราธิวาส",
+                postcode: "96170",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.237431,
+                    6.203494,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1128",
+                place_name: "จังหวัดยะลา รายที่ 96",
+                lat: "6.203494",
+                lon: "101.237431",
+                case_numbe: "1",
+                date_start: "2020-04-16",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.6 ตำบลบันนังสตา รักษาตัวอยู่ รพ.บันนังสตา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/rpp.1449464995119512/2894645120601485/?type=3&theater",
+                tb_code: "",
+                tb_th: "บันนังสตา",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
     ],
 }
