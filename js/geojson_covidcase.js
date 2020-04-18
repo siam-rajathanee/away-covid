@@ -19477,5 +19477,149 @@ var geojson_covidcase = {
                 gender: "ไม่ระบุข้อมูล",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.186404,
+                    10.497789,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1129",
+                place_name: "จังหวัดชุมพร รายที่ 6",
+                lat: "10.497789",
+                lon: "99.186404",
+                case_numbe: "1",
+                date_start: "2020-04-15",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 6 เป็นเพศหญิง อายุ 56 ปี ติดเชื้อจากผู้ป่วยรายที่ 4 ระหว่างที่เข้ารับการรักษาตัวที่ รพ.ชุมพรฯ และอยู่เตียงข้างๆกัน มีผู้สัมผัสใกล้ชิดกับผู้ป่วยรายที่ 6 รอผลการตรวจยืนยันการติดเชื้อฯ อีก 10 ราย",
+                ref_source: "สวท.ชุมพร",
+                link_news: "https://www.facebook.com/chumphonrdt/photos/a.277257789424446/852941801856039/?type=3&theater",
+                tb_code: "",
+                tb_th: "ท่าตะเภา",
+                ap_th: "เมือง",
+                pro_th: "ชุมพร",
+                postcode: "86000",
+                age: "56",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.292394,
+                    7.981261,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1130",
+                place_name: "จังหวัดภูเก็ต รายที่ 192",
+                lat: "7.981261",
+                lon: "98.292394",
+                case_numbe: "1",
+                date_start: "2020-04-17",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 192 หญิงไทย อายุ 83 ปี อาชีพแม่บ้านอาศัยอยู่ในบ้านหลังเดียวกับผู้ป่วยยืนยันรายที่ 189 ในพื้นที่บางเทา ต.เชิงทะเล อ.ถลาง",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/?rf=687648164595300",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "83",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.097116,
+                    7.519737,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1131",
+                place_name: "จังหวัดกระบี่ 17",
+                lat: "7.519737",
+                lon: "99.097116",
+                case_numbe: "1",
+                date_start: "2020-04-17",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ติดเชื้อรายใหม่เป็นนทท.ชาวอเมริกัน อายุ 49 ปี และ นทท.ชาวไทยอายุ 33 ปี ทั้ง 2 มีประวัติเดินทางท่องเที่ยวด้วยกัน",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดกระบี่",
+                link_news: "https://www.facebook.com/kboph/photos/a.2081810842110359/2422697518021688/?type=3&theater",
+                tb_code: "",
+                tb_th: "เกาะลันตาใหญ่",
+                ap_th: "เกาะลันตา",
+                pro_th: "กระบี่",
+                postcode: "81150",
+                age: "49",
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.096911,
+                    7.520262,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1132",
+                place_name: "จังหวัดกระบี่ 18",
+                lat: "7.520262",
+                lon: "99.096911",
+                case_numbe: "1",
+                date_start: "2020-04-17",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ติดเชื้อรายใหม่เป็นนทท.ชาวอเมริกัน อายุ 49 ปี และ นทท.ชาวไทยอายุ 33 ปี ทั้ง 2 มีประวัติเดินทางท่องเที่ยวด้วยกัน",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดกระบี่",
+                link_news: "https://www.facebook.com/kboph/photos/a.2081810842110359/2422697518021688/?type=3&theater",
+                tb_code: "",
+                tb_th: "เกาะลันตาใหญ่",
+                ap_th: "เกาะลันตา",
+                pro_th: "กระบี่",
+                postcode: "81150",
+                age: "33",
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
     ],
 }
