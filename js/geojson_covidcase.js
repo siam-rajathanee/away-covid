@@ -19878,6 +19878,42 @@ var geojson_covidcase = {
             geometry: {
                 type: "Point",
                 coordinates: [
+                    100.884848,
+                    12.92606,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1147",
+                place_name: "จังหวัดชลบุรี รายที่ 85",
+                lat: "12.92606",
+                lon: "100.884848",
+                case_numbe: "1",
+                date_start: "2020-04-19",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 85 เป็นหญิงไทย อำเภอบางละมุง ผู้สัมผัสร่วมงานกับผู้ป่วยชายรายที่ 82",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.1660241714127652/1663195000498990/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางละมุง",
+                pro_th: "ชลบุรี",
+                postcode: "20150",
+                age: null,
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
                     99.186602,
                     10.497379,
                 ],
@@ -19979,6 +20015,222 @@ var geojson_covidcase = {
                 postcode: "86000",
                 age: "47",
                 gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.301529,
+                    7.89078,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1143",
+                place_name: "จังหวัดภูเก็ต รายที่ 193",
+                lat: "7.89078",
+                lon: "98.301529",
+                case_numbe: "1",
+                date_start: "2020-04-21",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 193 ชายชาวอิตาลี อายุ 83 ปี ไม่ได้ประกอบอาชีพไม่มีประวัติเดินทางไปต่างประเทศในช่วง 1 เดือoก่อนหน้า อาศัยอยู่ในเขตป่าตอง ต.ป่าตอง อ.กะทู้มีประวัติเดินทางไปสถานที่เสี่ยงที่เคยพบการระบาดใoเขตป่าตองหลายครั้ง เช่น ซ.บางลาและร้านอาหารอิตาลี ซ.นาใน ต.ป่าตอง อ.กะทู้ ผู้ป่วยรายนี้ตรวจพบเชื้อจากการตรวจคัดกรองหาเชื้อในช่วงที่ผู้ป่วยไปรับการรักษาด้วยโรคอื่น",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3068322953229709/?type=3&theater",
+                tb_code: "",
+                tb_th: "ป่าตอง",
+                ap_th: "กะทู้",
+                pro_th: "ภูเก็ต",
+                postcode: "83150",
+                age: "83",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.186122,
+                    10.497377,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1144",
+                place_name: "จังหวัดชุมพร รายที่ 15",
+                lat: "10.497377",
+                lon: "99.186122",
+                case_numbe: "1",
+                date_start: "2020-04-20",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 15 เพศหญิงอายุ 27 ปี มีโรคประจำตัวคือโรค SLE มีโรคความดันโลหิตสูงและโรคไต ก่อนหน้านี้ผู้ป่วยเข้ารักษาที่กรุงเทพมหานคร และกลับมารักษาที่โรงพยาบาลชุมพรเขตอุดมศักดิ์ในช่วงวันที่ 20 - 26 มีนาคม 2563 จากนั้นกลับไปอยู่บ้านแล้วเดินทางจากบ้านไปโรงพยาบาลชุมพรเขตอุดมศักดิ์ในการฟอกไต เป็นระยะๆตามที่แพทย์นัดอย่างต่อเนื่อง ผลการตรวจของผู้ป่วยรายนี้ผู้ป่วยพบเชื้อ โควิค - 19 ในวันนี้ที่ 20 เมษายน 2563 ผู้ป่วยติดเชื้อ โควิค - 19 ร่วมกับโรคเดิม มีผู้สัมผัสทั้งครอบครัวและชุมชนทั้งหมด 10 คน มีบุคคลากรทางการแพทย์ที่สัมผัสเสี่ยงสูงอีก 15 คน ซึ่งทั้งหมดได้ทำการเฝ้าระวังและทำการตรวจเชื้อ",
+                ref_source: "สวท.ชุมพร",
+                link_news: "https://www.facebook.com/chumphonrdt/photos/a.253499978466894/856619258154960/?type=3&theater",
+                tb_code: "",
+                tb_th: "ท่าตะเภา",
+                ap_th: "เมืองชุมพร",
+                pro_th: "ชุมพร",
+                postcode: "86000",
+                age: "27",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.186505,
+                    10.497545,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1145",
+                place_name: "จังหวัดชุมพร รายที่ 16",
+                lat: "10.497545",
+                lon: "99.186505",
+                case_numbe: "1",
+                date_start: "2020-04-20",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยรายที่ 16 เป็นเด็กหญิง อายุ 2 ปี 8 เดือนเป็นบุตรของผู้ป่วยรายที่ 12 ได้ทำการเก็บสอ่งส่งตรวจเมื่อวันที่ 19 เมษายน 2563 และวันนี้ (20 เม.ย.63)ได้รับการยืนยันพบเชื้อโควิค - 19",
+                ref_source: "สวท.ชุมพร",
+                link_news: "https://www.facebook.com/chumphonrdt/photos/a.253499978466894/856619258154960/?type=3&theater",
+                tb_code: "",
+                tb_th: "ท่าตะเภา",
+                ap_th: "เมืองชุมพร",
+                pro_th: "ชุมพร",
+                postcode: "86000",
+                age: "2",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.885291,
+                    12.926277,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1146",
+                place_name: "จังหวัดชลบุรี รายที่ 84",
+                lat: "12.926277",
+                lon: "100.885291",
+                case_numbe: "1",
+                date_start: "2020-04-19",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 84 เป็นหญิงไทย อำเภอบางละมุง ผู้สัมผัสร่วมงานกับผู้ป่วยชายรายที่ 82",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดชลบุรี สสจ.ชลบุรี",
+                link_news: "https://www.facebook.com/318251788326658/photos/a.1660241714127652/1663195000498990/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "บางละมุง",
+                pro_th: "ชลบุรี",
+                postcode: "20150",
+                age: null,
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.276461,
+                    6.547533,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1148",
+                place_name: "จังหวัดยะลา รายที่ 100",
+                lat: "6.547533",
+                lon: "101.276461",
+                case_numbe: "1",
+                date_start: "2020-04-20",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.1 ตำบลเขื่อนบางลาง รักษาอยู่ รพ.ยะลา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/pcb.2903996672999663/2903996572999673/?type=3&theater",
+                tb_code: "",
+                tb_th: "",
+                ap_th: "เมืองยะลา",
+                pro_th: "ยะลา",
+                postcode: "95000",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.25764,
+                    6.263431,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1149",
+                place_name: "จังหวัดยะลา รายที่ 101",
+                lat: "6.263431",
+                lon: "101.25764",
+                case_numbe: "1",
+                date_start: "2020-04-20",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.3 ตำบลตาเนอะปูเต๊ะ รักษาอยู่ รพ.บันนังสตา",
+                ref_source: "สำนักงานประชาสัมพันธ์จังหวัดยะลา",
+                link_news: "https://www.facebook.com/1449464995119512/photos/pcb.2903996672999663/2903996572999673/?type=3&theater",
+                tb_code: "",
+                tb_th: "บันนังสตา",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
             },
         },
     ],
