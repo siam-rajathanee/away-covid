@@ -21169,5 +21169,257 @@ var geojson_covidcase = {
                 gender: "ชาย",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.382377,
+                    7.847259,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1176",
+                place_name: "จังหวัดภูเก็ต รายที่ 202",
+                lat: "7.847259",
+                lon: "98.382377",
+                case_numbe: "1",
+                date_start: "2020-04-25",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 202 หญิงไทย อายุ 60 ปี อาชีพ ธุรกิจส่วนตัวเป็นผู้สัมผัสใกล้ชิดของผู้ป่วยยืนยันรายที่ 103 และ 176 พักอาศัยที่หมู่บ้านแห่งหนึ่งใน ต.วิชิต อ.เมือง จ.ภูเก็ต เริ่มมีอาการป่วยวันที่ 16 เมษายน 2563",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3077836762278328/?type=3&theater",
+                tb_code: "",
+                tb_th: "วิชิต",
+                ap_th: "เมืองภูเก็ต",
+                pro_th: "ภูเก็ต",
+                postcode: "83000",
+                age: "60",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.308634,
+                    6.336763,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1177",
+                place_name: "จังหวัดยะลา รายที่ 108 - 114",
+                lat: "6.336763",
+                lon: "101.308634",
+                case_numbe: "7",
+                date_start: "2020-04-25",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.346738062154605/1449844211843979/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.014461,
+                    14.223105,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1178",
+                place_name: "จังหวัดสุพรรณบุรี",
+                lat: "14.223105",
+                lon: "100.014461",
+                case_numbe: "1",
+                date_start: "2020-04-24",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ชายไทย อายุ 24 ปี ผู้สัมผัสกับ ผู้ป่วยยืนยันรายที่ 22 จ.นครปฐม",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดสุพรรณบุรี",
+                link_news: "https://www.facebook.com/ssjsuphan/photos/a.1461426137439296/2569822509932981/?type=3&theater",
+                tb_code: "",
+                tb_th: "สองพี่น้อง",
+                ap_th: "สองพี่น้อง",
+                pro_th: "สุพรรณบุรี",
+                postcode: "72110",
+                age: "24",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.09724,
+                    7.519667,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1179",
+                place_name: "จังหวัดกระบี่ รายที่ 17",
+                lat: "7.519667",
+                lon: "99.09724",
+                case_numbe: "1",
+                date_start: "2020-04-17",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "เพศชาย อายุ 42 ปีชาวอเมริกา นักท่องเที่ยวเดินทางเข้าประเทศ",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดกระบี่",
+                link_news: "https://www.facebook.com/kboph/photos/ms.c.eJw9y8EJACAMA8CNpI2xSfdfTET0e3AgXNMWo4nsAcISskPUWvygC~;UAIeYpG9IADao~-.bps.a.2409228286035278/2428772190747554/?type=3&theater",
+                tb_code: "",
+                tb_th: "เกาะลันตาใหญ่",
+                ap_th: "เกาะลันตา",
+                pro_th: "กระบี่",
+                postcode: "81150",
+                age: "42",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.096634,
+                    7.52014,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1180",
+                place_name: "จังหวัดกระบี่ รายที่ 18",
+                lat: "7.52014",
+                lon: "99.096634",
+                case_numbe: "1",
+                date_start: "2020-04-17",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "เพญหญิง อายุ 33 ปีชาวไทย ประกอบอาชีพธุรกิจส่วนตัว",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดกระบี่",
+                link_news: "https://www.facebook.com/kboph/photos/ms.c.eJw9y8EJACAMA8CNpI2xSfdfTET0e3AgXNMWo4nsAcISskPUWvygC~;UAIeYpG9IADao~-.bps.a.2409228286035278/2428772170747556/?type=3&theater",
+                tb_code: "",
+                tb_th: "เกาะลันตาใหญ่",
+                ap_th: "เกาะลันตา",
+                pro_th: "กระบี่",
+                postcode: "81150",
+                age: "33",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    99.096403,
+                    7.519746,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1181",
+                place_name: "จังหวัดกระบี่ รายที่ 19",
+                lat: "7.519746",
+                lon: "99.096403",
+                case_numbe: "1",
+                date_start: "2020-04-24",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "เพศชาย อายุ 56 ปีชาวอังกฤษ นักท่องเที่ยวเดินทางเข้าประเทศ",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดกระบี่",
+                link_news: "https://www.facebook.com/kboph/photos/ms.c.eJw9y8EJACAMA8CNpI2xSfdfTET0e3AgXNMWo4nsAcISskPUWvygC~;UAIeYpG9IADao~-.bps.a.2409228286035278/2428772207414219/?type=3&theater",
+                tb_code: "",
+                tb_th: "เกาะลันตาใหญ่",
+                ap_th: "เกาะลันตา",
+                pro_th: "กระบี่",
+                postcode: "81150",
+                age: "56",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.075286,
+                    13.81903,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1182",
+                place_name: "จังหวัดนครปฐม รายที่ 23",
+                lat: "13.81903",
+                lon: "100.075286",
+                case_numbe: "1",
+                date_start: "2020-04-25",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 23 ชายอายุ 60 ปี อยู่ ม.6 ต.บางเลน อ.บางเลน รักษาตัวอยู่รพ.นครปฐม",
+                ref_source: "PRCovid-19นครปฐม",
+                link_news: "https://www.facebook.com/103309634646876/photos/pcb.129461612031678/129461582031681/?type=3&theater",
+                tb_code: "",
+                tb_th: "พระปฐมเจดีย์",
+                ap_th: "เมืองนครปฐม",
+                pro_th: "นครปฐม",
+                postcode: "73000",
+                age: "60",
+                gender: "ชาย",
+            },
+        },
     ],
 }
