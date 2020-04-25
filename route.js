@@ -31,7 +31,7 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653984157-0qam36em" })
+    await liff.init({ liffId: "1653981898-QwWOp3PN" })
 }
 main()
 
