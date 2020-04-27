@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Quick Start - Leaflet</title>
+    <title>AWAY COVID 19</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,6 +69,7 @@
         main()
 
 
+        console.log(userId);
 
 
         var mymap = L.map('mapid', {
@@ -86,6 +87,7 @@
             iconUrl: 'img/place.svg',
             iconSize: [50, 50], // size of the icon
         });
+
 
         $.getJSON("https://mapedia.co.th/demo/view_tracking.php?type=json_user&userid=" + userId,
             function (data_user) {
