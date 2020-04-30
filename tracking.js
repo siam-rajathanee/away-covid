@@ -19,10 +19,29 @@ async function getUserProfile() {
         success: function (data) { }
     })
 
+    init_map()
+}
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({
+        liffId: "1653981898-Xak2roza"
+    })
+}
+main()
 
 
 
+// userId = 'U292fdb4ba348d63034ddd57ac2f69e1f'
+// displayName = 'chingchaih'
+//init_map()
 
+function init_map() {
 
     var mymap = L.map('mapid', {
         attributionControl: false
@@ -116,6 +135,7 @@ async function getUserProfile() {
 
                         });
                     });
+
                     let json_comfirm = []
                     for (let i = 0; i < json_check.length; i++) {
                         var lat = json_check[i].properties.lat
@@ -136,9 +156,12 @@ async function getUserProfile() {
                         }
                     }
 
+
+
+
                     let list_data = ''
                     json_comfirm.forEach(e => {
-                        list_data += '<li> <a class="float-right">วันที่ ' + e.properties.date_view + '</a> <p>' + e.properties.display_name + ' </p> <p> ละติจูด : ' + e.properties.lat + ' ลองจิจูด : ' + e.properties.lng + '</p> </li>'
+                        list_data += '<li> <a class="float-right">วันที่ ' + e.properties.date_view + '</a> <p>' + e.properties.display_name + ' </p> <small> ละติจูด : ' + Number(e.properties.lat).toFixed(4) + ' ลองจิจูด : ' + Number(e.properties.lng).toFixed(4) + '</small> </li>'
                     });
                     document.getElementById('list_data').innerHTML = list_data
 
@@ -150,54 +173,9 @@ async function getUserProfile() {
                             }).bindPopup('จุดเสี่ยง เมื่อวันที่ : ' + f.properties.date_view)
                         }
                     }).addTo(mymap)
-
-
-                    // $.getJSON("https://mapedia.co.th/demo/view_tracking.php?type=json_pui",
-                    // function (data_pui) {
-
-                    // })
-
-
-
-
                 })
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({
-        liffId: "1653981898-Xak2roza"
-    })
-}
-main()
-
-
-
-// userId = 'Uac75c4babcd74ff01cc3faa0efa2a4b2'
-// displayName = 'TEERAYOOT'
 
 
 
