@@ -193,7 +193,7 @@ function showDisclaimer() {
         //div.innerHTML += '<img src="img/clean.png" width="30px"> <small class="prompt"> ฆ่าเชื้อทำความสะอาดแล้ว </small> <br> ';
         div.innerHTML += '<img src="img/place.svg" width="30px"> <small class="prompt"> พื้นที่เสี่ยงเฝ้าระวัง </small>   ';
         div.innerHTML += ' <hr class="hr_0">  ';
-        div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> ด่านคัดกรอง </small>  ';
+        div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> จุดคัดกรอง </small>  ';
         div.innerHTML += ' <hr class="hr_0">  ';
         div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> พื้นที่ Lockdown </small> <br> ';
         // div.innerHTML += '<img src="img/curfew.png" width="20px"> <small class="prompt"> พื้นที่ Curfew </small> <br> ';
