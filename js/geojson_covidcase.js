@@ -22141,5 +22141,149 @@ var geojson_covidcase = {
                 gender: "ไม่ระบุข้อมูล",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.645564,
+                    13.734623,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1203",
+                place_name: "จังหวัดนนทบุรี รายที่ 114",
+                lat: "13.734623",
+                lon: "100.645564",
+                case_numbe: "1",
+                date_start: "2020-04-28",
+                status_news: "ได้รับการยืนยัน",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยหญิงไทย อายุ 8 ปี อยู่ตำบลบางกร่าง อำเภอเมืองนนทบุรี เป็นนักเรียนผู้สัมผัสใกล้ชิดผู้ป่วยยืนยันลำดับที่ 113",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดนนทบุรี",
+                link_news: "https://www.facebook.com/944802815716443/photos/a.945962565600468/1362824017247652/?type=3&theater",
+                tb_code: "",
+                tb_th: "แขวงสวนหลวง",
+                ap_th: "",
+                pro_th: "กรุงเทพมหานคร",
+                postcode: "10250",
+                age: "8",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.294654,
+                    7.979975,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1204",
+                place_name: "จังหวัดภูเก็ต รายที่ 215",
+                lat: "7.979975",
+                lon: "98.294654",
+                case_numbe: "1",
+                date_start: "2020-04-30",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 215 ชายไทย อายุ 53 ปี อาชีพพนักงานขับรถโรงแรมอาศัยอยู่ในพื้นที่บางเทา ต.เชิงทะเล อ.ถลาง พบจากการค้นหาเชิงรุกในพื้นที่",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3089723324423005/?type=3&theater",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "53",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.294521,
+                    7.979666,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1205",
+                place_name: "จังหวัดภูเก็ต รายที่ 216",
+                lat: "7.979666",
+                lon: "98.294521",
+                case_numbe: "1",
+                date_start: "2020-04-30",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 216 ชายไทย อายุ 19 ปี อาชีพนักศึกษาโรงเรียนสอนศาสนาในพื้นที่บางเทาเป็นผู้สัมผัสใกล้ชิดร่วมบ้านกับผู้ติดเชื้อยืนยันรายที่ 215 อาศัยอยู่ในพื้นที่บางเทา ต.เชิงทะเล อ.ถลาง พบจากการค้นหาเชิงรุกในพื้นที่",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3089723324423005/?type=3&theater",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "16",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    98.295446,
+                    7.979981,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1206",
+                place_name: "จังหวัดภูเก็ต รายที่ 217",
+                lat: "7.979981",
+                lon: "98.295446",
+                case_numbe: "1",
+                date_start: "2020-04-30",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "รายที่ 217 ชายไทย อายุ 31 ปี อาชีพครูสอนศาสนาโรงเรียนสอนศาสนาในพื้นที่บางเทาเป็นผู้สัมผัสใกล้ชิดร่วมบ้านกับผู้ติดเชื้อยืนยันรายที่ 215 อาศัยอยู่ในพื้นที่บางเทา ต.เชิงทะเล อ.ถลาง พบจากการค้นหาเชิงรุกในพื้นที่",
+                ref_source: "สสจ.ภูเก็ต",
+                link_news: "https://www.facebook.com/83ssj/photos/a.983490628379629/3089723324423005/?type=3&theater",
+                tb_code: "",
+                tb_th: "เชิงทะเล",
+                ap_th: "ถลาง",
+                pro_th: "ภูเก็ต",
+                postcode: "83110",
+                age: "31",
+                gender: "ชาย",
+            },
+        },
     ],
 }
