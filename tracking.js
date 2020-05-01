@@ -41,9 +41,6 @@ userId = 'Uac75c4babcd74ff01cc3faa0efa2a4b2'
 displayName = 'TEERAYOOT'
 init_map()
 
-
-
-
 function init_map() {
 
     var mymap = L.map('mapid', {
@@ -143,11 +140,23 @@ function init_map() {
                     for (let i = 0; i < json_check.length; i++) {
                         var lat = json_check[i].properties.lat
                         var lon = json_check[i].properties.lng
+
+
+
                         if (i < 1) {
+                            await $.getJSON('https://locationiq.org/v1/reverse.php?key=06e95f2c5c85dd&lat=' + lat + '&lon=' + lon + '&format=json',
+                                function (data_pui) {
+                                    json_check[i].properties.display_name = data_pui.display_name
+                                })
                             json_comfirm.push(json_check[i])
                         } else {
+
                             var distance = turf.distance(json_check[i], json_check[i - 1], { units: 'kilometers' });
                             if (distance > 0.1) {
+                                await $.getJSON('https://locationiq.org/v1/reverse.php?key=06e95f2c5c85dd&lat=' + lat + '&lon=' + lon + '&format=json',
+                                    function (data_pui) {
+                                        json_check[i].properties.display_name = data_pui.display_name
+                                    })
                                 json_comfirm.push(json_check[i])
                             }
                         }
@@ -158,12 +167,7 @@ function init_map() {
 
                     let list_data = ''
                     json_comfirm.forEach(e => {
-
-                        $.getJSON('https://locationiq.org/v1/reverse.php?key=06e95f2c5c85dd&lat=' + lat + '&lon=' + lon + '&format=json',
-                            function (data_pui) {
-                                list_data += '<li> <a class="float-right">วันที่ ' + e.properties.date_view + '</a> <p>' + data_pui.display_name + ' </p> <small> ละติจูด : ' + Number(e.properties.lat).toFixed(4) + ' ลองจิจูด : ' + Number(e.properties.lng).toFixed(4) + '</small> </li>'
-                            })
-
+                        list_data += '<li> <a class="float-right">วันที่ ' + e.properties.date_view + '</a> <p>' + e.properties.display_name + ' </p> <small> ละติจูด : ' + Number(e.properties.lat).toFixed(4) + ' ลองจิจูด : ' + Number(e.properties.lng).toFixed(4) + '</small> </li>'
                     });
                     document.getElementById('list_data').innerHTML = list_data
 
