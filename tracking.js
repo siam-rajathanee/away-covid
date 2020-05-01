@@ -37,8 +37,8 @@
 
 
 
-userId = 'U292fdb4ba348d63034ddd57ac2f69e1f'
-displayName = 'chingchaih'
+userId = 'Uac75c4babcd74ff01cc3faa0efa2a4b2'
+displayName = 'TEERAYOOT'
 init_map()
 
 function init_map() {
