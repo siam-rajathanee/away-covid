@@ -159,7 +159,7 @@ function init_map() {
                     let list_data = ''
                     json_comfirm.forEach(e => {
 
-                        await $.getJSON('https://locationiq.org/v1/reverse.php?key=06e95f2c5c85dd&lat=' + lat + '&lon=' + lon + '&format=json',
+                        $.getJSON('https://locationiq.org/v1/reverse.php?key=06e95f2c5c85dd&lat=' + lat + '&lon=' + lon + '&format=json',
                             function (data_pui) {
                                 list_data += '<li> <a class="float-right">วันที่ ' + e.properties.date_view + '</a> <p>' + data_pui.display_name + ' </p> <small> ละติจูด : ' + Number(e.properties.lat).toFixed(4) + ' ลองจิจูด : ' + Number(e.properties.lng).toFixed(4) + '</small> </li>'
                             })
