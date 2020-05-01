@@ -1,45 +1,45 @@
 
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            page_view: 'view_tracking.html'
-        }),
-        success: function (data) { }
-    })
+// async function getUserProfile() {
+//     profile = await liff.getProfile()
+//     pictureUrl = profile.pictureUrl
+//     userId = profile.userId
+//     displayName = profile.displayName
+//     if (pictureUrl == undefined) {
+//         pictureUrl = ''
+//     }
+//     $.ajax({
+//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+//         method: 'post',
+//         data: ({
+//             pictureUrl: pictureUrl,
+//             userId: userId,
+//             displayName: displayName,
+//             page_view: 'view_tracking.html'
+//         }),
+//         success: function (data) { }
+//     })
 
-    init_map()
-}
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({
-        liffId: "1653981898-Xak2roza"
-    })
-}
-main()
+//     init_map()
+// }
+// async function main() {
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
+//     await liff.init({
+//         liffId: "1653981898-Xak2roza"
+//     })
+// }
+// main()
 
 
 
-// userId = 'U292fdb4ba348d63034ddd57ac2f69e1f'
-// displayName = 'chingchaih'
-//init_map()
+userId = 'U292fdb4ba348d63034ddd57ac2f69e1f'
+displayName = 'chingchaih'
+init_map()
 
 function init_map() {
 
