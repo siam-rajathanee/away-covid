@@ -22285,5 +22285,185 @@ var geojson_covidcase = {
                 gender: "ชาย",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.309996,
+                    6.336937,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1207",
+                place_name: "จังหวัดยะลา รายที่ 122",
+                lat: "6.336937",
+                lon: "101.309996",
+                case_numbe: "1",
+                date_start: "2020-05-01",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1454993051329095/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.309542,
+                    6.336794,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1208",
+                place_name: "จังหวัดยะลา รายที่ 123",
+                lat: "6.336794",
+                lon: "101.309542",
+                case_numbe: "1",
+                date_start: "2020-05-01",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1454993051329095/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.310561,
+                    6.337808,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1209",
+                place_name: "จังหวัดยะลา รายที่ 124",
+                lat: "6.337808",
+                lon: "101.310561",
+                case_numbe: "1",
+                date_start: "2020-05-01",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1454993051329095/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.310544,
+                    6.33924,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1210",
+                place_name: "จังหวัดยะลา รายที่ 125",
+                lat: "6.33924",
+                lon: "101.310544",
+                case_numbe: "1",
+                date_start: "2020-05-01",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1454993051329095/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.311462,
+                    6.338957,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1211",
+                place_name: "จังหวัดยะลา รายที่ 126",
+                lat: "6.338957",
+                lon: "101.311462",
+                case_numbe: "1",
+                date_start: "2020-05-01",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1454993051329095/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
     ],
 }
