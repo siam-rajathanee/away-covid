@@ -18,8 +18,7 @@ async function getUserProfile() {
             displayName: displayName,
             page_view: 'route.html'
         }),
-        success: function (data) {
-        }
+        success: function (data) {}
     })
 }
 
@@ -31,7 +30,9 @@ async function main() {
             liff.login()
         }
     })
-    await liff.init({ liffId: "1653981898-QwWOp3PN" })
+    await liff.init({
+        liffId: "1653981898-QwWOp3PN"
+    })
 }
 main()
 
@@ -70,16 +71,16 @@ gmap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
     attributions: '&copy; <a href="https://www.google.co.th/maps">Google Maps</a>'
 })
 
-// hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&ppi=72&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
-//     attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
-//     subdomains: '1234',
-//     maxZoom: 20
-// })
+hmap = L.tileLayer('https://{s}.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png?lg=tha&ppi=72&apiKey=FTlR_PpH6jKZ6xwc6T40_6FjAAa9K3W5R5_WwZKuwPk', {
+    attribution: '&copy; <a href="https://www.here.com/">HERE</a>',
+    subdomains: '1234',
+    maxZoom: 20
+})
 
 
 var today = new Date().getHours();
 if (today >= 3 && today <= 21) {
-    gmap.addTo(map)
+    hmap.addTo(map)
 } else {
     CartoDB_DarkMatter.addTo(map)
 }
@@ -116,6 +117,7 @@ covidlab = L.layerGroup().addTo(map);
 var legend = L.control({
     position: 'bottomright'
 });
+
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -132,6 +134,7 @@ function showDisclaimer() {
     };
     legend.addTo(map);
 }
+
 function hideDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -190,13 +193,13 @@ function onLocationFound(e) {
     point = turf.point(get_latlng);
 
     L.geoJson(point, {
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: local_icon,
-                highlight: 'permanent'
-            });
-        }
-    }).bindPopup("ตำแหน่งปัจจุบันของท่าน")
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                    highlight: 'permanent'
+                });
+            }
+        }).bindPopup("ตำแหน่งปัจจุบันของท่าน")
         .addTo(map)
 
     buffered = turf.buffer(point, radius, {
@@ -608,24 +611,24 @@ $("#form_setting").submit(function (event) {
     basemap = event.target.basemap.value
 
     if (basemap == 'base1') {
-        gmap.addTo(map)
+        hmap.addTo(map)
+        gmap.remove()
         osm.remove()
-        CartoDB_Positron.remove()
         CartoDB_DarkMatter.remove()
     } else if (basemap == 'base2') {
-        gmap.remove()
-        osm.addTo(map)
-        CartoDB_Positron.remove()
+        hmap.remove()
+        gmap.addTo(map)
+        osm.remove()
         CartoDB_DarkMatter.remove()
     } else if (basemap == 'base3') {
+        hmap.remove()
         gmap.remove()
-        osm.remove()
-        CartoDB_Positron.addTo(map)
+        osm.addTo(map)
         CartoDB_DarkMatter.remove()
     } else {
+        hmap.remove()
         gmap.remove()
         osm.remove()
-        CartoDB_Positron.remove()
         CartoDB_DarkMatter.addTo(map)
     }
 
