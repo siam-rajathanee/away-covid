@@ -17,7 +17,7 @@ async function getUserProfile() {
             displayName: displayName,
             page_view: 'index.html'
         }),
-        success: function (data) {}
+        success: function (data) { }
     })
 }
 async function main() {
@@ -386,12 +386,12 @@ function get_loca() {
 
     var point = turf.point(get_latlng);
     L.geoJson(point, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: local_icon,
-                });
-            }
-        })
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: local_icon,
+            });
+        }
+    })
         .bindPopup("ตำแหน่งปัจจุบันของท่าน")
     document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
 
@@ -650,12 +650,12 @@ function get_point() {
 
         var point = turf.point(get_latlng);
         L.geoJson(point, {
-                pointToLayer: function (feature, latlng) {
-                    return L.marker(latlng, {
-                        icon: local_icon,
-                    });
-                }
-            })
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                });
+            }
+        })
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
@@ -916,12 +916,12 @@ $("#form_setting").submit(function (event) {
     }
     var point = turf.point(get_latlng);
     L.geoJson(point, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: local_icon,
-                });
-            }
-        })
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: local_icon,
+            });
+        }
+    })
         .bindPopup("ตำแหน่งปัจจุบันของท่าน")
         .addTo(set_map)
 
@@ -1062,7 +1062,7 @@ function get_tracking() {
             document.getElementById('tracking').innerHTML = '<button id="tracking"  class="btn btn-warning btn-xs"  onclick="get_loca()"> <i class="fa fa-compass  fa-lg" aria-hidden="true"></i><br> ปิด <br>การบันทึก <br> ตำแหน่ง</button>'
 
         },
-        error: function (e) {}
+        error: function (e) { }
     })
 
 }
@@ -1191,7 +1191,7 @@ function viewRouting() {
 L.Control.watermark = L.Control.extend({
     onAdd: function (map) {
         var img = L.DomUtil.create('img');
-        img.src = 'https://mapedia.co.th/assets/images/logo_1_1024.png';
+        img.src = 'img/mapedia_here.png';
         img.style.width = '35px';
         img.style.opacity = '0.5';
         return img;
