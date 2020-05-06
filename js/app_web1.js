@@ -1192,7 +1192,7 @@ L.Control.watermark = L.Control.extend({
     onAdd: function (map) {
         var img = L.DomUtil.create('img');
         img.src = 'img/mapedia_here.png';
-        img.style.width = '75px';
+        img.style.width = '85px';
         img.style.opacity = '0.8';
         return img;
     }
