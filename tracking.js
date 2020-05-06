@@ -87,6 +87,8 @@ function init_map() {
             $.getJSON("https://mapedia.co.th/demo/view_tracking.php?type=json_pui",
                 async function (data_pui) {
                     json_pui = data_pui
+
+
                     let json_check = []
                     json_pui.features.forEach(e => {
                         var d2 = new Date(e.properties.date_pui),
