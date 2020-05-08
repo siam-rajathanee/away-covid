@@ -22465,5 +22465,221 @@ var geojson_covidcase = {
                 gender: "ไม่ระบุข้อมูล",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.310608,
+                    6.338476,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1212",
+                place_name: "จังหวัดยะลา รายที่ 127",
+                lat: "6.338476",
+                lon: "101.310608",
+                case_numbe: "1",
+                date_start: "2020-05-07",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1460214147473652/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: "59",
+                gender: "หญิง",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.756184,
+                    13.701088,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1213",
+                place_name: "กรุงเทพฯ",
+                lat: "13.701088",
+                lon: "100.756184",
+                case_numbe: "1",
+                date_start: "2020-05-07",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยเดินทางมาจากคาซัคสถาน",
+                ref_source: "ศูนย์ข้อมูล COVID-19",
+                link_news: "https://www.facebook.com/informationcovid19/photos/a.106142991004034/138729107745422/?type=3&theater",
+                tb_code: "",
+                tb_th: "หนองปรือ",
+                ap_th: "บางพลี",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: "45",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    100.752879,
+                    13.707675,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1214",
+                place_name: "กรุงเทพฯ",
+                lat: "13.707675",
+                lon: "100.752879",
+                case_numbe: "1",
+                date_start: "2020-05-07",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "ผู้ป่วยเดินทางมาจากคาซัคสถาน",
+                ref_source: "ศูนย์ข้อมูล COVID-19",
+                link_news: "https://www.facebook.com/informationcovid19/photos/a.106142991004034/138729107745422/?type=3&theater",
+                tb_code: "",
+                tb_th: "หนองปรือ",
+                ap_th: "บางพลี",
+                pro_th: "สมุทรปราการ",
+                postcode: "10540",
+                age: "51",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.310488,
+                    6.337923,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1215",
+                place_name: "จังหวัดยะลา รายที่ 128",
+                lat: "6.337923",
+                lon: "101.310488",
+                case_numbe: "1",
+                date_start: "2020-05-08",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://scontent.fphs2-1.fna.fbcdn.net/v/t1.0-9/95581999_2945686518830678_5660038830451851264_n.jpg?_nc_cat=105&_nc_sid=110474&_nc_eui2=AeHn5_Cinjvfd9Bi-MtLf4WdC_xcso1u180L_FyyjW7XzTaT_i6X8yj5y1rjFfPdWhYBtkQO7JYiCyJ5Dq54XLd-&_nc_ohc=j4LwHK8cvscAX9miYS9&_nc_ht=scontent.fphs2-1.fna&oh=16c09bd39967ce921830bab79bb0f2b2&oe=5ED98E61&dl=1",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: "45",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.311734,
+                    6.33848,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1216",
+                place_name: "จังหวัดยะลา รายที่ 129",
+                lat: "6.33848",
+                lon: "101.311734",
+                case_numbe: "1",
+                date_start: "2020-05-08",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://scontent.fphs2-1.fna.fbcdn.net/v/t1.0-9/95581999_2945686518830678_5660038830451851264_n.jpg?_nc_cat=105&_nc_sid=110474&_nc_eui2=AeHn5_Cinjvfd9Bi-MtLf4WdC_xcso1u180L_FyyjW7XzTaT_i6X8yj5y1rjFfPdWhYBtkQO7JYiCyJ5Dq54XLd-&_nc_ohc=j4LwHK8cvscAX9miYS9&_nc_ht=scontent.fphs2-1.fna&oh=16c09bd39967ce921830bab79bb0f2b2&oe=5ED98E61&dl=1",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: "51",
+                gender: "ชาย",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.310514,
+                    6.339133,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1217",
+                place_name: "จังหวัดยะลา รายที่ 130",
+                lat: "6.339133",
+                lon: "101.310514",
+                case_numbe: "1",
+                date_start: "2020-05-08",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://scontent.fphs2-1.fna.fbcdn.net/v/t1.0-9/95581999_2945686518830678_5660038830451851264_n.jpg?_nc_cat=105&_nc_sid=110474&_nc_eui2=AeHn5_Cinjvfd9Bi-MtLf4WdC_xcso1u180L_FyyjW7XzTaT_i6X8yj5y1rjFfPdWhYBtkQO7JYiCyJ5Dq54XLd-&_nc_ohc=j4LwHK8cvscAX9miYS9&_nc_ht=scontent.fphs2-1.fna&oh=16c09bd39967ce921830bab79bb0f2b2&oe=5ED98E61&dl=1",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: "51",
+                gender: "ชาย",
+            },
+        },
     ],
 }
