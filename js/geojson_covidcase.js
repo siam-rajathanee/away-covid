@@ -22681,5 +22681,77 @@ var geojson_covidcase = {
                 gender: "ชาย",
             },
         },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.257838,
+                    6.26356,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1218",
+                place_name: "จังหวัดยะลา รายที่ 131",
+                lat: "6.26356",
+                lon: "101.257838",
+                case_numbe: "1",
+                date_start: "2020-05-09",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.3 ตำบลบาเจาะ รักษาอยู่ รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1461930763968657/?type=3&theater",
+                tb_code: "",
+                tb_th: "บันนังสตา",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
+        {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    101.31062,
+                    6.338475,
+                ],
+            },
+            crs: {
+                type: "EPSG",
+                properties: {
+                    code: "4326"
+                },
+            },
+            properties: {
+                gid: "1219",
+                place_name: "จังหวัดยะลา รายที่ 132",
+                lat: "6.338475",
+                lon: "101.31062",
+                case_numbe: "1",
+                date_start: "2020-05-09",
+                status_news: "ไม่ระบุพิกัด",
+                status_pat: "กำลังรักษา",
+                description: "อยู่ ม.9 ตำบลตาเนาะปูเต๊ะ รักษาตัวอยู่รพ.บันนังสตา",
+                ref_source: "สำนักงานสาธารณสุขจังหวัดยะลา",
+                link_news: "https://www.facebook.com/ylomoph/photos/a.750124155149325/1461930763968657/?type=3&theater",
+                tb_code: "",
+                tb_th: "ตาเนาะปูเต๊ะ",
+                ap_th: "บันนังสตา",
+                pro_th: "ยะลา",
+                postcode: "95130",
+                age: null,
+                gender: "ไม่ระบุข้อมูล",
+            },
+        },
     ],
 }
