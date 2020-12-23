@@ -470,6 +470,14 @@ $("#form_query").submit(function (event) {
     map.setView([lat, lon], 17);
 })
 
+
+
+
+
+
+
+
+
 async function get_point() {
 
     var data_drive_sheet1, data_drive_sheet2
@@ -541,16 +549,16 @@ async function get_point() {
     date.setDate(date.getDate() - 14);
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
-    // var json_query = []
-    // for (let i = 0; i < geojson_covidcase.features.length; i++) {
-    //     if (Date.parse(geojson_covidcase.features[i].properties.date_start) >= Date.parse(finalDate)) {
-    //         json_query.push(geojson_covidcase.features[i])
-    //     }
-    // }
+    var json_query = []
+    for (let i = 0; i < data_drive_sheet1.length; i++) {
+        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(data_drive_sheet1[i])
+        }
+    }
     var nietos = [];
     var obj = {};
     obj["type"] = "FeatureCollection";
-    obj["features"] = data_drive_sheet1
+    obj["features"] = json_query
     nietos.push(obj)
 
 
@@ -809,7 +817,7 @@ async function get_point() {
 
 
 
-$("#form_setting").submit(function (event) {
+$("#form_setting").submit(async function (event) {
     map.off('click');
     $("#setting").modal("hide");
 
@@ -853,19 +861,61 @@ $("#form_setting").submit(function (event) {
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
 
-    // var json_query = []
-    // for (let i = 0; i < geojson_covidcase.features.length; i++) {
-    //     if (Date.parse(geojson_covidcase.features[i].properties.date_start) >= Date.parse(finalDate)) {
-    //         json_query.push(geojson_covidcase.features[i])
-    //     }
-    // }
-    // var nietos = [];
-    // var obj = {};
-    // obj["type"] = "FeatureCollection";
-    // obj["features"] = json_query
-    // nietos.push(obj)
 
-    // case_point = nietos[0]
+
+
+
+
+    var data_drive_sheet1, data_drive_sheet2
+    var data_drive_1 = [], data_drive_2 = []
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
+                point.properties = {
+                    gid: e.gsx$gid.$t,
+                    place_name: e.gsx$placename.$t,
+                    lat: e.gsx$lat.$t,
+                    lon: e.gsx$lon.$t,
+                    case_number: e.gsx$casenumber.$t,
+                    date_start: e.gsx$datestart.$t,
+                    status_news: e.gsx$statusnews.$t,
+                    status_pat: e.gsx$statuspatient.$t,
+                    description: e.gsx$description.$t,
+                    ref_sources: e.gsx$refsources.$t,
+                    link_news: e.gsx$linknews.$t,
+                    tb_code: e.gsx$tbcode.$t,
+                    tb_th: e.gsx$tbth.$t,
+                    ap_th: e.gsx$apth.$t,
+                    pro_th: e.gsx$proth.$t,
+                    postcode: e.gsx$postcode.$t,
+                    age: e.gsx$age.$t,
+                    gender: e.gsx$gender.$t
+                }
+                data_drive_1.push(point)
+            });
+            data_drive_sheet1 = data_drive_1
+        }
+    });
+
+
+    var json_query = []
+    for (let i = 0; i < data_drive_sheet1.length; i++) {
+        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(data_drive_sheet1[i])
+        }
+    }
+
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
+
+    case_point = nietos[0]
 
 
     var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
