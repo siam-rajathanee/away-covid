@@ -237,6 +237,8 @@ function style_lock(feature) {
     };
 }
 
+
+
 function style_curfew(feature) {
     return {
         weight: 3,
@@ -255,7 +257,6 @@ for (let i = 0; i < list_lock_pro.length; i++) {
         style: style_lock
     }).addTo(map)
 }
-
 
 hideDisclaimer()
 get_point()
@@ -587,8 +588,8 @@ async function get_point() {
     map.locate();
 
 
-    var data_drive_sheet1, data_drive_sheet2
-    var data_drive_1 = [], data_drive_2 = []
+    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
+    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
     await $.ajax({
         type: "GET",
         url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
@@ -651,6 +652,91 @@ async function get_point() {
             data_drive_sheet2 = data_drive_2
         }
     });
+
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/3/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                console.log(data);
+                data_drive_3.push({
+                    province: e.gsx$province.$t,
+                    type_rick: e.gsx$typerick.$t,
+                })
+            });
+            data_drive_sheet3 = data_drive_3
+        }
+    });
+
+
+    for (let i = 0; i < data_drive_sheet3.length; i++) {
+        if (data_drive_sheet3[i].type_rick == 'สีเขียว') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#1aff1a',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.3
+            }).addTo(map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#ffff66',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.3
+            }).addTo(map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#ff944d',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.3
+            }).addTo(map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#990000',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.4
+            }).addTo(map)
+        }
+
+    }
+
+
+
+    // function getColor_rick(d) {
+    //     return d > 1000 ? '#800026' :
+    //         d > 500 ? '#BD0026' :
+    //             d > 200 ? '#E31A1C' :
+    //                 d > 100 ? '#FC4E2A' :
+    //                     d > 50 ? '#FD8D3C' :
+    //                         d > 20 ? '#FEB24C' :
+    //                             d > 10 ? '#FED976' :
+    //                                 '#FFEDA0';
+    // }
+    // function style_rick(feature) {
+    //     return {
+    //         fillColor: getColor_rick(feature.properties.density),
+    //         weight: 3,
+    //         opacity: 1,
+    //         color: '#800026',
+    //         dashArray: '3',
+    //         fillOpacity: 0
+    //     };
+    // }
+
+
+
+
 
     var date = new Date();
     date.setDate(date.getDate() - 14);
@@ -1004,7 +1090,6 @@ $("#form_setting").submit(async function (event) {
 
     L.geoJson(case_point, {
         pointToLayer: function (f, latlng) {
-            console.log(f.properties.status_pat);
             if (f.properties.status_pat == 'รักษาหายแล้ว') {
                 return L.marker(latlng, {
                     icon: case_success,
