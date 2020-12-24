@@ -182,6 +182,17 @@ var legend = L.control({
     position: 'bottomright'
 });
 
+
+
+
+
+
+
+
+
+
+
+
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -214,8 +225,7 @@ function hideDisclaimer() {
     };
     legend.addTo(map);
 }
-hideDisclaimer()
-get_point()
+
 
 function style_lock(feature) {
     return {
@@ -245,6 +255,11 @@ for (let i = 0; i < list_lock_pro.length; i++) {
         style: style_lock
     }).addTo(map)
 }
+
+
+hideDisclaimer()
+get_point()
+
 
 // curfew = []
 // for (let i = 0; i < list_curfew_pro.length; i++) {
@@ -476,19 +491,97 @@ $("#form_query").submit(function (event) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 async function get_point() {
+
+    function onLocationFound(e) {
+        document.getElementById('loading').innerHTML = ''
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
+        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
+
+        var radius = 5;
+        get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
+        // get_latlng = [100.266778, 16.842412]
+
+        var point = turf.point(get_latlng);
+        L.geoJson(point, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                });
+            }
+        })
+            .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+            .addTo(set_map)
+        // document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+
+        for (let i = 0; i < lockdown.length; i++) {
+            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
+            if (pointlock.features.length == 1) {
+                //document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
+            }
+        }
+        // for (let i = 0; i < curfew.length; i++) {
+        //     var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
+        //     if (pointlock.features.length == 1) {
+        //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 23.00 น. ถึงเวลา 05.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+        //     }
+        // }
+
+
+
+
+        var buffered = turf.buffer(point, radius, {
+            units: 'kilometers'
+        });
+
+
+        var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+        var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
+
+        var data = ptsWithin.features
+        var table = ''
+        for (var i = 0; i < data.length; i++) {
+            var distance = turf.distance(point, data[i], {
+                units: 'kilometers'
+            });
+            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+        }
+        document.getElementById('tabel_data').innerHTML = table
+
+        var data_place_announce = ptsWithplace_announce.features
+        var tb_announce = ''
+        data_place_announce.forEach(function (f) {
+            tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+            //  tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+        });
+        document.getElementById('tabel_announce').innerHTML = tb_announce
+
+
+        if (data.length != 0 || data_place_announce.length != 0) {
+            // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
+
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        } else {
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'green',
+                fillColor: 'green',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        }
+    }
+
+    map.on('locationfound', onLocationFound);
+    map.locate();
 
     var data_drive_sheet1, data_drive_sheet2
     var data_drive_1 = [], data_drive_2 = []
@@ -727,96 +820,10 @@ async function get_point() {
 
 
 
-    function onLocationFound(e) {
-        document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
-        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
-
-        var radius = 5;
-        get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-        // get_latlng = [100.266778, 16.842412]
-
-        var point = turf.point(get_latlng);
-        L.geoJson(point, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: local_icon,
-                });
-            }
-        })
-            .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-            .addTo(set_map)
-        // document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
-
-        for (let i = 0; i < lockdown.length; i++) {
-            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
-            if (pointlock.features.length == 1) {
-                //document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
-            }
-        }
-        // for (let i = 0; i < curfew.length; i++) {
-        //     var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
-        //     if (pointlock.features.length == 1) {
-        //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 23.00 น. ถึงเวลา 05.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
-        //     }
-        // }
-
-
-
-
-        var buffered = turf.buffer(point, radius, {
-            units: 'kilometers'
-        });
-
-
-        var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-        var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
-
-        var data = ptsWithin.features
-        var table = ''
-        for (var i = 0; i < data.length; i++) {
-            var distance = turf.distance(point, data[i], {
-                units: 'kilometers'
-            });
-            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
-        }
-        document.getElementById('tabel_data').innerHTML = table
-
-        var data_place_announce = ptsWithplace_announce.features
-        var tb_announce = ''
-        data_place_announce.forEach(function (f) {
-            tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-            //  tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-        });
-        document.getElementById('tabel_announce').innerHTML = tb_announce
-
-
-        if (data.length != 0 || data_place_announce.length != 0) {
-            // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
-
-            var buffereds = L.geoJson(buffered, {
-                stroke: false,
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.1,
-            }).addTo(set_map)
-            map.fitBounds(buffereds.getBounds())
-        } else {
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
-            var buffereds = L.geoJson(buffered, {
-                stroke: false,
-                color: 'green',
-                fillColor: 'green',
-                fillOpacity: 0.1,
-            }).addTo(set_map)
-            map.fitBounds(buffereds.getBounds())
-        }
-    }
-
-    map.on('locationfound', onLocationFound);
-    map.locate();
 }
+
+
+
 
 
 
