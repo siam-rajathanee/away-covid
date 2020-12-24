@@ -493,8 +493,6 @@ $("#form_query").submit(function (event) {
 
 async function get_point() {
 
-    map.on('locationfound', onLocationFound);
-    map.locate();
     async function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
         document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
@@ -583,6 +581,10 @@ async function get_point() {
 
 
     }
+
+
+    map.on('locationfound', onLocationFound);
+    map.locate();
 
 
     var data_drive_sheet1, data_drive_sheet2
