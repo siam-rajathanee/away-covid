@@ -675,8 +675,6 @@ async function get_point() {
             map.fitBounds(buffereds.getBounds())
         }
 
-
-
     }
 
 
