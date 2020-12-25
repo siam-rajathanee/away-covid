@@ -360,7 +360,7 @@ async function get_point() {
                 opacity: 0.1,
                 color: '#ffffff',
                 dashArray: '3',
-                fillOpacity: 0.2
+                fillOpacity: 0.1
             }).addTo(map)
         } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
             L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
@@ -369,7 +369,7 @@ async function get_point() {
                 opacity: 0.1,
                 color: '#ffffff',
                 dashArray: '3',
-                fillOpacity: 0.2
+                fillOpacity: 0.1
             }).addTo(map)
         } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
             L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
@@ -378,7 +378,7 @@ async function get_point() {
                 opacity: 0.1,
                 color: '#ffffff',
                 dashArray: '3',
-                fillOpacity: 0.2
+                fillOpacity: 0.1
             }).addTo(map)
         } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
             L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
@@ -387,7 +387,7 @@ async function get_point() {
                 opacity: 0.1,
                 color: '#ffffff',
                 dashArray: '3',
-                fillOpacity: 0.3
+                fillOpacity: 0.2
             }).addTo(map)
         }
 
@@ -590,7 +590,7 @@ async function get_point() {
     // });
 
 
-    function onLocationFound(e) {
+    async function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
         document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
         document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
@@ -1333,7 +1333,7 @@ function viewRouting() {
             L.latLng(e.latlng.lat, e.latlng.lng)
         ]
 
-        $.getJSON("https://rti2dss.com:3300/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
+        $.getJSON("http://35.240.213.156:3300/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
             document.getElementById('loading').innerHTML = ''
 
             L.marker([data.data.waypoints[1].location[1], data.data.waypoints[1].location[0]]).addTo(points_case)
