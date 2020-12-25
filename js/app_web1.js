@@ -1341,7 +1341,7 @@ function viewRouting() {
             L.latLng(e.latlng.lat, e.latlng.lng)
         ]
 
-        $.getJSON("http://35.240.213.156:3300/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
+        $.getJSON("https://idc.mapedia.co.th:3000/api/route/" + waypoints[0].lat + "/" + waypoints[0].lng + "/" + waypoints[1].lat + "/" + waypoints[1].lng + "", function (data) {
             document.getElementById('loading').innerHTML = ''
 
             L.marker([data.data.waypoints[1].location[1], data.data.waypoints[1].location[0]]).addTo(points_case)
@@ -1445,7 +1445,7 @@ function viewRouting() {
 L.Control.watermark = L.Control.extend({
     onAdd: function (map) {
         var img = L.DomUtil.create('img');
-        img.src = 'http://mapedia.co.th/assets/images/logo_1_1024.png';
+        img.src = 'https://mapedia.co.th/assets/images/logo_1_1024.png';
         img.style.width = '80px';
         img.style.opacity = '0.8';
         return img;
