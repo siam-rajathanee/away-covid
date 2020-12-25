@@ -1,39 +1,39 @@
-// async function getUserProfile() {
-//     profile = await liff.getProfile()
-//     pictureUrl = profile.pictureUrl
-//     userId = profile.userId
-//     displayName = profile.displayName
-//     decodedIDToken = liff.getDecodedIDToken().email
-//     if (pictureUrl == undefined) {
-//         pictureUrl = ''
-//     }
-//     document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
-//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+async function getUserProfile() {
+    profile = await liff.getProfile()
+    pictureUrl = profile.pictureUrl
+    userId = profile.userId
+    displayName = profile.displayName
+    decodedIDToken = liff.getDecodedIDToken().email
+    if (pictureUrl == undefined) {
+        pictureUrl = ''
+    }
+    document.getElementById('displayname').innerHTML = '<h5 id="displayname">' + displayName + '</h5>'
+    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
 
-//     $.ajax({
-//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-//         method: 'post',
-//         data: ({
-//             pictureUrl: pictureUrl,
-//             userId: userId,
-//             displayName: displayName,
-//             page_view: 'map_dashboard.html'
-//         }),
-//         success: function (data) {
-//         }
-//     })
-// }
-// async function main() {
-//     liff.ready.then(() => {
-//         if (liff.isLoggedIn()) {
-//             getUserProfile()
-//         } else {
-//             liff.login()
-//         }
-//     })
-//     await liff.init({ liffId: "1653981898-EK590Od2" })
-// }
-// main()
+    $.ajax({
+        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+        method: 'post',
+        data: ({
+            pictureUrl: pictureUrl,
+            userId: userId,
+            displayName: displayName,
+            page_view: 'map_dashboard.html'
+        }),
+        success: function (data) {
+        }
+    })
+}
+async function main() {
+    liff.ready.then(() => {
+        if (liff.isLoggedIn()) {
+            getUserProfile()
+        } else {
+            liff.login()
+        }
+    })
+    await liff.init({ liffId: "1653981898-EK590Od2" })
+}
+main()
 
 
 document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
