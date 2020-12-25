@@ -353,6 +353,37 @@ async function get_point() {
 
 
 
+
+    var date = new Date();
+    date.setDate(date.getDate() - 14);
+    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+    var json_query = []
+    for (let i = 0; i < data_drive_sheet1.length; i++) {
+        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(data_drive_sheet1[i])
+        }
+    }
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
+
+
+    var nietos2 = [];
+    var obj2 = {};
+    obj2["type"] = "FeatureCollection";
+    obj2["features"] = data_drive_sheet2
+    nietos2.push(obj2)
+
+    case_point = nietos[0]
+    geojson_ann = nietos2[0]
+
+
+
+
+
     async function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
         document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
@@ -512,35 +543,6 @@ async function get_point() {
     //     };
     // }
 
-
-
-
-
-    var date = new Date();
-    date.setDate(date.getDate() - 14);
-    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
-
-    var json_query = []
-    for (let i = 0; i < data_drive_sheet1.length; i++) {
-        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
-            json_query.push(data_drive_sheet1[i])
-        }
-    }
-    var nietos = [];
-    var obj = {};
-    obj["type"] = "FeatureCollection";
-    obj["features"] = json_query
-    nietos.push(obj)
-
-
-    var nietos2 = [];
-    var obj2 = {};
-    obj2["type"] = "FeatureCollection";
-    obj2["features"] = data_drive_sheet2
-    nietos2.push(obj2)
-
-    case_point = nietos[0]
-    geojson_ann = nietos2[0]
 
 
     var date = new Date();
