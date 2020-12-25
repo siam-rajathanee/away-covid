@@ -188,11 +188,6 @@ var legend = L.control({
 
 
 
-
-
-
-
-
 function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
@@ -250,6 +245,7 @@ function style_curfew(feature) {
 }
 var list_lock_pro = ['สมุทรสาคร', 'สมุทรสงคราม'];
 //var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
+
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
@@ -269,6 +265,435 @@ get_point()
 //         style: style_curfew
 //     }).addTo(map)
 // }
+
+
+
+async function get_point() {
+
+
+    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
+    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
+                point.properties = {
+                    gid: e.gsx$gid.$t,
+                    place_name: e.gsx$placename.$t,
+                    lat: e.gsx$lat.$t,
+                    lon: e.gsx$lon.$t,
+                    case_number: e.gsx$casenumber.$t,
+                    date_start: e.gsx$datestart.$t,
+                    status_news: e.gsx$statusnews.$t,
+                    status_pat: e.gsx$statuspatient.$t,
+                    description: e.gsx$description.$t,
+                    ref_sources: e.gsx$refsources.$t,
+                    link_news: e.gsx$linknews.$t,
+                    tb_code: e.gsx$tbcode.$t,
+                    tb_th: e.gsx$tbth.$t,
+                    ap_th: e.gsx$apth.$t,
+                    pro_th: e.gsx$proth.$t,
+                    postcode: e.gsx$postcode.$t,
+                    age: e.gsx$age.$t,
+                    gender: e.gsx$gender.$t
+                }
+                data_drive_1.push(point)
+            });
+            data_drive_sheet1 = data_drive_1
+        }
+    });
+
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
+                point.properties = {
+                    id: e.gsx$id.$t,
+                    place: e.gsx$place.$t,
+                    pro_th: e.gsx$proth.$t,
+                    type: e.gsx$type.$t,
+                    lat: e.gsx$lat.$t,
+                    lon: e.gsx$lon.$t,
+                    date_risk: e.gsx$daterisk.$t,
+                    time_risk: e.gsx$timerisk.$t,
+                    todo: e.gsx$todo.$t,
+                    announce: e.gsx$announce.$t,
+                    annou_date: e.gsx$annoudate.$t,
+                    tb_th: e.gsx$tbth.$t,
+                    ap_th: e.gsx$apth.$t,
+                    pro_th: e.gsx$proth.$t,
+                    postcode: e.gsx$postcode.$t
+                }
+                data_drive_2.push(point)
+            });
+            data_drive_sheet2 = data_drive_2
+        }
+    });
+
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/3/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                data_drive_3.push({
+                    province: e.gsx$province.$t,
+                    type_rick: e.gsx$typerick.$t,
+                })
+            });
+            data_drive_sheet3 = data_drive_3
+        }
+    });
+
+
+    for (let i = 0; i < data_drive_sheet3.length; i++) {
+        if (data_drive_sheet3[i].type_rick == 'สีเขียว') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#1aff1a',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.2
+            }).addTo(map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#ffff66',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.2
+            }).addTo(map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#ff944d',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.2
+            }).addTo(map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#990000',
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.3
+            }).addTo(map)
+        }
+
+    }
+
+
+
+    // function getColor_rick(d) {
+    //     return d > 1000 ? '#800026' :
+    //         d > 500 ? '#BD0026' :
+    //             d > 200 ? '#E31A1C' :
+    //                 d > 100 ? '#FC4E2A' :
+    //                     d > 50 ? '#FD8D3C' :
+    //                         d > 20 ? '#FEB24C' :
+    //                             d > 10 ? '#FED976' :
+    //                                 '#FFEDA0';
+    // }
+    // function style_rick(feature) {
+    //     return {
+    //         fillColor: getColor_rick(feature.properties.density),
+    //         weight: 3,
+    //         opacity: 1,
+    //         color: '#800026',
+    //         dashArray: '3',
+    //         fillOpacity: 0
+    //     };
+    // }
+
+
+
+
+
+    var date = new Date();
+    date.setDate(date.getDate() - 14);
+    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+    var json_query = []
+    for (let i = 0; i < data_drive_sheet1.length; i++) {
+        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(data_drive_sheet1[i])
+        }
+    }
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
+
+
+    var nietos2 = [];
+    var obj2 = {};
+    obj2["type"] = "FeatureCollection";
+    obj2["features"] = data_drive_sheet2
+    nietos2.push(obj2)
+
+    case_point = nietos[0]
+    geojson_ann = nietos2[0]
+
+
+    var date = new Date();
+    date.setDate(date.getDate());
+    nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    document.getElementById('date_up').innerHTML = '<small> อัพเดตข้อมูลล่าสุดวันที่ : ' + nowdate + '</small>'
+    var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
+    for (var i = 0; i < case_point.features.length; i++) {
+        option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
+    }
+    document.getElementById('select_place').innerHTML = option_dropdown
+
+
+    L.geoJson(case_point, {
+        pointToLayer: function (f, latlng) {
+            if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_success,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กำลังรักษา') {
+                return L.marker(latlng, {
+                    icon: case_confirm,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                return L.marker(latlng, {
+                    icon: case_warning,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                return L.marker(latlng, {
+                    icon: case_null,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
+                return L.marker(latlng, {
+                    icon: case_clean,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'เสียชีวิต') {
+                return L.marker(latlng, {
+                    icon: case_death,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
+                return L.marker(latlng, {
+                    icon: case_send,
+                    highlight: "temporary"
+                });
+            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
+                return L.marker(latlng, {
+                    icon: case_hospital,
+                    highlight: "temporary"
+                });
+            }
+        },
+        onEachFeature: onEachFeature
+    }).addTo(points_case)
+
+    json_place_ann = []
+
+
+    geojson_ann.features.forEach(e => {
+        var date2 = nowdate
+        var date1 = e.properties.date_risk
+        date1 = date1.split("-");
+        date2 = date2.split("-");
+        sDate = new Date(date1[0], date1[1] - 1, date1[2]);
+        eDate = new Date(date2[0], date2[1] - 1, date2[2]);
+        var daysDiff = Math.round((eDate - sDate) / 86400000);
+        if (daysDiff <= 14) {
+            e.properties.daysDiff = 15 - daysDiff
+            json_place_ann.push(e)
+        }
+        if (daysDiff <= 5) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 1
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 10) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.7
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        } else if (daysDiff <= 14) {
+            geo_test = L.geoJson(e, {
+                pointToLayer: function (f, latlng) {
+                    return L.marker(latlng, {
+                        icon: case_place_announce,
+                        opacity: 0.3
+                    });
+                },
+                onEachFeature: onEachFeature_place_announce
+            }).addTo(point_ann)
+        }
+    })
+
+
+    var nietos2 = [];
+    var obj2 = {};
+    obj2["type"] = "FeatureCollection";
+    obj2["features"] = json_place_ann
+    nietos2.push(obj2)
+    place_announce = nietos2[0]
+
+
+    // ck_point_phs = L.geoJson(geojson_checkpoint, {
+    //     pointToLayer: function (f, latlng) {
+    //         return L.marker(latlng, {
+    //             icon: warning_covid,
+    //         }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
+    //     },
+    // })
+
+
+    // ck_point = L.geoJson(checkpoint_th, {
+    //     pointToLayer: function (f, latlng) {
+    //         return L.marker(latlng, {
+    //             icon: warning_covid,
+    //         }).bindPopup('<p>' + f.properties.name + ' </p>')
+    //     },
+    // })
+
+    // map.on('zoomend', function (e) {
+    //     zoom = e.target._zoom
+    //     if (zoom <= 9) {
+    //         checkpoint.clearLayers()
+    //     } else {
+    //         ck_point_phs.addTo(checkpoint)
+    //         ck_point.addTo(checkpoint)
+    //     }
+    // });
+
+
+    function onLocationFound(e) {
+        document.getElementById('loading').innerHTML = ''
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
+        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
+
+        var radius = 5;
+        get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
+        //  get_latlng = [100.266778, 16.842412]
+
+        var point = turf.point(get_latlng);
+        L.geoJson(point, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                });
+            }
+        })
+            .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+            .addTo(set_map)
+        // document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+
+        for (let i = 0; i < lockdown.length; i++) {
+            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
+            if (pointlock.features.length == 1) {
+                //document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
+            }
+        }
+        // for (let i = 0; i < curfew.length; i++) {
+        //     var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
+        //     if (pointlock.features.length == 1) {
+        //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 23.00 น. ถึงเวลา 05.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+        //     }
+        // }
+
+
+
+
+        var buffered = turf.buffer(point, radius, {
+            units: 'kilometers'
+        });
+
+        console.log(case_point);
+
+        var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+        var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
+
+        var data = ptsWithin.features
+        var table = ''
+        for (var i = 0; i < data.length; i++) {
+            var distance = turf.distance(point, data[i], {
+                units: 'kilometers'
+            });
+            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+        }
+        document.getElementById('tabel_data').innerHTML = table
+
+        var data_place_announce = ptsWithplace_announce.features
+        var tb_announce = ''
+        data_place_announce.forEach(function (f) {
+            tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+            //  tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+        });
+        document.getElementById('tabel_announce').innerHTML = tb_announce
+
+        console.log(data);
+        console.log(data_place_announce);
+        if (data.length != 0 || data_place_announce.length != 0) {
+            // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
+
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        } else {
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'green',
+                fillColor: 'green',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        }
+
+
+
+    }
+
+
+    map.on('locationfound', onLocationFound);
+    map.locate();
+
+
+
+}
+
+
+
+
+
 
 
 
@@ -485,433 +910,6 @@ $("#form_query").submit(function (event) {
     var lon = view_place.properties.lon
     map.setView([lat, lon], 17);
 })
-
-
-
-
-
-
-
-async function get_point() {
-
-    async function onLocationFound(e) {
-        document.getElementById('loading').innerHTML = ''
-        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
-        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
-
-        var radius = 5;
-        get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-        // get_latlng = [100.266778, 16.842412]
-
-        var point = turf.point(get_latlng);
-        L.geoJson(point, {
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {
-                    icon: local_icon,
-                });
-            }
-        })
-            .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-            .addTo(set_map)
-        // document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
-
-        for (let i = 0; i < lockdown.length; i++) {
-            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
-            if (pointlock.features.length == 1) {
-                //document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
-            }
-        }
-        // for (let i = 0; i < curfew.length; i++) {
-        //     var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
-        //     if (pointlock.features.length == 1) {
-        //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 23.00 น. ถึงเวลา 05.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
-        //     }
-        // }
-
-
-
-
-        var buffered = turf.buffer(point, radius, {
-            units: 'kilometers'
-        });
-
-        var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-        var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
-
-        var data = ptsWithin.features
-        var table = ''
-        for (var i = 0; i < data.length; i++) {
-            var distance = turf.distance(point, data[i], {
-                units: 'kilometers'
-            });
-            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
-        }
-        document.getElementById('tabel_data').innerHTML = table
-
-        var data_place_announce = ptsWithplace_announce.features
-        var tb_announce = ''
-        await data_place_announce.forEach(function (f) {
-            tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-            //  tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-        });
-        document.getElementById('tabel_announce').innerHTML = tb_announce
-
-
-        if (data.length != 0 || data_place_announce.length != 0) {
-            // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
-
-            var buffereds = L.geoJson(buffered, {
-                stroke: false,
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.1,
-            }).addTo(set_map)
-            map.fitBounds(buffereds.getBounds())
-        } else {
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
-            var buffereds = L.geoJson(buffered, {
-                stroke: false,
-                color: 'green',
-                fillColor: 'green',
-                fillOpacity: 0.1,
-            }).addTo(set_map)
-            map.fitBounds(buffereds.getBounds())
-        }
-
-
-
-    }
-
-
-    map.on('locationfound', onLocationFound);
-    map.locate();
-
-
-    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
-    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
-    await $.ajax({
-        type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
-        dataType: "json",
-        success: function (data) {
-            data.feed.entry.forEach(e => {
-                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
-                point.properties = {
-                    gid: e.gsx$gid.$t,
-                    place_name: e.gsx$placename.$t,
-                    lat: e.gsx$lat.$t,
-                    lon: e.gsx$lon.$t,
-                    case_number: e.gsx$casenumber.$t,
-                    date_start: e.gsx$datestart.$t,
-                    status_news: e.gsx$statusnews.$t,
-                    status_pat: e.gsx$statuspatient.$t,
-                    description: e.gsx$description.$t,
-                    ref_sources: e.gsx$refsources.$t,
-                    link_news: e.gsx$linknews.$t,
-                    tb_code: e.gsx$tbcode.$t,
-                    tb_th: e.gsx$tbth.$t,
-                    ap_th: e.gsx$apth.$t,
-                    pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t,
-                    age: e.gsx$age.$t,
-                    gender: e.gsx$gender.$t
-                }
-                data_drive_1.push(point)
-            });
-            data_drive_sheet1 = data_drive_1
-        }
-    });
-
-    await $.ajax({
-        type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
-        dataType: "json",
-        success: function (data) {
-            data.feed.entry.forEach(e => {
-                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
-                point.properties = {
-                    id: e.gsx$id.$t,
-                    place: e.gsx$place.$t,
-                    pro_th: e.gsx$proth.$t,
-                    type: e.gsx$type.$t,
-                    lat: e.gsx$lat.$t,
-                    lon: e.gsx$lon.$t,
-                    date_risk: e.gsx$daterisk.$t,
-                    time_risk: e.gsx$timerisk.$t,
-                    todo: e.gsx$todo.$t,
-                    announce: e.gsx$announce.$t,
-                    annou_date: e.gsx$annoudate.$t,
-                    tb_th: e.gsx$tbth.$t,
-                    ap_th: e.gsx$apth.$t,
-                    pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t
-                }
-                data_drive_2.push(point)
-            });
-            data_drive_sheet2 = data_drive_2
-        }
-    });
-
-    await $.ajax({
-        type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/3/public/values?alt=json",
-        dataType: "json",
-        success: function (data) {
-            data.feed.entry.forEach(e => {
-                console.log(data);
-                data_drive_3.push({
-                    province: e.gsx$province.$t,
-                    type_rick: e.gsx$typerick.$t,
-                })
-            });
-            data_drive_sheet3 = data_drive_3
-        }
-    });
-
-
-    for (let i = 0; i < data_drive_sheet3.length; i++) {
-        if (data_drive_sheet3[i].type_rick == 'สีเขียว') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#1aff1a',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.3
-            }).addTo(map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#ffff66',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.3
-            }).addTo(map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#ff944d',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.3
-            }).addTo(map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#990000',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.4
-            }).addTo(map)
-        }
-
-    }
-
-
-
-    // function getColor_rick(d) {
-    //     return d > 1000 ? '#800026' :
-    //         d > 500 ? '#BD0026' :
-    //             d > 200 ? '#E31A1C' :
-    //                 d > 100 ? '#FC4E2A' :
-    //                     d > 50 ? '#FD8D3C' :
-    //                         d > 20 ? '#FEB24C' :
-    //                             d > 10 ? '#FED976' :
-    //                                 '#FFEDA0';
-    // }
-    // function style_rick(feature) {
-    //     return {
-    //         fillColor: getColor_rick(feature.properties.density),
-    //         weight: 3,
-    //         opacity: 1,
-    //         color: '#800026',
-    //         dashArray: '3',
-    //         fillOpacity: 0
-    //     };
-    // }
-
-
-
-
-
-    var date = new Date();
-    date.setDate(date.getDate() - 14);
-    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
-
-    var json_query = []
-    for (let i = 0; i < data_drive_sheet1.length; i++) {
-        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
-            json_query.push(data_drive_sheet1[i])
-        }
-    }
-    var nietos = [];
-    var obj = {};
-    obj["type"] = "FeatureCollection";
-    obj["features"] = json_query
-    nietos.push(obj)
-
-
-    var nietos2 = [];
-    var obj2 = {};
-    obj2["type"] = "FeatureCollection";
-    obj2["features"] = data_drive_sheet2
-    nietos2.push(obj2)
-
-    case_point = nietos[0]
-    geojson_ann = nietos2[0]
-
-
-    var date = new Date();
-    date.setDate(date.getDate());
-    nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    document.getElementById('date_up').innerHTML = '<small> อัพเดตข้อมูลล่าสุดวันที่ : ' + nowdate + '</small>'
-    var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
-    for (var i = 0; i < case_point.features.length; i++) {
-        option_dropdown += ' <option value="' + case_point.features[i].properties.place_name + '"> ' + case_point.features[i].properties.place_name + '</option>'
-    }
-    document.getElementById('select_place').innerHTML = option_dropdown
-
-
-    L.geoJson(case_point, {
-        pointToLayer: function (f, latlng) {
-            if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_success,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กำลังรักษา') {
-                return L.marker(latlng, {
-                    icon: case_confirm,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                return L.marker(latlng, {
-                    icon: case_warning,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                return L.marker(latlng, {
-                    icon: case_null,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_clean,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'เสียชีวิต') {
-                return L.marker(latlng, {
-                    icon: case_death,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                return L.marker(latlng, {
-                    icon: case_send,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                return L.marker(latlng, {
-                    icon: case_hospital,
-                    highlight: "temporary"
-                });
-            }
-        },
-        onEachFeature: onEachFeature
-    }).addTo(points_case)
-
-    json_place_ann = []
-
-
-    geojson_ann.features.forEach(e => {
-        var date2 = nowdate
-        var date1 = e.properties.date_risk
-        date1 = date1.split("-");
-        date2 = date2.split("-");
-        sDate = new Date(date1[0], date1[1] - 1, date1[2]);
-        eDate = new Date(date2[0], date2[1] - 1, date2[2]);
-        var daysDiff = Math.round((eDate - sDate) / 86400000);
-        if (daysDiff <= 14) {
-            e.properties.daysDiff = 15 - daysDiff
-            json_place_ann.push(e)
-        }
-        if (daysDiff <= 5) {
-            geo_test = L.geoJson(e, {
-                pointToLayer: function (f, latlng) {
-                    return L.marker(latlng, {
-                        icon: case_place_announce,
-                        opacity: 1
-                    });
-                },
-                onEachFeature: onEachFeature_place_announce
-            }).addTo(point_ann)
-        } else if (daysDiff <= 10) {
-            geo_test = L.geoJson(e, {
-                pointToLayer: function (f, latlng) {
-                    return L.marker(latlng, {
-                        icon: case_place_announce,
-                        opacity: 0.7
-                    });
-                },
-                onEachFeature: onEachFeature_place_announce
-            }).addTo(point_ann)
-        } else if (daysDiff <= 14) {
-            geo_test = L.geoJson(e, {
-                pointToLayer: function (f, latlng) {
-                    return L.marker(latlng, {
-                        icon: case_place_announce,
-                        opacity: 0.3
-                    });
-                },
-                onEachFeature: onEachFeature_place_announce
-            }).addTo(point_ann)
-        }
-    })
-
-
-    var nietos2 = [];
-    var obj2 = {};
-    obj2["type"] = "FeatureCollection";
-    obj2["features"] = json_place_ann
-    nietos2.push(obj2)
-    place_announce = nietos2[0]
-
-
-    // ck_point_phs = L.geoJson(geojson_checkpoint, {
-    //     pointToLayer: function (f, latlng) {
-    //         return L.marker(latlng, {
-    //             icon: warning_covid,
-    //         }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
-    //     },
-    // })
-
-
-    // ck_point = L.geoJson(checkpoint_th, {
-    //     pointToLayer: function (f, latlng) {
-    //         return L.marker(latlng, {
-    //             icon: warning_covid,
-    //         }).bindPopup('<p>' + f.properties.name + ' </p>')
-    //     },
-    // })
-
-    // map.on('zoomend', function (e) {
-    //     zoom = e.target._zoom
-    //     if (zoom <= 9) {
-    //         checkpoint.clearLayers()
-    //     } else {
-    //         ck_point_phs.addTo(checkpoint)
-    //         ck_point.addTo(checkpoint)
-    //     }
-    // });
-
-
-
-
-}
-
 
 
 
