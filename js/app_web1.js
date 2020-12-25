@@ -271,116 +271,6 @@ get_point()
 async function get_point() {
 
 
-    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
-    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
-    await $.ajax({
-        type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
-        dataType: "json",
-        success: function (data) {
-            data.feed.entry.forEach(e => {
-                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
-                point.properties = {
-                    gid: e.gsx$gid.$t,
-                    place_name: e.gsx$placename.$t,
-                    lat: e.gsx$lat.$t,
-                    lon: e.gsx$lon.$t,
-                    case_number: e.gsx$casenumber.$t,
-                    date_start: e.gsx$datestart.$t,
-                    status_news: e.gsx$statusnews.$t,
-                    status_pat: e.gsx$statuspatient.$t,
-                    description: e.gsx$description.$t,
-                    ref_sources: e.gsx$refsources.$t,
-                    link_news: e.gsx$linknews.$t,
-                    tb_code: e.gsx$tbcode.$t,
-                    tb_th: e.gsx$tbth.$t,
-                    ap_th: e.gsx$apth.$t,
-                    pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t,
-                    age: e.gsx$age.$t,
-                    gender: e.gsx$gender.$t
-                }
-                data_drive_1.push(point)
-            });
-            data_drive_sheet1 = data_drive_1
-        }
-    });
-
-    await $.ajax({
-        type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
-        dataType: "json",
-        success: function (data) {
-            data.feed.entry.forEach(e => {
-                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
-                point.properties = {
-                    id: e.gsx$id.$t,
-                    place: e.gsx$place.$t,
-                    pro_th: e.gsx$proth.$t,
-                    type: e.gsx$type.$t,
-                    lat: e.gsx$lat.$t,
-                    lon: e.gsx$lon.$t,
-                    date_risk: e.gsx$daterisk.$t,
-                    time_risk: e.gsx$timerisk.$t,
-                    todo: e.gsx$todo.$t,
-                    announce: e.gsx$announce.$t,
-                    annou_date: e.gsx$annoudate.$t,
-                    tb_th: e.gsx$tbth.$t,
-                    ap_th: e.gsx$apth.$t,
-                    pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t
-                }
-                data_drive_2.push(point)
-            });
-            data_drive_sheet2 = data_drive_2
-        }
-    });
-
-    await $.ajax({
-        type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/3/public/values?alt=json",
-        dataType: "json",
-        success: function (data) {
-            data.feed.entry.forEach(e => {
-                data_drive_3.push({
-                    province: e.gsx$province.$t,
-                    type_rick: e.gsx$typerick.$t,
-                })
-            });
-            data_drive_sheet3 = data_drive_3
-        }
-    });
-
-
-
-
-    var date = new Date();
-    date.setDate(date.getDate() - 14);
-    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
-
-    var json_query = []
-    for (let i = 0; i < data_drive_sheet1.length; i++) {
-        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
-            json_query.push(data_drive_sheet1[i])
-        }
-    }
-    var nietos = [];
-    var obj = {};
-    obj["type"] = "FeatureCollection";
-    obj["features"] = json_query
-    nietos.push(obj)
-
-
-    var nietos2 = [];
-    var obj2 = {};
-    obj2["type"] = "FeatureCollection";
-    obj2["features"] = data_drive_sheet2
-    nietos2.push(obj2)
-
-    case_point = nietos[0]
-    geojson_ann = nietos2[0]
-
-
 
 
 
@@ -476,6 +366,121 @@ async function get_point() {
 
     map.on('locationfound', onLocationFound);
     map.locate();
+
+    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
+    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
+                point.properties = {
+                    gid: e.gsx$gid.$t,
+                    place_name: e.gsx$placename.$t,
+                    lat: e.gsx$lat.$t,
+                    lon: e.gsx$lon.$t,
+                    case_number: e.gsx$casenumber.$t,
+                    date_start: e.gsx$datestart.$t,
+                    status_news: e.gsx$statusnews.$t,
+                    status_pat: e.gsx$statuspatient.$t,
+                    description: e.gsx$description.$t,
+                    ref_sources: e.gsx$refsources.$t,
+                    link_news: e.gsx$linknews.$t,
+                    tb_code: e.gsx$tbcode.$t,
+                    tb_th: e.gsx$tbth.$t,
+                    ap_th: e.gsx$apth.$t,
+                    pro_th: e.gsx$proth.$t,
+                    postcode: e.gsx$postcode.$t,
+                    age: e.gsx$age.$t,
+                    gender: e.gsx$gender.$t
+                }
+                data_drive_1.push(point)
+            });
+            data_drive_sheet1 = data_drive_1
+        }
+    });
+
+
+
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
+                point.properties = {
+                    id: e.gsx$id.$t,
+                    place: e.gsx$place.$t,
+                    pro_th: e.gsx$proth.$t,
+                    type: e.gsx$type.$t,
+                    lat: e.gsx$lat.$t,
+                    lon: e.gsx$lon.$t,
+                    date_risk: e.gsx$daterisk.$t,
+                    time_risk: e.gsx$timerisk.$t,
+                    todo: e.gsx$todo.$t,
+                    announce: e.gsx$announce.$t,
+                    annou_date: e.gsx$annoudate.$t,
+                    tb_th: e.gsx$tbth.$t,
+                    ap_th: e.gsx$apth.$t,
+                    pro_th: e.gsx$proth.$t,
+                    postcode: e.gsx$postcode.$t
+                }
+                data_drive_2.push(point)
+            });
+            data_drive_sheet2 = data_drive_2
+        }
+    });
+
+
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/3/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                data_drive_3.push({
+                    province: e.gsx$province.$t,
+                    type_rick: e.gsx$typerick.$t,
+                })
+            });
+            data_drive_sheet3 = data_drive_3
+        }
+    });
+
+
+
+    var date = new Date();
+    date.setDate(date.getDate() - 14);
+    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+    var json_query = []
+    for (let i = 0; i < data_drive_sheet1.length; i++) {
+        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(data_drive_sheet1[i])
+        }
+    }
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
+    case_point = nietos[0]
+
+
+
+    var nietos2 = [];
+    var obj2 = {};
+    obj2["type"] = "FeatureCollection";
+    obj2["features"] = data_drive_sheet2
+    nietos2.push(obj2)
+    geojson_ann = nietos2[0]
+
+
+
+
 
 
 
