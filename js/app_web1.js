@@ -631,7 +631,6 @@ async function get_point() {
             units: 'kilometers'
         });
 
-        console.log(case_point);
 
         var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
         var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
@@ -654,8 +653,6 @@ async function get_point() {
         });
         document.getElementById('tabel_announce').innerHTML = tb_announce
 
-        console.log(data);
-        console.log(data_place_announce);
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
             document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
