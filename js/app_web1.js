@@ -630,7 +630,13 @@ async function get_point() {
         var buffered = turf.buffer(point, radius, {
             units: 'kilometers'
         });
-
+        var buffereds = L.geoJson(buffered, {
+            stroke: false,
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.1,
+        }).addTo(set_map)
+        map.fitBounds(buffereds.getBounds())
 
         var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
         var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
