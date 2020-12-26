@@ -273,6 +273,52 @@ async function get_point() {
 
 
 
+    await $.ajax({
+        type: "GET",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
+                point.properties = {
+                    id: e.gsx$id.$t,
+                    place: e.gsx$place.$t,
+                    pro_th: e.gsx$proth.$t,
+                    type: e.gsx$type.$t,
+                    lat: e.gsx$lat.$t,
+                    lon: e.gsx$lon.$t,
+                    date_risk: e.gsx$daterisk.$t,
+                    time_risk: e.gsx$timerisk.$t,
+                    todo: e.gsx$todo.$t,
+                    announce: e.gsx$announce.$t,
+                    annou_date: e.gsx$annoudate.$t,
+                    tb_th: e.gsx$tbth.$t,
+                    ap_th: e.gsx$apth.$t,
+                    pro_th: e.gsx$proth.$t,
+                    postcode: e.gsx$postcode.$t
+                }
+                data_drive_2.push(point)
+            });
+            data_drive_sheet2 = data_drive_2
+        }
+    });
+    var date = new Date();
+    date.setDate(date.getDate() - 14);
+    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+    var json_query = []
+    for (let i = 0; i < data_drive_sheet1.length; i++) {
+        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(data_drive_sheet1[i])
+        }
+    }
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
+    case_point = nietos[0]
+
 
     async function onLocationFound(e) {
         document.getElementById('loading').innerHTML = ''
@@ -405,35 +451,7 @@ async function get_point() {
 
 
 
-    await $.ajax({
-        type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
-        dataType: "json",
-        success: function (data) {
-            data.feed.entry.forEach(e => {
-                var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
-                point.properties = {
-                    id: e.gsx$id.$t,
-                    place: e.gsx$place.$t,
-                    pro_th: e.gsx$proth.$t,
-                    type: e.gsx$type.$t,
-                    lat: e.gsx$lat.$t,
-                    lon: e.gsx$lon.$t,
-                    date_risk: e.gsx$daterisk.$t,
-                    time_risk: e.gsx$timerisk.$t,
-                    todo: e.gsx$todo.$t,
-                    announce: e.gsx$announce.$t,
-                    annou_date: e.gsx$annoudate.$t,
-                    tb_th: e.gsx$tbth.$t,
-                    ap_th: e.gsx$apth.$t,
-                    pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t
-                }
-                data_drive_2.push(point)
-            });
-            data_drive_sheet2 = data_drive_2
-        }
-    });
+
 
 
     await $.ajax({
@@ -453,22 +471,6 @@ async function get_point() {
 
 
 
-    var date = new Date();
-    date.setDate(date.getDate() - 14);
-    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
-
-    var json_query = []
-    for (let i = 0; i < data_drive_sheet1.length; i++) {
-        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
-            json_query.push(data_drive_sheet1[i])
-        }
-    }
-    var nietos = [];
-    var obj = {};
-    obj["type"] = "FeatureCollection";
-    obj["features"] = json_query
-    nietos.push(obj)
-    case_point = nietos[0]
 
 
 
