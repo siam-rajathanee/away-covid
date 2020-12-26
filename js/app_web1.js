@@ -38,7 +38,12 @@ main()
 
 // userId = 'U813edb9e9e22c2dc43d39fcdab3d9ff9'
 // displayName = 'MAPEDIA'
-
+$(function () {
+    $('.btn-group-fab').on('click', '.btn', function () {
+        $('.btn-group-fab').toggleClass('active');
+    });
+    $('has-tooltip').tooltip();
+});
 
 
 $(async function () {
@@ -655,7 +660,6 @@ async function get_point() {
     //         ck_point.addTo(checkpoint)
     //     }
     // });
-    get_loca()
 }
 
 
