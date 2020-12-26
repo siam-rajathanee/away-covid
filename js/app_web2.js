@@ -50,7 +50,7 @@ var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/
 }).addTo(map)
 
 var case_confirm = L.icon({
-    iconUrl: 'https://covidtracker.5lab.co/images/confirmed.svg',
+    iconUrl: 'img/place.svg',
 });
 
 function onLocationFound(e) {
