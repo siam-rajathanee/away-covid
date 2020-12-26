@@ -1,38 +1,38 @@
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
-    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
-    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            page_view: 'index.html'
-        }),
-        success: function (data) { }
-    })
-}
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({
-        liffId: "1653981898-q0jEx1on"
-    })
-}
-main()
+// async function getUserProfile() {
+//     profile = await liff.getProfile()
+//     pictureUrl = profile.pictureUrl
+//     userId = profile.userId
+//     displayName = profile.displayName
+//     if (pictureUrl == undefined) {
+//         pictureUrl = ''
+//     }
+//     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+//     $.ajax({
+//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+//         method: 'post',
+//         data: ({
+//             pictureUrl: pictureUrl,
+//             userId: userId,
+//             displayName: displayName,
+//             page_view: 'index.html'
+//         }),
+//         success: function (data) { }
+//     })
+// }
+// async function main() {
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
+//     await liff.init({
+//         liffId: "1653981898-q0jEx1on"
+//     })
+// }
+// main()
 
 
 
@@ -692,7 +692,7 @@ async function get_point() {
     //         ck_point.addTo(checkpoint)
     //     }
     // });
-    get_loca()
+
 }
 
 
