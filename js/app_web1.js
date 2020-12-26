@@ -272,6 +272,8 @@ async function get_point() {
 
 
 
+    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
+    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
 
     await $.ajax({
         type: "GET",
@@ -414,8 +416,6 @@ async function get_point() {
     map.on('locationfound', onLocationFound);
     map.locate();
 
-    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
-    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
     await $.ajax({
         type: "GET",
         url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
