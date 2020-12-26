@@ -38,12 +38,7 @@ main()
 
 // userId = 'U813edb9e9e22c2dc43d39fcdab3d9ff9'
 // displayName = 'MAPEDIA'
-$(function () {
-    $('.btn-group-fab').on('click', '.btn', function () {
-        $('.btn-group-fab').toggleClass('active');
-    });
-    $('has-tooltip').tooltip();
-});
+
 
 
 $(async function () {
@@ -270,97 +265,7 @@ get_point()
 //         style: style_curfew
 //     }).addTo(map)
 // }
-var marker;
 
-map.on('locationfound', function (e) {
-
-    document.getElementById('loading').innerHTML = ''
-    document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
-    document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
-
-    var radius = 5;
-    get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
-    //  get_latlng = [100.266778, 16.842412]
-
-    var point = turf.point(get_latlng);
-    L.geoJson(point, {
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: local_icon,
-            });
-        }
-    })
-        .bindPopup("ตำแหน่งปัจจุบันของท่าน")
-        .addTo(set_map)
-    // document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
-
-    for (let i = 0; i < lockdown.length; i++) {
-        var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
-        if (pointlock.features.length == 1) {
-            //document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
-        }
-    }
-    // for (let i = 0; i < curfew.length; i++) {
-    //     var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
-    //     if (pointlock.features.length == 1) {
-    //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 23.00 น. ถึงเวลา 05.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
-    //     }
-    // }
-
-
-
-
-    var buffered = turf.buffer(point, radius, {
-        units: 'kilometers'
-    });
-    var buffereds = L.geoJson(buffered)
-    map.fitBounds(buffereds.getBounds())
-
-    var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
-    var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
-    console.log(ptsWithplace_announce);
-    console.log(ptsWithin);
-
-    var data = ptsWithin.features
-    var table = ''
-    for (var i = 0; i < data.length; i++) {
-        var distance = turf.distance(point, data[i], {
-            units: 'kilometers'
-        });
-        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
-    }
-    document.getElementById('tabel_data').innerHTML = table
-
-    var data_place_announce = ptsWithplace_announce.features
-    var tb_announce = ''
-    data_place_announce.forEach(function (f) {
-        tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-        //  tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
-    });
-    document.getElementById('tabel_announce').innerHTML = tb_announce
-
-    if (data.length != 0 || data_place_announce.length != 0) {
-        // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
-
-        var buffereds = L.geoJson(buffered, {
-            stroke: false,
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.1,
-        }).addTo(set_map)
-        map.fitBounds(buffereds.getBounds())
-    } else {
-        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
-        var buffereds = L.geoJson(buffered, {
-            stroke: false,
-            color: 'green',
-            fillColor: 'green',
-            fillOpacity: 0.1,
-        }).addTo(set_map)
-        map.fitBounds(buffereds.getBounds())
-    }
-})
 
 
 
@@ -369,10 +274,106 @@ map.on('locationfound', function (e) {
 
 async function get_point() {
 
+
+
+
+
+    async function onLocationFound(e) {
+        document.getElementById('loading').innerHTML = ''
+        document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
+        document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
+
+        var radius = 5;
+        get_latlng = [e.latlng.lng, e.latlng.lat] // e.latlng16.7289774,100.1912686
+        //  get_latlng = [100.266778, 16.842412]
+
+        var point = turf.point(get_latlng);
+        L.geoJson(point, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: local_icon,
+                });
+            }
+        })
+            .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+            .addTo(set_map)
+        // document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+
+        for (let i = 0; i < lockdown.length; i++) {
+            var pointlock = turf.pointsWithinPolygon(point, lockdown[i]);
+            if (pointlock.features.length == 1) {
+                //document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_text"   data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Lockdown ห้ามประชาชนเดินทางเข้า-ออกข้ามเขตพื้นที่เพื่อป้องกันและสกัดโรคโควิด-19 ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-lock"></i> Lockdown</p>'
+            }
+        }
+        // for (let i = 0; i < curfew.length; i++) {
+        //     var pointlock = turf.pointsWithinPolygon(point, curfew[i]);
+        //     if (pointlock.features.length == 1) {
+        //         document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 23.00 น. ถึงเวลา 05.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
+        //     }
+        // }
+
+
+
+
+        var buffered = turf.buffer(point, radius, {
+            units: 'kilometers'
+        });
+        var buffereds = L.geoJson(buffered)
+        map.fitBounds(buffereds.getBounds())
+
+        var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
+        var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
+        console.log(ptsWithplace_announce);
+        console.log(ptsWithin);
+
+        var data = ptsWithin.features
+        var table = ''
+        for (var i = 0; i < data.length; i++) {
+            var distance = turf.distance(point, data[i], {
+                units: 'kilometers'
+            });
+            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+        }
+        document.getElementById('tabel_data').innerHTML = table
+
+        var data_place_announce = ptsWithplace_announce.features
+        var tb_announce = ''
+        await data_place_announce.forEach(function (f) {
+            tb_announce += '<div class="card mb-3 "> <h3 class="card-header">' + f.properties.place + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+            //  tb_announce += '<div class="card mb-3 "> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">วันที่พบการติดเชื้อ : ' + f.properties.date_risk + ' <br> เวลา :' + f.properties.time_risk + '</h5> <p class="card-title">คำแนะนำ : ' + f.properties.todo + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.announce + ' </p> </div> <div class="card-body"></div> <div class="card-body"> </div> <div class="card-footer text-muted">วันที่ประกาศ : ' + f.properties.annou_date + ' </div> </div> <hr>'
+        });
+        document.getElementById('tabel_announce').innerHTML = tb_announce
+
+        if (data.length != 0 || data_place_announce.length != 0) {
+            // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
+
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        } else {
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
+            var buffereds = L.geoJson(buffered, {
+                stroke: false,
+                color: 'green',
+                fillColor: 'green',
+                fillOpacity: 0.1,
+            }).addTo(set_map)
+            map.fitBounds(buffereds.getBounds())
+        }
+
+    }
+
+
+    map.on('locationfound', onLocationFound);
+    map.locate();
+
     var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
     var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
-
-
     await $.ajax({
         type: "GET",
         url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
@@ -406,22 +407,6 @@ async function get_point() {
         }
     });
 
-    var date = new Date();
-    date.setDate(date.getDate() - 14);
-    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
-
-    var json_query = []
-    for (let i = 0; i < data_drive_sheet1.length; i++) {
-        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
-            json_query.push(data_drive_sheet1[i])
-        }
-    }
-    var nietos = [];
-    var obj = {};
-    obj["type"] = "FeatureCollection";
-    obj["features"] = json_query
-    nietos.push(obj)
-    case_point = nietos[0]
 
 
     await $.ajax({
@@ -454,6 +439,7 @@ async function get_point() {
         }
     });
 
+
     await $.ajax({
         type: "GET",
         url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/3/public/values?alt=json",
@@ -469,12 +455,37 @@ async function get_point() {
         }
     });
 
+
+
+    var date = new Date();
+    date.setDate(date.getDate() - 14);
+    finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
+
+    var json_query = []
+    for (let i = 0; i < data_drive_sheet1.length; i++) {
+        if (Date.parse(data_drive_sheet1[i].properties.date_start) >= Date.parse(finalDate)) {
+            json_query.push(data_drive_sheet1[i])
+        }
+    }
+    var nietos = [];
+    var obj = {};
+    obj["type"] = "FeatureCollection";
+    obj["features"] = json_query
+    nietos.push(obj)
+    case_point = nietos[0]
+
+
+
     var nietos2 = [];
     var obj2 = {};
     obj2["type"] = "FeatureCollection";
     obj2["features"] = data_drive_sheet2
     nietos2.push(obj2)
     geojson_ann = nietos2[0]
+
+
+
+
 
 
 
@@ -518,6 +529,31 @@ async function get_point() {
         }
 
     }
+
+
+
+    // function getColor_rick(d) {
+    //     return d > 1000 ? '#800026' :
+    //         d > 500 ? '#BD0026' :
+    //             d > 200 ? '#E31A1C' :
+    //                 d > 100 ? '#FC4E2A' :
+    //                     d > 50 ? '#FD8D3C' :
+    //                         d > 20 ? '#FEB24C' :
+    //                             d > 10 ? '#FED976' :
+    //                                 '#FFEDA0';
+    // }
+    // function style_rick(feature) {
+    //     return {
+    //         fillColor: getColor_rick(feature.properties.density),
+    //         weight: 3,
+    //         opacity: 1,
+    //         color: '#800026',
+    //         dashArray: '3',
+    //         fillOpacity: 0
+    //     };
+    // }
+
+
 
     var date = new Date();
     date.setDate(date.getDate());
@@ -660,6 +696,7 @@ async function get_point() {
     //         ck_point.addTo(checkpoint)
     //     }
     // });
+
 }
 
 
@@ -669,7 +706,7 @@ async function get_point() {
 
 
 
-async function get_loca() {
+function get_loca() {
 
     document.getElementById('routing_readme').innerHTML = ''
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
@@ -777,6 +814,17 @@ async function get_loca() {
         }
     })
 
+
+
+    // L.geoJson(geojson_checkpoint, {
+    //     pointToLayer: function (f, latlng) {
+    //         return L.marker(latlng, {
+    //             icon: warning_covid,
+    //         }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
+    //     },
+    // }).addTo(points_case)
+
+
     document.getElementById('loading').innerHTML = ''
     document.getElementById('tracking').innerHTML = '<button id="tracking" class="btn btn-tracking btn-xs" onclick="get_tracking()"> <i class="fa fa-thumb-tack  fa-lg" aria-hidden="true"></i> <br> ปักหมุด <br>ตำแหน่ง<br>ปัจจุบัน </button>'
     document.getElementById('routing').innerHTML = '<button type="button" class="btn btn-routing btn-xs" onclick="viewRouting()"> <i class="fa fa-map-signs" aria-hidden="true"></i> <br> ตรวจสอบ <br> เส้นทาง </button>'
@@ -838,7 +886,7 @@ async function get_loca() {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.1,
-        }).addTo(set_map)
+        })
         map.fitBounds(buffereds.getBounds())
     } else {
         document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
@@ -847,7 +895,7 @@ async function get_loca() {
             color: 'green',
             fillColor: 'green',
             fillOpacity: 0.1,
-        }).addTo(set_map)
+        })
         map.fitBounds(buffereds.getBounds())
     }
 
