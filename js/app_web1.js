@@ -694,7 +694,6 @@ async function get_point() {
     //         ck_point.addTo(checkpoint)
     //     }
     // });
-    get_loca()
 }
 
 
