@@ -54,7 +54,7 @@ var case_shop = L.icon({
     iconSize: [30, 30], // size of the icon
 });
 var local_icon = L.icon({
-    iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
+    iconUrl: 'img/icon.png',
     iconSize: [20, 20]
 });
 
