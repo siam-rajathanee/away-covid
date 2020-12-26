@@ -1,38 +1,38 @@
-async function getUserProfile() {
-    profile = await liff.getProfile()
-    pictureUrl = profile.pictureUrl
-    userId = profile.userId
-    displayName = profile.displayName
-    if (pictureUrl == undefined) {
-        pictureUrl = ''
-    }
-    document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
-    document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
-    $.ajax({
-        url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
-        method: 'post',
-        data: ({
-            pictureUrl: pictureUrl,
-            userId: userId,
-            displayName: displayName,
-            page_view: 'index.html'
-        }),
-        success: function (data) { }
-    })
-}
-async function main() {
-    liff.ready.then(() => {
-        if (liff.isLoggedIn()) {
-            getUserProfile()
-        } else {
-            liff.login()
-        }
-    })
-    await liff.init({
-        liffId: "1653981898-q0jEx1on"
-    })
-}
-main()
+// async function getUserProfile() {
+//     profile = await liff.getProfile()
+//     pictureUrl = profile.pictureUrl
+//     userId = profile.userId
+//     displayName = profile.displayName
+//     if (pictureUrl == undefined) {
+//         pictureUrl = ''
+//     }
+//     document.getElementById('displayname').innerHTML = '<h4 id="displayname">' + displayName + '</h4>'
+//     document.getElementById('img_profile').innerHTML = '<img id="img_profile" class="profile_img" src="' + pictureUrl + '" alt="">'
+//     $.ajax({
+//         url: 'https://mapedia.co.th/demo/add_tracking.php?type=login',
+//         method: 'post',
+//         data: ({
+//             pictureUrl: pictureUrl,
+//             userId: userId,
+//             displayName: displayName,
+//             page_view: 'index.html'
+//         }),
+//         success: function (data) { }
+//     })
+// }
+// async function main() {
+//     liff.ready.then(() => {
+//         if (liff.isLoggedIn()) {
+//             getUserProfile()
+//         } else {
+//             liff.login()
+//         }
+//     })
+//     await liff.init({
+//         liffId: "1653981898-q0jEx1on"
+//     })
+// }
+// main()
 
 
 
@@ -706,7 +706,7 @@ async function get_point() {
 
 
 
-function get_loca() {
+async function get_loca() {
 
     document.getElementById('routing_readme').innerHTML = ''
     document.getElementById('loading').innerHTML = ' <div id="loading" class="loader"></div>'
@@ -716,7 +716,9 @@ function get_loca() {
     points_case.clearLayers()
     point_ann.clearLayers()
     line_track.clearLayers()
-    map.off('click');
+    map.off('click')
+
+
 
 
     L.geoJson(case_point, {
@@ -886,7 +888,7 @@ function get_loca() {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.1,
-        })
+        }).addTo(points_case)
         map.fitBounds(buffereds.getBounds())
     } else {
         document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
@@ -895,7 +897,7 @@ function get_loca() {
             color: 'green',
             fillColor: 'green',
             fillOpacity: 0.1,
-        })
+        }).addTo(points_case)
         map.fitBounds(buffereds.getBounds())
     }
 
@@ -1189,7 +1191,7 @@ $("#form_setting").submit(async function (event) {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.1,
-        }).addTo(set_map)
+        }).addTo(points_case)
         map.fitBounds(buffereds.getBounds())
     } else {
         document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
@@ -1198,7 +1200,7 @@ $("#form_setting").submit(async function (event) {
             color: 'green',
             fillColor: 'green',
             fillOpacity: 0.1,
-        }).addTo(set_map)
+        }).addTo(points_case)
         map.fitBounds(buffereds.getBounds())
     }
 
