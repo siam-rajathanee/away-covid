@@ -37,7 +37,7 @@ document.getElementById('loading').innerHTML = ' <div id="loading" class="loader
 
 
 var local_icon = L.icon({
-    iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
+    iconUrl: 'img/icon.png',
     iconSize: [20, 20]
 });
 

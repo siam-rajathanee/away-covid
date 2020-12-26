@@ -151,7 +151,7 @@ var case_place_announce = L.icon({
     iconSize: [50, 50], // size of the icon
 });
 var local_icon = L.icon({
-    iconUrl: 'https://mapedia-th.github.io/away-covid/img/icon.png',
+    iconUrl: 'img/icon.png',
     iconSize: [20, 20]
 });
 var warning_covid = L.icon({
