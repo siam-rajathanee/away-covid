@@ -802,7 +802,7 @@ async function get_point() {
     //         ck_point.addTo(checkpoint)
     //     }
     // });
-
+    get_loca()
 }
 
 
@@ -992,7 +992,7 @@ function get_loca() {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.1,
-        })
+        }).addTo(set_map)
         map.fitBounds(buffereds.getBounds())
     } else {
         document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
@@ -1001,7 +1001,7 @@ function get_loca() {
             color: 'green',
             fillColor: 'green',
             fillOpacity: 0.1,
-        })
+        }).addTo(set_map)
         map.fitBounds(buffereds.getBounds())
     }
 
