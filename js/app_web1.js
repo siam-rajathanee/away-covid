@@ -275,35 +275,43 @@ async function get_point() {
     var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
     var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
 
+
     await $.ajax({
         type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
         dataType: "json",
         success: function (data) {
             data.feed.entry.forEach(e => {
                 var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
                 point.properties = {
-                    id: e.gsx$id.$t,
-                    place: e.gsx$place.$t,
-                    pro_th: e.gsx$proth.$t,
-                    type: e.gsx$type.$t,
+                    gid: e.gsx$gid.$t,
+                    place_name: e.gsx$placename.$t,
                     lat: e.gsx$lat.$t,
                     lon: e.gsx$lon.$t,
-                    date_risk: e.gsx$daterisk.$t,
-                    time_risk: e.gsx$timerisk.$t,
-                    todo: e.gsx$todo.$t,
-                    announce: e.gsx$announce.$t,
-                    annou_date: e.gsx$annoudate.$t,
+                    case_number: e.gsx$casenumber.$t,
+                    date_start: e.gsx$datestart.$t,
+                    status_news: e.gsx$statusnews.$t,
+                    status_pat: e.gsx$statuspatient.$t,
+                    description: e.gsx$description.$t,
+                    ref_sources: e.gsx$refsources.$t,
+                    link_news: e.gsx$linknews.$t,
+                    tb_code: e.gsx$tbcode.$t,
                     tb_th: e.gsx$tbth.$t,
                     ap_th: e.gsx$apth.$t,
                     pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t
+                    postcode: e.gsx$postcode.$t,
+                    age: e.gsx$age.$t,
+                    gender: e.gsx$gender.$t
                 }
-                data_drive_2.push(point)
+                data_drive_1.push(point)
             });
-            data_drive_sheet2 = data_drive_2
+            data_drive_sheet1 = data_drive_1
         }
     });
+
+
+
+
     var date = new Date();
     date.setDate(date.getDate() - 14);
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
@@ -416,43 +424,39 @@ async function get_point() {
     map.on('locationfound', onLocationFound);
     map.locate();
 
+
+
+
+
     await $.ajax({
         type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
+        url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/2/public/values?alt=json",
         dataType: "json",
         success: function (data) {
             data.feed.entry.forEach(e => {
                 var point = turf.point([Number(e.gsx$lon.$t), Number(e.gsx$lat.$t)]);
                 point.properties = {
-                    gid: e.gsx$gid.$t,
-                    place_name: e.gsx$placename.$t,
+                    id: e.gsx$id.$t,
+                    place: e.gsx$place.$t,
+                    pro_th: e.gsx$proth.$t,
+                    type: e.gsx$type.$t,
                     lat: e.gsx$lat.$t,
                     lon: e.gsx$lon.$t,
-                    case_number: e.gsx$casenumber.$t,
-                    date_start: e.gsx$datestart.$t,
-                    status_news: e.gsx$statusnews.$t,
-                    status_pat: e.gsx$statuspatient.$t,
-                    description: e.gsx$description.$t,
-                    ref_sources: e.gsx$refsources.$t,
-                    link_news: e.gsx$linknews.$t,
-                    tb_code: e.gsx$tbcode.$t,
+                    date_risk: e.gsx$daterisk.$t,
+                    time_risk: e.gsx$timerisk.$t,
+                    todo: e.gsx$todo.$t,
+                    announce: e.gsx$announce.$t,
+                    annou_date: e.gsx$annoudate.$t,
                     tb_th: e.gsx$tbth.$t,
                     ap_th: e.gsx$apth.$t,
                     pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t,
-                    age: e.gsx$age.$t,
-                    gender: e.gsx$gender.$t
+                    postcode: e.gsx$postcode.$t
                 }
-                data_drive_1.push(point)
+                data_drive_2.push(point)
             });
-            data_drive_sheet1 = data_drive_1
+            data_drive_sheet2 = data_drive_2
         }
     });
-
-
-
-
-
 
     await $.ajax({
         type: "GET",
