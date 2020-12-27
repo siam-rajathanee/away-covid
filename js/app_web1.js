@@ -292,6 +292,7 @@ async function get_point() {
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, {
                     icon: local_icon,
+                    highlight: 'permanent'
                 });
             }
         })
