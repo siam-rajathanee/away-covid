@@ -514,7 +514,7 @@ nowdate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(
 
 info.update = function (props) {
     this._div.innerHTML = ' ' + (props ?
-        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ป่วย :' + props.value + ' คน </p>' :
+        '<b  style="font-family: Prompt;">จังหวัด : ' + props.pv_tn + '</b><br /> <p style="font-family: Prompt;">จำนวนผู้ติดเชื้อสะสม :' + props.value + ' คน </p>' :
         '<p style="font-family: Prompt;"> กดที่แผนที่เพื่อดูข้อมูล </p> ');
 };
 info.addTo(map);
