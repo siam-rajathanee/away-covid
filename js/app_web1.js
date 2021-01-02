@@ -377,7 +377,7 @@ async function get_point() {
     var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
     await $.ajax({
         type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/11Gx-Wc2bXb2pAcwKT4jcuLLZ0BYoCrjixo54UxX3KTw/1/public/values?alt=json",
+        url: "js/googlesheet_1.json",
         dataType: "json",
         success: function (data) {
             data.feed.entry.forEach(e => {
@@ -412,7 +412,7 @@ async function get_point() {
 
     await $.ajax({
         type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/11Gx-Wc2bXb2pAcwKT4jcuLLZ0BYoCrjixo54UxX3KTw/2/public/values?alt=json",
+        url: "js/googlesheet_2.json",
         dataType: "json",
         success: function (data) {
             data.feed.entry.forEach(e => {
@@ -443,7 +443,7 @@ async function get_point() {
 
     await $.ajax({
         type: "GET",
-        url: "https://spreadsheets.google.com/feeds/list/11Gx-Wc2bXb2pAcwKT4jcuLLZ0BYoCrjixo54UxX3KTw/3/public/values?alt=json",
+        url: "js/googlesheet_3.json",
         dataType: "json",
         success: function (data) {
             data.feed.entry.forEach(e => {
