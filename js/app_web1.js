@@ -1627,7 +1627,7 @@ async function view_timeline(id) {
         map.fitBounds(json_ann_view.getBounds())
 
     } else {
-        document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-danger"> <button type="button" class=" btn btn-link" data-dismiss="alert">X</button> <strong>คำแนะนำ!</strong> <br> ไม่พบไทม์ไลน์ของผู้ป่วยรายนี้ </div>'
+        document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class=" btn btn-link" data-dismiss="alert">X</button> <strong>คำแนะนำ!</strong> <br> ไม่พบไทม์ไลน์ของผู้ป่วยรายนี้ </div>'
     }
 
 
