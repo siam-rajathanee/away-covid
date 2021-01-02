@@ -167,7 +167,7 @@ function onEachFeature_place_announce(f, layer) {
 }
 
 function onEachFeature(f, layer) {
-    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_number + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_sources + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div>'
+    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_number + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_sources + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div> <br> <button class="btn btn-block btn-info" onClick="view_timeline(' + f.properties.gid + ')">ดูประวัติไทม์ไลน์ผู้ป่วย</button>'
     layer.bindPopup(popup)
 }
 
@@ -243,7 +243,7 @@ function style_curfew(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = ['สมุทรสาคร', 'สมุทรสงคราม'];
+var list_lock_pro = [];
 //var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 
 lockdown = []
@@ -298,6 +298,29 @@ async function get_point() {
         })
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
+
+        for (let i = 0; i < province_geojson.features.length; i++) {
+            const e = province_geojson.features[i];
+            var pointinzone = turf.pointsWithinPolygon(point, e);
+            if (pointinzone.features.length != 0) {
+                for (let j = 0; j < data_drive_sheet3.length; j++) {
+                    const f = data_drive_sheet3[j];
+                    if (e.properties.pv_tn == f.province) {
+                        if (f.type_rick == 'สีเหลือง') {
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        } else if (f.type_rick == 'สีส้ม') {
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        } else if (f.type_rick == 'สีแดง') {
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        } else {
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
         // document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
 
         for (let i = 0; i < lockdown.length; i++) {
@@ -324,8 +347,6 @@ async function get_point() {
 
         var ptsWithin = turf.pointsWithinPolygon(case_point, buffered);
         var ptsWithplace_announce = turf.pointsWithinPolygon(place_announce, buffered);
-        console.log(ptsWithplace_announce);
-        console.log(ptsWithin);
 
         var data = ptsWithin.features
         var table = ''
@@ -432,7 +453,8 @@ async function get_point() {
                     tb_th: e.gsx$tbth.$t,
                     ap_th: e.gsx$apth.$t,
                     pro_th: e.gsx$proth.$t,
-                    postcode: e.gsx$postcode.$t
+                    postcode: e.gsx$postcode.$t,
+                    gid: e.gsx$gid.$t
                 }
                 data_drive_2.push(point)
             });
@@ -458,6 +480,7 @@ async function get_point() {
 
 
 
+
     var date = new Date();
     date.setDate(date.getDate() - 14);
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
@@ -474,7 +497,6 @@ async function get_point() {
     obj["features"] = json_query
     nietos.push(obj)
     case_point = nietos[0]
-
 
 
     var nietos2 = [];
@@ -499,7 +521,7 @@ async function get_point() {
                 color: '#ffffff',
                 dashArray: '3',
                 fillOpacity: 0.1
-            }).addTo(map)
+            }).addTo(set_map)
         } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
             L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
                 fillColor: '#ffff66',
@@ -508,7 +530,7 @@ async function get_point() {
                 color: '#ffffff',
                 dashArray: '3',
                 fillOpacity: 0.1
-            }).addTo(map)
+            }).addTo(set_map)
         } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
             L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
                 fillColor: '#ff944d',
@@ -517,7 +539,7 @@ async function get_point() {
                 color: '#ffffff',
                 dashArray: '3',
                 fillOpacity: 0.1
-            }).addTo(map)
+            }).addTo(set_map)
         } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
             L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
                 fillColor: '#990000',
@@ -526,7 +548,7 @@ async function get_point() {
                 color: '#ffffff',
                 dashArray: '3',
                 fillOpacity: 0.2
-            }).addTo(map)
+            }).addTo(set_map)
         }
 
     }
@@ -723,7 +745,6 @@ async function get_loca() {
 
 
     L.geoJson(case_point, {
-
         pointToLayer: function (f, latlng) {
             if (f.properties.status_pat == 'รักษาหายแล้ว') {
                 return L.marker(latlng, {
@@ -947,9 +968,9 @@ $("#form_setting").submit(async function (event) {
     radius = event.target.radius.value
     date = event.target.date.value
     basemap = event.target.basemap.value
+    range_opacity = event.target.range_opacity.value / 100
     toggle_1 = event.target.toggle_1.checked
     toggle_2 = event.target.toggle_2.checked
-
 
     if (basemap == 'base1') {
         CartoDB_Positron.addTo(map)
@@ -983,8 +1004,8 @@ $("#form_setting").submit(async function (event) {
 
 
 
-    var data_drive_sheet1, data_drive_sheet2
-    var data_drive_1 = [], data_drive_2 = []
+    var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
+    var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
     await $.ajax({
         type: "GET",
         url: "https://spreadsheets.google.com/feeds/list/15GEtbPIRtWHPdUyrI9iy78MJp3r68Tn2V7x3PYpTzZk/1/public/values?alt=json",
@@ -1033,6 +1054,23 @@ $("#form_setting").submit(async function (event) {
     nietos.push(obj)
 
     case_point = nietos[0]
+
+
+
+    await $.ajax({
+        type: "GET",
+        url: "js/googlesheet_3.json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                data_drive_3.push({
+                    province: e.gsx$province.$t,
+                    type_rick: e.gsx$typerick.$t,
+                })
+            });
+            data_drive_sheet3 = data_drive_3
+        }
+    });
 
 
     var option_dropdown = '<option value="">- - กรุณาเลือก - -</option>'
@@ -1153,6 +1191,56 @@ $("#form_setting").submit(async function (event) {
     //         }).bindPopup('<b>' + f.properties.check_name + ' </b><br>' + f.properties.description)
     //     },
     // }).addTo(points_case)
+
+
+
+
+
+    for (let i = 0; i < data_drive_sheet3.length; i++) {
+        if (data_drive_sheet3[i].type_rick == 'สีเขียว') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#1aff1a',
+                weight: 3,
+                opacity: range_opacity,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: range_opacity
+            }).addTo(set_map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#ffff66',
+                weight: 3,
+                opacity: range_opacity,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: range_opacity
+            }).addTo(set_map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#ff944d',
+                weight: 3,
+                opacity: range_opacity,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: range_opacity
+            }).addTo(set_map)
+        } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: '#990000',
+                weight: 3,
+                opacity: range_opacity,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: range_opacity
+            }).addTo(set_map)
+        }
+
+    }
+
+
+
+
+
 
     if (toggle_1 == false) {
         points_case.clearLayers()
@@ -1441,6 +1529,109 @@ function viewRouting() {
 
 }
 
+
+
+
+async function view_timeline(id) {
+
+
+    let get_time_line = []
+    geojson_ann.features.forEach(e => {
+        if (id == e.properties.gid) {
+            get_time_line.push(e)
+        }
+    });
+
+    if (get_time_line.length != 0) {
+        document.getElementById('routing').innerHTML = ''
+        document.getElementById('tracking').innerHTML = ''
+        document.getElementById('routing').innerHTML = '<button  type="button" class="btn btn-warning btn-xs" onclick="get_loca()"> <i class="fa fa-times-circle" aria-hidden="true"></i> <br> ปิด <br>การแสดง <br> Timeline </button>'
+
+        points_case.clearLayers()
+        point_ann.clearLayers()
+
+
+
+        for (let i = 0; i < case_point.features.length; i++) {
+            const e = case_point.features[i];
+            if (id == e.properties.gid) {
+                L.geoJson(e, {
+                    pointToLayer: function (f, latlng) {
+                        if (f.properties.status_pat == 'รักษาหายแล้ว') {
+                            return L.marker(latlng, {
+                                icon: case_success,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'กำลังรักษา') {
+                            return L.marker(latlng, {
+                                icon: case_confirm,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
+                            return L.marker(latlng, {
+                                icon: case_warning,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
+                            return L.marker(latlng, {
+                                icon: case_null,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
+                            return L.marker(latlng, {
+                                icon: case_clean,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'เสียชีวิต') {
+                            return L.marker(latlng, {
+                                icon: case_death,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
+                            return L.marker(latlng, {
+                                icon: case_send,
+                                highlight: "temporary"
+                            });
+                        } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
+                            return L.marker(latlng, {
+                                icon: case_hospital,
+                                highlight: "temporary"
+                            });
+                        }
+
+                    },
+                    onEachFeature: onEachFeature
+                }).addTo(points_case)
+                break
+            }
+        }
+
+
+        var nietos3 = [];
+        var obj3 = {};
+        obj3["type"] = "FeatureCollection";
+        obj3["features"] = get_time_line
+        nietos3.push(obj3)
+        geojson_ann_new = nietos3[0]
+
+
+        var json_ann_view = L.geoJson(geojson_ann_new, {
+            pointToLayer: function (f, latlng) {
+                return L.marker(latlng, {
+                    icon: case_place_announce,
+                    opacity: 1
+                });
+            },
+            onEachFeature: onEachFeature_place_announce
+        }).addTo(point_ann)
+        map.fitBounds(json_ann_view.getBounds())
+
+    } else {
+        document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-danger"> <button type="button" class=" btn btn-link" data-dismiss="alert">X</button> <strong>คำแนะนำ!</strong> <br> ไม่พบไทม์ไลน์ของผู้ป่วยรายนี้ </div>'
+    }
+
+
+}
 
 
 

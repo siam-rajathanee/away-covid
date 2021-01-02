@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
     <link rel="stylesheet" href="https://brandonxiang.github.io/leaflet.marker.highlight/index.css">
-    <script src="https://brandonxiang.github.io/leaflet.marker.highlight/index.js#"></script>
+    <!-- <script src="https://brandonxiang.github.io/leaflet.marker.highlight/index.js#"></script> -->
 
     <link rel="stylesheet" href="css/leaflet-routing-machine.css" />
     <script src="js/leaflet-routing-machine.js"></script>
@@ -324,6 +324,17 @@
                                 </small>
                             </div>
                         </fieldset>
+
+                        <fieldset>
+                            <label for="exampleSelect1">ปรับค่าความชัดของพื้นที่สีความเสี่ยง</label>
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="100" value="10" class="slider" id="myRange"
+                                    name="range_opacity">
+                            </div>
+                        </fieldset>
+
+                        <br>
+
                         <fieldset>
                             <div class="form-group">
                                 <div class="col-xs-12">
