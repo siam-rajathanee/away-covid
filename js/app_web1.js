@@ -203,7 +203,7 @@ function showDisclaimer() {
         div.innerHTML += ' <hr class="hr_0">  ';
         div.innerHTML += '<img src="img/warning_covid.png" width="30px"> <small class="prompt"> จุดคัดกรอง </small>  ';
         div.innerHTML += ' <hr class="hr_0">  ';
-        div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> พื้นที่ Lockdown </small> <br> ';
+        div.innerHTML += '<img src="img/lock_down.png" width="30px"> <small class="prompt"> พื้นที่ พรก.ฉุกเฉิน </small> <br> ';
         // div.innerHTML += '<img src="img/curfew.png" width="20px"> <small class="prompt"> พื้นที่ Curfew </small> <br> ';
         div.innerHTML += '<button  class="btn btn-default btn-block"  onClick="hideDisclaimer()"><small class="prompt"> ซ่อนสัญลักษณ์</small><i class="fa fa-angle-double-down" aria-hidden="true"></i></button>';
 
@@ -243,7 +243,7 @@ function style_curfew(feature) {
         fillOpacity: 0
     };
 }
-var list_lock_pro = [];
+var list_lock_pro = ['กรุงเทพมหานคร', 'กาญจนบุรี', 'จันทบุรี', 'ฉะเชิงเทรา', 'ชุมพร', 'ชลบุรี', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นนทบุรี', 'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'พระนครศรีอยุธยา', 'เพชรบุรี', 'ราชบุรี', 'ระนอง', 'ระยอง', 'ลพบุรี', 'สิงห์บุรี', 'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สุพรรณบุรี', 'สระแก้ว', 'สระบุรี', 'อ่างทอง'];
 //var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 
 lockdown = []
