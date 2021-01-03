@@ -192,7 +192,7 @@ function showDisclaimer() {
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
         div.innerHTML += '<img src="img/success_case.png" width="30px"> <small class="prompt"> รักษาหายแล้ว </small> <br> ';
-        div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
+        // div.innerHTML += '<img src="img/warning_case.png" width="30px"> <small class="prompt"> กักตัว 14 วัน </small> <br> ';
         //div.innerHTML += '<img src="img/send.png" width="30px"> <small class="prompt"> ส่งตัวต่อเพื่อทำการรักษา </small> <br> ';
         div.innerHTML += '<img src="img/confirm_case.png" width="30px"> <small class="prompt"> กำลังรักษา </small> <br> ';
         div.innerHTML += '<img src="img/null_case.png" width="30px"> <small class="prompt"> ไม่ทราบสถานะ </small> <br> ';
@@ -299,6 +299,9 @@ async function get_point() {
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
 
+
+
+        var name_risk
         for (let i = 0; i < province_geojson.features.length; i++) {
             const e = province_geojson.features[i];
             var pointinzone = turf.pointsWithinPolygon(point, e);
@@ -307,13 +310,17 @@ async function get_point() {
                     const f = data_drive_sheet3[j];
                     if (e.properties.pv_tn == f.province) {
                         if (f.type_rick == 'สีเหลือง') {
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                            name_risk = 'พื้นที่เฝ้าระวังสูง'
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                         } else if (f.type_rick == 'สีส้ม') {
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                            name_risk = 'พื้นที่ควบคุม'
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                         } else if (f.type_rick == 'สีแดง') {
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                            name_risk = 'พื้นที่ควบคุมสูงสุด'
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                         } else {
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                            name_risk = 'พื้นที่เฝ้าระวัง'
+                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                         }
                         break;
                     }
@@ -354,7 +361,7 @@ async function get_point() {
             var distance = turf.distance(point, data[i], {
                 units: 'kilometers'
             });
-            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+            table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_number + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
         }
         document.getElementById('tabel_data').innerHTML = table
 
@@ -368,7 +375,7 @@ async function get_point() {
 
         if (data.length != 0 || data_place_announce.length != 0) {
             // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้จุดเสี่ยง</p > '
 
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
@@ -378,7 +385,7 @@ async function get_point() {
             }).addTo(set_map)
             map.fitBounds(buffereds.getBounds())
         } else {
-            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
+            document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างจุดเสี่ยง</p>'
             var buffereds = L.geoJson(buffered, {
                 stroke: false,
                 color: 'green',
@@ -900,6 +907,7 @@ async function get_loca() {
 
 
 
+    var name_risk
     for (let i = 0; i < province_geojson.features.length; i++) {
         const e = province_geojson.features[i];
         var pointinzone = turf.pointsWithinPolygon(point, e);
@@ -908,13 +916,17 @@ async function get_loca() {
                 const f = data_drive_sheet3[j];
                 if (e.properties.pv_tn == f.province) {
                     if (f.type_rick == 'สีเหลือง') {
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        name_risk = 'พื้นที่เฝ้าระวังสูง'
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                     } else if (f.type_rick == 'สีส้ม') {
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        name_risk = 'พื้นที่ควบคุม'
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                     } else if (f.type_rick == 'สีแดง') {
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        name_risk = 'พื้นที่ควบคุมสูงสุด'
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                     } else {
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                        name_risk = 'พื้นที่เฝ้าระวัง'
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
                     }
                     break;
                 }
@@ -948,7 +960,7 @@ async function get_loca() {
         var distance = turf.distance(point, data[i], {
             units: 'kilometers'
         });
-        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_number + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
     }
     document.getElementById('tabel_data').innerHTML = table
 
@@ -963,7 +975,7 @@ async function get_loca() {
 
     if (data.length != 0 || data_place_announce.length != 0) {
         // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
+        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้จุดเสี่ยง</p > '
 
         var buffereds = L.geoJson(buffered, {
             stroke: false,
@@ -973,7 +985,7 @@ async function get_loca() {
         }).addTo(points_case)
         map.fitBounds(buffereds.getBounds())
     } else {
-        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
+        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างจุดเสี่ยง</p>'
         var buffereds = L.geoJson(buffered, {
             stroke: false,
             color: 'green',
@@ -1333,7 +1345,7 @@ $("#form_setting").submit(async function (event) {
 
     if (data.length != 0 || data_place_announce.length != 0) {
         // document.getElementById('alert_warning').innerHTML = '<div class="alert  alert-danger alert_show"> <button type="button" class="close" data-dismiss="alert">x</button> <strong>คำเตือน !</strong> ขณะนี้ท่านอยู่ในพื้นที่ที่มีการรายงานข่าวเคสผู้ป่วยหรือพื้นที่ที่เสี่ยงการระบาด </div>'
-        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้พื้นที่เสี่ยง</p > '
+        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_danger_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ที่เสี่ยงต่อการระบาด"  data-placement="bottom"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> ใกล้จุดเสี่ยง</p > '
 
         var buffereds = L.geoJson(buffered, {
             stroke: false,
@@ -1343,7 +1355,7 @@ $("#form_setting").submit(async function (event) {
         }).addTo(points_case)
         map.fitBounds(buffereds.getBounds())
     } else {
-        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างพื้นที่เสี่ยง</p>'
+        document.getElementById('alert_text').innerHTML = '<p id="alert_text" class="alert_success_text"><i class="fa fa-smile-o" aria-hidden="true"></i> ห่างจุดเสี่ยง</p>'
         var buffereds = L.geoJson(buffered, {
             stroke: false,
             color: 'green',
@@ -1359,7 +1371,7 @@ $("#form_setting").submit(async function (event) {
         var distance = turf.distance(point, data[i], {
             units: 'kilometers'
         });
-        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_numbe + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
+        table += '  <tr> <td>   ' + data[i].properties.place_name + '<br> <small> ระยะห่าง : ' + distance.toFixed(1) + ' km </small> </td><td>   ' + data[i].properties.case_number + '    </td><td>  ' + data[i].properties.status_pat + '   </td></tr> '
     }
     document.getElementById('tabel_data').innerHTML = table
 
