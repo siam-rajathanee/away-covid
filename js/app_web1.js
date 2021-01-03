@@ -167,7 +167,7 @@ function onEachFeature_place_announce(f, layer) {
 }
 
 function onEachFeature(f, layer) {
-    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_number + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_sources + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div> <br> <button class="btn btn-block btn-info" onClick="view_timeline(' + f.properties.gid + ')">ดูประวัติไทม์ไลน์ผู้ป่วย</button>'
+    var popup = '<div class="card mb-3"> <h3 class="card-header">' + f.properties.place_name + '</h3> <div class="card-body"> <h6 class="card-subtitle text-muted">พื้นที่ ต.' + f.properties.tb_th + ' อ.' + f.properties.ap_th + ' จ.' + f.properties.pro_th + '</h6> <h5 class="card-title">จำนวนผู้ป่วย : ' + f.properties.case_number + ' ราย</h5> <p class="card-title">สถานะ : ' + f.properties.status_pat + ' </p> <p class="card-title">รายละเอียด : ' + f.properties.description + ' </p> <p class="card-title">แหล่งข่าว : ' + f.properties.ref_sources + ' </p> </div> <div class="card-body"></div> <div class="card-body"> <a href="' + f.properties.link_news + '" class="card-link" targer="_blank"> Link ข่าวอ้างอิง </a> </div> <div class="card-footer text-muted">วันที่ลงข่าว : ' + f.properties.date_start + '</div> </div> <br> <button class="btn btn-block btn-info" onClick="view_timeline(' + f.properties.gid + ')">ดูประวัติ Timeline ผู้ป่วย</button>'
     layer.bindPopup(popup)
 }
 
@@ -391,8 +391,18 @@ async function get_point() {
     }
 
 
+    function onLocationError(e) {
+        console.log('error');
+        get_loca()
+    }
+
+    map.on('locationerror', onLocationError);
     map.on('locationfound', onLocationFound);
     map.locate();
+
+
+
+
 
     var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
     var data_drive_1 = [], data_drive_2 = [], data_drive_3 = []
@@ -744,6 +754,7 @@ async function get_loca() {
 
 
 
+
     L.geoJson(case_point, {
         pointToLayer: function (f, latlng) {
             if (f.properties.status_pat == 'รักษาหายแล้ว') {
@@ -865,6 +876,52 @@ async function get_loca() {
         }
     })
         .bindPopup("ตำแหน่งปัจจุบันของท่าน")
+
+
+
+    var data_drive_sheet3 = [], data_drive_3 = []
+    await $.ajax({
+        type: "GET",
+        url: "js/googlesheet_3.json",
+        dataType: "json",
+        success: function (data) {
+            data.feed.entry.forEach(e => {
+                data_drive_3.push({
+                    province: e.gsx$province.$t,
+                    type_rick: e.gsx$typerick.$t,
+                })
+            });
+            data_drive_sheet3 = data_drive_3
+        }
+    });
+
+
+
+    for (let i = 0; i < province_geojson.features.length; i++) {
+        const e = province_geojson.features[i];
+        var pointinzone = turf.pointsWithinPolygon(point, e);
+        if (pointinzone.features.length != 0) {
+            for (let j = 0; j < data_drive_sheet3.length; j++) {
+                const f = data_drive_sheet3[j];
+                if (e.properties.pv_tn == f.province) {
+                    if (f.type_rick == 'สีเหลือง') {
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                    } else if (f.type_rick == 'สีส้ม') {
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                    } else if (f.type_rick == 'สีแดง') {
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                    } else {
+                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>พื้นที่' + f.type_rick + '</p>'
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+
     //document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_curfew_text" data-toggle="popover" title=" คำแนะนำ" data-content="ท่านอยู่ในพื้นที่ Curfew ห้ามประชาชนออกนอกเคหสถานระหว่างเวลา 22.00 น. ถึงเวลา 04.00 น."  data-placement="bottom" ><i class="fa fa-bolt" aria-hidden="true"></i> Curfew</p>'
 
     for (let i = 0; i < lockdown.length; i++) {
@@ -1627,7 +1684,7 @@ async function view_timeline(id) {
         map.fitBounds(json_ann_view.getBounds())
 
     } else {
-        document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class=" btn btn-link" data-dismiss="alert">X</button> <strong>คำแนะนำ!</strong> <br> ไม่พบไทม์ไลน์ของผู้ป่วยรายนี้ </div>'
+        document.getElementById('routing_readme').innerHTML = '<div id="routing_readme" class="alert alert-dismissible alert-success"> <button type="button" class=" btn btn-link" data-dismiss="alert">X</button> <strong>คำแนะนำ!</strong> <br> ไม่พบ Timeline ของผู้ป่วยรายนี้ </div>'
     }
 
 
