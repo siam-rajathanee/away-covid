@@ -401,7 +401,10 @@ async function get_point() {
     map.locate();
 
 
-
+    setTimeout(() => {
+        get_loca()
+        console.log('getloca');
+    }, 3000);
 
 
     var data_drive_sheet1, data_drive_sheet2, data_drive_sheet3
