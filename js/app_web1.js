@@ -246,6 +246,84 @@ function style_curfew(feature) {
 var list_lock_pro = ['กรุงเทพมหานคร', 'กาญจนบุรี', 'จันทบุรี', 'ฉะเชิงเทรา', 'ชุมพร', 'ชลบุรี', 'ตราด', 'ตาก', 'นครนายก', 'นครปฐม', 'นนทบุรี', 'ปทุมธานี', 'ประจวบคีรีขันธ์', 'ปราจีนบุรี', 'พระนครศรีอยุธยา', 'เพชรบุรี', 'ราชบุรี', 'ระนอง', 'ระยอง', 'ลพบุรี', 'สิงห์บุรี', 'สมุทรปราการ', 'สมุทรสงคราม', 'สมุทรสาคร', 'สุพรรณบุรี', 'สระแก้ว', 'สระบุรี', 'อ่างทอง'];
 //var list_curfew_pro = ['แม่ฮ่องสอน', 'กรุงเทพมหานคร', 'นนทบุรี'];
 
+function getStatusMarker(status) {
+    switch (status) {
+        case 'รักษาหายแล้ว':
+            return {
+                icon: case_success,
+                highlight: "temporary"
+            };
+        case 'กำลังรักษา':
+            return {
+                icon: case_confirm,
+                highlight: "temporary"
+            };
+        case 'กักตัว 14 วัน':
+            return {
+                icon: case_warning,
+                highlight: "temporary"
+            };
+        case 'ไม่ทราบสถานะ':
+            return {
+                icon: case_null,
+                highlight: "temporary"
+            };
+        case 'ฆ่าเชื้อทำความสะอาดแล้ว':
+            return {
+                icon: case_clean,
+                highlight: "temporary"
+            };
+        case 'เสียชีวิต':
+            return {
+                icon: case_death,
+                highlight: "temporary"
+            };
+        case 'ส่งตัวต่อเพื่อทำการรักษา':
+            return {
+                icon: case_send,
+                highlight: "temporary"
+            };
+        case 'บริการตรวจ COVID':
+            return {
+                icon: case_hospital,
+                highlight: "temporary"
+            };
+        default:
+            return {
+                icon: null,
+                highlight: null,
+            }
+    }
+}
+
+function getRiskNameAndClass(risk) {
+    var name_risk, class_name
+
+    switch (risk) {
+        case 'สีเหลือง':
+            name_risk = 'พื้นที่เฝ้าระวังสูง'
+            class_name = 'alert_lockdown_yellow'
+            break;
+        case 'สีส้ม':
+            name_risk = 'พื้นที่ควบคุม'
+            class_name = 'alert_lockdown_orange'
+            break;
+        case 'สีแดง':
+            name_risk = 'พื้นที่ควบคุมสูงสุด'
+            class_name = 'alert_lockdown_red'
+            break;
+        default:
+            name_risk = 'พื้นที่เฝ้าระวัง'
+            class_name = 'alert_lockdown_green'
+            break;
+    }
+
+    return {
+        name_risk: name_risk,
+        class_name: class_name
+    }
+}
+
 lockdown = []
 for (let i = 0; i < list_lock_pro.length; i++) {
     lockdown.push(province_geojson.features.find(e => e.properties.pv_tn == list_lock_pro[i]))
@@ -299,31 +377,14 @@ async function get_point() {
             .bindPopup("ตำแหน่งปัจจุบันของท่าน")
             .addTo(set_map)
 
-
-
-        var name_risk
         for (let i = 0; i < province_geojson.features.length; i++) {
             const e = province_geojson.features[i];
             var pointinzone = turf.pointsWithinPolygon(point, e);
             if (pointinzone.features.length != 0) {
-                for (let j = 0; j < data_drive_sheet3.length; j++) {
-                    const f = data_drive_sheet3[j];
-                    if (e.properties.pv_tn == f.province) {
-                        if (f.type_rick == 'สีเหลือง') {
-                            name_risk = 'พื้นที่เฝ้าระวังสูง'
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                        } else if (f.type_rick == 'สีส้ม') {
-                            name_risk = 'พื้นที่ควบคุม'
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                        } else if (f.type_rick == 'สีแดง') {
-                            name_risk = 'พื้นที่ควบคุมสูงสุด'
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                        } else {
-                            name_risk = 'พื้นที่เฝ้าระวัง'
-                            document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                        }
-                        break;
-                    }
+                var data = data_drive_sheet3.find(f => f.province == e.properties.pv_tn)
+                if (data) {
+                    var risk = getRiskNameAndClass(data.type_rick)
+                    document.getElementById('lock_down').innerHTML = '<p id="lock_down" class="' + risk.class_name + '" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + risk.name_risk + '</p>'
                 }
             }
         }
@@ -533,44 +594,32 @@ async function get_point() {
 
 
     for (let i = 0; i < data_drive_sheet3.length; i++) {
-        if (data_drive_sheet3[i].type_rick == 'สีเขียว') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#1aff1a',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.1
-            }).addTo(set_map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#ffff66',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.1
-            }).addTo(set_map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#ff944d',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.1
-            }).addTo(set_map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#990000',
-                weight: 3,
-                opacity: 0.1,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: 0.2
-            }).addTo(set_map)
+        var color
+        switch (data_drive_sheet3[i].type_rick) {
+            case 'สีเขียว':
+                color = '#1aff1a'
+                break;
+            case 'สีเหลือง':
+                color = '#ffff66'
+                break;
+            case 'สีส้ม':
+                color = '#ff944d'
+                break;
+            case 'สีแดง':
+                color = '#990000'
+                break;
         }
 
+        if (color) {
+            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
+                fillColor: color,
+                weight: 3,
+                opacity: 0.1,
+                color: '#ffffff',
+                dashArray: '3',
+                fillOpacity: 0.1
+            }).addTo(set_map)
+        }
     }
 
 
@@ -611,47 +660,8 @@ async function get_point() {
 
     L.geoJson(case_point, {
         pointToLayer: function (f, latlng) {
-            if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_success,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กำลังรักษา') {
-                return L.marker(latlng, {
-                    icon: case_confirm,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                return L.marker(latlng, {
-                    icon: case_warning,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                return L.marker(latlng, {
-                    icon: case_null,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_clean,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'เสียชีวิต') {
-                return L.marker(latlng, {
-                    icon: case_death,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                return L.marker(latlng, {
-                    icon: case_send,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                return L.marker(latlng, {
-                    icon: case_hospital,
-                    highlight: "temporary"
-                });
-            }
+            var marker = getStatusMarker(f.properties.status_pat)
+            return L.marker(latlng, marker)
         },
         onEachFeature: onEachFeature
     }).addTo(points_case)
@@ -767,48 +777,8 @@ async function get_loca() {
 
     L.geoJson(case_point, {
         pointToLayer: function (f, latlng) {
-            if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_success,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กำลังรักษา') {
-                return L.marker(latlng, {
-                    icon: case_confirm,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                return L.marker(latlng, {
-                    icon: case_warning,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                return L.marker(latlng, {
-                    icon: case_null,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_clean,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'เสียชีวิต') {
-                return L.marker(latlng, {
-                    icon: case_death,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                return L.marker(latlng, {
-                    icon: case_send,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                return L.marker(latlng, {
-                    icon: case_hospital,
-                    highlight: "temporary"
-                });
-            }
-
+            var marker = getStatusMarker(f.properties.status_pat)
+            return L.marker(latlng, marker)
         },
         onEachFeature: onEachFeature
     }).addTo(points_case)
@@ -906,30 +876,14 @@ async function get_loca() {
     });
 
 
-
-    var name_risk
     for (let i = 0; i < province_geojson.features.length; i++) {
         const e = province_geojson.features[i];
         var pointinzone = turf.pointsWithinPolygon(point, e);
         if (pointinzone.features.length != 0) {
-            for (let j = 0; j < data_drive_sheet3.length; j++) {
-                const f = data_drive_sheet3[j];
-                if (e.properties.pv_tn == f.province) {
-                    if (f.type_rick == 'สีเหลือง') {
-                        name_risk = 'พื้นที่เฝ้าระวังสูง'
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_yellow" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                    } else if (f.type_rick == 'สีส้ม') {
-                        name_risk = 'พื้นที่ควบคุม'
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_orange" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                    } else if (f.type_rick == 'สีแดง') {
-                        name_risk = 'พื้นที่ควบคุมสูงสุด'
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_red" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                    } else {
-                        name_risk = 'พื้นที่เฝ้าระวัง'
-                        document.getElementById('lock_down').innerHTML = '<p id="lock_down" class=" alert_lockdown_green" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + name_risk + '</p>'
-                    }
-                    break;
-                }
+            var data = data_drive_sheet3.find(f => f.province == e.properties.pv_tn)
+            if (data) {
+                var risk = getRiskNameAndClass(data.type_rick)
+                document.getElementById('lock_down').innerHTML = '<p id="lock_down" class="' + risk.class_name + '" data-toggle="popover" title=" คำแนะนำ" data-content=""  data-placement="bottom" ><i class="fa fa-street-view" aria-hidden="true"></i>' + risk.name_risk + '</p>'
             }
         }
     }
@@ -1044,26 +998,31 @@ $("#form_setting").submit(async function (event) {
     toggle_1 = event.target.toggle_1.checked
     toggle_2 = event.target.toggle_2.checked
 
-    if (basemap == 'base1') {
-        CartoDB_Positron.addTo(map)
-        osm.remove()
-        ghyb.remove()
-        CartoDB_DarkMatter.remove()
-    } else if (basemap == 'base2') {
-        CartoDB_Positron.remove()
-        osm.addTo(map)
-        ghyb.remove()
-        CartoDB_DarkMatter.remove()
-    } else if (basemap == 'base3') {
-        CartoDB_Positron.remove()
-        osm.remove()
-        ghyb.addTo(map)
-        CartoDB_DarkMatter.remove()
-    } else {
-        CartoDB_Positron.remove()
-        osm.remove()
-        ghyb.remove()
-        CartoDB_DarkMatter.addTo(map)
+    switch (basemap) {
+        case 'base1':
+            CartoDB_Positron.addTo(map)
+            osm.remove()
+            ghyb.remove()
+            CartoDB_DarkMatter.remove()
+            break
+        case 'base2':
+            CartoDB_Positron.remove()
+            osm.addTo(map)
+            ghyb.remove()
+            CartoDB_DarkMatter.remove()
+            break
+        case 'base3':
+            CartoDB_Positron.remove()
+            osm.remove()
+            ghyb.addTo(map)
+            CartoDB_DarkMatter.remove()
+            break
+        default:
+            CartoDB_Positron.remove()
+            osm.remove()
+            ghyb.remove()
+            CartoDB_DarkMatter.addTo(map)
+            break
     }
 
     var date = new Date();
@@ -1210,48 +1169,8 @@ $("#form_setting").submit(async function (event) {
 
     L.geoJson(case_point, {
         pointToLayer: function (f, latlng) {
-            if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_success,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กำลังรักษา') {
-                return L.marker(latlng, {
-                    icon: case_confirm,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                return L.marker(latlng, {
-                    icon: case_warning,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                return L.marker(latlng, {
-                    icon: case_null,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                return L.marker(latlng, {
-                    icon: case_clean,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'เสียชีวิต') {
-                return L.marker(latlng, {
-                    icon: case_death,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                return L.marker(latlng, {
-                    icon: case_send,
-                    highlight: "temporary"
-                });
-            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                return L.marker(latlng, {
-                    icon: case_hospital,
-                    highlight: "temporary"
-                });
-            }
-
+            var marker = getStatusMarker(f.properties.status_pat)
+            return L.marker(latlng, marker)
         },
         onEachFeature: onEachFeature
     }).addTo(points_case)
@@ -1269,36 +1188,25 @@ $("#form_setting").submit(async function (event) {
 
 
     for (let i = 0; i < data_drive_sheet3.length; i++) {
-        if (data_drive_sheet3[i].type_rick == 'สีเขียว') {
+        var color
+        switch (data_drive_sheet3[i].type_rick) {
+            case 'สีเขียว':
+                color = '#1aff1a'
+                break;
+            case 'สีเหลือง':
+                color = '#ffff66'
+                break;
+            case 'สีส้ม':
+                color = '#ff944d'
+                break;
+            case 'สีแดง':
+                color = '#990000'
+                break;
+        }
+
+        if (color) {
             L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#1aff1a',
-                weight: 3,
-                opacity: range_opacity,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: range_opacity
-            }).addTo(set_map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีเหลือง') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#ffff66',
-                weight: 3,
-                opacity: range_opacity,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: range_opacity
-            }).addTo(set_map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีส้ม') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#ff944d',
-                weight: 3,
-                opacity: range_opacity,
-                color: '#ffffff',
-                dashArray: '3',
-                fillOpacity: range_opacity
-            }).addTo(set_map)
-        } else if (data_drive_sheet3[i].type_rick == 'สีแดง') {
-            L.geoJson(province_geojson.features.find(e => e.properties.pv_tn == data_drive_sheet3[i].province), {
-                fillColor: '#990000',
+                fillColor: color,
                 weight: 3,
                 opacity: range_opacity,
                 color: '#ffffff',
@@ -1306,7 +1214,6 @@ $("#form_setting").submit(async function (event) {
                 fillOpacity: range_opacity
             }).addTo(set_map)
         }
-
     }
 
 
@@ -1541,48 +1448,8 @@ function viewRouting() {
 
                     L.geoJson(ptsWithin, {
                         pointToLayer: function (f, latlng) {
-                            if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                                return L.marker(latlng, {
-                                    icon: case_success,
-                                    highlight: "temporary"
-                                });
-                            } else if (f.properties.status_pat == 'กำลังรักษา') {
-                                return L.marker(latlng, {
-                                    icon: case_confirm,
-                                    highlight: "temporary"
-                                });
-                            } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                                return L.marker(latlng, {
-                                    icon: case_warning,
-                                    highlight: "temporary"
-                                });
-                            } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                                return L.marker(latlng, {
-                                    icon: case_null,
-                                    highlight: "temporary"
-                                });
-                            } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                                return L.marker(latlng, {
-                                    icon: case_clean,
-                                    highlight: "temporary"
-                                });
-                            } else if (f.properties.status_pat == 'เสียชีวิต') {
-                                return L.marker(latlng, {
-                                    icon: case_death,
-                                    highlight: "temporary"
-                                });
-                            } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                                return L.marker(latlng, {
-                                    icon: case_send,
-                                    highlight: "temporary"
-                                });
-                            } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                                return L.marker(latlng, {
-                                    icon: case_hospital,
-                                    highlight: "temporary"
-                                });
-                            }
-
+                            var marker = getStatusMarker(f.properties.status_pat)
+                            return L.marker(latlng, marker)
                         },
                         onEachFeature: onEachFeature
                     }).addTo(points_case)
@@ -1629,48 +1496,8 @@ async function view_timeline(id) {
             if (id == e.properties.gid) {
                 L.geoJson(e, {
                     pointToLayer: function (f, latlng) {
-                        if (f.properties.status_pat == 'รักษาหายแล้ว') {
-                            return L.marker(latlng, {
-                                icon: case_success,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'กำลังรักษา') {
-                            return L.marker(latlng, {
-                                icon: case_confirm,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'กักตัว 14 วัน') {
-                            return L.marker(latlng, {
-                                icon: case_warning,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ไม่ทราบสถานะ') {
-                            return L.marker(latlng, {
-                                icon: case_null,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ฆ่าเชื้อทำความสะอาดแล้ว') {
-                            return L.marker(latlng, {
-                                icon: case_clean,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'เสียชีวิต') {
-                            return L.marker(latlng, {
-                                icon: case_death,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'ส่งตัวต่อเพื่อทำการรักษา') {
-                            return L.marker(latlng, {
-                                icon: case_send,
-                                highlight: "temporary"
-                            });
-                        } else if (f.properties.status_pat == 'บริการตรวจ COVID') {
-                            return L.marker(latlng, {
-                                icon: case_hospital,
-                                highlight: "temporary"
-                            });
-                        }
-
+                        var marker = getStatusMarker(f.properties.status_pat)
+                        return L.marker(latlng, marker)
                     },
                     onEachFeature: onEachFeature
                 }).addTo(points_case)
