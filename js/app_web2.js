@@ -157,7 +157,6 @@ function get_chart() {
                 e.properties.value = 0
             }
         });
-        console.log(province_geojson);
 
         var geojson = L.geoJson(province_geojson, {
             style: style,
@@ -235,7 +234,6 @@ function get_chart() {
 
 
         const found = data_drive_sheet.find(e => e.province == province);
-        console.log(found);
         if (found.acc_pui == 0) {
             found.acc_pui = 'ไม่ทราบ'
         }
@@ -249,7 +247,7 @@ function get_chart() {
         document.getElementById('patient_new').innerHTML = ' <div id="patient_new"> - <br>เพิ่มใหม่</div> '
         document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> - <br> PUI สะสม</div> '
         document.getElementById('death').innerHTML = '  <div id="death"> - <br>เสียชีวิต</div> '
-        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูลตาราง ณ วันที่  : ' + found.date + ' ที่มา <a target="_blank" href="' + found.link + '">Link </a></small>'
+        document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูลตาราง ณ วันที่  : - ที่มา <a target="_blank" href="' + found.link + '">Link </a></small>'
         Number(found.patient_tt)
         pa_tt = Number(found.patient_tt)
 
@@ -284,15 +282,12 @@ function get_chart() {
     $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
         var res = data.Data
 
-
-
         document.getElementById('update_date_chart').innerHTML = '<small id="update_date_chart">ข้อมูลกราฟ ณ วันที่ : ' + data.UpdateDate + ' ที่มา: <a href="https://covid19.ddc.moph.go.th/" target="_blank"> กรมควบคุมโรค </a></small>'
 
-        console.log(res);
 
         var data_chart4 = []
         res.forEach(e => {
-            if (e.Province == province) {
+            if (e.Province == province && e.ConfirmDate > "2021-12-02") {
                 data_chart4.push(e)
             }
         });
@@ -306,6 +301,7 @@ function get_chart() {
                 value: group_2[key]
             };
         });
+
 
         ConfirmDate = this.ConfirmDate.sort((a, b) => (a.ConfirmDate > b.ConfirmDate) ? 1 : -1)
 
