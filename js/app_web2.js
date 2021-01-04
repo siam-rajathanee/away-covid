@@ -88,18 +88,167 @@ function onLocationFound(e) {
 
 
     $.getJSON("https://mapedia.co.th/demo/get_cv_province.php", function (data) {
-        console.log(data);
-        const found = data.find(e => e.province == province);
+        // console.log(data);
+        // const found = data.find(e => e.province == province);
+        // if (found.acc_pui == 0) {
+        //     found.acc_pui = 'ไม่ทราบ'
+        // }
+        // document.getElementById('pro').innerHTML = '<h2 class="display-3" id="pro"> <i class="fa fa-location-arrow" aria-hidden="true"></i> ' + found.province + ' </h2>'
+        // document.getElementById('sum_val').innerHTML = ' <h3 id="sum_val">ผู้ป่วยสะสม : ' + found.patient_tt + ' ราย</h3>'
+        // document.getElementById('recovery').innerHTML = '  <div id="recovery">' + found.recovery + ' <br>รักษาหาย</div> '
+        // document.getElementById('admission').innerHTML = ' <div id="admission">' + found.admission + ' <br>รักษาอยู่</div> '
+        // document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + found.patient_new + ' <br>เพิ่มใหม่</div> '
+        // document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + found.acc_pui + '<br> PUI สะสม</div> '
+        // document.getElementById('death').innerHTML = '  <div id="death">' + found.death + ' <br>เสียชีวิต</div> '
+        // document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูลตาราง ณ วันที่  : ' + found.date + ' ที่มา <a target="_blank" href="' + found.link + '">Link </a></small>'
+        // Number(found.patient_tt)
+        // pa_tt = Number(found.patient_tt)
+
+        // if (pa_tt >= 200) {
+        //     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #99002e 99%)'
+        //     document.getElementById("jumbotron").style.color = '#4d0017'
+        // } else if (pa_tt >= 100) {
+        //     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #fe1b1b 99%)'
+        //     document.getElementById("jumbotron").style.color = '#650101'
+        // } else if (pa_tt >= 50) {
+        //     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #ea484b 99%)'
+        //     document.getElementById("jumbotron").style.color = '#5b0b0c'
+        // } else if (pa_tt >= 20) {
+        //     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, #FC4E2A 99%)'
+        //     document.getElementById("jumbotron").style.color = '#7e2102'
+        // } else if (pa_tt > 10) {
+        //     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #FD8D3C 99%)'
+        //     document.getElementById("jumbotron").style.color = '#652b01'
+        // } else if (pa_tt > 5) {
+        //     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #FEB24C 99%)'
+        //     document.getElementById("jumbotron").style.color = '#653a01'
+        // } else {
+        //     document.getElementById("jumbotron").style.background = 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 15%, #33cc33 99%)'
+        // }
+
+
+    })
+    get_chart()
+    document.getElementById('loading').innerHTML = ''
+}
+
+map.on('locationfound', onLocationFound);
+map.locate();
+
+function get_chart() {
+
+    var data_drive_sheet = []
+    $.getJSON("https://spreadsheets.google.com/feeds/list/11Gx-Wc2bXb2pAcwKT4jcuLLZ0BYoCrjixo54UxX3KTw/4/public/values?alt=json", function (data) {
+        data.feed.entry.forEach(e => {
+            data_drive_sheet.push({
+                province: e.gsx$province.$t,
+                case_number: e.gsx$casenumber.$t,
+            })
+        });
+
+
+        province_geojson.features.forEach(e => {
+            for (let i = 0; i < data_drive_sheet.length; i++) {
+                if (e.properties.pv_tn == data_drive_sheet[i].province) {
+                    e.properties.value = data_drive_sheet[i].case_number
+                }
+            }
+            if (e.properties.value == undefined) {
+                e.properties.value = 0
+            }
+        });
+        console.log(province_geojson);
+
+        var geojson = L.geoJson(province_geojson, {
+            style: style,
+            onEachFeature: onEachFeature
+        }).addTo(map)
+
+
+        data_drive_sheet = data_drive_sheet.sort((a, b) => (Number(a.case_number) < Number(b.case_number)) ? 1 : -1)
+
+
+
+        var table = ''
+        for (var i = 0; i < data_drive_sheet.length; i++) {
+            if (data_drive_sheet[i].province == 'null') {
+                data_drive_sheet[i].province = 'ไม่ระบุ'
+            }
+            table += '  <tr> <td>' + (i + 1) + '</td> <td>   ' + data_drive_sheet[i].province + '  </td><td>   ' + data_drive_sheet[i].case_number + '    </td> </tr> '
+        }
+        document.getElementById('all_sum_table').innerHTML = table
+        var categories_chart1 = []
+        var data_chart1 = []
+        for (var i = 0; i < 20; i++) {
+            if (data_drive_sheet[i].Province == 'null') {
+                data_drive_sheet[i].Province = 'ไม่ระบุ'
+            }
+            categories_chart1.push(data_drive_sheet[i].province)
+            data_chart1.push(Number(data_drive_sheet[i].case_number))
+        }
+
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            legend: {
+                enabled: false,
+            },
+            exporting: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+
+                categories: categories_chart1
+            },
+            yAxis: {
+                title: {
+                    enabled: false,
+                }
+            },
+            plotOptions: {
+                area: {
+                    fillOpacity: 0.5
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            series: [{
+                name: 'จำนวนผู้ป่วย',
+                data: data_chart1,
+                color: '#b30000'
+            }]
+        });
+
+
+
+        const found = data_drive_sheet.find(e => e.province == province);
+        console.log(found);
         if (found.acc_pui == 0) {
             found.acc_pui = 'ไม่ทราบ'
         }
+        if (found.case_number == '') {
+            found.case_number = 0
+        }
         document.getElementById('pro').innerHTML = '<h2 class="display-3" id="pro"> <i class="fa fa-location-arrow" aria-hidden="true"></i> ' + found.province + ' </h2>'
-        document.getElementById('sum_val').innerHTML = ' <h3 id="sum_val">ผู้ป่วยสะสม : ' + found.patient_tt + ' ราย</h3>'
-        document.getElementById('recovery').innerHTML = '  <div id="recovery">' + found.recovery + ' <br>รักษาหาย</div> '
-        document.getElementById('admission').innerHTML = ' <div id="admission">' + found.admission + ' <br>รักษาอยู่</div> '
-        document.getElementById('patient_new').innerHTML = ' <div id="patient_new">' + found.patient_new + ' <br>เพิ่มใหม่</div> '
-        document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> ' + found.acc_pui + '<br> PUI สะสม</div> '
-        document.getElementById('death').innerHTML = '  <div id="death">' + found.death + ' <br>เสียชีวิต</div> '
+        document.getElementById('sum_val').innerHTML = ' <h3 id="sum_val">ผู้ป่วยสะสม : ' + found.case_number + ' ราย</h3>'
+        document.getElementById('recovery').innerHTML = '  <div id="recovery"> - <br>รักษาหาย</div> '
+        document.getElementById('admission').innerHTML = ' <div id="admission"> - <br>รักษาอยู่</div> '
+        document.getElementById('patient_new').innerHTML = ' <div id="patient_new"> - <br>เพิ่มใหม่</div> '
+        document.getElementById('acc_pui').innerHTML = '  <div id="acc_pui"> - <br> PUI สะสม</div> '
+        document.getElementById('death').innerHTML = '  <div id="death"> - <br>เสียชีวิต</div> '
         document.getElementById('update_1').innerHTML = ' <small id="update_1">ข้อมูลตาราง ณ วันที่  : ' + found.date + ' ที่มา <a target="_blank" href="' + found.link + '">Link </a></small>'
         Number(found.patient_tt)
         pa_tt = Number(found.patient_tt)
@@ -128,21 +277,18 @@ function onLocationFound(e) {
 
 
     })
-    get_chart()
-    document.getElementById('loading').innerHTML = ''
-}
 
-map.on('locationfound', onLocationFound);
-map.locate();
-
-function get_chart() {
 
 
 
     $.getJSON("https://covid19.th-stat.com/api/open/cases", function (data) {
         var res = data.Data
+
+
+
         document.getElementById('update_date_chart').innerHTML = '<small id="update_date_chart">ข้อมูลกราฟ ณ วันที่ : ' + data.UpdateDate + ' ที่มา: <a href="https://covid19.ddc.moph.go.th/" target="_blank"> กรมควบคุมโรค </a></small>'
 
+        console.log(res);
 
         var data_chart4 = []
         res.forEach(e => {
@@ -197,98 +343,18 @@ function get_chart() {
 
 
 
-        var group_1 = res.reduce(function (r, row) {
-            r[row.Province] = ++r[row.Province] || 1;
-            return r;
-        }, {});
-        this.data_pv_th = Object.keys(group_1).map(function (key) {
-            return {
-                Province: key,
-                value: group_1[key]
-            };
-        });
-        this.data_pv_th = this.data_pv_th.sort((a, b) => (a.value < b.value) ? 1 : -1)
+        // var group_1 = res.reduce(function (r, row) {
+        //     r[row.Province] = ++r[row.Province] || 1;
+        //     return r;
+        // }, {});
+        // data_drive_sheet = Object.keys(group_1).map(function (key) {
+        //     return {
+        //         Province: key,
+        //         value: group_1[key]
+        //     };
+        // });
+        // data_drive_sheet = data_drive_sheet.sort((a, b) => (a.value < b.value) ? 1 : -1)
 
-
-        province_geojson.features.forEach(e => {
-            for (let i = 0; i < this.data_pv_th.length; i++) {
-                if (e.properties.pv_tn == this.data_pv_th[i].Province) {
-                    e.properties.value = this.data_pv_th[i].value
-                }
-            }
-            if (e.properties.value == undefined) {
-                e.properties.value = 0
-            }
-        });
-
-        var geojson = L.geoJson(province_geojson, {
-            style: style,
-            onEachFeature: onEachFeature
-        }).addTo(map)
-
-
-        var table = ''
-        for (var i = 0; i < this.data_pv_th.length; i++) {
-            if (this.data_pv_th[i].province == 'null') {
-                this.data_pv_th[i].province = 'ไม่ระบุ'
-            }
-            table += '  <tr> <td>' + (i + 1) + '</td> <td>   ' + this.data_pv_th[i].Province + '  </td><td>   ' + this.data_pv_th[i].value + '    </td> </tr> '
-        }
-        document.getElementById('all_sum_table').innerHTML = table
-        var categories_chart1 = []
-        var data_chart1 = []
-        for (var i = 0; i < 20; i++) {
-            if (this.data_pv_th[i].Province == 'null') {
-                this.data_pv_th[i].Province = 'ไม่ระบุ'
-            }
-            categories_chart1.push(this.data_pv_th[i].Province)
-            data_chart1.push(this.data_pv_th[i].value)
-        }
-
-        Highcharts.chart('container', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: ''
-            },
-            legend: {
-                enabled: false,
-            },
-            exporting: {
-                enabled: false
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-
-                categories: categories_chart1
-            },
-            yAxis: {
-                title: {
-                    enabled: false,
-                }
-            },
-            plotOptions: {
-                area: {
-                    fillOpacity: 0.5
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y} ราย</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            series: [{
-                name: 'จำนวนผู้ป่วย',
-                data: data_chart1,
-                color: '#FED976'
-            }]
-        });
 
     })
 
@@ -444,10 +510,10 @@ function get_chart() {
 
 
 function getColor(d) {
-    return d > 200 ? '#800026' :
-        d > 100 ? '#BD0026' :
-            d > 50 ? '#E31A1C' :
-                d > 20 ? '#FC4E2A' :
+    return d > 1000 ? '#800026' :
+        d > 500 ? '#BD0026' :
+            d > 100 ? '#E31A1C' :
+                d > 50 ? '#FC4E2A' :
                     d > 10 ? '#FD8D3C' :
                         d > 5 ? '#FEB24C' :
                             d > 0 ? '#FED976' :
@@ -471,7 +537,7 @@ var legend = L.control({
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 5, 10, 20, 50, 100, 200],
+        grades = [0, 5, 10, 50, 100, 500, 1000],
         labels = [];
 
 

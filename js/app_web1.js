@@ -1537,7 +1537,7 @@ function viewRouting() {
                 if (ptsWithin.features.length > 0) {
                     var list_within = ptsWithin.features[0]
 
-                    case_list_table += ' <tr><th>' + list_within.properties.place_name + '</th><td>' + list_within.properties.case_numbe + '</td><td>' + list_within.properties.status_pat + '</td><td>' + list_within.properties.pro_th + '</td></tr>'
+                    case_list_table += ' <tr><th>' + list_within.properties.place_name + '</th><td>' + list_within.properties.case_number + '</td><td>' + list_within.properties.status_pat + '</td><td>' + list_within.properties.pro_th + '</td></tr>'
 
                     L.geoJson(ptsWithin, {
                         pointToLayer: function (f, latlng) {
