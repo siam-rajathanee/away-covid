@@ -502,7 +502,7 @@ async function get_point() {
 
 
     var date = new Date();
-    date.setDate(date.getDate() - 14);
+    date.setDate(date.getDate() - 21);
     finalDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
 
     var json_query = []
